@@ -111,7 +111,7 @@ const requests = [{
     "direct_supervisor": "pending"
   },]
 
-export default function OrdersScreen() {
+export default function OrdersTab() {
     const [pendingRequests, setPending] = useState(null);
     const [viewDetails, setViewDetails] = useState(null);
     const toggleFunction = (index) => {
