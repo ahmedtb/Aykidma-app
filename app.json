@@ -1,0 +1,12 @@
+{
+  "name": "aykidma-app",
+  "displayName": "aykidma-app",
+  "expo": {
+    "name": "aykidma-app",
+    "slug": "aykidma-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
