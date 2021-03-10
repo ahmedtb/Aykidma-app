@@ -41,12 +41,13 @@ const Second = () => {
     );
 }
 
+import ImagePickerExample from './ImagePickerExample';
 const Third = () => {
 
     return (
         <View>
             <Text>أضف صور للمشكلة (اختياري)</Text>
-            <TextInput />
+            <ImagePickerExample />
             <Text>third</Text>
             <Text>third</Text>
 
