@@ -88,11 +88,11 @@ export default function FormScreen() {
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.1, alignItems: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: '#631a15',height:50, width:100, justifyContent:'center', alignItems:'center', borderRadius:10}} onPress={() => { if (index > 1) setIndex(index - 1) }}>
+                <TouchableOpacity style={{ backgroundColor: 'red',height:50, width:100, justifyContent:'center', alignItems:'center', borderRadius:10}} onPress={() => { if (index > 1) setIndex(index - 1) }}>
                     <Text style={{ color: 'white' }}>السابق</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ backgroundColor: '#631a15',height:50, width:100, justifyContent:'center', alignItems:'center', borderRadius:10}} onPress={() => { if (index < 4) setIndex(index + 1) }}>
+                <TouchableOpacity style={{ backgroundColor: 'red',height:50, width:100, justifyContent:'center', alignItems:'center', borderRadius:10}} onPress={() => { if (index < 4) setIndex(index + 1) }}>
                     <Text style={{ color: 'white' }}>التالي</Text>
                 </TouchableOpacity>
 

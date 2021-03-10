@@ -25,18 +25,24 @@ const Stack = createStackNavigator();
 export default function MainTab() {
     return (
         <Stack.Navigator
-            screenOptions={({ route, navigation }) => ({
-                // headerShown: false,
-            })}
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: 'red',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                }
+            }}
         >
             <Stack.Screen name="FrontScreen" component={FrontScreen}
-            // options={{ title: 'Overview' }}
+                options={{ title: '' }}
 
             />
             <Stack.Screen name="AddNewScreen" component={AddNewScreen}
                 options={{ title: 'إضافة طلب جديد' }}
             />
-            <Stack.Screen name="FormScreen" component={FormScreen} 
+            <Stack.Screen name="FormScreen" component={FormScreen}
                 options={{ title: 'املأ الطلب' }}
 
             />

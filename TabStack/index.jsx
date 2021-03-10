@@ -14,6 +14,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import MainTab from './MainTab';
 import OrdersTab from './OrdersTab';
+import MoreTab from './moreTab';
 
 
 const Tab = createBottomTabNavigator();
@@ -25,7 +26,7 @@ export default function TabStack() {
             <Tab.Screen name="الطلبات" component={OrdersTab} />
             <Tab.Screen name="المساعدة" component={OrdersTab} />
 
-            <Tab.Screen name="المزيد" component={OrdersTab} />
+            <Tab.Screen name="المزيد" component={MoreTab} />
 
         </Tab.Navigator>
     );
