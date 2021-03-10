@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform } from 'react-native';
+import { Button, Image, View, Platform, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 
-export default function ImagePickerExample() {
+export default function ImagePickerExample(props) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -33,8 +34,13 @@ export default function ImagePickerExample() {
   };
 
   return (
-    <View style={{  alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+    <View style={{ ...props.style, alignItems: 'center', justifyContent: 'center' }} >
+      <Text style={{backgroundColor:'grey', fontSize:20}} >التقط صورة للمشكلة (إختياري)</Text>
+      <TouchableOpacity onPress={pickImage} >
+        
+        <AntDesign name="plussquareo" size={50} color="black" />
+      </TouchableOpacity>
+      {/* <Button title="التقط صورة للمشكلة (إختياري)" /> */}
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
   );

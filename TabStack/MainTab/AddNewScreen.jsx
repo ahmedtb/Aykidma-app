@@ -19,7 +19,7 @@ export default function AddNewScreen({navigation}) {
 
         <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, }}>
             <View style={{justifyContent: 'center', borderWidth: 1, flex: 1,}}>
-                <Text style={{ borderWidth: 1 }}>سنسألك بعض الاسئلة لجمع التفاصيل حول طلبك وإرسالها للشركات والفنيين</Text>
+                <Text style={{ borderWidth: 1, width:'60%', alignSelf:'center', fontSize:20 }}>سنسألك بعض الاسئلة لجمع التفاصيل حول طلبك وإرسالها للشركات والفنيين</Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('FormScreen')} style={{ borderWidth: 1, flexDirection:'row'}}>
                 <Text style={{textAlign:'center', flex:1}}>إبدا الان</Text>

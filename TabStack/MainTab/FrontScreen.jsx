@@ -19,7 +19,7 @@ export default function FrontScreen({ navigation }) {
             <ImageBackground source={require('../resources/background.jpg')} style={{ alignItems: 'center', justifyContent: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width / 1.77, alignSelf: 'center' }}>
                 <Image source={require('../resources/Aykidma.png')} style={{ width: 100 * 2.4, height: 100 }} />
 
-                <Text style={{ fontSize: 20 }}>اطلب خدمتك الان</Text>
+                <Text style={{ fontSize: 30, backgroundColor:'white', opacity: 0.7 }}>اطلب خدمتك الان</Text>
             </ImageBackground>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10, padding: 10, borderWidth: 1, borderRadius: 5 }}>
