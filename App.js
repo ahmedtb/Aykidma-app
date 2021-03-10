@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { I18nManager, StyleSheet, Text, View } from 'react-native';
+import { I18nManager, StyleSheet, Text, View, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import TabStack from './TabStack';
 
 export default function App() {
-  I18nManager.forceRTL(false);
-  console.log(I18nManager.isRTL);
+  I18nManager.forceRTL(true);
+  console.log('I18nManager.isRTL = ' + I18nManager.isRTL);
+  LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
   return (
     <NavigationContainer>
       <TabStack />

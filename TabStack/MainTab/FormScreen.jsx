@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -7,59 +7,80 @@ import {
     Dimensions,
     Image,
     TextInput,
-    ScrollView
+    ScrollView,
+    Button
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
-export default function FormScreen() {
+const First = () => {
+
     return (
-        <ScrollView style={styles.container}>
-            <ImageBackground source={require('../resources/background.jpg')} style={{ alignItems: 'center', justifyContent: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width / 1.77, alignSelf: 'center' }}>
-                <Image source={require('../resources/Aykidma.png')} style={{ width: 100 * 2.4, height: 100 }} />
+        <View>
+            <Text>اختر المنطقة</Text>
+            <TextInput />
+            <Text>اختر نوع الخدمة المطلوبة تنفيذها</Text>
+            <TextInput />
+            <Text>اختر نوع الوحدة السكنية</Text>
+            <TextInput />
+        </View>
+    );
+}
 
-                <Text style={{ fontSize: 20 }}>اطلب خدمتك الان</Text>
-            </ImageBackground>
+const Second = () => {
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10, padding: 10, borderWidth: 1, borderRadius: 5 }}>
-                <TextInput style={{ flex: 3 }} />
-                <FontAwesome5 style={{ flex: 1, }} name="search-location" size={24} color="black" />
+    return (
+        <View>
+            <Text>أوصف مشكلتك وحاجتك بوضوح</Text>
+            <Text>أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك</Text>
+            <TextInput multiline={true} numberOfLines={4} />
+            <Text>اختار الوقت المفضل للتنفيذ</Text>
+            <TextInput />
+
+        </View>
+    );
+}
+
+const Third = () => {
+
+    return (
+        <View>
+            <Text>أضف صور للمشكلة (اختياري)</Text>
+            <TextInput />
+            <Text>third</Text>
+            <Text>third</Text>
+
+        </View>
+    );
+}
+
+
+export default function FormScreen() {
+    const [index, setIndex] = useState(1);
+    const [page, setPage] = useState(<First />);
+    useEffect(() => {
+        if (index == 1) {
+            setPage(<First />);
+        } else if (index == 2) {
+            setPage(<Second />);
+        } else if (index == 3) {
+            setPage(<Third />);
+        }
+    }, [index]);
+
+    return (
+        <View style={styles.container} >
+            <Button onPress={() => { if (index > 1) setIndex(index - 1) }} title='previous' />
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ width: 30, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 1) ? 'yellow' : 'grey' }} />
+                <View style={{ width: 30, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 2) ? 'yellow' : 'grey' }} />
+                <View style={{ width: 30, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 3) ? 'yellow' : 'grey' }} />
             </View>
+            {page}
 
-            <View style={styles.servicesContainer} >
+            <Button onPress={() => { if (index < 3) setIndex(index + 1) }} title='next' />
 
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/carWashing.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >غسيل سيارات</Text>
-                </View>
-
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel}>تنظيف مكتب</Text>
-                </View>
-
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/carpet-cleaning-service.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel}>تنظيف سجاد</Text>
-                </View>
-
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/cleanPool.webp')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >تنظيف احواض سباحة</Text>
-                </View>
-
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/cleanGlasses.webp')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >تنظيف واجهات</Text>
-                </View>
-
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/Anti-pest.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >مكافحة الافات</Text>
-                </View>
-            </View>
-        </ScrollView>
-
+        </View>
     );
 }
 
@@ -73,26 +94,5 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // justifyContent: 'center',
     },
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-        // justifyContent: "center"
-    },
-    servicesContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        padding: '2%',
-        borderWidth: 1,
-        justifyContent: 'center'
-        // justifyContent:'space-between'
-    },
-    serviceBox: {
-        margin: '1%',
-        borderWidth: 1,
-        flexBasis: '30%',
-        borderRadius: 5,
-    },
-    serviceLabel: {
-        textAlign: 'center'
-    }
+
 });

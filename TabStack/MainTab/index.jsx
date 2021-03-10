@@ -21,12 +21,25 @@ const Stack = createStackNavigator();
 // https://www.youtube.com/watch?v=5bieNOHO1Cg
 // https://www.youtube.com/watch?v=h0ck8N7f6Ko
 // https://www.youtube.com/watch?v=jOt1x43M8CM&t=1s
+
 export default function MainTab() {
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="FrontScreen" component={FrontScreen} />
-            <Stack.Screen name="AddNewScreen" component={AddNewScreen} />
-            <Stack.Screen name="FormScreen" component={FormScreen} />
+        <Stack.Navigator
+            screenOptions={({ route, navigation }) => ({
+                // headerShown: false,
+            })}
+        >
+            <Stack.Screen name="FrontScreen" component={FrontScreen}
+            // options={{ title: 'Overview' }}
+
+            />
+            <Stack.Screen name="AddNewScreen" component={AddNewScreen}
+                options={{ title: 'إضافة طلب جديد' }}
+            />
+            <Stack.Screen name="FormScreen" component={FormScreen} 
+                options={{ title: 'املأ الطلب' }}
+
+            />
 
         </Stack.Navigator>
     );

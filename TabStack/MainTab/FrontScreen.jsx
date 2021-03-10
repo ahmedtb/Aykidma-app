@@ -7,12 +7,13 @@ import {
     Dimensions,
     Image,
     TextInput,
-    ScrollView
+    ScrollView,
+    TouchableOpacity
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
-export default function FrontScreen() {
+export default function FrontScreen({ navigation }) {
     return (
         <ScrollView style={styles.container}>
             <ImageBackground source={require('../resources/background.jpg')} style={{ alignItems: 'center', justifyContent: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width / 1.77, alignSelf: 'center' }}>
@@ -28,10 +29,14 @@ export default function FrontScreen() {
 
             <View style={styles.servicesContainer} >
 
-                <View style={styles.serviceBox}>
-                    <Image source={require('../resources/carWashing.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >غسيل سيارات</Text>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('AddNewScreen')}>
+
+                    <View style={styles.serviceBox}>
+                        <Image source={require('../resources/carWashing.png')} style={{ width: 100, height: 100 }} />
+                        <Text style={styles.serviceLabel} >غسيل سيارات</Text>
+                    </View>
+                </TouchableOpacity>
+
 
                 <View style={styles.serviceBox}>
                     <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100 }} />
