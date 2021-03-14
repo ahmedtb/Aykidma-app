@@ -47,7 +47,7 @@ function MoreTab() {
 
         <View style={styles.container}>
 
-            <Image source={require('./resources/Aykidma.png')} style={{ width: 100 * 2.4, height: 100 }} />
+            <Image source={require('../resources/Aykidma.png')} style={{ width: 100 * 2.4, height: 100 }} />
 
             <Text style={{ fontSize: 30, backgroundColor: 'white', opacity: 0.7 }}>اطلب خدمتك الان</Text>
 

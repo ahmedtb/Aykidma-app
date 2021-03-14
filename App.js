@@ -6,7 +6,7 @@ import TabStack from './TabStack';
 
 export default function App() {
   I18nManager.forceRTL(true);
-  console.log('I18nManager.isRTL = ' + I18nManager.isRTL);
+  // console.log('I18nManager.isRTL = ' + I18nManager.isRTL);
   LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
   return (

@@ -130,7 +130,7 @@ export default function OrdersTabStack() {
             }}
         >
             <Stack.Screen name="enrollment" component={OrdersTab}
-                options={{ title: 'التسجيل' }}
+                options={{ title: 'طلباتي' }}
             />
 
         </Stack.Navigator>
@@ -138,144 +138,52 @@ export default function OrdersTabStack() {
 }
 
 function OrdersTab() {
-    const [pendingRequests, setPending] = useState(null);
-    const [viewDetails, setViewDetails] = useState(null);
-    const toggleFunction = (index) => {
-        setViewDetails(index != viewDetails ? index : null);
-    };
-    useEffect(() => {
-        setPending(requests);
-    }, []);
 
     return (
-
         <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20 }}>
-            <View style={{ margin: 10 }}>
-                <Text style={styles.fieldLable} >يرجى التسجيل اولا</Text>
-                <TextInput style={styles.enrollField} />
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
+                <TouchableOpacity><Text style={{ backgroundColor: '#52662b', padding: 10, borderRadius: 20 }}>طلبات جديد</Text></TouchableOpacity>
+                <TouchableOpacity><Text style={{ padding: 10, borderRadius: 20 }}>تحت الضمان</Text></TouchableOpacity>
+                <TouchableOpacity><Text style={{ padding: 10, borderRadius: 20 }}>طلبات منتهية</Text></TouchableOpacity>
             </View>
 
-            <View style={{ margin: 10 }}>
-                <Text style={styles.fieldLable} >الاسم</Text>
-                <TextInput style={styles.enrollField} />
+            <ScrollView>
 
-            </View>
-
-            <View style={{ margin: 10 }}>
-                <Text style={styles.fieldLable} >الموبايل*:</Text>
-                <TextInput style={styles.enrollField} />
-            </View>
-
-            <View style={{ margin: 10 }}>
-                <Text style={styles.fieldLable} >البريد الالكتروني:</Text>
-                <TextInput style={styles.enrollField} />
-
-            </View>
-
-            <View style={{ margin: 10 }}>
-                <Text style={styles.fieldLable} >العنوان*:</Text>
-                <TextInput style={styles.enrollField} />
-
-            </View>
-
-            <View style={{flexDirection:'row'}}>
-
-                <View style={{ margin: 10, flex:1 }}>
-                    <Text style={styles.fieldLable} >المدينة*:</Text>
-                    <TextInput style={styles.enrollField} />
-
-                </View>
-
-                <View style={{ margin: 10, flex:1 }}>
-                    <Text style={styles.fieldLable} >المنطقة*:</Text>
-                    <TextInput style={styles.enrollField} />
-
-                </View>
-            </View>
+                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius:4, marginVertical:7 }}>
+                    <View style={{ flexDirection: 'row', margin: 10 }}>
+                        <View>
+                            <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth:2, borderColor:'#777c2e' }} />
+                            <Text style={{textAlign:'center'}}>3/3/2021</Text>
+                        </View>
+                        <View style={{ margin: 10,flex:1 }}>
+                            <Text style={{fontWeight:'bold', fontSize:15}} >نظافة منزلية كاملة</Text>
+                            <Text style={{color:'#98a023'}}>وسط البلد</Text>
+                            <Text>نظافة</Text>
+                            
+                        </View>
+                        <Text style={{ color: 'red',alignSelf:'flex-end' }}>300 جنيه</Text>
+                    </View>
+                </TouchableOpacity>
 
 
-
-            <TouchableOpacity onPress={() => navigation.navigate('FormScreen')} style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
-                <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize:20 }}>تسجيل</Text>
-            </TouchableOpacity>
+            </ScrollView>
         </View>
 
 
-        // <ScrollView style={styles.container}>
-        //     <View style={styles.card}>
-        //         <Text style={styles.header}>طلبات معلقة</Text>
 
-        //         <View style={{
-        //             flexDirection: 'row-reverse',
-        //             alignItems: 'center',
-        //             paddingVertical: 5,
-        //             borderBottomWidth: 1,
-        //             borderColor: '#c9bfbf',
-
-        //         }}>
-        //             <Text style={{ flex: 3, fontSize: 18, fontWeight: "bold", color: '#6b5555', textAlign: "center", paddingVertical: 10 }}>تاريخ الطلب</Text>
-        //             <Text style={{ flex: 4, fontSize: 18, fontWeight: "bold", color: '#6b5555', textAlign: 'right', paddingVertical: 10, marginRight: 20 }}>نوع الطلب</Text>
-        //             <Text style={{ flex: 3, fontSize: 18, fontWeight: "bold", color: '#6b5555', textAlign: "center", paddingVertical: 10 }}>الحالة</Text>
-        //             <Text style={{ flex: 3 }}></Text>
-        //             <Text style={{ flex: 3 }}></Text>
-        //         </View>
-        //         <FlatList
-        //             data={pendingRequests}
-        //             renderItem={({ item, index }) => (
-        //                 <View>
-        //                     <View style={{
-        //                         flexDirection: 'row-reverse',
-        //                         alignItems: 'center',
-        //                         borderTopWidth: 1,
-        //                         borderBottomWidth: 1,
-        //                         marginVertical: 2,
-        //                         borderColor: '#c9bfbf',
-        //                         backgroundColor: '#eae8e8',
-        //                         paddingVertical: 5
-        //                     }}>
-        //                         <View style={{ flexDirection: 'column', flex: 3 }}>
-        //                             <Text style={{ textAlign: "center",fontSize: 14, color: '#6b5555', }}>{moment(item.created_at).format("YYYY")}</Text>
-        //                             <Text style={{ textAlign: "center",fontSize: 14, color: '#6b5555', }}>{moment(item.created_at).format("DD")}</Text>
-        //                             <Text style={{ textAlign: "center",fontSize: 14, color: '#6b5555', }}>{moment(item.created_at).format("MMMM")}</Text>
-        //                         </View>
-
-        //                         <Text style={{ flex: 3, fontSize: 14, color: '#6b5555', }}>{LocaleRequestType(item.type)}</Text>
-        //                         <Text style={{ flex: 2, fontSize: 14,textAlign:'center', color: '#6b5555', }}>{LocaleStatus(item.status)}</Text>
-        //                         <View style={{ flex: 2,margin:5 }} ><Button title="تفاصيل" onPress={() => toggleFunction(index)} /></View>
-        //                         <View style={{ flex: 2,margin:5 }} ><Button style={{  }} title="حدف" color="red" onPress={() => deleteAction(item.id, index)} /></View>
-        //                     </View>
-        //                     {viewDetails === index ? (
-        //                         <View style={styles.card}>
-        //                             {
-        //                                 <>
-        //                                     <Text style={styles.cardItem}>{item['body']}</Text>
-        //                                     <Text style={styles.cardItem}>من {item['from']}</Text>
-        //                                     <Text style={styles.cardItem}>إلى {item['to']}</Text>
-        //                                 </>
-        //                             }
-        //                         </View>
-        //                     ) : null}
-        //                 </View>
-        //             )
-        //             }
-        //             keyExtractor={item => item.id + ""}
-        //         />
-
-        //     </View>
-
-        // </ScrollView>
     );
 }
 
 
 const styles = StyleSheet.create({
-    enrollField:{
-        borderWidth: 1, borderColor: 'grey', borderRadius: 5, padding:10,fontSize:20
+    enrollField: {
+        borderWidth: 1, borderColor: 'grey', borderRadius: 5, padding: 10, fontSize: 20
     },
 
     fieldLable: {
-        fontSize:20,
-    },  
+        fontSize: 20,
+    },
 
     container: {
         // flex: 1,

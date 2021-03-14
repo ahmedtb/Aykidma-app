@@ -12,8 +12,11 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import FrontScreen from './FrontScreen';
+import OffersScreen from './OffersScreen';
+import OfferDetailsScreen from './OfferDetailsScreen';
 import AddNewScreen from './AddNewScreen';
 import FormScreen from './FormScreen';
+import ServiceProviderScreen from './ServiceProviderScreen';
 
 const Stack = createStackNavigator();
 
@@ -39,13 +42,22 @@ export default function MainTab() {
                 options={{ title: '' }}
 
             />
+            <Stack.Screen name="OffersScreen" component={OffersScreen}
+                options={{ title: 'العروض' }}
+            />
+            <Stack.Screen name="OfferDetailsScreen" component={OfferDetailsScreen}
+                options={{ title: 'نظافة منزلية' }}
+            />
             <Stack.Screen name="AddNewScreen" component={AddNewScreen}
                 options={{ title: 'إضافة طلب جديد' }}
             />
             <Stack.Screen name="FormScreen" component={FormScreen}
                 options={{ title: 'املأ الطلب' }}
-
             />
+            <Stack.Screen name="ServiceProviderScreen" component={ServiceProviderScreen}
+                options={{ title: 'عمرو محمد عبد الله' }}
+            />
+
 
         </Stack.Navigator>
     );
