@@ -137,35 +137,88 @@ export default function OrdersTabStack() {
     );
 }
 
-function OrdersTab() {
+
+function OrdersList(props) {
+    switch (props.viewOrders) {
+        case 1:
+            return (
+                <ScrollView>
+                    <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+                        <View style={{ flexDirection: 'row', margin: 10 }}>
+                            <View>
+                                <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                                <Text style={{ textAlign: 'center' }}>3/3/2021</Text>
+                            </View>
+                            <View style={{ margin: 10, flex: 1 }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 15 }} >نظافة منزلية كاملة</Text>
+                                <Text style={{ color: '#98a023' }}>وسط البلد</Text>
+                                <Text>نظافة</Text>
+
+                            </View>
+                            <Text style={{ color: 'red', alignSelf: 'flex-end' }}>300 جنيه</Text>
+                        </View>
+                    </TouchableOpacity>
+                </ScrollView>
+            )
+        case 2:
+            return (
+                <ScrollView>
+                    <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+                        <View style={{ flexDirection: 'row', margin: 10 }}>
+                            <View>
+                                <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                                <Text style={{ textAlign: 'center' }}>3/3/2021</Text>
+                            </View>
+                            <View style={{ margin: 10, flex: 1 }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 15 }} >نظافة منزلية</Text>
+                                <Text style={{ color: '#98a023' }}>وسط البلد</Text>
+                                <Text>نظافة</Text>
+
+                            </View>
+                            <Text style={{ color: 'red', alignSelf: 'flex-end' }}>300 جنيه</Text>
+                        </View>
+                    </TouchableOpacity>
+                </ScrollView>
+            )
+        case 3:
+            return (
+                <ScrollView>
+                    <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+                        <View style={{ flexDirection: 'row', margin: 10 }}>
+                            <View>
+                                <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                                <Text style={{ textAlign: 'center' }}>3/3/2021</Text>
+                            </View>
+                            <View style={{ margin: 10, flex: 1 }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 15 }} > منزلية كاملة</Text>
+                                <Text style={{ color: '#98a023' }}>وسط البلد</Text>
+                                <Text>نظافة</Text>
+
+                            </View>
+                            <Text style={{ color: 'red', alignSelf: 'flex-end' }}>300 جنيه</Text>
+                        </View>
+                    </TouchableOpacity>
+                </ScrollView>
+            )
+        default:
+            return (null)
+    }
+}
+
+function OrdersTab(props) {
+    const [viewOrders, setViewOrders] = useState(1);
+
 
     return (
         <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20 }}>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
-                <TouchableOpacity><Text style={{ backgroundColor: '#52662b', padding: 10, borderRadius: 20 }}>طلبات جديد</Text></TouchableOpacity>
-                <TouchableOpacity><Text style={{ padding: 10, borderRadius: 20 }}>تحت الضمان</Text></TouchableOpacity>
-                <TouchableOpacity><Text style={{ padding: 10, borderRadius: 20 }}>طلبات منتهية</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => { setViewOrders(1) }} ><Text style={{ backgroundColor: (viewOrders==1)? '#52662b':'#fff', padding: 10, borderRadius: 20 }}>طلبات جديد</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => { setViewOrders(2) }} ><Text style={{ backgroundColor: (viewOrders==2)? '#52662b':'#fff', padding: 10, borderRadius: 20 }}>طلبات قيد التنفيذ</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders==3)? '#52662b':'#fff', padding: 10, borderRadius: 20 }}>طلبات منتهية</Text></TouchableOpacity>
             </View>
 
-            <ScrollView>
-
-                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
-                    <View style={{ flexDirection: 'row', margin: 10 }}>
-                        <View>
-                            <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
-                            <Text style={{ textAlign: 'center' }}>3/3/2021</Text>
-                        </View>
-                        <View style={{ margin: 10, flex: 1 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 15 }} >نظافة منزلية كاملة</Text>
-                            <Text style={{ color: '#98a023' }}>وسط البلد</Text>
-                            <Text>نظافة</Text>
-
-                        </View>
-                        <Text style={{ color: 'red', alignSelf: 'flex-end' }}>300 جنيه</Text>
-                    </View>
-                </TouchableOpacity>
-            </ScrollView>
+            <OrdersList viewOrders={viewOrders} />
         </View>
 
 

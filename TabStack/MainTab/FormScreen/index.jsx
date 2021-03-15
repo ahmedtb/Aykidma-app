@@ -16,18 +16,32 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import RegionList from './regionList';
+import ListOptions from './ListOptions';
 
 const First = () => {
     const [region, setRegion] = useState(null);
+    const [dwellingType, setDwellingType] = useState(null);
+    const [ period, setPeriod ] = useState(null);
     return (
         <View style={{ padding: 25 }}>
+            
             <Text>اختر المنطقة</Text>
-            <RegionList setRegion={setRegion} />
+            <ListOptions setChoice={setRegion} choice={region} list={['سوق الجمعة', 'حي الاندلس', 'ابو سليم']} label='اختر منطقتك'/>
 
-            <Text>اختر نوع الخدمة المطلوبة تنفيذها</Text>
-            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
+            {/* <Text>اختر نوع الخدمة المطلوبة تنفيذها</Text>
+            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} /> */}
+
             <Text>اختر نوع الوحدة السكنية</Text>
-            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
+            <ListOptions setChoice={setDwellingType} choice={dwellingType} list={['شقة','فيلا','مبنى','اخرى']} label='يرجى اختيار نوع الوحدة'/>
+
+            <Text>أوصف مشكلتك وحاجتك بوضوح</Text>
+            <Text>أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك</Text>
+            <TextInput multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
+
+            <Text>اختار الوقت المفضل للتنفيذ</Text>
+            <ListOptions setChoice={setPeriod} choice={period} list={['اليوم','غدا','خلال اسبوع','الاسبوع القادم']} label='اختر الوقت المناسب'/>
+
+
         </View>
     );
 }
@@ -36,12 +50,7 @@ const Second = () => {
 
     return (
         <View style={{ padding: 25 }}>
-            <Text>أوصف مشكلتك وحاجتك بوضوح</Text>
-            <Text>أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك</Text>
-            <TextInput multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-            <Text>اختار الوقت المفضل للتنفيذ</Text>
             <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-
         </View>
     );
 }
@@ -53,9 +62,6 @@ const Third = () => {
         <View style={{ padding: 25 }}>
             <Text>أضف صور للمشكلة (اختياري)</Text>
             <ImagePickerExample style={{ marginVertical: 20 }} />
-            {/* <Text>third</Text>
-            <Text>third</Text> */}
-
         </View>
     );
 }
@@ -188,7 +194,7 @@ export default function FormScreen({ navigation }) {
                                 style={{ ...styles.button, backgroundColor: '#f4c18b' }}
                                 onPress={() => setModalVisible(!modalVisible)}
                             >
-                                <Text style={styles.textStyle}>إرسال</Text>
+                                <Text style={styles.textStyle}>تقديم الطلب</Text>
                             </Pressable>
                         </View>
 

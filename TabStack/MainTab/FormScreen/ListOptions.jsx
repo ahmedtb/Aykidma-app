@@ -17,14 +17,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const RegionList = (props) => {
     const [visible, setVisible] = useState(false);
-    const region = props.choice
-    const setRegion = props.setChoice;
+    const choice = props.choice;
+    const setChoice = props.setChoice;
+    const list = props.list;
+
     return (
         <>
-            <View style={{ padding: 25 }}>
+            <View style={{ padding: 5 }}>
                 <TouchableOpacity onPress={() => setVisible(true)}>
-                    <Text style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, textAlign:'center' }}>
-                        { (region) ?  region : ('اختر منطقتك') }
+                    <Text style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, textAlign: 'center' }}>
+                        {(choice) ? choice : (props.label)}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -39,28 +41,19 @@ const RegionList = (props) => {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        
+
 
                         <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                            <TouchableOpacity onPress={() => {setRegion('سوق الجمعة'); setVisible(false); }  } style={{borderWidth:1, borderColor:'grey', height:40, justifyContent:'center'}}>
-                                <Text style={{ color: 'black', textAlign:'center'}}>سوق الجمعة</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => {setRegion('المدينة'); setVisible(false)} } style={{borderWidth:1, borderColor:'grey', height:40, justifyContent:'center'}}>
-                                <Text style={{ color: 'black', textAlign:'center'}}>المدينة</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => {setRegion('حي السلام'); setVisible(false)} } style={{borderWidth:1, borderColor:'grey', height:40, justifyContent:'center'}}>
-                                <Text style={{ color: 'black', textAlign:'center'}}>حي السلام</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => {setRegion('المنصورة'); setVisible(false)} } style={{borderWidth:1, borderColor:'grey', height:40, justifyContent:'center'}}>
-                                <Text style={{ color: 'black', textAlign:'center'}}>المنصورة</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => {setRegion('تاجوراء'); setVisible(false)} } style={{borderWidth:1, borderColor:'grey', height:40, justifyContent:'center'}}>
-                                <Text style={{ color: 'black', textAlign:'center'}}>تاجوراء</Text>
-                            </TouchableOpacity>
+                            {
+                                list.map((option, index) => {
+                                    return (
+                                        <TouchableOpacity key={index} onPress={() => { setChoice(option); setVisible(false); }} style={{ borderWidth: 1, borderColor: 'grey', height: 40, justifyContent: 'center' }}>
+                                            <Text style={{ color: 'black', textAlign: 'center' }}>{option}</Text>
+                                        </TouchableOpacity>
+                                    )
+                                })
+                            }
+                            
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
