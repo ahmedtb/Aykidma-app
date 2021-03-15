@@ -150,23 +150,21 @@ function OrdersTab() {
 
             <ScrollView>
 
-                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius:4, marginVertical:7 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
                     <View style={{ flexDirection: 'row', margin: 10 }}>
                         <View>
-                            <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth:2, borderColor:'#777c2e' }} />
-                            <Text style={{textAlign:'center'}}>3/3/2021</Text>
+                            <Image source={require('../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                            <Text style={{ textAlign: 'center' }}>3/3/2021</Text>
                         </View>
-                        <View style={{ margin: 10,flex:1 }}>
-                            <Text style={{fontWeight:'bold', fontSize:15}} >نظافة منزلية كاملة</Text>
-                            <Text style={{color:'#98a023'}}>وسط البلد</Text>
+                        <View style={{ margin: 10, flex: 1 }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 15 }} >نظافة منزلية كاملة</Text>
+                            <Text style={{ color: '#98a023' }}>وسط البلد</Text>
                             <Text>نظافة</Text>
-                            
+
                         </View>
-                        <Text style={{ color: 'red',alignSelf:'flex-end' }}>300 جنيه</Text>
+                        <Text style={{ color: 'red', alignSelf: 'flex-end' }}>300 جنيه</Text>
                     </View>
                 </TouchableOpacity>
-
-
             </ScrollView>
         </View>
 
@@ -186,10 +184,7 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        // flex: 1,
         backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
 
     listGroupItem: {

@@ -11,7 +11,7 @@ export default function Fifth({ navigation }) {
             <View style={{ borderWidth: 1, margin: 10 }}>
 
             <TouchableOpacity onPress={() => navigation.navigate('ServiceProviderScreen')} style={{ flexDirection: 'row', margin: 10 }}>
-                    <Image source={require('../../../resources/worker.jpg')} style={{ width: 50, height: 100 }} />
+                    <Image source={require('../../../../resources/worker.jpg')} style={{ width: 50, height: 100 }} />
                     <View style={{ margin: 10, flex: 1 }}>
                         <Text>محمد عمر بن عبد الله</Text>
                         <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>

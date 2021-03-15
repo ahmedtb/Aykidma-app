@@ -15,12 +15,15 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const First = () => {
+import RegionList from './regionList';
 
+const First = () => {
+    const [region, setRegion] = useState(null);
     return (
         <View style={{ padding: 25 }}>
             <Text>اختر المنطقة</Text>
-            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
+            <RegionList setRegion={setRegion} />
+
             <Text>اختر نوع الخدمة المطلوبة تنفيذها</Text>
             <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
             <Text>اختر نوع الوحدة السكنية</Text>
@@ -43,7 +46,7 @@ const Second = () => {
     );
 }
 
-import ImagePickerExample from './ImagePickerExample';
+import ImagePickerExample from '../ImagePickerExample';
 const Third = () => {
 
     return (
@@ -172,8 +175,8 @@ export default function FormScreen({ navigation }) {
                             </View>
                         </View>
 
-                        <View style={{ flexDirection: 'row', justifyContent:'flex-end' }}>
-                        
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
                                 onPress={() => setModalVisible(!modalVisible)}
@@ -182,7 +185,7 @@ export default function FormScreen({ navigation }) {
                             </Pressable>
 
                             <Pressable
-                                style={{...styles.button, backgroundColor:'#f4c18b'}}
+                                style={{ ...styles.button, backgroundColor: '#f4c18b' }}
                                 onPress={() => setModalVisible(!modalVisible)}
                             >
                                 <Text style={styles.textStyle}>إرسال</Text>
