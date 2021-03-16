@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 
-export default function App() {
+export default function Fourth() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [latitude, setLatitude] = useState(0);
@@ -28,19 +28,33 @@ export default function App() {
       setLocation(location);
       setLatitude(location.coords.latitude);
       setLongitude(location.coords.longitude);
+
+      let postalAddress = await Location.reverseGeocodeAsync({ latitude: latitude, longitude: longitude });
+      console.log(postalAddress);
     })();
   }, []);
 
-  let text = 'Waiting..';
+  let text = 'الرجاء الانتظار لتحديد موقعك..';
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    text = JSON.stringify(location);
+    // text = 'خط العرض: ' + location.coords.latitude + ' - خط الطول: ' + location.coords.longitude;
+    // text = JSON.stringify(location);
+    text = '';
   }
 
   return (
     <View style={styles.container}>
+      <View style={{ margin: 8 }}>
+        <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة</Text>
+      </View>
       <Text style={styles.paragraph}>{text}</Text>
+
+      <Text style={styles.paragraph}>خط العرض: {latitude}</Text>
+      <Text style={styles.paragraph}>خط الطول: {longitude}</Text>
+
+
+
       <MapView
         style={styles.map}
         initialRegion={{
@@ -55,7 +69,7 @@ export default function App() {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
-        <Marker coordinate={{ latitude: latitude, longitude: longitude }} title="موقعك" description="موقعك الحالي"/>
+        <Marker coordinate={{ latitude: latitude, longitude: longitude }} title="موقعك" description="موقعك الحالي" />
       </MapView>
     </View>
   );
@@ -65,11 +79,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     padding: 20,
   },
   paragraph: {
-    fontSize: 18,
+    fontSize: 12,
     textAlign: 'center',
   },
   map: {

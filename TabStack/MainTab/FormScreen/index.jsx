@@ -21,25 +21,18 @@ import ListOptions from './ListOptions';
 const First = () => {
     const [region, setRegion] = useState(null);
     const [dwellingType, setDwellingType] = useState(null);
-    const [ period, setPeriod ] = useState(null);
+    const [period, setPeriod] = useState(null);
     return (
         <View style={{ padding: 25 }}>
-            
-            <Text>اختر المنطقة</Text>
-            <ListOptions setChoice={setRegion} choice={region} list={['سوق الجمعة', 'حي الاندلس', 'ابو سليم']} label='اختر منطقتك'/>
 
-            {/* <Text>اختر نوع الخدمة المطلوبة تنفيذها</Text>
-            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} /> */}
+            <Text style={{ fontSize: 20 }}>اختر المنطقة</Text>
+            <ListOptions setChoice={setRegion} choice={region} list={['سوق الجمعة', 'حي الاندلس', 'ابو سليم']} label='اختر منطقتك' />
 
-            <Text>اختر نوع الوحدة السكنية</Text>
-            <ListOptions setChoice={setDwellingType} choice={dwellingType} list={['شقة','فيلا','مبنى','اخرى']} label='يرجى اختيار نوع الوحدة'/>
+            <Text style={{ fontSize: 20 }}>اختر نوع الوحدة السكنية</Text>
+            <ListOptions setChoice={setDwellingType} choice={dwellingType} list={['شقة', 'فيلا', 'مبنى', 'اخرى']} label='يرجى اختيار نوع الوحدة' />
 
-            <Text>أوصف مشكلتك وحاجتك بوضوح</Text>
-            <Text>أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك</Text>
-            <TextInput multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-
-            <Text>اختار الوقت المفضل للتنفيذ</Text>
-            <ListOptions setChoice={setPeriod} choice={period} list={['اليوم','غدا','خلال اسبوع','الاسبوع القادم']} label='اختر الوقت المناسب'/>
+            <Text style={{ fontSize: 20 }}>اختار الوقت المفضل للتنفيذ</Text>
+            <ListOptions setChoice={setPeriod} choice={period} list={['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم']} label='اختر الوقت المناسب' />
 
 
         </View>
@@ -57,11 +50,16 @@ const Second = () => {
 
 import ImagePickerExample from '../ImagePickerExample';
 const Third = () => {
-
     return (
-        <View style={{ padding: 25 }}>
-            <Text>أضف صور للمشكلة (اختياري)</Text>
-            <ImagePickerExample style={{ marginVertical: 20 }} />
+        <View style={{ padding: 25, flex: 1 }}>
+            <View style={{ marginBottom: 5 }}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>أوصف مشكلتك وحاجتك بوضوح</Text>
+                <Text style={{ fontSize: 12 }}>أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك</Text>
+                <TextInput multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
+            </View>
+
+            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>أضف صور للمشكلة (اختياري)</Text>
+            <ImagePickerExample style={{ marginVertical: 5, borderRadius:10 }} />
         </View>
     );
 }
@@ -118,7 +116,6 @@ export default function FormScreen({ navigation }) {
                 >
                     <Text style={{ color: 'white' }}>التالي</Text>
                 </TouchableOpacity>
-
             </View>
 
             <Modal
@@ -139,8 +136,6 @@ export default function FormScreen({ navigation }) {
                                 <Text style={{ color: 'black', }}>التاريخ: 3/3/2021 م</Text>
                             </View>
                         </View>
-
-
 
                         <View style={{ borderWidth: 1, marginBottom: 20 }}>
                             <View style={{}}>
@@ -222,6 +217,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         // alignItems: "center",
+        backgroundColor: 'rgba(52, 52, 52, 0.9)',
         marginTop: 22
     },
     modalView: {

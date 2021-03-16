@@ -10,12 +10,14 @@ import {
     FlatList,
     ScrollView,
     Button,
-    TouchableOpacity
+    TouchableOpacity,
+    ProgressViewIOSComponent
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useLinkProps } from '@react-navigation/native';
 
 
 const Stack = createStackNavigator();
@@ -41,7 +43,7 @@ export default function MoreTabStack() {
     );
 }
 
-function MoreTab() {
+function MoreTab(props) {
 
     return (
 
@@ -53,36 +55,26 @@ function MoreTab() {
 
             <View style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الرئيسية</Text>
-
             </View>
 
             <View style={styles.menuItem}>
-                <Text style={styles.fieldLable} >العروض</Text>
-
-
+                <Text style={styles.fieldLable} >الاشعارات</Text>
             </View>
 
             <View style={styles.menuItem}>
                 <Text style={styles.fieldLable} >طلباتي</Text>
-
             </View>
 
             <View style={styles.menuItem}>
                 <Text style={styles.fieldLable} >المحفظة</Text>
-
-
             </View>
 
-            <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('التسجيل') } style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الملف الشخصي</Text>
-
-
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.menuItem}>
                 <Text style={styles.fieldLable} >عن الشركة</Text>
-
-
             </View>
 
             <View style={{ margin: 10, flex: 1 }}>

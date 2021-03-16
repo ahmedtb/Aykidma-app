@@ -34,14 +34,16 @@ export default function ImagePickerExample(props) {
   };
 
   return (
-    <View style={{ ...props.style, alignItems: 'center', justifyContent: 'center' }} >
-      <Text style={{backgroundColor:'grey', fontSize:20}} >التقط صورة للمشكلة (إختياري)</Text>
+    <View style={{ ...props.style, alignItems: 'center', justifyContent: 'center', borderWidth: 1, flex: 1 }} >
+      {/* <Text style={{backgroundColor:'grey', fontSize:20}} >التقط صورة للمشكلة (إختياري)</Text> */}
       <TouchableOpacity onPress={pickImage} >
-        
-        <AntDesign name="plussquareo" size={50} color="black" />
+        {!image && <AntDesign name="camerao" size={75} color="black" />}
       </TouchableOpacity>
-      {/* <Button title="التقط صورة للمشكلة (إختياري)" /> */}
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      <TouchableOpacity onPress={pickImage} >
+
+        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      </TouchableOpacity>
+
     </View>
   );
 }
