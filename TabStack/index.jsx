@@ -25,7 +25,7 @@ export default function TabStack() {
         <Tab.Navigator>
             <Tab.Screen name="الرئيسية" component={MainTab} />
             <Tab.Screen name="الطلبات" component={OrdersTab} />
-            <Tab.Screen name="العروض" component={OffersTab} />
+            <Tab.Screen name="كل العروض" component={OffersTab} />
 
             <Tab.Screen name="التسجيل" component={EnrolmentTab} />
             <Tab.Screen name="المزيد" component={MoreTab} />
