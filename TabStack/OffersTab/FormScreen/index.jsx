@@ -1,165 +1,116 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
-    Image,
-    TextInput,
-    ScrollView,
     Pressable,
     TouchableOpacity,
     Modal
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import RegionList from './regionList';
-import ListOptions from './ListOptions';
+import First from './formSteps/First'
+import Second from './formSteps/Second'
+import Third from './formSteps/Third'
+import Fourth from './formSteps/Fourth';
+import Fifth from './formSteps/Fifth';
 
-const First = () => {
-    const [region, setRegion] = useState(null);
-    const [dwellingType, setDwellingType] = useState(null);
-    const [period, setPeriod] = useState(null);
-    return (
-        <View style={{ padding: 25 }}>
-
-            <Text style={{ fontSize: 20 }}>اختر المنطقة</Text>
-            <ListOptions setChoice={setRegion} choice={region} list={['سوق الجمعة', 'حي الاندلس', 'ابو سليم']} label='اختر منطقتك' />
-
-            <Text style={{ fontSize: 20 }}>اختر نوع الوحدة السكنية</Text>
-            <ListOptions setChoice={setDwellingType} choice={dwellingType} list={['شقة', 'فيلا', 'مبنى', 'اخرى']} label='يرجى اختيار نوع الوحدة' />
-
-            <Text style={{ fontSize: 20 }}>اختار الوقت المفضل للتنفيذ</Text>
-            <ListOptions setChoice={setPeriod} choice={period} list={['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم']} label='اختر الوقت المناسب' />
-
-
-        </View>
-    );
-}
-
-const Custom_Form_Fields_JSON = [
+const initial_fields = [
     {
         titles: ['first', 'second', 'third', 'fourth', 'fifth'],
         label: 'please choose an option',
         name: 'testingOptions',
-        type: 'options'
+        type: 'options',
+        value: null
     },
     {
         label: 'please enter in the text field',
         name: 'testingString',
-        type: 'string'
+        type: 'string',
+        value: null
     },
     {
         label: 'please enter text in textarea',
         name: 'testingTextArea',
-        type: 'textarea'
+        type: 'textarea',
+        value: null
     }
 ]
 
-// consider usinbg Redux 
-// https://www.digitalocean.com/community/tutorials/redux-redux-intro
-// https://www.digitalocean.com/community/tutorials/react-react-native-redux
-const Second = () => {
-    const CustomFields = (props) => <View>
-        {
-            Custom_Form_Fields_JSON.map((item, index) => {
-                if (item.type === 'string') {
-                    return (
-                        <>
-                            <Text style={{ fontSize: 12 }}>{item.label}</Text>
-                            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-                        </>
-                    )
-                } else if (item.type === 'textarea') {
-                    return (
-                        <>
-                            <Text style={{ fontSize: 12 }}>{item.label}</Text>
-                            <TextInput multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-                        </>
-                    )
-                } else if (item.type === 'options') {
-                    return (
-                        <>
-                            <Text style={{ fontSize: 20 }}>{item.label}</Text>
-                            {/* <ListOptions setChoice={setRegion} choice={region} list={item.titles} label='اختر منطقتك' /> */}
-                        </>
-                    )
-                }
-                return null;
+
+const reducer = (fields, action) => {
+    switch (action.type) {
+        case 'change_testingOptions':
+            return fields.map((field) => {
+                if (field.name == action.payload.name)
+                    field.value = action.payload.value;
+                return field;
             })
-        }
-    </View>
-    return (
-        <View style={{ padding: 25 }}>
-            <TextInput style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-            <CustomFields />
-        </View>
-    );
+        case 'change_testingString':
+            return fields.map((field) => {
+                if (field.name == action.payload.name)
+                    field.value = action.payload.value;
+                return field;
+            })
+        case 'change_testingTextArea':
+            return fields.map((field) => {
+                if (field.name == action.payload.name)
+                    field.value = action.payload.value;
+                return field;
+            })
+    }
+    return fields;
+
 }
-
-import ImagePickerExample from './ImagePickerExample';
-const Third = () => {
-    return (
-        <View style={{ padding: 25, flex: 1 }}>
-            <View style={{ marginBottom: 5 }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>أوصف مشكلتك وحاجتك بوضوح</Text>
-                <Text style={{ fontSize: 12 }}>أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك</Text>
-                <TextInput multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }} />
-            </View>
-
-            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>أضف صور للمشكلة (اختياري)</Text>
-            <ImagePickerExample style={{ marginVertical: 5, borderRadius: 10 }} />
-        </View>
-    );
-}
-
-import Fourth from './formSteps/Fourth';
-import Fifth from './formSteps/Fifth';
-
 
 export default function FormScreen({ navigation }) {
-    const [index, setIndex] = useState(1);
+    const [index, setIndex] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
-    const [page, setPage] = useState(<First />);
 
+    const [fields, dispatch] = useReducer(reducer, initial_fields);
+    const FormPages = [
+        <First />,
+        <Second ReducerState={[fields, dispatch]} />,
+        <Third />, <Fourth />, <Fifth />
+    ];
+    const [page, setPage] = useState(FormPages[0]);
+    const numberOfPages = FormPages.length;
 
     useEffect(() => {
-        if (index == 1) {
-            setPage(<First />);
-        } else if (index == 2) {
-            setPage(<Second />);
-        } else if (index == 3) {
-            setPage(<Third />);
-        } else if (index == 4) {
-            setPage(<Fourth />);
-        } else if (index == 5) {
-            setPage(<Fifth navigation={navigation} />);
-        }
+        if (index < numberOfPages)
+            setPage(FormPages[index]);
     }, [index]);
 
     return (
         <View style={styles.container} >
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', margin: 15 }}>
-                    <View style={{ width: 40, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 1) ? 'yellow' : 'grey' }} />
-                    <View style={{ width: 40, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 2) ? 'yellow' : 'grey' }} />
-                    <View style={{ width: 40, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 3) ? 'yellow' : 'grey' }} />
-                    <View style={{ width: 40, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 4) ? 'yellow' : 'grey' }} />
-                    <View style={{ width: 40, height: 2, marginHorizontal: 5, borderRadius: 4, backgroundColor: (index == 5) ? 'yellow' : 'grey' }} />
+                    {
+                        FormPages.map((page, pageIndex) => (
+                            <View
+                                style={{
+                                    width: 40, height: 2, marginHorizontal: 5, borderRadius: 4,
+                                    backgroundColor: (index == pageIndex) ? 'yellow' : 'grey'
+                                }}
+                            />
+                        ))
+                    }
                 </View>
                 {page}
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.1, alignItems: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }} onPress={() => { if (index > 1) setIndex(index - 1) }}>
+                <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                    onPress={() => {
+                        if (index > 0)
+                            setIndex(index - 1)
+                    }}>
                     <Text style={{ color: 'white' }}>السابق</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
-                        if (index < 5)
+                        // less than pages last index
+                        if (index < (numberOfPages - 1))
                             setIndex(index + 1)
                         else
                             setModalVisible(true)
@@ -252,9 +203,6 @@ export default function FormScreen({ navigation }) {
         </View >
     );
 }
-
-
-
 
 const styles = StyleSheet.create({
     container: {

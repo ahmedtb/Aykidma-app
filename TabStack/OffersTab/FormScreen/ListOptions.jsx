@@ -15,7 +15,7 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const RegionList = (props) => {
+const ListOptions = (props) => {
     const [visible, setVisible] = useState(false);
     const choice = props.choice;
     const setChoice = props.setChoice;
@@ -73,7 +73,7 @@ const RegionList = (props) => {
         </>
     );
 }
-export default RegionList;
+export default ListOptions;
 
 
 const styles = StyleSheet.create({
