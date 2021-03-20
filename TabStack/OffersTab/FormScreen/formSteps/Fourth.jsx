@@ -30,7 +30,6 @@ export default function Fourth() {
       setLongitude(location.coords.longitude);
 
       let postalAddress = await Location.reverseGeocodeAsync({ latitude: latitude, longitude: longitude });
-      console.log(postalAddress);
     })();
   }, []);
 

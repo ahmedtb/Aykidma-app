@@ -28,10 +28,22 @@ const initial_fields = [
         type: 'string',
         value: null
     },
+    // {
+    //     label: 'please enter text in textarea',
+    //     name: 'testingTextArea',
+    //     type: 'textarea',
+    //     value: null
+    // },
+    // {
+    //     label: 'your location will be used as guidance to provide the service',
+    //     name: 'testingLocation',
+    //     type: 'location',
+    //     value: {latitude:null, longitude:null}
+    // },
     {
-        label: 'please enter text in textarea',
-        name: 'testingTextArea',
-        type: 'textarea',
+        label: 'please capture an image of the problem',
+        name: 'testingImage',
+        type: 'image',
         value: null
     }
 ]
@@ -52,6 +64,18 @@ const reducer = (fields, action) => {
                 return field;
             })
         case 'change_testingTextArea':
+            return fields.map((field) => {
+                if (field.name == action.payload.name)
+                    field.value = action.payload.value;
+                return field;
+            })
+        case 'change_testingLocation':
+            return fields.map((field) => {
+                if (field.name == action.payload.name)
+                    field.value = action.payload.value;
+                return field;
+            })
+        case 'change_testingImage':
             return fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;

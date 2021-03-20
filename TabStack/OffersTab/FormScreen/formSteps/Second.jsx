@@ -15,6 +15,8 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import ListOptions2 from '../ListOptions2'
+import LocationPicker from '../LocationPicker'
+import ImagePicker from '../ImagePicker'
 
 const Second = (props) => {
     const [fields, dispatch] = props.ReducerState;
@@ -36,7 +38,7 @@ const Second = (props) => {
                     )
                 } else if (field.type === 'textarea') {
                     return (
-                        <View>
+                        <View key={index}>
                             <Text style={{ fontSize: 12 }}>{field.label}</Text>
                             <TextInput
                                 multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -49,7 +51,7 @@ const Second = (props) => {
                     )
                 } else if (field.type === 'options') {
                     return (
-                        <>
+                        <View key={index}>
                             <Text style={{ fontSize: 20 }}>{field.label}</Text>
                             <ListOptions2
                                 onChange={
@@ -59,8 +61,36 @@ const Second = (props) => {
                                 }
                                 choice={field.value}
                                 list={field.titles} label='اختر منطقتك' />
-                        </>
+                        </View>
                     )
+                } else if (field.type === 'location') {
+                    return (
+                        <View key={index}>
+                            <Text style={{ fontSize: 20 }}>{field.label}</Text>
+                            <LocationPicker
+                                onChange={
+                                    (value) => {
+                                        dispatch({ type: 'change_testingLocation', payload: { name: field.name, value: value } })
+                                    }
+                                }
+                                value={field.value}
+                            />
+                        </View>
+                    )
+                } else if (field.type == 'image') {
+                    return(<View key={index}>
+                        <Text style={{ fontSize: 20 }}>{field.label}</Text>
+                        <ImagePicker
+                            onChange={
+                                (imageUri) => {
+                                    // console.log(imageUri)
+                                    dispatch({ type: 'change_testingImage', payload: { name: field.name, value: imageUri } })
+                                }
+                            }
+                            value={field.value}
+                            style={{ marginVertical: 5, borderRadius: 10, padding:50 }} 
+                        />
+                    </View>)
                 }
                 return null;
             })
