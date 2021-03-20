@@ -25,22 +25,25 @@ function OffersScreen({ navigation }) {
 
             <ScrollView style={{ padding: 20 }}>
 
-                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, marginVertical: 10 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen',{service:1} )} style={{ borderWidth: 1, marginVertical: 10 }}>
                     <View style={{ flexDirection: 'row', margin: 10 }}>
-                        <Image source={require('../../resources/cleanHouse.jpg')} style={{ width: 100, height: 100 }} />
+                        {/* <Image source={require('../../resources/cleanHouse.jpg')} style={{ width: 100, height: 100 }} /> */}
+                        <Image source={{uri:'https://static.seattletimes.com/wp-content/uploads/2018/11/cleaning_1111-780x520.jpg'}} style={{ width: 100, height: 100 }} />
+                        
                         <View style={{ margin: 10 }}>
-                            <Text>نظافة منزلية كاملة</Text>
+                            <Text style={{fontSize:15}}>عروض التنظيف لشهر رمضان المبارك</Text>
                             <Text style={{ color: 'red' }}>300 جنيه</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
 
 
-                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen')} style={{ borderWidth: 1, marginVertical: 10 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('OfferDetailsScreen',{service:2} )} style={{ borderWidth: 1, marginVertical: 10 }}>
                     <View style={{ flexDirection: 'row', margin: 10 }}>
-                        <Image source={require('../../resources/cleanHouse.jpg')} style={{ width: 100, height: 100 }} />
+                        <Image source={{uri: 'https://www.end-of-tenancy-london.co.uk/wp-content/uploads/2018/02/car-interior-cleaning.jpg?x53702'}} style={{ width: 100, height: 100 }} />
+                       
                         <View style={{ margin: 10 }}>
-                            <Text>نظافة مكتبية</Text>
+                            <Text>غسيل صالونات السيارات</Text>
                             <Text style={{ color: 'red' }}>300 جنيه</Text>
                         </View>
                     </View>

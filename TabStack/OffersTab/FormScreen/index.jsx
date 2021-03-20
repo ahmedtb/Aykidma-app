@@ -17,7 +17,7 @@ import Fifth from './formSteps/Fifth';
 const initial_fields = [
     {
         titles: ['first', 'second', 'third', 'fourth', 'fifth'],
-        label: 'please choose an option',
+        label: 'اختر المنطقة',
         name: 'testingOptions',
         type: 'options',
         value: null
@@ -28,24 +28,26 @@ const initial_fields = [
         type: 'string',
         value: null
     },
-    // {
-    //     label: 'please enter text in textarea',
-    //     name: 'testingTextArea',
-    //     type: 'textarea',
-    //     value: null
-    // },
-    // {
-    //     label: 'your location will be used as guidance to provide the service',
-    //     name: 'testingLocation',
-    //     type: 'location',
-    //     value: {latitude:null, longitude:null}
-    // },
+
     {
-        label: 'please capture an image of the problem',
+        label: 'أوصف مشكلتك وحاجتك بوضوح',
+        subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+        name: 'testingTextArea',
+        type: 'textarea',
+        value: null
+    },
+    {
+        label: 'أضف صورة للمشكلة (اختياري)',
         name: 'testingImage',
         type: 'image',
         value: null
-    }
+    },
+    {
+        label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+        name: 'testingLocation',
+        type: 'location',
+        value: { latitude: null, longitude: null }
+    },
 ]
 
 
@@ -93,8 +95,12 @@ export default function FormScreen({ navigation }) {
     const [fields, dispatch] = useReducer(reducer, initial_fields);
     const FormPages = [
         <First />,
-        <Second ReducerState={[fields, dispatch]} />,
-        <Third />, <Fourth />, <Fifth />
+        <Second ReducerState={[fields.slice(0, 2), dispatch]} />,
+        <Second ReducerState={[fields.slice(2, 4), dispatch]} />,
+        <Second ReducerState={[fields.slice(4, 5), dispatch]} />,
+        // <Third />, 
+        // <Fourth />, 
+        <Fifth />
     ];
     const [page, setPage] = useState(FormPages[0]);
     const numberOfPages = FormPages.length;
@@ -111,6 +117,7 @@ export default function FormScreen({ navigation }) {
                     {
                         FormPages.map((page, pageIndex) => (
                             <View
+                                key={pageIndex}
                                 style={{
                                     width: 40, height: 2, marginHorizontal: 5, borderRadius: 4,
                                     backgroundColor: (index == pageIndex) ? 'yellow' : 'grey'

@@ -47,9 +47,9 @@ export default function Fourth(props) {
 
     return (
         <View style={styles.container}>
-            <View style={{ margin: 8 }}>
+            {/* <View style={{ margin: 8 }}>
                 <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة</Text>
-            </View>
+            </View> */}
             <Text style={styles.paragraph}>{text}</Text>
 
             <Text style={styles.paragraph}>خط العرض: {latitude}</Text>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         // flex: 1,
         alignItems: 'center',
         // justifyContent: 'center',
-        padding: 20,
+        // padding: 20,
     },
     paragraph: {
         fontSize: 12,
@@ -88,6 +88,8 @@ const styles = StyleSheet.create({
     },
     map: {
         width: Dimensions.get('window').width / 1.5,
-        height: Dimensions.get('window').width / 1.5,
+        // height: Dimensions.get('window').height / 1.5,
+        // width: '60%',
+        height: 200,
     },
 });
