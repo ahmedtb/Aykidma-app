@@ -7,10 +7,11 @@ import {
     Dimensions,
     Image,
     TextInput,
-    
+
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 import MainTab from './MainTab';
 import OrdersTab from './OrdersTab';
@@ -25,7 +26,15 @@ export default function TabStack() {
         <Tab.Navigator>
             <Tab.Screen name="الرئيسية" component={MainTab} />
             <Tab.Screen name="الطلبات" component={OrdersTab} />
-            <Tab.Screen name="كل العروض" component={OffersTab} />
+            <Tab.Screen name="كل العروض" component={OffersTab}
+                options={{
+                    tabBarIcon: ({ size, focused, color }) => {
+                        return (
+                            <Fontisto name="shopping-sale" size={24} color="black" />
+                        );
+                    },
+                }}
+            />
 
             <Tab.Screen name="التسجيل" component={EnrolmentTab} />
             <Tab.Screen name="المزيد" component={MoreTab} />

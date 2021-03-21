@@ -14,7 +14,7 @@ import Third from './formSteps/Third'
 import Fourth from './formSteps/Fourth';
 import Fifth from './formSteps/Fifth';
 
-const initial_fields = [
+let initial_fields = [
     {
         titles: ['first', 'second', 'third', 'fourth', 'fifth'],
         label: 'اختر المنطقة',
@@ -23,11 +23,25 @@ const initial_fields = [
         value: null
     },
     {
-        label: 'please enter in the text field',
-        name: 'testingString',
-        type: 'string',
+        titles: ['first', 'second', 'third', 'fourth', 'fifth'],
+        label: 'اختر نوع السيارة',
+        name: 'testingOptions2',
+        type: 'options',
         value: null
     },
+    {
+        titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+        label: 'اختار الوقت المفضل للتنفيذ',
+        name: 'testingOptions3',
+        type: 'options',
+        value: null
+    },
+    // {
+    //     label: 'please enter in the text field',
+    //     name: 'testingString',
+    //     type: 'string',
+    //     value: null
+    // },
 
     {
         label: 'أوصف مشكلتك وحاجتك بوضوح',
@@ -53,6 +67,12 @@ const initial_fields = [
 
 const reducer = (fields, action) => {
     switch (action.type) {
+        case 'change':
+            return fields.map((field) => {
+                if (field.name == action.payload.name)
+                    field.value = action.payload.value;
+                return field;
+            })
         case 'change_testingOptions':
             return fields.map((field) => {
                 if (field.name == action.payload.name)
@@ -88,18 +108,284 @@ const reducer = (fields, action) => {
 
 }
 
-export default function FormScreen({ navigation }) {
+function injectFieldsInFormPages(FormPages, fields, dispatch) {
+
+}
+
+function initialFieldsOfOffer(offerId) {
+    switch (offerId) {
+        case 1: return ([
+                {
+                    titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                    label: 'اختر المنطقة',
+                    name: 'testingOptions',
+                    type: 'options',
+                    value: null
+                },
+                {
+                    titles: ['سجاد', 'مفروشات', 'صالونات', 'جلسات', 'ستارات'],
+                    label: 'اختر نوع الغسيل',
+                    name: 'testingOptions2',
+                    type: 'options',
+                    value: null
+                },
+                {
+                    titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                    label: 'اختار الوقت المفضل للتنفيذ',
+                    name: 'testingOptions3',
+                    type: 'options',
+                    value: null
+                },
+                {
+                    label: 'أوصف مشكلتك وحاجتك بوضوح',
+                    subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                    name: 'testingTextArea',
+                    type: 'textarea',
+                    value: null
+                },
+                {
+                    label: 'أضف صورة للمشكلة (اختياري)',
+                    name: 'testingImage',
+                    type: 'image',
+                    value: null
+                },
+                {
+                    label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                    name: 'testingLocation',
+                    type: 'location',
+                    value: { latitude: null, longitude: null }
+                },
+            ])
+        case 2: return ([
+            {
+                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                label: 'اختر المنطقة',
+                name: 'testingOptions',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['كركوبة', 'عادية', 'عادية صفتين كراسي', 'عالية كبيرة', 'كاملة'],
+                label: 'اختر نوع السيارة',
+                name: 'testingOptions2',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                label: 'اختار الوقت المفضل للتنفيذ',
+                name: 'testingOptions3',
+                type: 'options',
+                value: null
+            },
+            {
+                label: 'أوصف مشكلتك وحاجتك بوضوح',
+                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                name: 'testingTextArea',
+                type: 'textarea',
+                value: null
+            },
+            {
+                label: 'أضف صورة للمشكلة (اختياري)',
+                name: 'testingImage',
+                type: 'image',
+                value: null
+            },
+            {
+                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                name: 'testingLocation',
+                type: 'location',
+                value: { latitude: null, longitude: null }
+            },
+        ])
+        case 3: return([
+            {
+                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                label: 'اختر المنطقة',
+                name: 'testingOptions',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['أثاث', 'تركيب أقفال ابواب', 'تعديل تركيب الخدمات', 'سباكة', 'كهرباء'],
+                label: 'نوع خدمة النقل',
+                name: 'testingOptions2',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                label: 'اختار الوقت المفضل للتنفيذ',
+                name: 'testingOptions3',
+                type: 'options',
+                value: null
+            },
+            {
+                label: 'أوصف مشكلتك وحاجتك بوضوح',
+                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                name: 'testingTextArea',
+                type: 'textarea',
+                value: null
+            },
+            {
+                label: 'أضف صورة للمشكلة (اختياري)',
+                name: 'testingImage',
+                type: 'image',
+                value: null
+            },
+            {
+                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                name: 'testingLocation',
+                type: 'location',
+                value: { latitude: null, longitude: null }
+            },
+        ])
+        case 4: return([
+            {
+                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                label: 'اختر المنطقة',
+                name: 'testingOptions',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['منزل عادي', 'عمارة', 'شقة', 'فيلا', 'عدد من الغرف'],
+                label: 'اختر نوع البناء',
+                name: 'testingOptions2',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                label: 'اختار الوقت المفضل للتنفيذ',
+                name: 'testingOptions3',
+                type: 'options',
+                value: null
+            },
+            {
+                label: 'أوصف مشكلتك وحاجتك بوضوح',
+                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                name: 'testingTextArea',
+                type: 'textarea',
+                value: null
+            },
+            {
+                label: 'أضف صورة للمشكلة (اختياري)',
+                name: 'testingImage',
+                type: 'image',
+                value: null
+            },
+            {
+                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                name: 'testingLocation',
+                type: 'location',
+                value: { latitude: null, longitude: null }
+            },
+        ])
+        case 5: return([
+            {
+                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                label: 'اختر المنطقة',
+                name: 'testingOptions',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['حمام عادي او متوسط', 'حمام صغير بشقة', 'مطبخ متوسط', 'مطبخ كبير'],
+                label: 'اختر نوع الخدمة',
+                name: 'testingOptions2',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                label: 'اختار الوقت المفضل للتنفيذ',
+                name: 'testingOptions3',
+                type: 'options',
+                value: null
+            },
+            {
+                label: 'أوصف مشكلتك وحاجتك بوضوح',
+                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                name: 'testingTextArea',
+                type: 'textarea',
+                value: null
+            },
+            {
+                label: 'أضف صورة للمشكلة (اختياري)',
+                name: 'testingImage',
+                type: 'image',
+                value: null
+            },
+            {
+                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                name: 'testingLocation',
+                type: 'location',
+                value: { latitude: null, longitude: null }
+            },
+        ])
+        case 6: return([
+            {
+                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                label: 'اختر المنطقة',
+                name: 'testingOptions',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['تصليح ألافران كهربائية و غاز', 'توفير بعض قطع الغيار', 'تفيير المرشة المكسورة', 'تبديل المفاتيح المكسورة والمفقودة','تنظيف وتجديد الافران بالمواد الخاصة تولي شبه جديدة'],
+                label: 'اختر نوع الفرن',
+                name: 'testingOptions2',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                label: 'اختار الوقت المفضل للتنفيذ',
+                name: 'testingOptions3',
+                type: 'options',
+                value: null
+            },
+            {
+                label: 'أوصف مشكلتك وحاجتك بوضوح',
+                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                name: 'testingTextArea',
+                type: 'textarea',
+                value: null
+            },
+            {
+                label: 'أضف صورة للمشكلة (اختياري)',
+                name: 'testingImage',
+                type: 'image',
+                value: null
+            },
+            {
+                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                name: 'testingLocation',
+                type: 'location',
+                value: { latitude: null, longitude: null }
+            },
+        ])
+
+        default: return null
+    }
+}
+
+export default function FormScreen({ navigation,route }) {
+    const offerId = route.params.offer;
+    initial_fields = initialFieldsOfOffer(offerId);
+
     const [index, setIndex] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
 
     const [fields, dispatch] = useReducer(reducer, initial_fields);
-    const FormPages = [
-        <First />,
-        <Second ReducerState={[fields.slice(0, 2), dispatch]} />,
-        <Second ReducerState={[fields.slice(2, 4), dispatch]} />,
-        <Second ReducerState={[fields.slice(4, 5), dispatch]} />,
-        // <Third />, 
-        // <Fourth />, 
+
+
+    let FormPages = [
+        // <First />,
+        <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
+        <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
+        <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
         <Fifth />
     ];
     const [page, setPage] = useState(FormPages[0]);

@@ -14,7 +14,8 @@ import {
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
-
+// props:
+// choice, list, onChange, label, style
 const ListOptions2 = (props) => {
     const [visible, setVisible] = useState(false);
     const [choice, setChoice] = useState(props.choice);
@@ -22,10 +23,10 @@ const ListOptions2 = (props) => {
     const onChange = props.onChange;
 
     return (
-        <>
+        <View style={props.style} >
             <View style={{ padding: 5 }}>
                 <TouchableOpacity onPress={() => setVisible(true)}>
-                    <Text style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, textAlign: 'center' }}>
+                    <Text style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, textAlign: 'center', padding:7, fontSize:18 }}>
                         {(choice) ? choice : (props.label)}
                     </Text>
                 </TouchableOpacity>
@@ -43,23 +44,23 @@ const ListOptions2 = (props) => {
                     <View style={styles.modalView}>
 
 
-                        <View style={{ borderWidth: 1, marginBottom: 20 }}>
+                        <View style={{ borderWidth: 1, borderRadius:10, marginBottom: 20 }}>
                             {
                                 list.map((option, index) => {
                                     return (
-                                        <TouchableOpacity key={index} onPress={() => { 
-                                            if(onChange)
-                                                onChange(option); 
+                                        <TouchableOpacity key={index} onPress={() => {
+                                            if (onChange)
+                                                onChange(option);
                                             setChoice(option);
-                                            setVisible(false); 
-                                            }} 
-                                            style={{ borderWidth: 1, borderColor: 'grey', height: 40, justifyContent: 'center' }}>
-                                            <Text style={{ color: 'black', textAlign: 'center' }}>{option}</Text>
+                                            setVisible(false);
+                                        }}
+                                            style={{ borderColor: 'grey', height: 40, justifyContent: 'center', borderBottomWidth: 1 }}>
+                                            <Text style={{ color: 'black', textAlign: 'center', fontSize:15, }}>{option}</Text>
                                         </TouchableOpacity>
                                     )
                                 })
                             }
-                            
+
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
@@ -76,7 +77,7 @@ const ListOptions2 = (props) => {
                     </View>
                 </View>
             </Modal>
-        </>
+        </View >
     );
 }
 export default ListOptions2;

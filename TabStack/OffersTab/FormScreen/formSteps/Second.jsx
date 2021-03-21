@@ -30,7 +30,7 @@ const Second = (props) => {
                             <TextInput
                                 style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                 onChangeText={(text) => {
-                                    dispatch({ type: 'change_testingString', payload: { name: field.name, value: text } })
+                                    dispatch({ type: 'change', payload: { name: field.name, value: text } })
                                 }}
                                 value={field.value}
                             />
@@ -45,7 +45,7 @@ const Second = (props) => {
                             <TextInput
                                 multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                 onChangeText={(text) => {
-                                    dispatch({ type: 'change_testingString', payload: { name: field.name, value: text } })
+                                    dispatch({ type: 'change', payload: { name: field.name, value: text } })
                                 }}
                                 value={field.value}
                             />
@@ -54,15 +54,15 @@ const Second = (props) => {
                 } else if (field.type === 'options') {
                     return (
                         <View key={index}>
-                            <Text style={{ fontSize: 20 }}>{field.label}</Text>
+                            <Text style={{ fontSize: 20, fontWeight:'bold' }}>{field.label}</Text>
                             <ListOptions2
                                 onChange={
                                     (option) => {
-                                        dispatch({ type: 'change_testingOptions', payload: { name: field.name, value: option } })
+                                        dispatch({ type: 'change', payload: { name: field.name, value: option } })
                                     }
                                 }
                                 choice={field.value}
-                                list={field.titles} label='اختر منطقتك' />
+                                list={field.titles} label='اختر' />
                         </View>
                     )
                 } else if (field.type === 'location') {
@@ -74,7 +74,7 @@ const Second = (props) => {
                             <LocationPicker
                                 onChange={
                                     (value) => {
-                                        dispatch({ type: 'change_testingLocation', payload: { name: field.name, value: value } })
+                                        dispatch({ type: 'change', payload: { name: field.name, value: value } })
                                     }
                                 }
                                 value={field.value}
@@ -88,7 +88,7 @@ const Second = (props) => {
                             onChange={
                                 (imageUri) => {
                                     // console.log(imageUri)
-                                    dispatch({ type: 'change_testingImage', payload: { name: field.name, value: imageUri } })
+                                    dispatch({ type: 'change', payload: { name: field.name, value: imageUri } })
                                 }
                             }
                             value={field.value}
