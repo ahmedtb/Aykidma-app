@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
     Modal
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import ListOptions2 from '../ListOptions2'
 import LocationPicker from '../LocationPicker'
@@ -54,7 +54,7 @@ const Second = (props) => {
                 } else if (field.type === 'options') {
                     return (
                         <View key={index}>
-                            <Text style={{ fontSize: 20, fontWeight:'bold' }}>{field.label}</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             <ListOptions2
                                 onChange={
                                     (option) => {
@@ -82,19 +82,58 @@ const Second = (props) => {
                         </View>
                     )
                 } else if (field.type == 'image') {
-                    return (<View key={index}>
-                        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-                        <ImagePicker
-                            onChange={
-                                (imageUri) => {
-                                    // console.log(imageUri)
-                                    dispatch({ type: 'change', payload: { name: field.name, value: imageUri } })
+                    return (
+                        <View key={index}>
+                            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
+                            <ImagePicker
+                                onChange={
+                                    (imageUri) => {
+                                        // console.log(imageUri)
+                                        dispatch({ type: 'change', payload: { name: field.name, value: imageUri } })
+                                    }
                                 }
-                            }
-                            value={field.value}
-                            style={{ marginVertical: 5, borderRadius: 10, padding: 50 }}
-                        />
-                    </View>)
+                                value={field.value}
+                                style={{ marginVertical: 5, borderRadius: 10, padding: 50 }}
+                            />
+                        </View>
+                    )
+                } else if (field.type == 'SPs') {
+                    const [choice, setChoice] = useState(null);
+                    return field.SPs.map(
+                        (SP, index) => (
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceProviderScreen')} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
+                                <Image source={{ uri: 'https://www.safetyandhealthmagazine.com/ext/resources/images/news/government/aging-construction-worker.jpg?1475267293' }} style={{ width: 50, height: 125 }} />
+                                <View style={{ margin: 10, flex: 1 }}>
+                                    <Text>{SP.name}</Text>
+                                    <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <Text>تقييم 33</Text>
+                                    </View>
+                                    <Text style={{ color: 'red' }}>صيانة تشطيب ترتيب</Text>
+                                </View>
+                                <TouchableOpacity onPress={() => {
+                                    dispatch({ type: 'change', payload: { name: field.name, value: SP.id } });
+                                    setChoice(SP.id);
+                                }
+                                } style={{ justifyContent: 'center', paddingHorizontal: 25, paddingVertical: 10, alignSelf: 'center', borderRadius: 10 }}>
+                                    <View>
+                                        {(choice == SP.id) ?
+                                            (<AntDesign name="check" size={50} color="black" />)
+
+                                            :
+                                            (<Ionicons name={"radio-button-off"} size={24} color="black" />)
+                                        }
+                                    </View>
+                                </TouchableOpacity>
+
+                            </TouchableOpacity>
+                        )
+                    )
+
                 }
                 return null;
             })

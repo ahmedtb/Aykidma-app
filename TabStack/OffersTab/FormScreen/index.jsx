@@ -14,56 +14,7 @@ import Third from './formSteps/Third'
 import Fourth from './formSteps/Fourth';
 import Fifth from './formSteps/Fifth';
 
-let initial_fields = [
-    {
-        titles: ['first', 'second', 'third', 'fourth', 'fifth'],
-        label: 'اختر المنطقة',
-        name: 'testingOptions',
-        type: 'options',
-        value: null
-    },
-    {
-        titles: ['first', 'second', 'third', 'fourth', 'fifth'],
-        label: 'اختر نوع السيارة',
-        name: 'testingOptions2',
-        type: 'options',
-        value: null
-    },
-    {
-        titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-        label: 'اختار الوقت المفضل للتنفيذ',
-        name: 'testingOptions3',
-        type: 'options',
-        value: null
-    },
-    // {
-    //     label: 'please enter in the text field',
-    //     name: 'testingString',
-    //     type: 'string',
-    //     value: null
-    // },
-
-    {
-        label: 'أوصف مشكلتك وحاجتك بوضوح',
-        subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-        name: 'testingTextArea',
-        type: 'textarea',
-        value: null
-    },
-    {
-        label: 'أضف صورة للمشكلة (اختياري)',
-        name: 'testingImage',
-        type: 'image',
-        value: null
-    },
-    {
-        label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-        name: 'testingLocation',
-        type: 'location',
-        value: { latitude: null, longitude: null }
-    },
-]
-
+let initial_fields = null;
 
 const reducer = (fields, action) => {
     switch (action.type) {
@@ -115,47 +66,56 @@ function injectFieldsInFormPages(FormPages, fields, dispatch) {
 function initialFieldsOfOffer(offerId) {
     switch (offerId) {
         case 1: return ([
-                {
-                    titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                    label: 'اختر المنطقة',
-                    name: 'testingOptions',
-                    type: 'options',
-                    value: null
-                },
-                {
-                    titles: ['سجاد', 'مفروشات', 'صالونات', 'جلسات', 'ستارات'],
-                    label: 'اختر نوع الغسيل',
-                    name: 'testingOptions2',
-                    type: 'options',
-                    value: null
-                },
-                {
-                    titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                    label: 'اختار الوقت المفضل للتنفيذ',
-                    name: 'testingOptions3',
-                    type: 'options',
-                    value: null
-                },
-                {
-                    label: 'أوصف مشكلتك وحاجتك بوضوح',
-                    subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                    name: 'testingTextArea',
-                    type: 'textarea',
-                    value: null
-                },
-                {
-                    label: 'أضف صورة للمشكلة (اختياري)',
-                    name: 'testingImage',
-                    type: 'image',
-                    value: null
-                },
-                {
-                    label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                    name: 'testingLocation',
-                    type: 'location',
-                    value: { latitude: null, longitude: null }
-                },
-            ])
+            {
+                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+                label: 'اختر المنطقة',
+                name: 'testingOptions',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['سجاد', 'مفروشات', 'صالونات', 'جلسات', 'ستارات'],
+                label: 'اختر نوع الغسيل',
+                name: 'testingOptions2',
+                type: 'options',
+                value: null
+            },
+            {
+                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+                label: 'اختار الوقت المفضل للتنفيذ',
+                name: 'testingOptions3',
+                type: 'options',
+                value: null
+            },
+            {
+                label: 'أوصف مشكلتك وحاجتك بوضوح',
+                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+                name: 'testingTextArea',
+                type: 'textarea',
+                value: null
+            },
+            {
+                label: 'أضف صورة للمشكلة (اختياري)',
+                name: 'testingImage',
+                type: 'image',
+                value: null
+            },
+            {
+                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+                name: 'testingLocation',
+                type: 'location',
+                value: { latitude: null, longitude: null }
+            },
+            {
+                label: 'اختر مزود للخدمة',
+                // SPsNames: ['مصطفى محمد', 'عبد الله عمر', 'احمد خليفة'],
+                SPs: [{name:'احمد خليفة', id:200},{name:'شركة التضامن', id:32},{name:'مصطفى عبد الله', id:130}],
+
+                name: 'testingSPs',
+                type: 'SPs',
+                value: null
+            },
+        ])
         case 2: return ([
             {
                 titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
@@ -198,7 +158,7 @@ function initialFieldsOfOffer(offerId) {
                 value: { latitude: null, longitude: null }
             },
         ])
-        case 3: return([
+        case 3: return ([
             {
                 titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
                 label: 'اختر المنطقة',
@@ -240,7 +200,7 @@ function initialFieldsOfOffer(offerId) {
                 value: { latitude: null, longitude: null }
             },
         ])
-        case 4: return([
+        case 4: return ([
             {
                 titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
                 label: 'اختر المنطقة',
@@ -282,7 +242,7 @@ function initialFieldsOfOffer(offerId) {
                 value: { latitude: null, longitude: null }
             },
         ])
-        case 5: return([
+        case 5: return ([
             {
                 titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
                 label: 'اختر المنطقة',
@@ -324,7 +284,7 @@ function initialFieldsOfOffer(offerId) {
                 value: { latitude: null, longitude: null }
             },
         ])
-        case 6: return([
+        case 6: return ([
             {
                 titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
                 label: 'اختر المنطقة',
@@ -333,7 +293,7 @@ function initialFieldsOfOffer(offerId) {
                 value: null
             },
             {
-                titles: ['تصليح ألافران كهربائية و غاز', 'توفير بعض قطع الغيار', 'تفيير المرشة المكسورة', 'تبديل المفاتيح المكسورة والمفقودة','تنظيف وتجديد الافران بالمواد الخاصة تولي شبه جديدة'],
+                titles: ['تصليح ألافران كهربائية و غاز', 'توفير بعض قطع الغيار', 'تفيير المرشة المكسورة', 'تبديل المفاتيح المكسورة والمفقودة', 'تنظيف وتجديد الافران بالمواد الخاصة تولي شبه جديدة'],
                 label: 'اختر نوع الفرن',
                 name: 'testingOptions2',
                 type: 'options',
@@ -359,20 +319,15 @@ function initialFieldsOfOffer(offerId) {
                 type: 'image',
                 value: null
             },
-            {
-                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                name: 'testingLocation',
-                type: 'location',
-                value: { latitude: null, longitude: null }
-            },
         ])
 
         default: return null
     }
 }
 
-export default function FormScreen({ navigation,route }) {
-    const offerId = route.params.offer;
+export default function FormScreen({ navigation, route }) {
+    const offerId = route.params.offer.id;
+    const offerTitle = route.params.offer.title;
     initial_fields = initialFieldsOfOffer(offerId);
 
     const [index, setIndex] = useState(0);
@@ -382,12 +337,17 @@ export default function FormScreen({ navigation,route }) {
 
 
     let FormPages = [
-        // <First />,
         <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
         <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
         <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
-        <Fifth />
+        <Second ReducerState={[fields.slice(6, 7), dispatch]} />,
     ];
+    if (fields.length <= 6)
+        FormPages = [
+            <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
+            <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
+            <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
+        ];
     const [page, setPage] = useState(FormPages[0]);
     const numberOfPages = FormPages.length;
 
@@ -458,24 +418,36 @@ export default function FormScreen({ navigation,route }) {
 
                         <View style={{ borderWidth: 1, marginBottom: 20 }}>
                             <View style={{}}>
-                                <Text style={{ color: 'black', }}>مقدم الخدمـــة: .........</Text>
+                                <Text style={{ color: 'black', }}>مقدم الخدمـــة: {'شركة التضامن'}</Text>
                                 <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                    <Text style={{ color: 'black', }}>الــخـــدمــــــــة : .........</Text>
+                                    <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {offerTitle}</Text>
                                     <Text style={{ color: 'black', paddingHorizontal: 10 }}>الــــســـعـــــر : .........</Text>
                                 </View>
                             </View>
 
                             <Text style={{ fontSize: 15, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10 }}>تــفــاصــيـــل الطـلــــب</Text>
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+
+                            {/* <View style={{ flexDirection: 'row', marginVertical: 10 }}>
                                 <Text style={{ color: 'black', }}>الـمـنـطـقـة : .........</Text>
                                 <Text style={{ color: 'black', paddingHorizontal: 10 }}>نـوع الـخـدمـة المــراد تـنـفـيــذهــا : .........</Text>
                             </View>
 
                             <View style={{ flexDirection: 'row', marginVertical: 10 }}>
                                 <Text style={{ color: 'black', }}>الـمـوقع بالـGPS : .........</Text>
-                            </View>
+                            </View> */}
 
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                            {
+                                fields.map((field, index) => {
+                                    if (field.type != 'location')
+                                        return (
+                                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                                <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
+                                            </View>
+                                        )
+                                })
+                            }
+
+                            {/* <View style={{ flexDirection: 'row', marginVertical: 10 }}>
                                 <Text style={{ color: 'black', }}>صــورة تـوضـحـيـة : .........</Text>
                             </View>
 
@@ -492,7 +464,7 @@ export default function FormScreen({ navigation,route }) {
                                 <View style={{ borderWidth: 1, flex: 1, height: 40, marginHorizontal: 3 }}>
 
                                 </View>
-                            </View>
+                            </View> */}
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
