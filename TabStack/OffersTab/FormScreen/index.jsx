@@ -59,10 +59,6 @@ const reducer = (fields, action) => {
 
 }
 
-function injectFieldsInFormPages(FormPages, fields, dispatch) {
-
-}
-
 function initialFieldsOfOffer(offerId) {
     switch (offerId) {
         case 1: return ([
@@ -109,7 +105,7 @@ function initialFieldsOfOffer(offerId) {
             {
                 label: 'اختر مزود للخدمة',
                 // SPsNames: ['مصطفى محمد', 'عبد الله عمر', 'احمد خليفة'],
-                SPs: [{name:'احمد خليفة', id:200},{name:'شركة التضامن', id:32},{name:'مصطفى عبد الله', id:130}],
+                SPs: [{name:'احمد خليفة', serviceId:1},{name:'شركة التضامن', serviceId:1},{name:'مصطفى عبد الله', serviceId:1}],
 
                 name: 'testingSPs',
                 type: 'SPs',

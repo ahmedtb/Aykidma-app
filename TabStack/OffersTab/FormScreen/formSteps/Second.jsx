@@ -18,14 +18,20 @@ import ListOptions2 from '../ListOptions2'
 import LocationPicker from '../LocationPicker'
 import ImagePicker from '../ImagePicker'
 
+import SPs_json from './SPs.json'
+const SPs = SPs_json;
+import { useNavigation } from '@react-navigation/native';
+
 const Second = (props) => {
+    const navigation = useNavigation();
+
     const [fields, dispatch] = props.ReducerState;
     const CustomFields = (props) => <ScrollView>
         {
-            fields.map((field, index) => {
+            fields.map((field, fieldIndex) => {
                 if (field.type === 'string') {
                     return (
-                        <View key={index}>
+                        <View key={fieldIndex}>
                             <Text style={{ fontSize: 12 }}>{field.label}</Text>
                             <TextInput
                                 style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -38,7 +44,7 @@ const Second = (props) => {
                     )
                 } else if (field.type === 'textarea') {
                     return (
-                        <View key={index}>
+                        <View key={fieldIndex}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             {(field.subLabel) ? (<Text style={{ fontSize: 12 }}>{field.subLabel}</Text>) : (null)}
 
@@ -53,7 +59,7 @@ const Second = (props) => {
                     )
                 } else if (field.type === 'options') {
                     return (
-                        <View key={index}>
+                        <View key={fieldIndex}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             <ListOptions2
                                 onChange={
@@ -67,7 +73,7 @@ const Second = (props) => {
                     )
                 } else if (field.type === 'location') {
                     return (
-                        <View key={index} >
+                        <View key={fieldIndex} >
                             <View style={{ margin: 8 }}>
                                 <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>{field.label}</Text>
                             </View>
@@ -83,7 +89,7 @@ const Second = (props) => {
                     )
                 } else if (field.type == 'image') {
                     return (
-                        <View key={index}>
+                        <View key={fieldIndex}>
                             <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             <ImagePicker
                                 onChange={
@@ -99,10 +105,10 @@ const Second = (props) => {
                     )
                 } else if (field.type == 'SPs') {
                     const [choice, setChoice] = useState(null);
-                    return field.SPs.map(
+                    return SPs.map(
                         (SP, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceProviderScreen')} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
-                                <Image source={{ uri: 'https://www.safetyandhealthmagazine.com/ext/resources/images/news/government/aging-construction-worker.jpg?1475267293' }} style={{ width: 50, height: 125 }} />
+                                <Image source={{ uri: SP.imageUri }} style={{flex:0.5}} />
                                 <View style={{ margin: 10, flex: 1 }}>
                                     <Text>{SP.name}</Text>
                                     <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
@@ -111,9 +117,9 @@ const Second = (props) => {
                                         <AntDesign name="staro" size={15} color="black" />
                                         <AntDesign name="staro" size={15} color="black" />
                                         <AntDesign name="staro" size={15} color="black" />
-                                        <Text>تقييم 33</Text>
+                                        <Text>تقييم {SP.rating}</Text>
                                     </View>
-                                    <Text style={{ color: 'red' }}>صيانة تشطيب ترتيب</Text>
+                                    <Text style={{ color: 'red' }}>{SP.description}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => {
                                     dispatch({ type: 'change', payload: { name: field.name, value: SP.id } });

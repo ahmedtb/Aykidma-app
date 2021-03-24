@@ -25,7 +25,7 @@ export default function TabStack() {
     return (
         <Tab.Navigator>
             <Tab.Screen name="الرئيسية" component={MainTab} />
-            <Tab.Screen name="الطلبات" component={OrdersTab} />
+            <Tab.Screen name="طلباتي" component={OrdersTab} />
             <Tab.Screen name="كل العروض" component={OffersTab}
                 options={{
                     tabBarIcon: ({ size, focused, color }) => {
