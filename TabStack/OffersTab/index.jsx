@@ -14,8 +14,7 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import offers_json from './offers.json'
-const offers = offers_json;
+
 
 
 

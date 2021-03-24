@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "description": "test Service Provider Offer",
+        "location": "tripoli",
+        "GPS": { "latitude": 13.1, "longtitude": 32.5},
+        "SP_id": 1,
+        "offer_id": 1
+    },
+    {
+        "id": 2,
+        "description": "test Service Provider Offer 2",
+        "location": "tripoli",
+        "GPS": { "latitude": 12.1, "longtitude": 20.5},
+        "SP_id": 2,
+        "offer_id": 1
+    },
+    {
+        "id": 3,
+        "description": "test Service Provider Offer 3",
+        "location": "tripoli",
+        "GPS": { "latitude": 10.1, "longtitude": 12.5},
+        "SP_id": 3,
+        "offer_id": 1
+    }
+]

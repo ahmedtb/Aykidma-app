@@ -58,267 +58,269 @@ const reducer = (fields, action) => {
     return fields;
 
 }
+import offers_fields from '../offers_fields.json'
 
 function initialFieldsOfOffer(offerId) {
-    switch (offerId) {
-        case 1: return ([
-            {
-                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                label: 'اختر المنطقة',
-                name: 'testingOptions',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['سجاد', 'مفروشات', 'صالونات', 'جلسات', 'ستارات'],
-                label: 'اختر نوع الغسيل',
-                name: 'testingOptions2',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                label: 'اختار الوقت المفضل للتنفيذ',
-                name: 'testingOptions3',
-                type: 'options',
-                value: null
-            },
-            {
-                label: 'أوصف مشكلتك وحاجتك بوضوح',
-                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                name: 'testingTextArea',
-                type: 'textarea',
-                value: null
-            },
-            {
-                label: 'أضف صورة للمشكلة (اختياري)',
-                name: 'testingImage',
-                type: 'image',
-                value: null
-            },
-            {
-                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                name: 'testingLocation',
-                type: 'location',
-                value: { latitude: null, longitude: null }
-            },
-            {
-                label: 'اختر مزود للخدمة',
-                // SPsNames: ['مصطفى محمد', 'عبد الله عمر', 'احمد خليفة'],
-                SPs: [{name:'احمد خليفة', serviceId:1},{name:'شركة التضامن', serviceId:1},{name:'مصطفى عبد الله', serviceId:1}],
+    return offers_fields[0].fields;
+    // switch (offerId) {
+    //     case 1: return ([
+    //         {
+    //             titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+    //             label: 'اختر المنطقة',
+    //             name: 'testingOptions',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['سجاد', 'مفروشات', 'صالونات', 'جلسات', 'ستارات'],
+    //             label: 'اختر نوع الغسيل',
+    //             name: 'testingOptions2',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+    //             label: 'اختار الوقت المفضل للتنفيذ',
+    //             name: 'testingOptions3',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أوصف مشكلتك وحاجتك بوضوح',
+    //             subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+    //             name: 'testingTextArea',
+    //             type: 'textarea',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أضف صورة للمشكلة (اختياري)',
+    //             name: 'testingImage',
+    //             type: 'image',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+    //             name: 'testingLocation',
+    //             type: 'location',
+    //             value: { latitude: null, longitude: null }
+    //         },
+    //         {
+    //             label: 'اختر مزود للخدمة',
+    //             // SPsNames: ['مصطفى محمد', 'عبد الله عمر', 'احمد خليفة'],
+    //             SPs: [{name:'احمد خليفة', serviceId:1},{name:'شركة التضامن', serviceId:1},{name:'مصطفى عبد الله', serviceId:1}],
 
-                name: 'testingSPs',
-                type: 'SPs',
-                value: null
-            },
-        ])
-        case 2: return ([
-            {
-                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                label: 'اختر المنطقة',
-                name: 'testingOptions',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['كركوبة', 'عادية', 'عادية صفتين كراسي', 'عالية كبيرة', 'كاملة'],
-                label: 'اختر نوع السيارة',
-                name: 'testingOptions2',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                label: 'اختار الوقت المفضل للتنفيذ',
-                name: 'testingOptions3',
-                type: 'options',
-                value: null
-            },
-            {
-                label: 'أوصف مشكلتك وحاجتك بوضوح',
-                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                name: 'testingTextArea',
-                type: 'textarea',
-                value: null
-            },
-            {
-                label: 'أضف صورة للمشكلة (اختياري)',
-                name: 'testingImage',
-                type: 'image',
-                value: null
-            },
-            {
-                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                name: 'testingLocation',
-                type: 'location',
-                value: { latitude: null, longitude: null }
-            },
-        ])
-        case 3: return ([
-            {
-                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                label: 'اختر المنطقة',
-                name: 'testingOptions',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['أثاث', 'تركيب أقفال ابواب', 'تعديل تركيب الخدمات', 'سباكة', 'كهرباء'],
-                label: 'نوع خدمة النقل',
-                name: 'testingOptions2',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                label: 'اختار الوقت المفضل للتنفيذ',
-                name: 'testingOptions3',
-                type: 'options',
-                value: null
-            },
-            {
-                label: 'أوصف مشكلتك وحاجتك بوضوح',
-                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                name: 'testingTextArea',
-                type: 'textarea',
-                value: null
-            },
-            {
-                label: 'أضف صورة للمشكلة (اختياري)',
-                name: 'testingImage',
-                type: 'image',
-                value: null
-            },
-            {
-                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                name: 'testingLocation',
-                type: 'location',
-                value: { latitude: null, longitude: null }
-            },
-        ])
-        case 4: return ([
-            {
-                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                label: 'اختر المنطقة',
-                name: 'testingOptions',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['منزل عادي', 'عمارة', 'شقة', 'فيلا', 'عدد من الغرف'],
-                label: 'اختر نوع البناء',
-                name: 'testingOptions2',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                label: 'اختار الوقت المفضل للتنفيذ',
-                name: 'testingOptions3',
-                type: 'options',
-                value: null
-            },
-            {
-                label: 'أوصف مشكلتك وحاجتك بوضوح',
-                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                name: 'testingTextArea',
-                type: 'textarea',
-                value: null
-            },
-            {
-                label: 'أضف صورة للمشكلة (اختياري)',
-                name: 'testingImage',
-                type: 'image',
-                value: null
-            },
-            {
-                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                name: 'testingLocation',
-                type: 'location',
-                value: { latitude: null, longitude: null }
-            },
-        ])
-        case 5: return ([
-            {
-                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                label: 'اختر المنطقة',
-                name: 'testingOptions',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['حمام عادي او متوسط', 'حمام صغير بشقة', 'مطبخ متوسط', 'مطبخ كبير'],
-                label: 'اختر نوع الخدمة',
-                name: 'testingOptions2',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                label: 'اختار الوقت المفضل للتنفيذ',
-                name: 'testingOptions3',
-                type: 'options',
-                value: null
-            },
-            {
-                label: 'أوصف مشكلتك وحاجتك بوضوح',
-                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                name: 'testingTextArea',
-                type: 'textarea',
-                value: null
-            },
-            {
-                label: 'أضف صورة للمشكلة (اختياري)',
-                name: 'testingImage',
-                type: 'image',
-                value: null
-            },
-            {
-                label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
-                name: 'testingLocation',
-                type: 'location',
-                value: { latitude: null, longitude: null }
-            },
-        ])
-        case 6: return ([
-            {
-                titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
-                label: 'اختر المنطقة',
-                name: 'testingOptions',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['تصليح ألافران كهربائية و غاز', 'توفير بعض قطع الغيار', 'تفيير المرشة المكسورة', 'تبديل المفاتيح المكسورة والمفقودة', 'تنظيف وتجديد الافران بالمواد الخاصة تولي شبه جديدة'],
-                label: 'اختر نوع الفرن',
-                name: 'testingOptions2',
-                type: 'options',
-                value: null
-            },
-            {
-                titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
-                label: 'اختار الوقت المفضل للتنفيذ',
-                name: 'testingOptions3',
-                type: 'options',
-                value: null
-            },
-            {
-                label: 'أوصف مشكلتك وحاجتك بوضوح',
-                subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
-                name: 'testingTextArea',
-                type: 'textarea',
-                value: null
-            },
-            {
-                label: 'أضف صورة للمشكلة (اختياري)',
-                name: 'testingImage',
-                type: 'image',
-                value: null
-            },
-        ])
+    //             name: 'testingSPs',
+    //             type: 'SPs',
+    //             value: null
+    //         },
+    //     ])
+    //     case 2: return ([
+    //         {
+    //             titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+    //             label: 'اختر المنطقة',
+    //             name: 'testingOptions',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['كركوبة', 'عادية', 'عادية صفتين كراسي', 'عالية كبيرة', 'كاملة'],
+    //             label: 'اختر نوع السيارة',
+    //             name: 'testingOptions2',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+    //             label: 'اختار الوقت المفضل للتنفيذ',
+    //             name: 'testingOptions3',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أوصف مشكلتك وحاجتك بوضوح',
+    //             subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+    //             name: 'testingTextArea',
+    //             type: 'textarea',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أضف صورة للمشكلة (اختياري)',
+    //             name: 'testingImage',
+    //             type: 'image',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+    //             name: 'testingLocation',
+    //             type: 'location',
+    //             value: { latitude: null, longitude: null }
+    //         },
+    //     ])
+    //     case 3: return ([
+    //         {
+    //             titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+    //             label: 'اختر المنطقة',
+    //             name: 'testingOptions',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['أثاث', 'تركيب أقفال ابواب', 'تعديل تركيب الخدمات', 'سباكة', 'كهرباء'],
+    //             label: 'نوع خدمة النقل',
+    //             name: 'testingOptions2',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+    //             label: 'اختار الوقت المفضل للتنفيذ',
+    //             name: 'testingOptions3',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أوصف مشكلتك وحاجتك بوضوح',
+    //             subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+    //             name: 'testingTextArea',
+    //             type: 'textarea',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أضف صورة للمشكلة (اختياري)',
+    //             name: 'testingImage',
+    //             type: 'image',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+    //             name: 'testingLocation',
+    //             type: 'location',
+    //             value: { latitude: null, longitude: null }
+    //         },
+    //     ])
+    //     case 4: return ([
+    //         {
+    //             titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+    //             label: 'اختر المنطقة',
+    //             name: 'testingOptions',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['منزل عادي', 'عمارة', 'شقة', 'فيلا', 'عدد من الغرف'],
+    //             label: 'اختر نوع البناء',
+    //             name: 'testingOptions2',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+    //             label: 'اختار الوقت المفضل للتنفيذ',
+    //             name: 'testingOptions3',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أوصف مشكلتك وحاجتك بوضوح',
+    //             subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+    //             name: 'testingTextArea',
+    //             type: 'textarea',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أضف صورة للمشكلة (اختياري)',
+    //             name: 'testingImage',
+    //             type: 'image',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+    //             name: 'testingLocation',
+    //             type: 'location',
+    //             value: { latitude: null, longitude: null }
+    //         },
+    //     ])
+    //     case 5: return ([
+    //         {
+    //             titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+    //             label: 'اختر المنطقة',
+    //             name: 'testingOptions',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['حمام عادي او متوسط', 'حمام صغير بشقة', 'مطبخ متوسط', 'مطبخ كبير'],
+    //             label: 'اختر نوع الخدمة',
+    //             name: 'testingOptions2',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+    //             label: 'اختار الوقت المفضل للتنفيذ',
+    //             name: 'testingOptions3',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أوصف مشكلتك وحاجتك بوضوح',
+    //             subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+    //             name: 'testingTextArea',
+    //             type: 'textarea',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أضف صورة للمشكلة (اختياري)',
+    //             name: 'testingImage',
+    //             type: 'image',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة',
+    //             name: 'testingLocation',
+    //             type: 'location',
+    //             value: { latitude: null, longitude: null }
+    //         },
+    //     ])
+    //     case 6: return ([
+    //         {
+    //             titles: ['حي السلام', 'حي الزهور', 'عين زارة', 'سوق الخميس', 'حي الاندلس'],
+    //             label: 'اختر المنطقة',
+    //             name: 'testingOptions',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['تصليح ألافران كهربائية و غاز', 'توفير بعض قطع الغيار', 'تفيير المرشة المكسورة', 'تبديل المفاتيح المكسورة والمفقودة', 'تنظيف وتجديد الافران بالمواد الخاصة تولي شبه جديدة'],
+    //             label: 'اختر نوع الفرن',
+    //             name: 'testingOptions2',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             titles: ['اليوم', 'غدا', 'خلال اسبوع', 'الاسبوع القادم'],
+    //             label: 'اختار الوقت المفضل للتنفيذ',
+    //             name: 'testingOptions3',
+    //             type: 'options',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أوصف مشكلتك وحاجتك بوضوح',
+    //             subLabel: 'أضف وصف واضح لمشكلتك، ليتمكن مزود الخدمة من فهمها وتقديم العرض الافضل لك',
+    //             name: 'testingTextArea',
+    //             type: 'textarea',
+    //             value: null
+    //         },
+    //         {
+    //             label: 'أضف صورة للمشكلة (اختياري)',
+    //             name: 'testingImage',
+    //             type: 'image',
+    //             value: null
+    //         },
+    //     ])
 
-        default: return null
-    }
+    //     default: return null
+    // }
 }
 
 export default function FormScreen({ navigation, route }) {

@@ -27,7 +27,7 @@ export default function OffersScreen({ navigation }) {
                         return (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('OfferDetailsScreen', { offer: offer })} style={styles.offerCard}>
                                 <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-                                    <Image source={{ uri: offer.uri }} style={{ width: 100, height: 100 }} />
+                                    <Image source={{ uri: offer.image }} style={{ width: 100, height: 100 }} />
 
                                     <View style={{ margin: 10 }}>
                                         <Text style={styles.offerTitle}>{offer.title}</Text>
