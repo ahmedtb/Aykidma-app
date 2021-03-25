@@ -3,7 +3,6 @@ import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
     Dimensions,
     Image,
     TextInput,
@@ -13,12 +12,11 @@ import {
     Modal
 } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
-import ListOptions2 from '../ListOptions2'
-import LocationPicker from '../LocationPicker'
-import ImagePicker from '../ImagePicker'
+import ListOptions from '../components/ListOptions'
+import LocationPicker from '../components/LocationPicker'
+import ImagePicker from '../components/ImagePicker'
 
-import SPs_json from './SPs.json'
+import SPs_json from '../../jsons/SPs.json'
 const SPs = SPs_json;
 import { useNavigation } from '@react-navigation/native';
 
@@ -61,7 +59,7 @@ const Second = (props) => {
                     return (
                         <View key={fieldIndex}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-                            <ListOptions2
+                            <ListOptions
                                 onChange={
                                     (option) => {
                                         dispatch({ type: 'change', payload: { name: field.name, value: option } })

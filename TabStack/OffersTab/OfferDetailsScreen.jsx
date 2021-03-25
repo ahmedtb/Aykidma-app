@@ -10,8 +10,6 @@ export default function OfferDetailsScreen({ navigation, route }) {
   const offerId = offer.id;
   const offerTitle = offer.title;
   let htmlContent = offer.description;
-    
-
 
   const contentWidth = useWindowDimensions().width;
   return (
