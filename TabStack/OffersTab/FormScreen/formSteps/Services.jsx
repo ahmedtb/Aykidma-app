@@ -20,31 +20,12 @@ import SPs_json from '../../jsons/SPs.json'
 const SPs = SPs_json;
 import { useNavigation } from '@react-navigation/native';
 
-function filterServices(offer_id) {
-    return Providers_Services.filter((service, index) => {
-        if (service.offer_id == offer_id)
-            return true
-        else
-            return false
-    });
-}
-
-function getServices(SPs) {
-    return Providers_Services.filter((service) => {
-
-        return SPs.map((SP_id) => {
-            if (service.SP_id == SP_id)
-                return true
-            else
-                return false
-        });
-    });
-}
 
 const Services = (props) => {
     const navigation = useNavigation();
-    const [SP_field, dispatch] = props.ReducerState;
-    const services = getServices(SP_field.SPs)
+    const [fields, dispatch] = props.ReducerState;
+    // const services = getServices(SP_field.SPs)
+    const services = props.services
 
     const [choice, setChoice] = useState(null);
 

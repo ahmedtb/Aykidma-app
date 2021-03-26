@@ -36,7 +36,7 @@
             "description": "تنظيف عام",
             "rating": 5
         },
-        "offer_id": 1
+        "offer_id": 2
     },
     {
         "id": 3,
@@ -56,6 +56,6 @@
             "description": "تنظيف عام",
             "rating": 5
         },
-        "offer_id": 1
+        "offer_id": 3
     }
 ]

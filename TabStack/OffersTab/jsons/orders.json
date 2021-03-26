@@ -4,21 +4,89 @@
         "status": "done",
         "service_id": 1,
         "user_id": 1,
-        "review": {"comment": "custom comment", "rating": 3}
+        "review": {"comment": "custom comment", "rating": 3},
+        "fields": [
+            {
+                "label": "اختر المنطقة",
+                "type": "options",
+                "value": "حي السلام"
+            },
+            {
+                "label": "اختر نوع الغسيل",
+                "type": "options",
+                "value": "مفروشات"
+            },
+            {
+                "label": "اختار الوقت المفضل للتنفيذ",
+                "type": "options",
+                "value": "غدا"
+            },
+            {
+                "label": "أوصف مشكلتك وحاجتك بوضوح",
+                "type": "textarea",
+                "value": "وصف عام للمشكلة"
+            },
+            {
+                "label": "أضف صورة للمشكلة (اختياري)",
+                "type": "image",
+                "value": "here should be image uri"
+            },
+            {
+                "label": "سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة",
+                "type": "location",
+                "value": {
+                    "latitude": 13.2,
+                    "longitude": 32.5
+                }
+            }
+        ]
     },
     {
         "id": 2,
         "status": "pending",
         "service_id": 1,
         "user_id": 1,
-        "review": {"comment": "custom comment 2", "rating": 4}
-
+        "review": {"comment": "custom comment 2", "rating": 4},
+        "fields": [
+            {
+                "label": "اختر المنطقة",
+                "type": "options",
+                "value": "حي السلام"
+            },
+            {
+                "label": "اختر نوع الغسيل",
+                "type": "options",
+                "value": "مفروشات"
+            },
+            {
+                "label": "اختار الوقت المفضل للتنفيذ",
+                "type": "options",
+                "value": "غدا"
+            }
+        ]
     },
     {
         "id": 3,
         "status": "done",
         "service_id": 1,
         "user_id": 1,
-        "review": {"comment": "custom comment 3", "rating": 5}
+        "review": {"comment": "custom comment 3", "rating": 5},
+        "fields": [
+            {
+                "label": "اختر المنطقة",
+                "type": "options",
+                "value": "حي السلام"
+            },
+            {
+                "label": "اختر نوع الغسيل",
+                "type": "options",
+                "value": "مفروشات"
+            },
+            {
+                "label": "اختار الوقت المفضل للتنفيذ",
+                "type": "options",
+                "value": "غدا"
+            }
+        ]
     }
 ]

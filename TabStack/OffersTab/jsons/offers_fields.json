@@ -62,18 +62,8 @@
                     "latitude": null,
                     "longitude": null
                 }
-            },
-            {
-                "label": "اختر مزود للخدمة",
-                "SPs": [
-                    1,
-                    2,
-                    3
-                ],
-                "name": "testingSPs",
-                "type": "SPs",
-                "value": null
             }
+            
         ]
     },
     {
@@ -144,7 +134,7 @@
     },
     {
         "id": 3,
-        "offer_id": 2,
+        "offer_id": 3,
         "fields": [
             {
                 "titles": [
@@ -210,7 +200,7 @@
     },
     {
         "id": 4,
-        "offer_id": 2,
+        "offer_id": 4,
         "fields": [
             {
                 "titles": [
@@ -276,7 +266,7 @@
     },
     {
         "id": 5,
-        "offer_id": 2,
+        "offer_id": 5,
         "fields": [
             {
                 "titles": [
@@ -342,7 +332,7 @@
     },
     {
         "id": 6,
-        "offer_id": 2,
+        "offer_id": 6,
         "fields": [
             {
                 "titles": [

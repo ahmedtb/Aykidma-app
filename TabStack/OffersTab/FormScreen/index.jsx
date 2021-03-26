@@ -11,7 +11,6 @@ import {
 import Second from './formSteps/FormSlide'
 import Services from './formSteps/Services'
 
-let initial_fields = null;
 
 const reducer = (fields, action) => {
     switch (action.type) {
@@ -56,15 +55,32 @@ const reducer = (fields, action) => {
 
 }
 import offers_fields from '../jsons/offers_fields.json'
+import Providers_Services from '../jsons/Providers_Services.json'
 
 function initialFieldsOfOffer(offerId) {
-    return offers_fields[0].fields;
+    return offers_fields.find((field) => (field.offer_id == offerId)).fields.concat({
+        "label": "اختر مزود للخدمة",
+        "name": "testingSPs",
+        "type": "SPs",
+        "value": null
+    })
+}
+
+function offerServices(offerId) {
+    return Providers_Services.filter((service) => {
+        if (service.offer_id == offerId)
+            return true
+        else
+            return false
+    })
 }
 
 export default function FormScreen({ navigation, route }) {
     const offerId = route.params.offer.id;
     const offerTitle = route.params.offer.title;
-    initial_fields = initialFieldsOfOffer(offerId);
+    const initial_fields = initialFieldsOfOffer(offerId);
+    // console.log(initial_fields)
+    const services = offerServices(offerId);
 
     const [index, setIndex] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
@@ -76,14 +92,9 @@ export default function FormScreen({ navigation, route }) {
         <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
         <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
         <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
-        <Services ReducerState={[fields[6], dispatch]} />,
+        <Services ReducerState={[fields, dispatch]} services={services} />,
     ];
-    if (fields.length <= 6)
-        FormPages = [
-            <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
-            <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
-            <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
-        ];
+
     const [page, setPage] = useState(FormPages[0]);
     const numberOfPages = FormPages.length;
 
@@ -108,7 +119,14 @@ export default function FormScreen({ navigation, route }) {
                         ))
                     }
                 </View>
-                {page}
+                {/* {page} */}
+                {
+                    FormPages.map((page, pageIndex) => (
+                        <View style={{ height: (index == pageIndex) ? null : 0 }}>
+                            {FormPages[pageIndex]}
+                        </View>
+                    ))
+                }
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.1, alignItems: 'center' }}>
@@ -176,7 +194,7 @@ export default function FormScreen({ navigation, route }) {
                                 fields.map((field, index) => {
                                     if (field.type != 'location')
                                         return (
-                                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                            <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
                                                 <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
                                             </View>
                                         )
