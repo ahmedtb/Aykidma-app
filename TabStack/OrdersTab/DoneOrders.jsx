@@ -17,10 +17,11 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import orders from './jsons/orders.json'
 
 function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
-
+    const { date, service, offer, cost, location, fields } = props.order;
     return (
         <Modal
             animationType="fade"
@@ -32,54 +33,59 @@ function OrderFormModal(props) {
             }}
         >
             <View style={styles.centeredView}>
-                <View style={styles.modalView}>
+                <ScrollView style={styles.modalView}>
                     <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>نموذج الطلب</Text>
+                        <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>تــفــاصــيـــل الطـلــــب</Text>
 
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: 'black', }}>التاريخ: 3/3/2021 م</Text>
+                            <Text style={{ color: 'black', }}>التاريخ: {date} م</Text>
                         </View>
                     </View>
 
                     <View style={{ borderWidth: 1, marginBottom: 20 }}>
                         <View style={{}}>
-                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: شركة التضامـن</Text>
+                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service.SP.name}</Text>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : تنظيف</Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الــــســـعـــــر : 100 دينار</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer.title}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>الــــســـعـــــر : {cost}</Text>
                             </View>
-                        </View>
 
-                        <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>تــفــاصــيـــل الطـلــــب</Text>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
                             <View style={{ flexDirection: 'row', }}>
                                 <Text style={{ color: 'black', fontSize: 20, }}>الـمـنـطـقـة : </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>حي السلام - طرابلس</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>{location.name}</Text>
                             </View>
 
 
                             <View style={{ flexDirection: 'row', }}>
                                 <Text style={{ color: 'black', fontSize: 20, }}>نوع الخدمة المراد تنفيذها: </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>تنظيف مكتبي</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>{offer.title}</Text>
                             </View>
-
-                            <Text style={{ color: 'black', fontSize: 20, }}>نوع الوحدة السكنـيـة : شقة</Text>
-
-
-                            <Text style={{ color: 'black', fontSize: 20, paddingHorizontal: 5 }}>وصف خاص للطلب :</Text>
-                            <View style={{ borderWidth: 1, width: '50%', height: 50, marginHorizontal: 3 }}>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الـوقت الـمـفضـل لتنفيذ الخدمة: </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>اليوم - 10 مساءً</Text>
-                            </View>
-
 
                         </View>
+
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>نموذج الطـلــــب</Text>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
+
+
+                            {
+                                fields.map((field, index) => {
+                                    let value = field.value;
+                                    let label = field.label;
+                                    if (field.type == "location")
+                                        value = field.value.latitude + ", " + field.value.longitude;
+
+                                    return (
+                                        <View key={index}>
+
+                                            <Text style={{ color: 'black', fontSize: 20, }}>{label}: {value}</Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10, borderTopWidth: 1 }}>
-                            <Text style={{ color: 'black', fontSize: 20, }}>الـمـوقع: 32.8753, 13.3619 GPS</Text>
-                            <Text style={{ color: 'black', fontSize: 20, }}>صــورة تـوضـحـيـة : .........</Text>
+                            {/* <Text style={{ color: 'black', fontSize: 20, }}>الـمـوقع: 32.8753, 13.3619 GPS</Text>
+                            <Text style={{ color: 'black', fontSize: 20, }}>صــورة تـوضـحـيـة : .........</Text> */}
                         </View>
 
 
@@ -98,38 +104,65 @@ function OrderFormModal(props) {
                             style={{ ...styles.button, backgroundColor: '#f4c18b' }}
                             onPress={() => setModalVisible(!modalVisible)}
                         >
-                            <Text style={styles.textStyle}>تقديم الطلب</Text>
+                            <Text style={styles.textStyle}>الغاء الطلب</Text>
                         </Pressable>
                     </View>
 
-                </View>
+                </ScrollView>
             </View>
         </Modal>
     )
 
 }
 
-export default function NewOrders(props) {
+const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
+    const { title, location, category, date, cost,
+        order } = props;
     return (
-        <ScrollView>
+        <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={require('../../resources/cleanHouse.jpg')} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
-                        <Text style={{ textAlign: 'center' }}>3/3/2021</Text>
+                        <Image source={{ uri: order.offer.image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                        <Text style={{ textAlign: 'center' }}>{date}</Text>
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }} > منزلية كاملة</Text>
-                        <Text style={{ color: '#98a023' }}>وسط البلد</Text>
-                        <Text>نظافة</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
+                        <Text style={{ color: '#98a023' }}>{location}</Text>
+                        <Text>{category}</Text>
 
                     </View>
-                    <Text style={{ color: 'red', alignSelf: 'flex-end' }}>300 جنيه</Text>
+                    <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
                 </View>
             </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]} />
+            <OrderFormModal visible={[modalVisible, setModalVisible]} order={order} />
+        </>
+    )
+}
+
+export default function DoneOrders(props) {
+
+    return (
+        <ScrollView>
+            {
+                orders.map((order, index) => {
+                    if (order.status == "done")
+                        return <OrderItem
+                            key={index}
+                            title={order.offer.title}
+                            location={order.location.name}
+                            category={order.offer.category}
+                            date={order.date}
+                            cost={order.cost}
+
+                            order={order}
+                        />
+                    else
+                        return null
+                })
+            }
         </ScrollView>
     )
 }

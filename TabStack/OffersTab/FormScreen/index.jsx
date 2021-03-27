@@ -122,7 +122,7 @@ export default function FormScreen({ navigation, route }) {
                 {/* {page} */}
                 {
                     FormPages.map((page, pageIndex) => (
-                        <View style={{ height: (index == pageIndex) ? null : 0 }}>
+                        <View key={pageIndex} style={{ height: (index == pageIndex) ? null : 0 }}>
                             {FormPages[pageIndex]}
                         </View>
                     ))
