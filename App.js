@@ -1,12 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { I18nManager, StyleSheet, Text, View, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import TabStack from './TabStack';
-import axios from 'axios'
-
-// set the base URL globally
-axios.defaults.baseURL = 'https://private-3e8de-aykidmaapp.apiary-mock.com';
+import { AppProvider } from './Context'
 
 export default function App() {
   I18nManager.forceRTL(true);
@@ -14,9 +10,11 @@ export default function App() {
   LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
   return (
-    <NavigationContainer>
-      <TabStack />
-    </NavigationContainer>
+    <AppProvider> 
+      <NavigationContainer>
+        <TabStack />
+      </NavigationContainer>
+    </AppProvider>
   );
 }
 

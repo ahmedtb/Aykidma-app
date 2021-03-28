@@ -19,7 +19,7 @@ import moment from 'moment';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-import { LocaleStatus, LocaleRequestType } from '../utilityFunctions/symbolesLocale';
+import { LocaleStatus, LocaleRequestType } from '../../utilityFunctions/symbolesLocale';
 
 
 const requests = [{

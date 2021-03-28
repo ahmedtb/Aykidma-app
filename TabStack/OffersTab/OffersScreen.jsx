@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -13,11 +13,21 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import axios from 'axios'
+import LoadingIndicator from '../components/loadingIndicator'
 import offers_json from './jsons/offers.json'
 
 const RenderOffersList = (props) => {
     const offers = props.offers
     const navigation = props.navigation
+
+    useEffect(() => {
+
+    }, [props.offers])
+
+    if (!offers)
+        return null
+
     return (
         offers.map(
             (offer, index) => {
@@ -38,16 +48,43 @@ const RenderOffersList = (props) => {
     )
 }
 
+
+const fetchOffers = async () => {
+    try {
+        let response = await axios.get('/api/offers')
+        let data = await response.data
+        return data
+    } catch (error) {
+        console.error(error.message + " at OffersScreen.jsx/fetchOffers function");
+    }
+    return null
+}
+
 export default function OffersScreen({ navigation }) {
+    const [offers, setOffers] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchOffers().then(data => {
+            setOffers(data);
+            setLoading(false);
+        })
+    }, [])
+
     return (
         <View style={styles.container}>
 
             <ScrollView style={{ padding: 20 }}>
-                <RenderOffersList offers={offers_json} navigation={navigation} />
+                <RenderOffersList offers={offers} navigation={navigation} />
 
+                {/* this is for bottom spaceing */}
                 <View style={{ height: 50 }}></View>
 
             </ScrollView>
+
+
+            <LoadingIndicator visibility={loading} />
+
 
         </View >
 
