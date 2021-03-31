@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Modal } from 'react-native';
 
-const LoadingIndicator = (props) => {
+const SubmitForm = (props) => {
 
     useEffect(() => {
 
@@ -39,7 +39,7 @@ const LoadingIndicator = (props) => {
                         fontSize: 15,
                         fontWeight: 'bold',
                     }}>
-                        { (props.label) ? (props.label) : ('جار التحميل')}
+                        جار تقديم طلبك
                         </Text>
                 </View>
             </View>
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default LoadingIndicator;
+export default SubmitForm;

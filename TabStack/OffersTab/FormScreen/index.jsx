@@ -75,11 +75,12 @@ function offerServices(offerId) {
     })
 }
 
+import FormModal from './components/formModal'
+
 export default function FormScreen({ navigation, route }) {
     const offerId = route.params.offer.id;
     const offerTitle = route.params.offer.title;
     const initial_fields = initialFieldsOfOffer(offerId);
-    // console.log(initial_fields)
     const services = offerServices(offerId);
 
     const [index, setIndex] = useState(0);
@@ -95,13 +96,11 @@ export default function FormScreen({ navigation, route }) {
         <Services ReducerState={[fields, dispatch]} services={services} />,
     ];
 
-    const [page, setPage] = useState(FormPages[0]);
     const numberOfPages = FormPages.length;
 
     useEffect(() => {
-        if (index < numberOfPages)
-            setPage(FormPages[index]);
-    }, [index]);
+
+    }, []);
 
     return (
         <View style={styles.container} >
@@ -151,97 +150,7 @@ export default function FormScreen({ navigation, route }) {
                 </TouchableOpacity>
             </View>
 
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    // Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>نموذج طلب خدمة</Text>
-
-                            <View style={{ alignItems: 'center' }}>
-                                <Text style={{ color: 'black', }}>التاريخ: 3/3/2021 م</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                            <View style={{}}>
-                                <Text style={{ color: 'black', }}>مقدم الخدمـــة: {'شركة التضامن'}</Text>
-                                <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                    <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {offerTitle}</Text>
-                                    <Text style={{ color: 'black', paddingHorizontal: 10 }}>الــــســـعـــــر : .........</Text>
-                                </View>
-                            </View>
-
-                            <Text style={{ fontSize: 15, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10 }}>تــفــاصــيـــل الطـلــــب</Text>
-
-                            {/* <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', }}>الـمـنـطـقـة : .........</Text>
-                                <Text style={{ color: 'black', paddingHorizontal: 10 }}>نـوع الـخـدمـة المــراد تـنـفـيــذهــا : .........</Text>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', }}>الـمـوقع بالـGPS : .........</Text>
-                            </View> */}
-
-                            {
-                                fields.map((field, index) => {
-                                    if (field.type != 'location')
-                                        return (
-                                            <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                                <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
-                                            </View>
-                                        )
-                                })
-                            }
-
-                            {/* <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', }}>صــورة تـوضـحـيـة : .........</Text>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', marginVertical: 10, borderTopWidth: 1 }}>
-                                <Text style={{ color: 'black', }}>نوع الوحدة السكنـيـة : .........</Text>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black' }}>الـوقت الـمـفضـل لتنفيذ الخدمة : .........</Text>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', paddingHorizontal: 5 }}>وصــــــف الــــطــــلــب :</Text>
-                                <View style={{ borderWidth: 1, flex: 1, height: 40, marginHorizontal: 3 }}>
-
-                                </View>
-                            </View> */}
-                        </View>
-
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}
-                            >
-                                <Text style={styles.textStyle}>اغلاق</Text>
-                            </Pressable>
-
-                            <Pressable
-                                style={{ ...styles.button, backgroundColor: '#f4c18b' }}
-                                onPress={() => setModalVisible(!modalVisible)}
-                            >
-                                <Text style={styles.textStyle}>تقديم الطلب</Text>
-                            </Pressable>
-                        </View>
-
-                    </View>
-                </View>
-            </Modal>
-
+            <FormModal visiblity={[modalVisible, setModalVisible]} fields={fields} offerTitle={offerTitle}/>
 
         </View >
     );
@@ -251,47 +160,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: 'rgba(52, 52, 52, 0.9)',
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 10,
-        // alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonClose: {
-        backgroundColor: "#b2a9a7",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
 });
