@@ -144,23 +144,23 @@ const OrderItem = (props) => {
 
 export default function ResumedOrders(props) {
 
+    useEffect(() => {
+
+    }, [props.resumedOrders])
     return (
         <ScrollView>
             {
-                orders.map((order, index) => {
-                    if (order.status == "resumed")
-                        return <OrderItem
-                            key={index}
-                            title={order.offer.title}
-                            location={order.location.name}
-                            category={order.offer.category}
-                            date={order.date}
-                            cost={order.cost}
+                props.resumedOrders.map((order, index) => {
+                    return <OrderItem
+                        key={index}
+                        title={order.offer.title}
+                        location={order.location.name}
+                        category={order.offer.category}
+                        date={order.date}
+                        cost={order.cost}
 
-                            order={order}
-                        />
-                    else
-                        return null
+                        order={order}
+                    />
                 })
             }
         </ScrollView>

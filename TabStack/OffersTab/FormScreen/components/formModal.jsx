@@ -11,14 +11,57 @@ import { useNavigation } from '@react-navigation/native'
 import LoadingIndicator from '../../../components/loadingIndicator'
 import axios from 'axios';
 
+function DialogBox(props) {
+    const [dialogBox, setDialogBox] = props.visibility
+    const navigation = useNavigation();
+
+    return (
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={dialogBox}
+            onRequestClose={() => {
+                setDialogBox(!dialogBox);
+                navigation.navigate('طلباتي', { newOrderId: 1 })
+            }}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <View style={{}}>
+                        <Text style={{ fontSize: 20 }}>
+                            تم تقديم طلبك بنجاح
+                        </Text>
+                        <Text>سيتم عرض طلبك على مزود الخدمة حتى يقبل به....لدى يرجى الانتظار حتى استجابة مزود الخدمة</Text>
+                        
+                        <Pressable
+                            onPress={() => {
+                                setDialogBox(false)
+                                navigation.navigate('طلباتي', { newOrderId: 1 })
+                            }}
+                            style={{backgroundColor:'red', elevation:3, padding:7, borderRadius:6}}
+                        >
+                            <Text style={{textAlign:'center', color:'white'}}>موافق</Text>
+                        </Pressable>
+
+                    </View>
+
+                </View>
+            </View>
+
+        </Modal>
+    )
+}
+
 export default function FormModal(props) {
     const navigation = useNavigation();
 
     const [loading, setLoading] = useState(false)
+    const [dialogBox, setDialogBox] = useState(false)
+
     const offerTitle = props.offerTitle
     const fields = props.fields;
 
-    const [modalVisible, setModalVisible] = props.visiblity
+    const [modalVisible, setModalVisible] = props.visibility
     function submitOrder() {
         setLoading(true)
         axios.post('/api/orders', { fields: fields }).then(response => {
@@ -28,7 +71,8 @@ export default function FormModal(props) {
         }).finally(() => {
             setLoading(false)
             setModalVisible(false)
-            navigation.navigate('طلباتي', {newOrderId: 1})
+            // navigation.navigate('طلباتي', {newOrderId: 1})
+            setDialogBox(true)
         })
     }
 
@@ -100,6 +144,7 @@ export default function FormModal(props) {
             </Modal>
 
             <LoadingIndicator visibility={loading} label='جاري تقديم طلبك' />
+            <DialogBox visibility={[dialogBox, setDialogBox] } />
         </View>
 
     )

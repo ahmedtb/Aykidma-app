@@ -15,7 +15,6 @@ import {
     Pressable,
     StatusBar
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useEffect } from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -26,32 +25,39 @@ const Stack = createStackNavigator();
 import NewOrders from './NewOrders'
 import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
+import axios from 'axios'
 
-function OrdersList(props) {
-        return (
-            <View style={{ flex: 1 }}>
-                <View style={{ height: (props.viewOrders == 1) ? null : 0 }}>
-                    <NewOrders />
-                </View>
-                <View style={{ height: (props.viewOrders == 2) ? null : 0 }}>
-                    <ResumedOrders />
-                </View>
-                <View style={{ height: (props.viewOrders == 3) ? null : 0 }}>
-                    <DoneOrders />
-                </View>
-            </View>
-        )
+function filterOrders(orders, status) {
+    return orders.filter((order) => {
+        if (order.status === status)
+            return true
+        else
+            return false
+    })
 }
 
 export default function OrdersTab(props) {
     const [viewOrders, setViewOrders] = useState(1);
 
+    const [newOrders, setNewOrders] = useState([])
+    const [resumedOrders, setResumedOrder] = useState([])
+    const [doneOrders, setDoneOrders] = useState([])
+
+    useEffect(() => {
+        async function fetch() {
+            const orders = (await axios.get('/api/orders')).data
+            setNewOrders(filterOrders(orders, 'new'))
+            setResumedOrder(filterOrders(orders, 'resumed'))
+            setDoneOrders(filterOrders(orders, 'done'))
+        }
+        fetch()
+    }, []);
 
     return (
-        <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, marginTop: StatusBar.currentHeight  }}>
+        <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, marginTop: StatusBar.currentHeight }}>
 
-            <View style={{alignItems:'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor:'red'}}>
-                <Text style={{fontSize: 25, fontWeight: 'bold', color:'white'}}>
+            <View style={{ alignItems: 'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor: 'red' }}>
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>
                     طلبــاتـي
                 </Text>
             </View>
@@ -62,7 +68,20 @@ export default function OrdersTab(props) {
                 <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders == 3) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات منتهية</Text></TouchableOpacity>
             </View>
 
-            <OrdersList viewOrders={viewOrders} {...props} />
+            {/* <OrdersList viewOrders={viewOrders} {...props} /> */}
+
+            <View style={{ flex: 1 }}>
+                <View style={{ height: (viewOrders == 1) ? null : 0 }}>
+                    <NewOrders newOrders={newOrders} />
+                </View>
+                <View style={{ height: (viewOrders == 2) ? null : 0 }}>
+                    <ResumedOrders resumedOrders={resumedOrders} />
+                </View>
+                <View style={{ height: (viewOrders == 3) ? null : 0 }}>
+                    <DoneOrders doneOrders={doneOrders} />
+                </View>
+            </View>
+
         </View>
 
     );
@@ -70,5 +89,5 @@ export default function OrdersTab(props) {
 
 
 const styles = StyleSheet.create({
-    
+
 })

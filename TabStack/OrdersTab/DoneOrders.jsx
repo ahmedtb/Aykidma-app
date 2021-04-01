@@ -144,10 +144,13 @@ const OrderItem = (props) => {
 
 export default function DoneOrders(props) {
 
+    useEffect( () => {
+
+    }, [props.doneOrders])
     return (
         <ScrollView>
             {
-                orders.map((order, index) => {
+                props.doneOrders.map((order, index) => {
                     if (order.status == "done")
                         return <OrderItem
                             key={index}

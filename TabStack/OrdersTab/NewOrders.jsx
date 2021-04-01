@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     StyleSheet,
     Text,
@@ -12,12 +12,14 @@ import {
     Button,
     TouchableOpacity,
     Modal,
-    Pressable
+    Pressable,
+    Animated
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import orders from './jsons/orders.json'
+import axios from 'axios';
 
 function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
@@ -118,11 +120,25 @@ function OrderFormModal(props) {
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost,
-        order } = props;
+    const { title, location, category, date, cost, order, animate } = props;
+
+    // this animation for the new order is enabled when animate var is true
+    const fadeAnim = useRef(new Animated.Value(0)).current
+    useEffect(() => {
+        Animated.timing(
+            fadeAnim,
+            {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: true
+            },
+        ).start();
+    }, [])
+
+    
     return (
-        <>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+        <Animated.View  style={{opacity: (animate) ? fadeAnim : 1,}}>
+            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
                         <Image source={{ uri: order.offer.image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
@@ -138,16 +154,22 @@ const OrderItem = (props) => {
                 </View>
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]} order={order} />
-        </>
+        </Animated.View>
     )
 }
 
 export default function NewOrders(props) {
 
+
+    useEffect(() => {
+
+    }, [props.newOrders])
+
+
     return (
         <ScrollView>
             {
-                orders.map((order, index) => {
+                props.newOrders.map((order, index) => {
                     if (order.status == "new")
                         return <OrderItem
                             key={index}
@@ -156,8 +178,9 @@ export default function NewOrders(props) {
                             category={order.offer.category}
                             date={order.date}
                             cost={order.cost}
-
                             order={order}
+                            
+                            animate={true}
                         />
                     else
                         return null

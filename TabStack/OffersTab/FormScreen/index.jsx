@@ -10,7 +10,7 @@ import {
 
 import Second from './formSteps/FormSlide'
 import Services from './formSteps/Services'
-
+import axios from 'axios'
 
 const reducer = (fields, action) => {
     switch (action.type) {
@@ -57,7 +57,13 @@ const reducer = (fields, action) => {
 import offers_fields from '../jsons/offers_fields.json'
 import Providers_Services from '../jsons/Providers_Services.json'
 
-function initialFieldsOfOffer(offerId) {
+function initialFieldsOfOffer(offer) {
+    return offer.fields.concat({
+        "label": "اختر مزود للخدمة",
+        "name": "testingSPs",
+        "type": "SPs",
+        "value": null
+    })
     return offers_fields.find((field) => (field.offer_id == offerId)).fields.concat({
         "label": "اختر مزود للخدمة",
         "name": "testingSPs",
@@ -66,7 +72,8 @@ function initialFieldsOfOffer(offerId) {
     })
 }
 
-function offerServices(offerId) {
+const offerServices = async (offerId) => {
+
     return Providers_Services.filter((service) => {
         if (service.offer_id == offerId)
             return true
@@ -75,13 +82,34 @@ function offerServices(offerId) {
     })
 }
 
+const fetchOfferServices = async (offerId) => {
+    try {
+        let response = await axios.get('/api/services/1')
+        let data = await response.data
+        return data
+    } catch (error) {
+        console.error(error.message + " at FormScreen/Index.jsx offerServices function");
+    }
+    return null
+}
+
 import FormModal from './components/formModal'
 
-export default function FormScreen({ navigation, route }) {
-    const offerId = route.params.offer.id;
-    const offerTitle = route.params.offer.title;
-    const initial_fields = initialFieldsOfOffer(offerId);
-    const services = offerServices(offerId);
+const FormScreen = ({ navigation, route }) => {
+    const offer = route.params.offer
+    const offerId = offer.id;
+    const offerTitle = offer.title;
+    const initial_fields = initialFieldsOfOffer(offer)
+
+    const [services, setServices] = useState([]);
+
+    useEffect(() => {
+        async function fetch() {
+            setServices(await fetchOfferServices(offerId))
+        }
+        fetch()
+
+    }, [])
 
     const [index, setIndex] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
@@ -118,24 +146,24 @@ export default function FormScreen({ navigation, route }) {
                         ))
                     }
                 </View>
-                {/* {page} */}
                 {
                     FormPages.map((page, pageIndex) => (
                         <View key={pageIndex} style={{ height: (index == pageIndex) ? null : 0 }}>
-                            {FormPages[pageIndex]}
+                            {page}
                         </View>
                     ))
                 }
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.1, alignItems: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => {
-                        if (index > 0)
-                            setIndex(index - 1)
-                    }}>
-                    <Text style={{ color: 'white' }}>السابق</Text>
-                </TouchableOpacity>
+
+                {(index) ?
+                    <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                        onPress={() => { if (index > 0) setIndex(index - 1) }}
+                    >
+                        <Text style={{ color: 'white' }}>السابق</Text>
+                    </TouchableOpacity> : null}
+
 
                 <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
@@ -146,15 +174,21 @@ export default function FormScreen({ navigation, route }) {
                             setModalVisible(true)
                     }}
                 >
-                    <Text style={{ color: 'white' }}>التالي</Text>
+                    <Text style={{ color: 'white' }}>{(index < (numberOfPages - 1)) ? ('التالي') : ('نموذج الطلب')}</Text>
                 </TouchableOpacity>
             </View>
 
-            <FormModal visiblity={[modalVisible, setModalVisible]} fields={fields} offerTitle={offerTitle}/>
+            <FormModal visibility={[modalVisible, setModalVisible]}
+                fields={fields}
+                offerTitle={offerTitle}
+
+            />
 
         </View >
     );
 }
+
+export default FormScreen
 
 const styles = StyleSheet.create({
     container: {
