@@ -19,7 +19,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import OffersScreen from './OffersScreen'
 import OfferDetailsScreen from './OfferDetailsScreen';
 import FormScreen from './FormScreen'
-import ServiceProviderScreen from './ServiceProviderScreen'
+import ServiceScreen from './ServiceScreen'
 
 const Stack = createStackNavigator();
 
@@ -46,7 +46,7 @@ export default function OffersTab() {
                 options={{ title: 'املأ الطلب' }}
             />
 
-            <Stack.Screen name="ServiceProviderScreen" component={ServiceProviderScreen}
+            <Stack.Screen name="ServiceScreen" component={ServiceScreen}
                 options={{ title: 'مزود خدمة' }}
             />
 

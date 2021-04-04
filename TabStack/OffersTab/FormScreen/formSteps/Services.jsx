@@ -35,7 +35,7 @@ const Services = (props) => {
             {
                 services.map(
                     (service, index) => (
-                        <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceProviderScreen')} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
+                        <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceScreen', {service: service})} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
                             <Image source={{ uri: service.SP.image }} style={{ flex: 0.5 }} />
                             <View style={{ margin: 10, flex: 1 }}>
                                 <Text>{service.SP.name}</Text>
@@ -45,7 +45,7 @@ const Services = (props) => {
                                     <AntDesign name="staro" size={15} color="black" />
                                     <AntDesign name="staro" size={15} color="black" />
                                     <AntDesign name="staro" size={15} color="black" />
-                                    <Text>تقييم {service.SP.rating}</Text>
+                                    <Text>تقييم {service.meta_data.rating}</Text>
                                 </View>
                                 <Text style={{ color: 'red' }}>{service.meta_data.description}</Text>
                             </View>

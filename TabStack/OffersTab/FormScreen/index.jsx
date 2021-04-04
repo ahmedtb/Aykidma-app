@@ -64,23 +64,23 @@ function initialFieldsOfOffer(offer) {
         "type": "SPs",
         "value": null
     })
-    return offers_fields.find((field) => (field.offer_id == offerId)).fields.concat({
-        "label": "اختر مزود للخدمة",
-        "name": "testingSPs",
-        "type": "SPs",
-        "value": null
-    })
+    // return offers_fields.find((field) => (field.offer_id == offerId)).fields.concat({
+    //     "label": "اختر مزود للخدمة",
+    //     "name": "testingSPs",
+    //     "type": "SPs",
+    //     "value": null
+    // })
 }
 
-const offerServices = async (offerId) => {
+// const offerServices = async (offerId) => {
 
-    return Providers_Services.filter((service) => {
-        if (service.offer_id == offerId)
-            return true
-        else
-            return false
-    })
-}
+//     return Providers_Services.filter((service) => {
+//         if (service.offer_id == offerId)
+//             return true
+//         else
+//             return false
+//     })
+// }
 
 const fetchOfferServices = async (offerId) => {
     try {
@@ -95,7 +95,7 @@ const fetchOfferServices = async (offerId) => {
 
 import FormModal from './components/formModal'
 
-const FormScreen = ({ navigation, route }) => {
+const FormScreen = ({ route }) => {
     const offer = route.params.offer
     const offerId = offer.id;
     const offerTitle = offer.title;
@@ -125,10 +125,6 @@ const FormScreen = ({ navigation, route }) => {
     ];
 
     const numberOfPages = FormPages.length;
-
-    useEffect(() => {
-
-    }, []);
 
     return (
         <View style={styles.container} >

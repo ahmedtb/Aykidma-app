@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -8,57 +8,72 @@ import {
     Image,
     TextInput,
     ScrollView,
-    Button
+    Button,
+    useWindowDimensions,
 } from 'react-native';
+import HTML from "react-native-render-html";
+
 import { AntDesign } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useState } from 'react/cjs/react.development';
 
 function ToggleDetailsComments(props) {
+    let htmlContent = props.description;
+    const contentWidth = useWindowDimensions().width;
+
+    const orders = props.orders
+
     switch (props.tab) {
         case 1: return (
-            <View style={{ flexDirection: 'row', margin: 10 }}>
-                <Image source={require('../../resources/profile.png')} style={{ width: 50, height: 50 }} />
-                <View style={{ margin: 10, flex: 1 }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={{ flex: 2 }}>محمد عمر بن عبد الله</Text>
-                        <Text style={{ flex: 1 }}>زبون</Text>
-                        <Text style={{ flex: 1 }}>2021/3/3</Text>
-                    </View>
-                    <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
-                        <AntDesign name="staro" size={15} color="black" />
-                        <AntDesign name="staro" size={15} color="black" />
-                        <AntDesign name="staro" size={15} color="black" />
-                        <AntDesign name="staro" size={15} color="black" />
-                        <AntDesign name="staro" size={15} color="black" />
-                    </View>
-                    <Text style={{ color: 'black' }}>بصراحة انا مشوفتش صنانعي كده شاطر وبيصلح اي عيب لوحده مش نحتاج تقف علي ايده وتعب معايا والله وخد فولس مناسبه جدا جدا ليا تسلم ايدك ياهندسهخ</Text>
-                </View>
-            </View>
+            <ScrollView>
+                {
+                    orders.map((order, index) => {
+                        return (
+                            <View key={index} style={{ flexDirection: 'row', margin: 10 }}>
+                                <Image source={require('../../resources/profile.png')} style={{ width: 50, height: 50 }} />
+                                <View style={{ margin: 10, flex: 1 }}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={{ flex: 2 }}>{order.meta_data.user_name}</Text>
+                                    </View>
+                                    <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                        <AntDesign name="staro" size={15} color="black" />
+                                    </View>
+                                    <Text style={{ color: 'black' }}>{order.meta_data.review.comment}</Text>
+                                </View>
+                            </View>
+                        )
+                    })
+                }
+                <View style={{height:100}} />
+            </ScrollView>
         )
         case 2: return (
             <ScrollView style={{}}>
-                <Image source={require('../../resources/cleanHouse.jpg')} style={{ width: 200, height: 200, alignSelf: 'center' }} />
-                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold' }}>نظافة منزلية كاملة</Text>
-
-                <View style={{ padding: 20 }}>
-                    <Text >
-                        جديد من تاسكتي، خدمة لنظافة المنزلية الكاملة، والتي ينفذها مجموعة:{"\n"}
-العرض يشمل:{"\n"}
-* تنظيف 7 وحدات (3 غرف + ){"\n"}
-* الحمامات غسي الحمامات،{"\n"}
-
-                    </Text>
-                </View>
-
+                <HTML source={{ html: htmlContent }} contentWidth={contentWidth} />
             </ScrollView>
         )
     }
 }
 
-export default function ServiceProviderScreen({ navigation }) {
+import axios from 'axios'
+
+export default function ServiceProviderScreen(props) {
     const [tab, setTab] = useState(1);
+    const service = props.route.params.service;
+    const [orders, setOrders] = useState([])
+
+    useEffect(() => {
+        // retrieve the recorded orders about this service
+        async function fetch() {
+            const orders = (await axios.get('/api/orders/1')).data
+            setOrders(orders)
+        }
+        fetch()
+    }, [])
 
     return (
         <View style={{}}>
@@ -98,7 +113,7 @@ export default function ServiceProviderScreen({ navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <ToggleDetailsComments tab={tab} />
+                <ToggleDetailsComments tab={tab} orders={orders} description={service.meta_data.details} />
 
             </View>
 
