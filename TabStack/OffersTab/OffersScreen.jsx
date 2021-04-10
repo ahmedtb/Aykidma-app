@@ -17,34 +17,21 @@ import axios from 'axios'
 import LoadingIndicator from '../components/loadingIndicator'
 import offers_json from './jsons/offers.json'
 
-const RenderOffersList = (props) => {
-    const offers = props.offers
-    const navigation = props.navigation
 
-    useEffect(() => {
-
-    }, [props.offers])
-
-    if (!offers)
-        return null
+const RenderOfferCard = (props) => {
+    const image = props.image;
+    const title = props.title;
+    const price = props.price
 
     return (
-        offers.map(
-            (offer, index) => {
-                return (
-                    <TouchableOpacity key={index} onPress={() => navigation.navigate('OfferDetailsScreen', { offer: offer })} style={styles.offerCard}>
-                        <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-                            <Image source={{ uri: offer.image }} style={{ width: 100, height: 100 }} />
+        <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
+            <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
 
-                            <View style={{ margin: 10 }}>
-                                <Text style={styles.offerTitle}>{offer.title}</Text>
-                                <Text style={{ color: 'red' }}>{offer.price}</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                )
-            }
-        )
+            <View style={{ margin: 10 }}>
+                <Text style={styles.offerTitle}>{title}</Text>
+                <Text style={{ color: 'red' }}>{price}</Text>
+            </View>
+        </View>
     )
 }
 
@@ -71,11 +58,24 @@ export default function OffersScreen({ navigation }) {
         })
     }, [])
 
+
     return (
         <View style={styles.container}>
 
             <ScrollView style={{ padding: 20 }}>
-                <RenderOffersList offers={offers} navigation={navigation} />
+
+                {
+                    (offers) ?
+                        offers.map(
+                            (offer, index) => {
+                                return (
+                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('OfferDetailsScreen', { offer: offer })} style={styles.offerCard}>
+                                        <RenderOfferCard image={offer.meta_data.image} title={offer.title} price={offer.meta_data.price} />
+                                    </TouchableOpacity>
+                                )
+                            }
+                        ) : (null)
+                }
 
                 {/* this is for bottom spaceing */}
                 <View style={{ height: 50 }}></View>

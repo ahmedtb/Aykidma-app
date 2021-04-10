@@ -84,7 +84,7 @@ function initialFieldsOfOffer(offer) {
 
 const fetchOfferServices = async (offerId) => {
     try {
-        let response = await axios.get('/api/services/1')
+        let response = await axios.get('/api/service/1')
         let data = await response.data
         return data
     } catch (error) {
