@@ -21,7 +21,11 @@ import orders from './jsons/orders.json'
 
 function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
-    const { date, service, offer, cost, location, fields } = props.order;
+
+    const { date, service_provider_name,
+        offer_title, cost,
+        location_name, fields, } = props;
+
     return (
         <Modal
             animationType="fade"
@@ -44,21 +48,21 @@ function OrderFormModal(props) {
 
                     <View style={{ borderWidth: 1, marginBottom: 20 }}>
                         <View style={{}}>
-                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service.SP.name}</Text>
+                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service_provider_name}</Text>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer.title}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer_title}</Text>
                                 <Text style={{ color: 'black', fontSize: 20, }}>الــــســـعـــــر : {cost}</Text>
                             </View>
 
                             <View style={{ flexDirection: 'row', }}>
                                 <Text style={{ color: 'black', fontSize: 20, }}>الـمـنـطـقـة : </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>{location.name}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>{location_name}</Text>
                             </View>
 
 
                             <View style={{ flexDirection: 'row', }}>
                                 <Text style={{ color: 'black', fontSize: 20, }}>نوع الخدمة المراد تنفيذها: </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>{offer.title}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>{offer_title}</Text>
                             </View>
 
                         </View>
@@ -118,14 +122,13 @@ function OrderFormModal(props) {
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost,
-        order } = props;
+    const { title, location, category, date, cost, image, order } = props;
     return (
         <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: order.offer.image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                        <Image source={{ uri: image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
                         <Text style={{ textAlign: 'center' }}>{date}</Text>
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>
@@ -137,14 +140,19 @@ const OrderItem = (props) => {
                     <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
                 </View>
             </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]} order={order} />
+            <OrderFormModal visible={[modalVisible, setModalVisible]}
+                date={order.created_at} service_provider_name={order.service.service_provider.name}
+                offer_title={order.service.offer.title} cost={order.meta_data.cost}
+                location_name={order.meta_data.location.name} fields={order.fields}
+            // order={order}
+            />
         </>
     )
 }
 
 export default function DoneOrders(props) {
 
-    useEffect( () => {
+    useEffect(() => {
 
     }, [props.doneOrders])
     return (
@@ -154,11 +162,12 @@ export default function DoneOrders(props) {
                     if (order.status == "done")
                         return <OrderItem
                             key={index}
-                            title={order.offer.title}
-                            location={order.location.name}
-                            category={order.offer.category}
+                            title={order.service.offer.title}
+                            location={order.meta_data.location.name}
+                            category={order.service.offer.category}
                             date={order.date}
                             cost={order.cost}
+                            image={order.service.offer.meta_data.image}
 
                             order={order}
                         />

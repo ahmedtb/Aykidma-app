@@ -120,7 +120,7 @@ function OrderFormModal(props) {
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, order, animate } = props;
+    const { title, location, category, date, cost, animate, image, order } = props;
 
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
@@ -141,7 +141,7 @@ const OrderItem = (props) => {
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: order.offer.image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                        <Image source={{ uri: image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
                         <Text style={{ textAlign: 'center' }}>{date}</Text>
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>
@@ -173,12 +173,12 @@ export default function NewOrders(props) {
                     if (order.status == "new")
                         return <OrderItem
                             key={index}
-                            title={order.offer.title}
-                            location={order.location.name}
-                            category={order.offer.category}
+                            title={order.service.offer.title}
+                            location={order.meta_data.location.name}
+                            category={order.service.offer.category}
                             date={order.date}
                             cost={order.cost}
-                            order={order}
+                            image={order.service.offer.meta_data.image}
                             
                             animate={true}
                         />

@@ -16,8 +16,8 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 import Providers_Services from '../../jsons/Providers_Services.json'
 
-import SPs_json from '../../jsons/SPs.json'
-const SPs = SPs_json;
+// import SPs_json from '../../jsons/SPs.json'
+// const SPs = SPs_json;
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -36,9 +36,9 @@ const Services = (props) => {
                 services.map(
                     (service, index) => (
                         <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceScreen', {service: service})} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
-                            <Image source={{ uri: service.SP.image }} style={{ flex: 0.5 }} />
+                            <Image source={{ uri: service.service_provider.image }} style={{ flex: 0.5 }} />
                             <View style={{ margin: 10, flex: 1 }}>
-                                <Text>{service.SP.name}</Text>
+                                <Text>{service.service_provider.name}</Text>
                                 <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
                                     <AntDesign name="staro" size={15} color="black" />
                                     <AntDesign name="staro" size={15} color="black" />
