@@ -1,26 +1,47 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-
 import axios from 'axios';
 
-// set the base URL globally
-axios.defaults.baseURL = 'http://10.0.3.2:8000';
+export const AuthContext = React.createContext({});
 
-export const AppContext = React.createContext({});
+function reducer(state, action) {
+    switch (action.type) {
+      case 'login':
+        return {user: action.user, token: action.token, login: true};
+      case 'logout':
+        return {...state, login: false};
 
-export const AppProvider = ({children}) => {
+    }
+  }
 
-    const [user, setUser] = useState(null)
+export const AuthProvider = ({ children }) => {
+
+    const [user, setUser] = useState(null);
+
+    async function login(phoneNumber, password) {
+        try {
+            data = await axios.post('api/login', {
+                'phone_number': phoneNumber,
+                'password': password,
+                'device_name': 'mobile'
+            }).data;
+            setUser(data)
+            return data
+        }catch(error){
+            console.warn('error happened at AuthState.js: login func');
+        }
+
+    }
 
 
     return (
-        <AppContext.Provider
+        <AuthContext.Provider
             value={{
                 user,
-                setUser
+                login
             }}
         >
             {children}
-        </AppContext.Provider>
+        </AuthContext.Provider>
     )
 }

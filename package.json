@@ -35,12 +35,18 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@babel/preset-react": "^7.13.13",
     "babel-jest": "~25.2.6",
     "jest": "~25.2.6",
-    "react-test-renderer": "~16.13.1"
+    "jest-expo": "^41.0.0",
+    "react-test-renderer": "^17.0.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ],
+    "collectCoverage": true
   },
   "private": true
 }

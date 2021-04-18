@@ -5,4 +5,5 @@ import AppStack from './AppStack';
 
 export default function Route() {
     
+    return (<AppStack />)
 }
