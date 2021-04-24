@@ -1,0 +1,55 @@
+import React, { useEffect } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View, Modal } from 'react-native';
+
+const SubmitForm = (props) => {
+
+    useEffect(() => {
+
+    },[props.visibility])
+
+    return (
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={props.visibility}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(52, 52, 52, 0.6)',
+                }}>
+                <View style={{
+                    backgroundColor: 'white',
+                    padding: 10,
+                    marginHorizontal: 40,
+                    borderRadius: 10,
+                    shadowColor: 'blue',
+                    shadowOffset: {
+                        width: 10,
+                        height: 20,
+                    },
+                    shadowOpacity: 0.9,
+                    shadowRadius: 40,
+                }}>
+                    <ActivityIndicator size="large" color="red" />
+                    <Text style={{
+                        textAlign: 'center',
+                        color: 'grey',
+                        margin: 10,
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                    }}>
+                        جار تقديم طلبك
+                        </Text>
+                </View>
+            </View>
+        </Modal>
+    );
+}
+
+
+const styles = StyleSheet.create({
+
+});
+
+export default SubmitForm;
