@@ -1,14 +1,14 @@
 import React, {useReducer, useState} from 'react'
 import axios from 'axios'
 
-export const UserContext = React.createContext({});
+export const AppStateContext = React.createContext({});
 
-export const UserProvider = ({children}) => {
+export const AppStateProvider = ({children}) => {
 
 
     return (
-        <UserContext.Provider >
+        <AppStateContext.Provider >
             {children}
-        </UserContext.Provider>
+        </AppStateContext.Provider>
     )
 }

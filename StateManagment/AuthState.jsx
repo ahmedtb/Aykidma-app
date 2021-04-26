@@ -6,13 +6,12 @@ export const AuthContext = React.createContext({});
 
 function reducer(state, action) {
     switch (action.type) {
-      case 'login':
-        return {user: action.user, token: action.token, login: true};
-      case 'logout':
-        return {...state, login: false};
-
+        case 'login':
+            return { user: action.user, token: action.token, login: true };
+        case 'logout':
+            return { ...state, login: false };
     }
-  }
+}
 
 export const AuthProvider = ({ children }) => {
 
@@ -27,12 +26,10 @@ export const AuthProvider = ({ children }) => {
             }).data;
             setUser(data)
             return data
-        }catch(error){
+        } catch (error) {
             console.warn('error happened at AuthState.js: login func');
         }
-
     }
-
 
     return (
         <AuthContext.Provider

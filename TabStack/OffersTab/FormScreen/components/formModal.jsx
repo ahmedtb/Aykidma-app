@@ -62,16 +62,27 @@ export default function FormModal(props) {
     const fields = props.fields;
 
     const [modalVisible, setModalVisible] = props.visibility
+
     function submitOrder() {
         setLoading(true)
         axios.post('/api/orders', { fields: fields, service_id: 1, user_id:1 }).then(response => {
             console.log(response.data)
         }).catch(error => {
-
+            if (error.response) {
+                // Request made and server responded
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
         }).finally(() => {
             setLoading(false)
             setModalVisible(false)
-            // navigation.navigate('طلباتي', {newOrderId: 1})
             setDialogBox(true)
         })
     }
@@ -151,10 +162,7 @@ export default function FormModal(props) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
+
     centeredView: {
         flex: 1,
         justifyContent: "center",
