@@ -1,12 +1,80 @@
-import React, {useContext} from 'react'
-import {modal,Text, StyleSheet} from 'react-native'
+import React, { useContext, useState } from 'react'
+import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native'
 
-import {AuthContext} from '../../StateManagment/AuthState'
+import { AuthContext } from '../../StateManagment/AuthState'
 
-export default function LoginModal(props)
-{
-    const {login, user} = useContext(AuthContext)
+export default function LoginModal(props) {
+    const { login, user } = useContext(AuthContext)
+    const [loginVisible, setLoginVisible] = props.visibility
+    const [phoneNumber, setPhoneNumber] = useState(null)
+    const [password, setPassword] = useState(null)
 
+    return (
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={loginVisible}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(52, 52, 52, 0.6)',
+                }}>
+                <View style={{
+                    height: '80%',
+                    width: '80%',
+                    backgroundColor: 'white',
+                    padding: 10,
+                    marginHorizontal: 40,
+                    borderRadius: 10,
+                    shadowColor: 'blue',
+                    shadowOffset: {
+                        width: 10,
+                        height: 20,
+                    },
+                    shadowOpacity: 0.9,
+                    shadowRadius: 40,
+                }}>
+                    <Text style={{
+                        textAlign: 'center',
+                        color: 'black',
+                        padding: 10,
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        borderBottomWidth: 1
+                    }}>
+                        يرجى تسجيل الدخول
+                    </Text>
+
+                    <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                        <Text style={{ fontSize: 20 }}>رقم الهاتف</Text>
+                        <TextInput
+                            style={{ flex: 1 }}
+                            value={{ phoneNumber }}
+                            onChange={ (value) => setPhoneNumber(value) }
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 20 }}>كلمة المرور</Text>
+                        <TextInput
+                            style={{ flex: 1 }}
+                            value={{ password }}
+                            onChange={ (value) => setPassword(value) }
+                        />
+                    </View>
+
+                    <TouchableOpacity
+                        style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                        onPress={ login(phoneNumber, password) }
+                    >
+                        <Text style={{ color: 'white' }}>
+                            دخول
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+    )
 }
 
 const styles = StyleSheet.create({

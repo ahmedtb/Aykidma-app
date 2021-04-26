@@ -42,7 +42,18 @@ const fetchOffers = async () => {
         let data = await response.data
         return data
     } catch (error) {
-        console.error(error.message + " at OffersScreen.jsx/fetchOffers function");
+        if (error.response) {
+            // Request made and server responded
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }
     }
     return null
 }

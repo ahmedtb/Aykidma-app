@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -64,23 +64,7 @@ function initialFieldsOfOffer(offer) {
         "type": "SPs",
         "value": null
     })
-    // return offers_fields.find((field) => (field.offer_id == offerId)).fields.concat({
-    //     "label": "اختر مزود للخدمة",
-    //     "name": "testingSPs",
-    //     "type": "SPs",
-    //     "value": null
-    // })
 }
-
-// const offerServices = async (offerId) => {
-
-//     return Providers_Services.filter((service) => {
-//         if (service.offer_id == offerId)
-//             return true
-//         else
-//             return false
-//     })
-// }
 
 const fetchOfferServices = async (offerId) => {
     try {
@@ -94,6 +78,8 @@ const fetchOfferServices = async (offerId) => {
 }
 
 import FormModal from './components/formModal'
+import LoginModal from '../../components/LoginModal'
+import { AuthContext } from '../../../StateManagment/AuthState'
 
 const FormScreen = ({ route }) => {
     const offer = route.params.offer
@@ -112,7 +98,10 @@ const FormScreen = ({ route }) => {
     }, [])
 
     const [index, setIndex] = useState(0);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [formModalVisible, setFormModalVisible] = useState(false);
+
+    const { user } = useContext(AuthContext)
+    const [loginVisible, setLoginVisible] = useState(false)
 
     const [fields, dispatch] = useReducer(reducer, initial_fields);
 
@@ -166,19 +155,25 @@ const FormScreen = ({ route }) => {
                         // less than pages last index
                         if (index < (numberOfPages - 1))
                             setIndex(index + 1)
-                        else
-                            setModalVisible(true)
+                        else {
+                            if (user)
+                                setFormModalVisible(true)
+                            else
+                                setLoginVisible(true)
+                        }
                     }}
                 >
                     <Text style={{ color: 'white' }}>{(index < (numberOfPages - 1)) ? ('التالي') : ('نموذج الطلب')}</Text>
                 </TouchableOpacity>
             </View>
 
-            <FormModal visibility={[modalVisible, setModalVisible]}
+
+            <FormModal visibility={[formModalVisible, setFormModalVisible]}
                 fields={fields}
                 offerTitle={offerTitle}
-
             />
+
+            <LoginModal visibility={[loginVisible, setLoginVisible]} />
 
         </View >
     );
