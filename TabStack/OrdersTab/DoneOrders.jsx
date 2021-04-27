@@ -122,7 +122,7 @@ function OrderFormModal(props) {
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, image, order } = props;
+    const { title, location, category, date, cost, image, service_provider_name, fields } = props;
     return (
         <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
@@ -141,10 +141,9 @@ const OrderItem = (props) => {
                 </View>
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
-                date={order.created_at} service_provider_name={order.service.service_provider.name}
-                offer_title={order.service.offer.title} cost={order.meta_data.cost}
-                location_name={order.meta_data.location.name} fields={order.fields}
-            // order={order}
+                date={date} service_provider_name={service_provider_name}
+                offer_title={title} cost={cost}
+                location_name={location} fields={fields}
             />
         </>
     )
@@ -165,11 +164,11 @@ export default function DoneOrders(props) {
                             title={order.service.offer.title}
                             location={order.meta_data.location.name}
                             category={order.service.offer.category}
-                            date={order.date}
-                            cost={order.cost}
+                            date={order.created_at}
+                            cost={order.meta_data.cost}
                             image={order.service.offer.meta_data.image}
-
-                            order={order}
+                            service_provider_name={order.service.service_provider.name}
+                            fields={order.fields}
                         />
                     else
                         return null

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     Modal,
     View,
@@ -52,7 +52,11 @@ function DialogBox(props) {
     )
 }
 
+import {AuthContext} from '../../../../StateManagment/AuthState'
+
 export default function FormModal(props) {
+    const { login, user } = useContext(AuthContext)
+
     const navigation = useNavigation();
 
     const [loading, setLoading] = useState(false)
@@ -64,8 +68,18 @@ export default function FormModal(props) {
     const [modalVisible, setModalVisible] = props.visibility
 
     function submitOrder() {
+        
         setLoading(true)
-        axios.post('/api/orders', { fields: fields, service_id: 1, user_id:1 }).then(response => {
+
+        const bodyParameters = {
+            fields: fields, service_id: 1, user_id:1
+         };
+        const token = user.token
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        axios.post('/api/orders', bodyParameters, config).then(response => {
             console.log(response.data)
         }).catch(error => {
             if (error.response) {

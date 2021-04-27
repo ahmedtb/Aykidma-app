@@ -58,12 +58,13 @@ import offers_fields from '../jsons/offers_fields.json'
 import Providers_Services from '../jsons/Providers_Services.json'
 
 function initialFieldsOfOffer(offer) {
-    return offer.fields.concat({
-        "label": "اختر مزود للخدمة",
-        "name": "testingSPs",
-        "type": "SPs",
-        "value": null
-    })
+    return offer.fields
+    // .concat({
+    //     "label": "اختر مزود للخدمة",
+    //     "name": "testingSPs",
+    //     "type": "SPs",
+    //     "value": null
+    // })
 }
 
 const fetchOfferServices = async (offerId) => {
@@ -98,10 +99,11 @@ const FormScreen = ({ route }) => {
     }, [])
 
     const [index, setIndex] = useState(0);
-    const [formModalVisible, setFormModalVisible] = useState(false);
 
     const { user } = useContext(AuthContext)
-    const [loginVisible, setLoginVisible] = useState(false)
+
+    const [dialogVisible, setDialogVisible] = useState(false)
+
 
     const [fields, dispatch] = useReducer(reducer, initial_fields);
 
@@ -109,7 +111,7 @@ const FormScreen = ({ route }) => {
     let FormPages = [
         <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
         <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
-        <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
+        // <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
         <Services ReducerState={[fields, dispatch]} services={services} />,
     ];
 
@@ -156,10 +158,8 @@ const FormScreen = ({ route }) => {
                         if (index < (numberOfPages - 1))
                             setIndex(index + 1)
                         else {
-                            if (user)
-                                setFormModalVisible(true)
-                            else
-                                setLoginVisible(true)
+                            setDialogVisible(true)
+                            
                         }
                     }}
                 >
@@ -168,12 +168,21 @@ const FormScreen = ({ route }) => {
             </View>
 
 
-            <FormModal visibility={[formModalVisible, setFormModalVisible]}
-                fields={fields}
-                offerTitle={offerTitle}
-            />
+            {
+                (user) ?
+                    (
+                        <FormModal visibility={[dialogVisible, setDialogVisible]}
+                            fields={fields}
+                            offerTitle={offerTitle}
+                        />
+                    )
+                    :
+                    (
+                        <LoginModal visibility={[dialogVisible, setDialogVisible]} />
+                    )
+            }
 
-            <LoginModal visibility={[loginVisible, setLoginVisible]} />
+
 
         </View >
     );

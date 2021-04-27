@@ -48,7 +48,7 @@ function ToggleDetailsComments(props) {
                         )
                     })
                 }
-                <View style={{height:100}} />
+                <View style={{ height: 100 }} />
             </ScrollView>
         )
         case 2: return (
@@ -69,8 +69,24 @@ export default function ServiceProviderScreen(props) {
     useEffect(() => {
         // retrieve the recorded orders about this service
         async function fetch() {
-            const orders = (await axios.get('/api/orders/1')).data
-            setOrders(orders)
+            try {
+                const orders = (await axios.get('/api/orders/1')).data
+                setOrders(orders)
+            } catch(error){
+                if (error.response) {
+                    // Request made and server responded
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                }
+            }
+            
         }
         fetch()
     }, [])

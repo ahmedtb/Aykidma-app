@@ -35,42 +35,64 @@ export default function LoginModal(props) {
                     shadowOpacity: 0.9,
                     shadowRadius: 40,
                 }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        color: 'black',
-                        padding: 10,
-                        fontSize: 20,
-                        fontWeight: 'bold',
-                        borderBottomWidth: 1
-                    }}>
-                        يرجى تسجيل الدخول
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{
+                            textAlign: 'center',
+                            color: 'black',
+                            padding: 10,
+                            fontSize: 20,
+                            fontWeight: 'bold',
+                            borderBottomWidth: 1
+                        }}>
+                            يرجى تسجيل الدخول
                     </Text>
+
+                        <TouchableOpacity
+                            style={{ alignSelf: 'center', backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                            onPress={() => {
+                                setLoginVisible(false)
+                            }
+                            }
+                        >
+                            <Text style={{ color: 'white' }}>
+                                اغلاق
+                        </Text>
+                        </TouchableOpacity>
+                    </View>
+
 
                     <View style={{ flexDirection: 'row', marginVertical: 10 }}>
                         <Text style={{ fontSize: 20 }}>رقم الهاتف</Text>
                         <TextInput
                             style={{ flex: 1 }}
-                            value={{ phoneNumber }}
-                            onChange={ (value) => setPhoneNumber(value) }
+                            value={phoneNumber}
+                            onChangeText={setPhoneNumber}
                         />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{ fontSize: 20 }}>كلمة المرور</Text>
                         <TextInput
                             style={{ flex: 1 }}
-                            value={{ password }}
-                            onChange={ (value) => setPassword(value) }
+                            value={password}
+                            onChangeText={setPassword}
                         />
                     </View>
 
                     <TouchableOpacity
                         style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                        onPress={ login(phoneNumber, password) }
+                        onPress={() => {
+                            login(phoneNumber, password)
+                            // .then((data) => { console.log(data) })
+                            // .catch((error) => console.log(error))
+                        }
+                        }
                     >
                         <Text style={{ color: 'white' }}>
                             دخول
                         </Text>
                     </TouchableOpacity>
+
+
                 </View>
             </View>
         </Modal>

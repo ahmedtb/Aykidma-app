@@ -23,7 +23,9 @@ import axios from 'axios';
 
 function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
-    const { date, service, offer, cost, location, fields } = props.order;
+    const { date, service_provider_name,
+        offer_title, cost,
+        location_name, fields, } = props;
     return (
         <Modal
             animationType="fade"
@@ -46,21 +48,21 @@ function OrderFormModal(props) {
 
                     <View style={{ borderWidth: 1, marginBottom: 20 }}>
                         <View style={{}}>
-                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service.SP.name}</Text>
+                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service_provider_name}</Text>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer.title}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer_title}</Text>
                                 <Text style={{ color: 'black', fontSize: 20, }}>الــــســـعـــــر : {cost}</Text>
                             </View>
 
                             <View style={{ flexDirection: 'row', }}>
                                 <Text style={{ color: 'black', fontSize: 20, }}>الـمـنـطـقـة : </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>{location.name}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>{location_name}</Text>
                             </View>
 
 
                             <View style={{ flexDirection: 'row', }}>
                                 <Text style={{ color: 'black', fontSize: 20, }}>نوع الخدمة المراد تنفيذها: </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>{offer.title}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, }}>{offer_title}</Text>
                             </View>
 
                         </View>
@@ -120,7 +122,7 @@ function OrderFormModal(props) {
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, animate, image, order } = props;
+    const { title, location, category, date, cost, image, service_provider_name, fields, animate } = props;
 
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
@@ -135,9 +137,9 @@ const OrderItem = (props) => {
         ).start();
     }, [])
 
-    
+
     return (
-        <Animated.View  style={{opacity: (animate) ? fadeAnim : 1,}}>
+        <Animated.View style={{ opacity: (animate) ? fadeAnim : 1, }}>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
@@ -153,7 +155,11 @@ const OrderItem = (props) => {
                     <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
                 </View>
             </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]} order={order} />
+            <OrderFormModal visible={[modalVisible, setModalVisible]}
+                date={date} service_provider_name={service_provider_name}
+                offer_title={title} cost={cost}
+                location_name={location} fields={fields}
+            />
         </Animated.View>
     )
 }
@@ -174,12 +180,14 @@ export default function NewOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.offer.title}
-                            location={order.meta_data.location.name}
+                            location={(order.meta_data)? order.meta_data.location.name : null}
                             category={order.service.offer.category}
-                            date={order.date}
-                            cost={order.cost}
-                            image={order.service.offer.meta_data.image}
-                            
+                            date={order.created_at}
+                            cost={(order.meta_data)? order.meta_data.cost: null}
+                            image={(order.service.offer.meta_data)?  order.service.offer.meta_data.image: null}
+                            service_provider_name={order.service.service_provider.name}
+                            fields={order.fields}
+
                             animate={true}
                         />
                     else
