@@ -8,7 +8,6 @@
 // react native configurations
 import 'react-native-gesture-handler';
 import React from 'react';
-import type { Node } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -34,7 +33,7 @@ axios.defaults.baseURL = 'http://10.0.3.2:8000';
 
 
 
-const App: () => Node = () => {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   I18nManager.forceRTL(true);
   const backgroundStyle = {
@@ -43,9 +42,9 @@ const App: () => Node = () => {
 
   return (
     <NavigationContainer>
-      <SafeAreaProvider>
+      {/* <SafeAreaProvider> */}
         <Route />
-      </SafeAreaProvider>
+      {/* </SafeAreaProvider> */}
     </NavigationContainer>
   );
 };
