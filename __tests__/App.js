@@ -10,6 +10,7 @@ import renderer from 'react-test-renderer';
 
 jest.useFakeTimers();
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('@expo/vector-icons')
 
 it('renders correctly', () => {
   renderer.create(<App />);

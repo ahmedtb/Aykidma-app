@@ -10,12 +10,12 @@ import {
     ScrollView,
     Button,
     useWindowDimensions,
+    TouchableOpacity
 } from 'react-native';
 import HTML from "react-native-render-html";
 
 import { AntDesign } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function ToggleDetailsComments(props) {
     let htmlContent = props.description;

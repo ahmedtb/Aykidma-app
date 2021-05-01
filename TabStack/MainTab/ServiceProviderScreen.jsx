@@ -8,11 +8,10 @@ import {
     Image,
     TextInput,
     ScrollView,
-    Button
+    Button,
+    TouchableOpacity
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react/cjs/react.development';
 
 function ToggleDetailsComments(props) {
