@@ -82,7 +82,7 @@ export default function OrdersTab({ navigation }) {
         });
 
         return unsubscribe;
-    }, [navigation]);
+    }, [navigation, user]);
 
     if (user)
         return (

@@ -21,7 +21,7 @@ it('renders correctly', async () => {
   const offers = inst.getByText('كل العروض')
   fireEvent.press(offers)
 
-  await waitFor(() => expect(inst.queryByText('خدمات طلاء')).toBeTruthy() )
+  await waitFor(() => expect(inst.queryByText('تجديد وترميم الحمامات والمطابخ')).toBeTruthy() )
 
 
 });
