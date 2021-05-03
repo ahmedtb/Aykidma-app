@@ -32,15 +32,15 @@ function DialogBox(props) {
                             تم تقديم طلبك بنجاح
                         </Text>
                         <Text>سيتم عرض طلبك على مزود الخدمة حتى يقبل به....لدى يرجى الانتظار حتى استجابة مزود الخدمة</Text>
-                        
+
                         <Pressable
                             onPress={() => {
                                 setDialogBox(false)
                                 navigation.navigate('طلباتي', { newOrderId: 1 })
                             }}
-                            style={{backgroundColor:'red', elevation:3, padding:7, borderRadius:6}}
+                            style={{ backgroundColor: 'red', elevation: 3, padding: 7, borderRadius: 6 }}
                         >
-                            <Text style={{textAlign:'center', color:'white'}}>موافق</Text>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>موافق</Text>
                         </Pressable>
 
                     </View>
@@ -52,7 +52,7 @@ function DialogBox(props) {
     )
 }
 
-import {AuthContext} from '../../../../StateManagment/AuthState'
+import { AuthContext } from '../../../../StateManagment/AuthState'
 
 export default function FormModal(props) {
     const { login, user } = useContext(AuthContext)
@@ -63,17 +63,18 @@ export default function FormModal(props) {
     const [dialogBox, setDialogBox] = useState(false)
 
     const offerTitle = props.offerTitle
-    const fields = props.fields;
+    const fields = props.state.fields
+    const service = props.state.service
 
     const [modalVisible, setModalVisible] = props.visibility
 
     function submitOrder() {
-        
+
         setLoading(true)
 
         const bodyParameters = {
-            fields: fields, service_id: 1, user_id:1
-         };
+            fields: fields, service_id: service, user_id: user.user.id
+        };
         const token = user.token
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -87,13 +88,13 @@ export default function FormModal(props) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-              } else if (error.request) {
+            } else if (error.request) {
                 // The request was made but no response was received
                 console.log(error.request);
-              } else {
+            } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error', error.message);
-              }
+            }
         }).finally(() => {
             setLoading(false)
             setModalVisible(false)
@@ -143,6 +144,10 @@ export default function FormModal(props) {
                                 })
                             }
 
+                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                <Text style={{ color: 'black', }}>{'مزود الخدمة'}: {service}</Text>
+                            </View>
+
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
@@ -169,7 +174,7 @@ export default function FormModal(props) {
             </Modal>
 
             <LoadingIndicator visibility={loading} label='جاري تقديم طلبك' />
-            <DialogBox visibility={[dialogBox, setDialogBox] } />
+            <DialogBox visibility={[dialogBox, setDialogBox]} />
         </View>
 
     )

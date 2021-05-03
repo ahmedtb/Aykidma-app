@@ -12,53 +12,62 @@ import Second from './formSteps/FormSlide'
 import Services from './formSteps/Services'
 import axios from 'axios'
 
-const reducer = (fields, action) => {
+const reducer = (state, action) => {
     switch (action.type) {
         case 'change':
-            return fields.map((field) => {
+            state.fields = state.fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;
                 return field;
             })
+            return state
         case 'change_testingOptions':
-            return fields.map((field) => {
+            state.fields = state.fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;
                 return field;
             })
+            return state
         case 'change_testingString':
-            return fields.map((field) => {
+            state.fields = state.fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;
                 return field;
             })
+            return state
         case 'change_testingTextArea':
-            return fields.map((field) => {
+            state.fields = state.fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;
                 return field;
             })
+            return state
         case 'change_testingLocation':
-            return fields.map((field) => {
+            state.fields = state.fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;
                 return field;
             })
+            return state
         case 'change_testingImage':
-            return fields.map((field) => {
+            state.fields = state.fields.map((field) => {
                 if (field.name == action.payload.name)
                     field.value = action.payload.value;
                 return field;
             })
+            return state
+        case 'change_service':
+            state.service = action.payload.value
+            return state
     }
-    return fields;
+    return state;
 
 }
 import offers_fields from '../jsons/offers_fields.json'
 import Providers_Services from '../jsons/Providers_Services.json'
 
 function initialFieldsOfOffer(offer) {
-    return offer.fields
+    return { fields: offer.fields, service: null }
     // .concat({
     //     "label": "اختر مزود للخدمة",
     //     "name": "testingSPs",
@@ -69,7 +78,7 @@ function initialFieldsOfOffer(offer) {
 
 const fetchOfferServices = async (offerId) => {
     try {
-        let response = await axios.get('/api/service/1')
+        let response = await axios.get('/api/service/' + offerId)
         let data = await response.data
         return data
     } catch (error) {
@@ -86,7 +95,7 @@ const FormScreen = ({ route }) => {
     const offer = route.params.offer
     const offerId = offer.id;
     const offerTitle = offer.title;
-    const initial_fields = initialFieldsOfOffer(offer)
+    const initial_state = initialFieldsOfOffer(offer)
 
     const [services, setServices] = useState([]);
 
@@ -104,15 +113,13 @@ const FormScreen = ({ route }) => {
 
     const [dialogVisible, setDialogVisible] = useState(false)
 
-
-    const [fields, dispatch] = useReducer(reducer, initial_fields);
-
+    const [state, dispatch] = useReducer(reducer, initial_state);
 
     let FormPages = [
-        <Second ReducerState={[fields.slice(0, 3), dispatch]} />,
-        <Second ReducerState={[fields.slice(3, 5), dispatch]} />,
+        <Second ReducerState={[state.fields.slice(0, 3), dispatch]} />,
+        <Second ReducerState={[state.fields.slice(3, 5), dispatch]} />,
         // <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
-        <Services ReducerState={[fields, dispatch]} services={services} />,
+        <Services ReducerState={[state.fields, dispatch]} services={services} />,
     ];
 
     const numberOfPages = FormPages.length;
@@ -159,7 +166,7 @@ const FormScreen = ({ route }) => {
                             setIndex(index + 1)
                         else {
                             setDialogVisible(true)
-                            
+
                         }
                     }}
                 >
@@ -172,7 +179,8 @@ const FormScreen = ({ route }) => {
                 (user) ?
                     (
                         <FormModal visibility={[dialogVisible, setDialogVisible]}
-                            fields={fields}
+                            // fields={state.fields}
+                            state={state}
                             offerTitle={offerTitle}
                         />
                     )

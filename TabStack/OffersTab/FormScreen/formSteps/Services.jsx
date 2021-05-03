@@ -50,7 +50,7 @@ const Services = (props) => {
                                 <Text style={{ color: 'red' }}>{service.meta_data.description}</Text>
                             </View>
                             <TouchableOpacity onPress={() => {
-                                dispatch({ type: 'change', payload: { name: 'testingSPs', value: service.id } });
+                                dispatch({ type: 'change_service', payload: {  value: service.id } });
                                 setChoice(service.id);
                             }
                             } style={{ justifyContent: 'center', paddingHorizontal: 25, paddingVertical: 10, alignSelf: 'center', borderRadius: 10 }}>
