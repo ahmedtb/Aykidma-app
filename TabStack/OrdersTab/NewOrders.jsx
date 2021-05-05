@@ -78,6 +78,15 @@ function OrderFormModal(props) {
                                     if (field.type == "location")
                                         value = field.value.latitude + ", " + field.value.longitude;
 
+                                    if (field.type == 'image') {
+                                        return (
+                                            <View key={index}>
+                                                <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
+                                            </View>
+
+                                        )
+                                    }
+
                                     return (
                                         <View key={index}>
 
@@ -180,11 +189,11 @@ export default function NewOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.offer.title}
-                            location={(order.meta_data)? order.meta_data.location.name : null}
+                            location={(order.meta_data) ? order.meta_data.location.name : null}
                             category={order.service.offer.category}
                             date={order.created_at}
-                            cost={(order.meta_data)? order.meta_data.cost: null}
-                            image={(order.service.offer.meta_data)?  order.service.offer.meta_data.image: null}
+                            cost={(order.meta_data) ? order.meta_data.cost : null}
+                            image={(order.service.offer.meta_data) ? order.service.offer.meta_data.image : null}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
 

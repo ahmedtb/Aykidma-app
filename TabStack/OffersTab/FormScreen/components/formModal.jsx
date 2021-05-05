@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     Text,
-    Pressable
+    Pressable,
+    Image
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -53,6 +54,7 @@ function DialogBox(props) {
 }
 
 import { AuthContext } from '../../../../StateManagment/AuthState'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function FormModal(props) {
     const { login, user } = useContext(AuthContext)
@@ -113,7 +115,7 @@ export default function FormModal(props) {
                 }}
             >
                 <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+                    <ScrollView style={styles.modalView}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>نموذج طلب خدمة</Text>
 
@@ -135,12 +137,22 @@ export default function FormModal(props) {
 
                             {
                                 fields.map((field, index) => {
-                                    if (field.type != 'location')
+                                    if (field.type == 'location')
+                                        return null
+
+                                    if (field.type == 'image') {
                                         return (
-                                            <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                                <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
+                                            <View key={index}>
+                                                <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
                                             </View>
                                         )
+                                    }
+
+                                    return (
+                                        <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                            <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
+                                        </View>
+                                    )
                                 })
                             }
 
@@ -169,7 +181,7 @@ export default function FormModal(props) {
                             </Pressable>
                         </View>
 
-                    </View>
+                    </ScrollView>
                 </View>
             </Modal>
 

@@ -27,13 +27,15 @@ export default function ImagePickerExample(props) {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
+            base64: true
         });
 
         // console.log(result);
 
         if (!result.cancelled) {
-            setImage(result.uri);
-            props.onChange(result.uri);
+            // setImage(result.uri);
+            setImage(result.base64)
+            props.onChange(result.base64);
         }
     };
 
@@ -44,7 +46,7 @@ export default function ImagePickerExample(props) {
             </TouchableOpacity>
             <TouchableOpacity onPress={pickImage} >
 
-                {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+                {image && <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />}
             </TouchableOpacity>
 
         </View>
