@@ -75,7 +75,7 @@ export default function OrdersTab({ navigation }) {
             }
 
         }
-        // fetch()
+        fetch()
 
         const unsubscribe = navigation.addListener('focus', () => {
             fetch()
