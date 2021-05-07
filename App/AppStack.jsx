@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TabStack from '../TabStack';
 
+import { AppStateContext } from '../StateManagment/AppState'
 
-export default function AppStack(){
+import ServiceProviderTabStack from '../ServiceProviderTabStack'
 
-    return (<TabStack />)
+export const StacksEnum = {
+    TabStack: 1,
+    ServiceProviderTabStack: 2
+}
+
+export default function AppStack() {
+    const { stack } = useContext(AppStateContext)
+    console.log(stack)
+    if (stack == StacksEnum.ServiceProviderTabStack )
+        return (
+            <ServiceProviderTabStack />
+        )
+    else
+        return (
+            <TabStack />
+        )
 }

@@ -69,8 +69,12 @@ function MoreTab(props) {
                 <Text style={styles.fieldLable} >المحفظة</Text>
             </View>
 
-            <TouchableOpacity onPress={() => props.navigation.navigate('التسجيل') } style={styles.menuItem}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الملف الشخصي</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem} >
+                <Text style={styles.fieldLable} >تسجيل الدخول</Text>
             </TouchableOpacity>
 
             <View style={styles.menuItem}>
@@ -84,9 +88,6 @@ function MoreTab(props) {
             </View>
 
 
-            <TouchableOpacity onPress={() => navigation.navigate('FormScreen')} style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
-                <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>تسجيل</Text>
-            </TouchableOpacity>
         </View>
     );
 }

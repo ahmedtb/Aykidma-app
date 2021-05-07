@@ -16,33 +16,9 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-import ConfirmationScreen from './confirmationScreen'
-export default function EnrolmentTabStack() {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: 'red',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold'
-                }
-            }}
-        >
-            <Stack.Screen name="enrollment" component={EnrolmentTab}
-                options={{ title: 'التسجيل' }}
-            />
 
-            <Stack.Screen name="تأكيد رقم الهاتف" component={ConfirmationScreen}
-                options={{ title: 'تأكيد رقم الهاتف' }}
-            />
-
-        </Stack.Navigator>
-    );
-}
-import { signUpUser } from '../../utilityFunctions/apiCalls'
-function EnrolmentTab({ navigation }) {
+import { signUpUser } from '../../../utilityFunctions/apiCalls'
+export default function EnrolmentScreen({ navigation }) {
 
     const [fullName, setFullName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState(null)

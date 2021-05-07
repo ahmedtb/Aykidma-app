@@ -13,14 +13,16 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import { activateUser } from '../../utilityFunctions/apiCalls'
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
-export default function ConfirmationScreen(props,{ navigation }) {
 
-    const [activationNumber, setActivationNumber] = useState(null)
+import { signUpUser } from '../../../utilityFunctions/apiCalls'
+export default function EnrolmentScreen({ navigation }) {
 
-    console.log(props.route.params.phoneNumber)
-    const {phoneNumber,fullName, password} = props.route.params
+    const [fullName, setFullName] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState(null)
+    const [password, setPassword] = useState('')
 
     return (
         <ScrollView>
@@ -29,21 +31,39 @@ export default function ConfirmationScreen(props,{ navigation }) {
 
 
                 <View style={{ margin: 10 }}>
-                    <Text style={styles.fieldLable} >ادخل رقم التاكيد المرسل على الفايبر</Text>
+                    <Text style={styles.fieldLable} >الاسم الثلاثي*:</Text>
                     <TextInput style={styles.enrollField}
-                        onChangeText={setActivationNumber}
+                        onChangeText={setFullName}
+                    />
+
+                </View>
+
+                <View style={{ margin: 10 }}>
+                    <Text style={styles.fieldLable} >الموبايل*:</Text>
+                    <TextInput style={styles.enrollField}
+                        onChangeText={setPhoneNumber}
+                    />
+                </View>
+
+                <View style={{ margin: 10 }}>
+                    <Text style={styles.fieldLable} >كلمة المرور*:</Text>
+                    <TextInput style={styles.enrollField}
+                        onChangeText={setPassword}
                     />
 
                 </View>
 
                 <TouchableOpacity
-                    onPress={() => activateUser(fullName, phoneNumber, password, activationNumber)
+                    onPress={() => signUpUser(fullName, phoneNumber, password)
                         .then(data => {
                             console.log(data)
-                            // navigation.navigate('تأكيد رقم الهاتف')
+                            navigation.navigate(
+                                'تأكيد رقم الهاتف',
+                                { fullName: fullName, phoneNumber: phoneNumber, password: password }
+                            )
                         })}
                     style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
-                    <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>تأكيد رقم الهاتف</Text>
+                    <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>تسجيل</Text>
                 </TouchableOpacity>
             </View>
 
