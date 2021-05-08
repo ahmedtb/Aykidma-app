@@ -13,60 +13,43 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import axios from 'axios'
-// import LoadingIndicator from '../components/loadingIndicator'
+import { AuthContext } from '../../StateManagment/AuthState'
 
-
-const RenderOfferCard = (props) => {
+const RenderServiceCard = (props) => {
     const image = props.image;
     const title = props.title;
     const price = props.price
-
+    const rating = props.rating
+    const servicePrice = props.servicePrice
     return (
         <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
             <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
 
             <View style={{ margin: 10 }}>
-                <Text style={styles.offerTitle}>{title}</Text>
-                <Text style={{ color: 'red' }}>{price}</Text>
+                <Text style={styles.serviceTitle}>{title}</Text>
+                <Text style={{ color: 'red' }}>سعر العروض{price}</Text>
+                <Text style={{ color: 'red' }}>سعري{servicePrice}</Text>
+
+                <Text style={{ color: 'red' }}>التقييم: {rating}</Text>
+
             </View>
         </View>
     )
 }
 
+import { fetchServices } from '../../utilityFunctions/apiCalls'
 
-const fetchOffers = async () => {
-    try {
-        let response = await axios.get('/api/offers')
-        let data = await response.data
-        return data
-    } catch (error) {
-        if (error.response) {
-            // Request made and server responded
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request);
-        } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-        }
-    }
-    return null
-}
+export default function ServiceScreen({ navigation }) {
+    const { providerAuth } = useContext(AuthContext)
+    const [Services, setServices] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-export default function OffersScreen({ navigation }) {
-    // const [offers, setOffers] = useState(null);
-    // const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //     fetchOffers().then(data => {
-    //         setOffers(data);
-    //         setLoading(false);
-    //     })
-    // }, [])
+    useEffect(() => {
+        fetchServices(providerAuth.token).then(data => {
+            setServices(data);
+            setLoading(false);
+        })
+    }, [])
 
 
     return (
@@ -74,18 +57,24 @@ export default function OffersScreen({ navigation }) {
 
             <ScrollView style={{ padding: 20 }}>
 
-                {/* {
-                    (offers) ?
-                        offers.map(
-                            (offer, index) => {
+                {
+                    (Services) ?
+                        Services.map(
+                            (service, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('OfferDetailsScreen', { offer: offer })} style={styles.offerCard}>
-                                        <RenderOfferCard image={offer.meta_data.image} title={offer.title} price={offer.meta_data.price} />
+                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('serviceDetailsScreen', { service: service })} style={styles.serviceCard}>
+                                        <RenderServiceCard
+                                            image={service.offer.meta_data.image}
+                                            title={service.offer.title}
+                                            price={service.offer.meta_data.price}
+                                            rating={service.rating}
+                                            servicePrice={(service.meta_data)? service.meta_data.cost: null}
+                                        />
                                     </TouchableOpacity>
                                 )
                             }
                         ) : (null)
-                } */}
+                }
 
                 {/* this is for bottom spaceing */}
                 <View style={{ height: 50 }}></View>
@@ -107,12 +96,12 @@ const styles = StyleSheet.create({
         // marginTop: StatusBar.currentHeight,
         paddingBottom: 10,
     },
-    offerCard: {
+    serviceCard: {
         borderWidth: 1, marginVertical: 10,
         borderRadius: 10,
         borderColor: 'red',
     },
-    offerTitle: {
+    serviceTitle: {
         fontSize: 20,
         // textAlign:'justify',
     }

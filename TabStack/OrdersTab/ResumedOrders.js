@@ -15,17 +15,18 @@ import {
     Pressable
 } from 'react-native';
 
-import orders from './jsons/orders.json'
 
 import OrderFormModal from './components/OrderFormModal'
+
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const { title, location, category, date, cost, image, service_provider_name, fields } = props;
+
     return (
-        <>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+        <View >
+            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
                         <Image source={{ uri: image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
@@ -45,30 +46,36 @@ const OrderItem = (props) => {
                 offer_title={title} cost={cost}
                 location_name={location} fields={fields}
             />
-        </>
+        </View>
     )
 }
 
-export default function DoneOrders(props) {
+export default function ResumedOrders(props) {
+
+
 
     useEffect(() => {
 
-    }, [props.doneOrders])
+    }, [props.resumedOrders])
+
+
     return (
         <ScrollView>
             {
-                props.doneOrders.map((order, index) => {
-                    if (order.status == "done")
+                props.resumedOrders.map((order, index) => {
+                    if (order.status == "resumed")
                         return <OrderItem
                             key={index}
                             title={order.service.offer.title}
-                            location={order.meta_data.location.name}
+                            location={(order.meta_data) ? order.meta_data.location.name : null}
                             category={order.service.offer.category}
                             date={order.created_at}
-                            cost={order.meta_data.cost}
-                            image={order.service.offer.meta_data.image}
+                            cost={(order.meta_data) ? order.meta_data.cost : null}
+                            image={(order.service.offer.meta_data) ? order.service.offer.meta_data.image : null}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
+
+                        // animate={true}
                         />
                     else
                         return null

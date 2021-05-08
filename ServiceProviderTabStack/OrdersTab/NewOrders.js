@@ -15,11 +15,7 @@ import {
     Pressable,
     Animated
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import orders from './jsons/orders.json'
-import axios from 'axios';
 
 import OrderFormModal from './components/OrderFormModal'
 

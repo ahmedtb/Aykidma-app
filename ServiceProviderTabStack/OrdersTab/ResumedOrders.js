@@ -14,10 +14,7 @@ import {
     Modal,
     Pressable
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import orders from './jsons/orders.json'
 
 import OrderFormModal from './components/OrderFormModal'
 

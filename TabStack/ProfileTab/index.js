@@ -32,26 +32,6 @@ export default function ProfileTabStack() {
     else
         return (
             <AuthenticationStack />
-            // <Stack.Navigator
-            //     screenOptions={{
-            //         headerStyle: {
-            //             backgroundColor: 'red',
-            //         },
-            //         headerTintColor: '#fff',
-            //         headerTitleStyle: {
-            //             fontWeight: 'bold'
-            //         }
-            //     }}
-            // >
-            //     <Stack.Screen name="enrollment" component={EnrolmentScreen}
-            //         options={{ title: 'التسجيل' }}
-            //     />
-
-            //     <Stack.Screen name="تأكيد رقم الهاتف" component={ConfirmationScreen}
-            //         options={{ title: 'تأكيد رقم الهاتف' }}
-            //     />
-
-            // </Stack.Navigator>
         );
 }
 
@@ -67,10 +47,7 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        // flex: 1,
         backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
 
     listGroupItem: {

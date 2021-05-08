@@ -61,7 +61,6 @@ export default function ConfirmationScreen(props, { navigation }) {
     const [activationNumber, setActivationNumber] = useState(null)
     const [dialogBox, setDialogBox] = useState(false)
 
-    console.log(props.route.params.phoneNumber)
     const { phoneNumber, fullName, password } = props.route.params
 
     return (
@@ -82,7 +81,7 @@ export default function ConfirmationScreen(props, { navigation }) {
                     onPress={() =>
                         activateUser(fullName, phoneNumber, password, activationNumber)
                             .then(data => {
-                                console.log(data)
+                                // console.log(data)
                             }).finally(() => {
                                 setDialogBox(true)
                             })

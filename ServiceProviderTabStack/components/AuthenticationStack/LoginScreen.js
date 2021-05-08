@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { AuthContext } from '../../../StateManagment/AuthState'
 
 export default function LoginModal(props) {
-    const { login, user } = useContext(AuthContext)
+    const { loginProvider, providerAuth } = useContext(AuthContext)
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
 
@@ -66,7 +66,7 @@ export default function LoginModal(props) {
                 <TouchableOpacity
                     style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
-                        login(phoneNumber, password)
+                        loginProvider(phoneNumber, password)
                     }
                     }
                 >

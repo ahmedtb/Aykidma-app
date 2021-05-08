@@ -41,14 +41,14 @@ export const AuthProvider = ({ children }) => {
     }
 
     function logout() {
-        if(!user) {
+        if (!user) {
             console.log('user is not login end')
             return
         }
         const config = {
             headers: { Authorization: `Bearer ${user.token}` }
         };
-        axios.delete('api/logout',config)
+        axios.delete('api/logout', config)
             .then((response) => {
                 console.log('logout response')
                 console.log(response)
@@ -72,13 +72,35 @@ export const AuthProvider = ({ children }) => {
             )
     }
 
-    function loginProvider(phoneNumber, password){
+    function loginProvider(phoneNumber, password) {
         axios.post('api/loginProvider', {
             'phone_number': phoneNumber,
             'password': password,
         })
             .then((response) => {
+                console.log(response.data)
                 setProvider(response.data)
+            })
+            .catch(
+                (error) => {
+                    logError(error)
+                }
+            )
+    }
+
+    function logoutProvider() {
+        if (!providerAuth) {
+            console.log('providerAuth is not login end')
+            return
+        }
+        const config = {
+            headers: { Authorization: `Bearer ${providerAuth.token}` }
+        };
+        axios.delete('api/logoutProvider', config)
+            .then((response) => {
+                console.log('logout response')
+                console.log(response)
+                setProvider(null)
             })
             .catch(
                 (error) => {
@@ -94,7 +116,8 @@ export const AuthProvider = ({ children }) => {
                 login,
                 logout,
                 providerAuth,
-                loginProvider
+                loginProvider,
+                logoutProvider
             }}
         >
             {children}

@@ -56,7 +56,7 @@ export default function EnrolmentScreen({ navigation }) {
                 <TouchableOpacity
                     onPress={() => signUpUser(fullName, phoneNumber, password)
                         .then(data => {
-                            console.log(data)
+                            // console.log(data)
                             navigation.navigate(
                                 'تأكيد رقم الهاتف',
                                 { fullName: fullName, phoneNumber: phoneNumber, password: password }
