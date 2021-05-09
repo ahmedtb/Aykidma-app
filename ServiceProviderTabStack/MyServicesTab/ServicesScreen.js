@@ -38,6 +38,7 @@ const RenderServiceCard = (props) => {
 }
 
 import { fetchServices } from '../../utilityFunctions/apiCalls'
+import { Feather } from '@expo/vector-icons';
 
 export default function ServiceScreen({ navigation }) {
     const { providerAuth } = useContext(AuthContext)
@@ -68,7 +69,7 @@ export default function ServiceScreen({ navigation }) {
                                             title={service.offer.title}
                                             price={service.offer.meta_data.price}
                                             rating={service.rating}
-                                            servicePrice={(service.meta_data)? service.meta_data.cost: null}
+                                            servicePrice={(service.meta_data) ? service.meta_data.cost : null}
                                         />
                                     </TouchableOpacity>
                                 )
@@ -76,12 +77,16 @@ export default function ServiceScreen({ navigation }) {
                         ) : (null)
                 }
 
+
+
                 {/* this is for bottom spaceing */}
                 <View style={{ height: 50 }}></View>
 
             </ScrollView>
 
-
+            <View style={{ flexDirection: 'row', paddingHorizontal:20 }}>
+                <Feather name="plus-circle" size={50} color="red" />
+            </View>
             {/* <LoadingIndicator visibility={loading} /> */}
 
 
@@ -93,7 +98,7 @@ export default function ServiceScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        // marginTop: StatusBar.currentHeight,
+        flex: 1,
         paddingBottom: 10,
     },
     serviceCard: {

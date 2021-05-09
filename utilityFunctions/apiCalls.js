@@ -39,7 +39,7 @@ export const fetchServices = async (token) => {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         }
-        let response = await axios.get('/api/myServices',config)
+        let response = await axios.get('/api/myServices', config)
         let data = await response.data
         return data
     } catch (error) {
@@ -56,7 +56,25 @@ export const fetchServiceProviderOrders = async (token) => {
         const orders = (await axios.get('/api/orders', config)).data
         return orders
     } catch (error) {
+        console.log('fetchServiceProviderOrders error')
         logError(error)
     }
 
+}
+
+export const resumeNewOrder = async (token, orderId) => {
+    try {
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        const body = {
+            order_id: orderId
+        }
+        const orders = (await axios.put('api/order/resume', body, config)).data
+        console.log(orders)
+        return orders
+    } catch (error) {
+        console.log('resumeNewOrder error')
+        logError(error)
+    }
 }

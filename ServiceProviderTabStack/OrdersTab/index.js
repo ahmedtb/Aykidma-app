@@ -54,7 +54,8 @@ function OrdersDisplay(props) {
         }).catch(error => null)
 
         const unsubscribe = props.navigation.addListener('focus', () => {
-            fetchServiceProviderOrders().then((data) => {
+            console.log('focued')
+            fetchServiceProviderOrders(props.token).then((orders) => {
                 setNewOrders(filterOrders(orders, 'new'))
                 setResumedOrder(filterOrders(orders, 'resumed'))
                 setDoneOrders(filterOrders(orders, 'done'))
@@ -62,7 +63,7 @@ function OrdersDisplay(props) {
         });
 
         return unsubscribe;
-    }, [props.navigation]);
+    }, []);
 
     return (
         <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, marginTop: StatusBar.currentHeight }}>
