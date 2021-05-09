@@ -84,8 +84,10 @@ export default function ServiceScreen({ navigation }) {
 
             </ScrollView>
 
-            <View style={{ flexDirection: 'row', paddingHorizontal:20 }}>
-                <Feather name="plus-circle" size={50} color="red" />
+            <View style={{ flexDirection: 'row', paddingHorizontal: 20 }}>
+                <TouchableOpacity onPress={() => { navigation.navigate('AddNewService') }} >
+                    <Feather name="plus-circle" size={50} color="red" />
+                </TouchableOpacity>
             </View>
             {/* <LoadingIndicator visibility={loading} /> */}
 

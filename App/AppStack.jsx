@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import TabStack from '../TabStack';
 
-import { AppStateContext } from '../StateManagment/AppState'
+// import { AppStateContext } from '../StateManagment/AppState'
 
 import ServiceProviderTabStack from '../ServiceProviderTabStack'
+import { useState } from 'react';
 
 export const StacksEnum = {
     TabStack: 1,
@@ -11,8 +12,8 @@ export const StacksEnum = {
 }
 
 export default function AppStack() {
-    const { stack } = useContext(AppStateContext)
-    console.log(stack)
+    
+    const [stack, setStack] = useState(StacksEnum.ServiceProviderTabStack)
     if (stack == StacksEnum.ServiceProviderTabStack )
         return (
             <ServiceProviderTabStack />

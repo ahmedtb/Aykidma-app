@@ -71,10 +71,26 @@ export const resumeNewOrder = async (token, orderId) => {
             order_id: orderId
         }
         const orders = (await axios.put('api/order/resume', body, config)).data
-        console.log(orders)
         return orders
     } catch (error) {
         console.log('resumeNewOrder error')
+        logError(error)
+    }
+}
+
+export const creatNewServiceWtihOffer = async (title, description, fields, meta_data, details, token) => {
+    try {
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        const body = {
+            title: title, description: description, fields: fields, meta_data: meta_data, details:details
+        }
+        const response = (await axios.post('api/createServiceWithOffer', body, config)).data
+        console.log(response)
+        return response
+    } catch (error) {
+        console.log('creatNewServiceWtihOffer error')
         logError(error)
     }
 }

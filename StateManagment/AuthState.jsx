@@ -78,6 +78,7 @@ export const AuthProvider = ({ children }) => {
             'password': password,
         })
             .then((response) => {
+                console.log('loginProvider')
                 console.log(response.data)
                 setProvider(response.data)
             })
