@@ -46,7 +46,6 @@ function OrdersDisplay(props) {
     const [doneOrders, setDoneOrders] = useState([])
 
     useEffect(() => {
-
         fetchServiceProviderOrders(props.token).then((orders) => {
             setNewOrders(filterOrders(orders, 'new'))
             setResumedOrder(filterOrders(orders, 'resumed'))
@@ -54,7 +53,6 @@ function OrdersDisplay(props) {
         }).catch(error => null)
 
         const unsubscribe = props.navigation.addListener('focus', () => {
-            console.log('focued')
             fetchServiceProviderOrders(props.token).then((orders) => {
                 setNewOrders(filterOrders(orders, 'new'))
                 setResumedOrder(filterOrders(orders, 'resumed'))
