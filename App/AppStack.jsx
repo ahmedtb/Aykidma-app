@@ -1,25 +1,49 @@
 import React, { useContext } from 'react';
-import TabStack from '../TabStack';
-
-// import { AppStateContext } from '../StateManagment/AppState'
 
 import ServiceProviderTabStack from '../ServiceProviderTabStack'
-import { useState } from 'react';
+import TabStack from '../TabStack';
 
 export const StacksEnum = {
     TabStack: 1,
     ServiceProviderTabStack: 2
 }
 
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
+
+const ParenStack = () => {
+
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+
+            <Stack.Screen name="ServiceProviderTabStack" component={ServiceProviderTabStack}
+                options={{ title: 'مزود خدمات' }}
+            />
+
+            <Stack.Screen name="TabStack" component={TabStack}
+                options={{ title: 'المستخدم' }}
+            />
+
+        </Stack.Navigator>
+    );
+}
+
 export default function AppStack() {
-    
-    const [stack, setStack] = useState(StacksEnum.ServiceProviderTabStack)
-    if (stack == StacksEnum.ServiceProviderTabStack )
-        return (
-            <ServiceProviderTabStack />
-        )
-    else
-        return (
-            <TabStack />
-        )
+
+    // const [stack, setStack] = React.useState(StacksEnum.ServiceProviderTabStack)
+    // if (stack == StacksEnum.ServiceProviderTabStack )
+    //     return (
+    //         <ServiceProviderTabStack />
+    //     )
+    // else
+    //     return (
+    //         <TabStack />
+    //     )
+    return (
+        <ParenStack />
+    )
 }

@@ -21,11 +21,9 @@ import { AuthContext } from '../../StateManagment/AuthState'
 import AuthenticationStack from '../components/AuthenticationStack'
 
 export default function MyServicesTab() {
-    const { loginProvider, providerAuth, tryLoginProviderFromStore } = React.useContext(AuthContext)
+    const { loginProvider, providerAuth } = React.useContext(AuthContext)
 
-    useEffect(() => {
-        tryLoginProviderFromStore()
-    },[])
+
 
     if (providerAuth)
         return (

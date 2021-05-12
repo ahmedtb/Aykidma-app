@@ -35,7 +35,8 @@ export default function MainTab() {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold'
-                }
+                },
+                headerShown: false
             }}
         >
             <Stack.Screen name="FrontScreen" component={FrontScreen}

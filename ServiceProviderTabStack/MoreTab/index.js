@@ -13,16 +13,12 @@ import {
     TouchableOpacity,
     ProgressViewIOSComponent
 } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useLinkProps } from '@react-navigation/native';
-
 
 const Stack = createStackNavigator();
 
-export default function MoreTabStack() {
+import { StacksEnum } from '../../StateManagment/AppState'
+export default function MoreTabStack(props) {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -32,10 +28,11 @@ export default function MoreTabStack() {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold'
-                }
+                },
+                headerShown: false
             }}
         >
-            <Stack.Screen name="enrollment" component={MoreTab}
+            <Stack.Screen name="MoreTab" component={MoreTab}
                 options={{ title: 'المزيد' }}
             />
 
@@ -72,9 +69,15 @@ function MoreTab(props) {
             <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الملف الشخصي</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem} >
                 <Text style={styles.fieldLable} >تسجيل الدخول</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={() => props.navigation.navigate('TabStack', { screen: 'MainTab' }) }
+                style={styles.menuItem} >
+                <Text style={styles.fieldLable} >تبديل الى المستخدم العادي</Text>
             </TouchableOpacity>
 
             <View style={styles.menuItem}>

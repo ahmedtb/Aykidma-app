@@ -19,7 +19,7 @@ import MoreTab from './MoreTab'
 
 const Tab = createBottomTabNavigator();
 
-export default function TabStack() {
+export default function TabStack(props) {
     return (
         <Tab.Navigator>
             <Tab.Screen name="MyServicesTab" component={MyServicesTab}

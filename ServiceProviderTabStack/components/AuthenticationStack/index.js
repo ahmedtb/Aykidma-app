@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -23,7 +23,12 @@ import { AuthContext } from '../../../StateManagment/AuthState'
 
 export default function AuthenticationStack () {
 
-    const { loginProvider, providerAuth } = useContext(AuthContext)
+    const { loginProvider, providerAuth, tryLoginProviderFromStore } = useContext(AuthContext)
+
+
+    useEffect(() => {
+        tryLoginProviderFromStore()
+    },[])
 
     if (providerAuth)
         return (
@@ -43,7 +48,8 @@ export default function AuthenticationStack () {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold'
-                    }
+                    },
+                    headerShown: false
                 }}
             >
 

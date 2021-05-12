@@ -32,7 +32,8 @@ export default function MoreTabStack() {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold'
-                }
+                },
+                headerShown: false
             }}
         >
             <Stack.Screen name="enrollment" component={MoreTab}
@@ -72,9 +73,15 @@ function MoreTab(props) {
             <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الملف الشخصي</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem} >
                 <Text style={styles.fieldLable} >تسجيل الدخول</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={() => props.navigation.navigate('ServiceProviderTabStack', { screen: 'MyServicesTab' }) }
+                style={styles.menuItem} >
+                <Text style={styles.fieldLable} >تبديل الى مزود الخدمات</Text>
             </TouchableOpacity>
 
             <View style={styles.menuItem}>
@@ -83,8 +90,6 @@ function MoreTab(props) {
 
             <View style={{ margin: 10, flex: 1 }}>
                 <Text style={styles.fieldLable} >اتصل بنا</Text>
-
-
             </View>
 
 

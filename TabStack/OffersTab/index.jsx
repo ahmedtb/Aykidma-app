@@ -30,7 +30,8 @@ export default function OffersTab() {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold'
-                }
+                },
+                headerShown: false
             }}
         >
             <Stack.Screen name="OffersScreen" component={OffersScreen}

@@ -6,7 +6,17 @@ import { set } from 'react-native-reanimated';
 export const AuthContext = React.createContext({});
 
 import logError from '../utilityFunctions/logError'
-import { getUserAuth, loginUserAuth, logoutUserAuth, getProviderAuth, loginProviderAuth, logoutProviderAuth } from './ApiBackendOfAuth'
+import {
+    getUserAuth,
+    loginUserAuth,
+    logoutUserAuth,
+    getProviderAuth,
+    checkIfProviderTokenIsValid,
+    loginProviderAuth,
+    storeProviderAuthRecord,
+    logoutProviderAuth,
+    deleteProviderAuthRecord
+} from './ApiBackendOfAuth'
 
 export const AuthProvider = ({ children }) => {
 
@@ -14,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     const [providerAuth, setProvider] = useState(null)
 
     function setUserAuthFromStore() {
-        getUserAuth().then( (data) => {
+        getUserAuth().then((data) => {
             console.log(data)
             setUser(data)
         })
@@ -38,16 +48,20 @@ export const AuthProvider = ({ children }) => {
     }
 
     function tryLoginProviderFromStore() {
-        getProviderAuth().then( (data) => {
+        getProviderAuth().then((data) => {
             console.log(data)
-            setProvider(data)
-        }).catch(error => null )
+            checkIfProviderTokenIsValid(data.token).then(() => setProvider(data))
+                .catch(error =>
+                    console.log('provider is in the store but is not validated')
+                )
+        }).catch(error => null)
     }
 
     function loginProvider(phoneNumber, password) {
         loginProviderAuth(phoneNumber, password)
             .then((data) => {
                 console.log('loginProvider')
+                storeProviderAuthRecord(data)
                 setProvider(data)
             })
             .catch((error) => {
@@ -56,9 +70,10 @@ export const AuthProvider = ({ children }) => {
     }
 
     function logoutProvider() {
-        logoutProviderAuth(providerAuth).then((response) => {
+        logoutProviderAuth(providerAuth.token).then((response) => {
             console.log('logout response')
             console.log(response)
+            deleteProviderAuthRecord()
             setProvider(null)
         })
             .catch(

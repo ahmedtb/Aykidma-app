@@ -1,6 +1,4 @@
 import React, { useReducer, useState } from 'react'
-import {StacksEnum} from '../App/AppStack'
-export const AppStateContext = React.createContext({});
 
 function logError(error) {
     if (error.response) {
@@ -17,16 +15,20 @@ function logError(error) {
     }
 }
 
+export const AppStateContext = React.createContext({});
+// import {StacksEnum} from '../App/AppStack'
+
 export const AppStateProvider = ({ children }) => {
 
-    const [stack, setStack] = useState(StacksEnum.ServiceProviderTabStack)
+    // const [stack, setStack] = useState(StacksEnum.ServiceProviderTabStack)
 
 
     return (
         <AppStateContext.Provider
             value={{
                 logError,
-                stack
+                // stack,
+                // setStack
             }} >
             {children}
         </AppStateContext.Provider>

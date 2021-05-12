@@ -51,7 +51,7 @@ const OrderItem = (props) => {
 export default function DoneOrders(props) {
 
     useEffect(() => {
-
+        console.log(props.doneOrders)
     }, [props.doneOrders])
     return (
         <ScrollView>
