@@ -16,8 +16,6 @@ import MapView, { Marker } from 'react-native-maps';
 export default function LocationModal(props) {
     const { latitude, longitude, visible } = props;
     const [modalVisible, setModalVisible] = visible;
-
-    console.log(modalVisible)
     return (
         <Modal
             animationType="fade"

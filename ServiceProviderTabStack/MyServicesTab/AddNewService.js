@@ -20,22 +20,25 @@ import ChoiceListFromOffersModal from './components/ChoiceListFromOffersModal'
 import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 import CreatedFieldsRender from './components/CreatedFieldsRender'
 import ImagePickerComponent from './components/ImagePickerComponent'
+import CategoryComponent from './components/CategoryComponent'
 
 import {AuthContext} from '../../StateManagment/AuthState'
 import {creatNewServiceWtihOffer} from '../../utilityFunctions/apiCalls'
 
+
+
 export default function AddNewService({ navigation }) {
     const { loginProvider, providerAuth } = React.useContext(AuthContext)
 
-    const [choiceListvisibility, setChoiceListVisibility] = useState(false)
+    const [ChoiceListVisibility, setChoiceListVisibility] = useState(false)
+    const [newFieldCreateComponent, setNewFieldCreateComponent] = useState(false)
 
 
     const [title, setTitle] = useState(null)
     const [description, setDescription] = useState(null)
     const [fields, setFields] = useState([])
-    const [newFieldCreateComponent, setNewFieldCreateComponent] = useState(false)
-
-    console.log(fields)
+    const [category_id, selectCategory] = useState(null)
+    console.log(category_id)
 
     function addNewField(fieldConfig) {
         setFields(prevFields => (
@@ -62,7 +65,7 @@ export default function AddNewService({ navigation }) {
                         style={{}}
                     >
                         <Text>اختر تصميما لعرض</Text>
-                        <ChoiceListFromOffersModal visibility={[choiceListvisibility, setChoiceListVisibility]} />
+                        <ChoiceListFromOffersModal visibility={[ChoiceListVisibility, setChoiceListVisibility]} />
                     </TouchableOpacity>
                 </View>
 
@@ -113,8 +116,11 @@ export default function AddNewService({ navigation }) {
 
                 </View>
 
+                <CategoryComponent selectCategory={selectCategory}/>
+                
+
                 <TouchableOpacity
-                    onPress={() => creatNewServiceWtihOffer(title, description, fields, [], 'null', providerAuth.token)}
+                    onPress={() => creatNewServiceWtihOffer(title, description, fields, category_id, [], 'null', providerAuth.token)}
                     style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
                     <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>طلب تسجيل الخدمة</Text>
                 </TouchableOpacity>

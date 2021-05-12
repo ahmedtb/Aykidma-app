@@ -116,8 +116,8 @@ const FormScreen = ({ route }) => {
     const [state, dispatch] = useReducer(reducer, initial_state);
 
     let FormPages = [
-        <Second ReducerState={[state.fields.slice(0, 3), dispatch]} />,
-        <Second ReducerState={[state.fields.slice(3, 5), dispatch]} />,
+        <Second ReducerState={[state.fields.slice(0, state.fields.length), dispatch]} />,
+        // <Second ReducerState={[state.fields.slice(3, 5), dispatch]} />,
         // <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
         <Services ReducerState={[state.fields, dispatch]} services={services} />,
     ];

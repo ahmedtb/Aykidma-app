@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
     function tryLoginProviderFromStore() {
         getProviderAuth().then((data) => {
-            console.log(data)
+            // console.log(data)
             checkIfProviderTokenIsValid(data.token).then(() => setProvider(data))
                 .catch(error =>
                     console.log('provider is in the store but is not validated')

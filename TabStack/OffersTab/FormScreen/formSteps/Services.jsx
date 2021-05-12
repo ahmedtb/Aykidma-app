@@ -45,9 +45,9 @@ const Services = (props) => {
                                     <AntDesign name="staro" size={15} color="black" />
                                     <AntDesign name="staro" size={15} color="black" />
                                     <AntDesign name="staro" size={15} color="black" />
-                                    <Text>تقييم {service.meta_data.rating}</Text>
+                                    <Text>تقييم {(service.meta_data)?service.meta_data.rating:null}</Text>
                                 </View>
-                                <Text style={{ color: 'red' }}>{service.meta_data.description}</Text>
+                                <Text style={{ color: 'red' }}>{(service.meta_data)?service.meta_data.description:null}</Text>
                             </View>
                             <TouchableOpacity onPress={() => {
                                 dispatch({ type: 'change_service', payload: {  value: service.id } });
