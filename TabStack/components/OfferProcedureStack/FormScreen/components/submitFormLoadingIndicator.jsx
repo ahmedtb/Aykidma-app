@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Modal } from 'react-native';
 
-const LoadingIndicator = (props) => {
-    const [stopIndicating, setStopIndicating] = React.useState(false);
+const SubmitForm = (props) => {
+
     useEffect(() => {
-        setTimeout(()=>setStopIndicating(true),7000)
+
     },[props.visibility])
 
     return (
         <Modal
             animationType="fade"
             transparent={true}
-            visible={(stopIndicating)? false : props.visibility}>
+            visible={props.visibility}>
             <View
                 style={{
                     flex: 1,
@@ -39,7 +39,7 @@ const LoadingIndicator = (props) => {
                         fontSize: 15,
                         fontWeight: 'bold',
                     }}>
-                        { (props.label) ? (props.label) : ('جار التحميل')}
+                        جار تقديم طلبك
                         </Text>
                 </View>
             </View>
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default LoadingIndicator;
+export default SubmitForm;

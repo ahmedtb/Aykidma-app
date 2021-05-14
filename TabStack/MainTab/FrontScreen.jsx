@@ -13,7 +13,17 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
+
 export default function FrontScreen({ navigation }) {
+
+    const [categories, setCategories] = React.useState([])
+    React.useEffect(() => {
+        getAvailableCategories().then((data) => {
+            setCategories(data)
+        })
+    }, [])
+
     return (
         <ScrollView style={styles.container}>
             <ImageBackground source={require('../../resources/background.jpg')} style={{ alignItems: 'center', justifyContent: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width / 1.77, alignSelf: 'center' }}>
@@ -29,41 +39,14 @@ export default function FrontScreen({ navigation }) {
 
             <View style={styles.servicesContainer} >
 
-                <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen')}>
-
-                    <Image source={require('../../resources/carWashing.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >غسيل سيارات</Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen')}>
-
-                    <Image source={require('../../resources/cleanHouse.jpg')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel}>تنظيف مكتب</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen')}>
-
-                    <Image source={require('../../resources/carpet-cleaning-service.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel}>تنظيف سجاد</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen')}>
-
-                    <Image source={require('../../resources/cleanPool.webp')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >تنظيف احواض سباحة</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen')}>
-
-                    <Image source={require('../../resources/cleanGlasses.webp')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >تنظيف واجهات</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen')}>
-
-                    <Image source={require('../../resources/Anti-pest.png')} style={{ width: 100, height: 100 }} />
-                    <Text style={styles.serviceLabel} >مكافحة الافات</Text>
-                </TouchableOpacity>
+                {(categories) ? (
+                    categories.map((category, index) => (
+                        <TouchableOpacity key={index} style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen',{category:category})}>
+                            <Image source={require('../../resources/carpet-cleaning-service.png')} style={{ width: 100, height: 100 }} />
+                            <Text style={styles.serviceLabel} >{category.name}</Text>
+                        </TouchableOpacity>
+                    ))
+                ) : (null)}
 
             </View>
         </ScrollView>

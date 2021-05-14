@@ -78,13 +78,13 @@ export const resumeNewOrder = async (token, orderId) => {
     }
 }
 
-export const creatNewServiceWtihOffer = async (title, description, fields,category_id, meta_data, details, token) => {
+export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details, token) => {
     try {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
         const body = {
-            title: title, description: description, fields: fields, category_id: category_id, meta_data: meta_data, details:details
+            title: title, description: description, fields: fields, category_id: category_id, meta_data: meta_data, details: details
         }
         const response = (await axios.post('api/createServiceWithOffer', body, config)).data
         console.log(response)
@@ -95,17 +95,20 @@ export const creatNewServiceWtihOffer = async (title, description, fields,catego
     }
 }
 
-export const getAvailableCategories = async(token) => {
+export const getAvailableCategories = async () => {
     try {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-        const body = {
-        }
-        const response = (await axios.get('api/category', config)).data
+
+        const response = (await axios.get('api/category')).data
         return response
     } catch (error) {
         console.log('getAvailableCategories error')
         logError(error)
+        return []
     }
+}
+
+export const fetchOffersByCategory = async (category_id) => {
+    const response = (await axios.get('api/offers/' + category_id)).data
+    return response
+
 }

@@ -16,7 +16,6 @@ import ListOptions from '../components/ListOptions'
 import LocationPicker from '../components/LocationPicker'
 import ImagePicker from '../components/ImagePicker'
 
-
 import { useNavigation } from '@react-navigation/native';
 
 const Second = (props) => {

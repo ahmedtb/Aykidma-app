@@ -86,8 +86,8 @@ const fetchOfferServices = async (offerId) => {
 }
 
 import FormModal from './components/formModal'
-import LoginModal from '../../components/LoginModal'
-import { AuthContext } from '../../../StateManagment/AuthState'
+import LoginModal from '../../LoginModal'
+import { AuthContext } from '../../../../StateManagment/AuthState'
 
 const FormScreen = ({ route }) => {
     const offer = route.params.offer

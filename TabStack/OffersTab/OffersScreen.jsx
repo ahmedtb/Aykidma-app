@@ -15,7 +15,6 @@ import {
 
 import axios from 'axios'
 import LoadingIndicator from '../components/loadingIndicator'
-import offers_json from './jsons/offers.json'
 
 
 const RenderOfferCard = (props) => {
