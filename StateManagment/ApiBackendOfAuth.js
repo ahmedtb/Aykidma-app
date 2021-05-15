@@ -11,6 +11,13 @@ export async function getUserAuth() {
     }
 }
 
+export async function checkIfUserTokenIsValid(token) {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    return await axios.get('api/user', config)
+}
+
 export async function loginUserAuth(phoneNumber, password) {
 
 
@@ -22,9 +29,10 @@ export async function loginUserAuth(phoneNumber, password) {
     return (userAuthResponse)
 }
 
-export async function storeUserAuth(data) {
+export async function storeUserAuthRecord(data) {
     saveItem('userAuth', JSON.stringify(data))
 }
+
 
 export async function logoutUserAuth(token) {
     if (!token) {

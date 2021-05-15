@@ -1,6 +1,9 @@
 import axios from 'axios'
 import logError from './logError'
 
+
+export { logError }
+
 export const signUpUser = async (name, phoneNumber, password) => {
     try {
         const data = await axios.post('/api/signup', {
@@ -76,6 +79,22 @@ export const resumeNewOrder = async (token, orderId) => {
         console.log('resumeNewOrder error')
         logError(error)
     }
+}
+
+export const doneResumedOrder = async (token, orderId) => {
+    // try {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    const body = {
+        order_id: orderId
+    }
+    const orders = (await axios.put('api/order/done', body, config)).data
+    return orders
+    // } catch (error) {
+    //     console.log('doneResumedOrder error')
+    //     logError(error)
+    // }
 }
 
 export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details, token) => {

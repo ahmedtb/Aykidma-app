@@ -19,14 +19,14 @@ const ParenStack = () => {
                 headerShown: false
             }}
         >
+            <Stack.Screen name="TabStack" component={TabStack}
+                options={{ title: 'المستخدم' }}
+            />
 
             <Stack.Screen name="ServiceProviderTabStack" component={ServiceProviderTabStack}
                 options={{ title: 'مزود خدمات' }}
             />
 
-            <Stack.Screen name="TabStack" component={TabStack}
-                options={{ title: 'المستخدم' }}
-            />
 
         </Stack.Navigator>
     );

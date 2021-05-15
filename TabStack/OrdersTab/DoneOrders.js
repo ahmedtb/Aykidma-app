@@ -51,7 +51,7 @@ const OrderItem = (props) => {
 export default function DoneOrders(props) {
 
     useEffect(() => {
-
+        // console.log(props.doneOrders[1].meta_data)
     }, [props.doneOrders])
     return (
         <ScrollView>
@@ -61,10 +61,10 @@ export default function DoneOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.offer.title}
-                            location={order.meta_data.location.name}
+                            location={(order.meta_data)?order.meta_data.location.name:null}
                             category={order.service.offer.category}
                             date={order.created_at}
-                            cost={order.meta_data.cost}
+                            cost={(order.meta_data)?order.meta_data.cost:null}
                             image={order.service.offer.meta_data.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}

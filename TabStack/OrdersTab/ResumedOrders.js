@@ -15,15 +15,14 @@ import {
     Pressable
 } from 'react-native';
 
-
-import OrderFormModal from './components/OrderFormModal'
+import ResumedOrderFormModal from './components/ResumedOrderFormModal'
 
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
-
-    const { title, location, category, date, cost, image, service_provider_name, fields } = props;
-
+    
+    const { title, location, category, date, cost, image, service_provider_name, fields, id } = props;
+    
     return (
         <View >
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3 }}>
@@ -41,19 +40,23 @@ const OrderItem = (props) => {
                     <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
                 </View>
             </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]}
+            <ResumedOrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
                 offer_title={title} cost={cost}
-                location_name={location} fields={fields}
-            />
+                location_name={location} fields={fields} id={id}
+                />
         </View>
     )
 }
+// import { AuthContext } from '../../StateManagment/AuthState'
+
+// import {logError, doneResumedOrder} from '../../utilityFunctions/apiCalls'
 
 export default function ResumedOrders(props) {
-
-
-
+    
+    // const { login, user } = useContext(AuthContext)
+    
+    
     useEffect(() => {
 
     }, [props.resumedOrders])
@@ -74,6 +77,7 @@ export default function ResumedOrders(props) {
                             image={(order.service.offer.meta_data) ? order.service.offer.meta_data.image : null}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
+                            id={order.id}
 
                         // animate={true}
                         />

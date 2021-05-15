@@ -68,6 +68,11 @@ export default function OffersScreen({ navigation }) {
         })
     }, [])
 
+    const navigateToDetails = (offer) => {
+        navigation.navigate('OfferProcedureStack', {
+            screen: 'OfferDetailsScreen', params: { offer: offer }
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -79,7 +84,7 @@ export default function OffersScreen({ navigation }) {
                         offers.map(
                             (offer, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('OfferDetailsScreen', { offer: offer })} style={styles.offerCard}>
+                                    <TouchableOpacity key={index} onPress={() => navigateToDetails(offer)} style={styles.offerCard}>
                                         <RenderOfferCard image={offer.meta_data.image} title={offer.title} price={offer.meta_data.price} />
                                     </TouchableOpacity>
                                 )

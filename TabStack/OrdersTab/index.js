@@ -28,7 +28,7 @@ import DoneOrders from './DoneOrders'
 import axios from 'axios'
 
 import { AuthContext } from '../../StateManagment/AuthState'
-import LoginScreen from '../components/LoginScreen'
+import AuthenticationStack from '../components/AuthenticationStack'
 
 function filterOrders(orders, status) {
     return orders.filter((order) => {
@@ -51,6 +51,7 @@ export default function OrdersTab({ navigation }) {
 
     useEffect(() => {
         async function fetch() {
+            if(! user) return
             try {
                 const config = {
                     headers: { Authorization: `Bearer ${user.token}` }
@@ -119,7 +120,7 @@ export default function OrdersTab({ navigation }) {
         );
     else
         return (
-            <LoginScreen />
+            <AuthenticationStack />
         )
 }
 

@@ -8,8 +8,12 @@ export const AuthContext = React.createContext({});
 import logError from '../utilityFunctions/logError'
 import {
     getUserAuth,
+    checkIfUserTokenIsValid,
     loginUserAuth,
+    storeUserAuthRecord,
     logoutUserAuth,
+    deleteUserAuthRecord,
+
     getProviderAuth,
     checkIfProviderTokenIsValid,
     loginProviderAuth,
@@ -23,37 +27,36 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [providerAuth, setProvider] = useState(null)
 
-    function setUserAuthFromStore() {
+    function tryLoginUserFromStore() {
         getUserAuth().then((data) => {
-            console.log(data)
-            setUser(data)
-        })
+            checkIfUserTokenIsValid(data.token)
+                .then(() => setUser(data))
+                .catch(error => console.log('user is in the store but is not validated'))
+        }).catch(error => console.log('user not validated'))
     }
 
     function login(phoneNumber, password) {
         loginUserAuth(phoneNumber, password)
-            .then((data) => setUser(data))
+            .then((data) => {
+                storeUserAuthRecord(data)
+                setUser(data)
+            })
             .catch(error => logError(error))
     }
 
     function logout() {
         logoutUserAuth(user).then((response) => {
-            console.log('logout response')
             console.log(response)
+            deleteUserAuthRecord()
             setUser(null)
-        })
-            .catch(
-                (error) => logError(error)
-            )
+        }).catch((error) => logError(error))
     }
 
     function tryLoginProviderFromStore() {
         getProviderAuth().then((data) => {
-            // console.log(data)
-            checkIfProviderTokenIsValid(data.token).then(() => setProvider(data))
-                .catch(error =>
-                    console.log('provider is in the store but is not validated')
-                )
+            checkIfProviderTokenIsValid(data.token)
+                .then(() => setProvider(data))
+                .catch(error => console.log('provider is in the store but is not validated'))
         }).catch(error => null)
     }
 
@@ -87,7 +90,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user,
-                setUserAuthFromStore,
+                tryLoginUserFromStore,
                 login,
                 logout,
 
