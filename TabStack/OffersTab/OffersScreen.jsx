@@ -85,7 +85,7 @@ export default function OffersScreen({ navigation }) {
                             (offer, index) => {
                                 return (
                                     <TouchableOpacity key={index} onPress={() => navigateToDetails(offer)} style={styles.offerCard}>
-                                        <RenderOfferCard image={offer.meta_data.image} title={offer.title} price={offer.meta_data.price} />
+                                        <RenderOfferCard image={offer.image} title={offer.title} price={offer.meta_data?.price} />
                                     </TouchableOpacity>
                                 )
                             }

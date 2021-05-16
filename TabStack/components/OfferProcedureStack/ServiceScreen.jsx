@@ -33,7 +33,7 @@ function ToggleDetailsComments(props) {
                                 <Image source={require('../../../resources/profile.png')} style={{ width: 50, height: 50 }} />
                                 <View style={{ margin: 10, flex: 1 }}>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ flex: 2 }}>{order.meta_data.user_name}</Text>
+                                        <Text style={{ flex: 2 }}>{'this field should be canceled'}</Text>
                                     </View>
                                     <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
                                         <AntDesign name="staro" size={15} color="black" />
@@ -42,7 +42,7 @@ function ToggleDetailsComments(props) {
                                         <AntDesign name="staro" size={15} color="black" />
                                         <AntDesign name="staro" size={15} color="black" />
                                     </View>
-                                    <Text style={{ color: 'black' }}>{order.meta_data.review.comment}</Text>
+                                    <Text style={{ color: 'black' }}>{order.meta_data?.review?.comment}</Text>
                                 </View>
                             </View>
                         )
@@ -129,7 +129,7 @@ export default function ServiceProviderScreen(props) {
                     </TouchableOpacity>
                 </View>
 
-                <ToggleDetailsComments tab={tab} orders={orders} description={service.meta_data.details} />
+                <ToggleDetailsComments tab={tab} orders={orders} description={service.meta_data?.details} />
 
             </View>
 

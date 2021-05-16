@@ -19,8 +19,6 @@ export async function checkIfUserTokenIsValid(token) {
 }
 
 export async function loginUserAuth(phoneNumber, password) {
-
-
     const userAuthResponse = (await axios.post('api/login', {
         'phone_number': phoneNumber,
         'password': password,

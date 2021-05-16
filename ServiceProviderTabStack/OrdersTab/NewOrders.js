@@ -79,11 +79,11 @@ export default function NewOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.offer.title}
-                            location={(order.meta_data) ? order.meta_data.location.name : null}
+                            location={'this field should be canceled'}
                             category={order.service.offer.category}
                             date={order.created_at}
-                            cost={(order.meta_data) ? order.meta_data.cost : null}
-                            image={(order.service.offer.meta_data) ? order.service.offer.meta_data.image : null}
+                            cost={ order.meta_data?.cost }
+                            image={order.service.offer.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
                             id = {order.id}
