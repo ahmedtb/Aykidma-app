@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import axios from 'axios';
-import { set } from 'react-native-reanimated';
+
+import {NotificationsContext} from './NotificationsProvider'
 
 export const AuthContext = React.createContext({});
 
@@ -23,6 +22,7 @@ import {
 } from './ApiBackendOfAuth'
 
 export const AuthProvider = ({ children }) => {
+    const {expoPushToken} = React.useContext(NotificationsContext)
 
     const [user, setUser] = useState(null);
     const [providerAuth, setProvider] = useState(null)
@@ -36,7 +36,8 @@ export const AuthProvider = ({ children }) => {
     }
 
     function login(phoneNumber, password) {
-        loginUserAuth(phoneNumber, password)
+        console.log(expoPushToken)
+        loginUserAuth(phoneNumber, password, expoPushToken)
             .then((data) => {
                 storeUserAuthRecord(data)
                 setUser(data)
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     function loginProvider(phoneNumber, password) {
-        loginProviderAuth(phoneNumber, password)
+        loginProviderAuth(phoneNumber, password, expoPushToken)
             .then((data) => {
                 console.log('loginProvider')
                 storeProviderAuthRecord(data)

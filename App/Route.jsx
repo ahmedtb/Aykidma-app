@@ -5,16 +5,20 @@ import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 
 import { AuthProvider, AuthContext } from '../StateManagment/AuthState'
-import { AppStateProvider, AppStateContext } from '../StateManagment/AppState'
+// import { AppStateProvider, AppStateContext } from '../StateManagment/AppState'
+import { NotificationsProvider, NotificationsContext } from '../StateManagment/NotificationsProvider'
 
 export default function Route() {
     const { user } = useContext(AuthContext)
 
     return (
-        <AuthProvider>
-            <AppStateProvider>
+        <NotificationsProvider>
+
+            <AuthProvider>
+                {/* <AppStateProvider> */}
                 <AppStack />
-            </AppStateProvider>
-        </AuthProvider>
+                {/* </AppStateProvider> */}
+            </AuthProvider>
+        </NotificationsProvider>
     )
 }

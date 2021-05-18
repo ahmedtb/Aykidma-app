@@ -2,12 +2,6 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Text, View, Button, Platform, Settings } from 'react-native';
-import axios from 'axios';
-import { AuthContext } from './AuthState';
-
-// moment will be used for ids
-import moment from 'moment'
-import storage from './utilities/storage'
 
 
 Notifications.setNotificationHandler({
@@ -17,49 +11,20 @@ Notifications.setNotificationHandler({
         shouldSetBadge: false,
     }),
 });
-export const UserNotificationsContext = React.createContext({});
 
-export const UserNotificationsProvider = ({ children }) => {
-    const { user } = useContext(AuthContext);
+export const NotificationsContext = React.createContext({});
+
+export const NotificationsProvider = ({ children }) => {
+
 
     const [expoPushToken, setExpoPushToken] = useState(null);
-
-    // last notification State
     const [notification, setNotification] = useState(null);
-    // all the notification to be set in this hook to be used in rendering the elements
-    const [notifications, setNotifications] = useState(null);
 
-    
-    const saveNotification = (notify) => {
-        storage.save({
-            key: 'notifications',
-            id: moment().toLocaleString(),
-            data: notify,
-            expires: null
-        });
-        storage.getAllDataForKey('notifications').then(notifies => {
-            setNotifications(notifies.reverse())
-        }).catch(error => {
-            // clear all the data, to restart from a clean store
-            storage.clearMapForKey('notifications');
-            console.warn(error)
-        });
-    }
-    
     const notificationListener = useRef();
     const responseListener = useRef();
-    useEffect(() => {
 
-        // retrieve all stored notifications
-        storage.getAllDataForKey('notifications').then(notifications => {
-            setNotifications(notifications)
-            // set the count to the last element id
-            console.log('courrent count of notifications: ' + notifications.length)
-        }).catch(error => {
-            // clear all the data, to restart from a clean slat
-            storage.clearMapForKey('notifications');
-            console.warn(error)
-        });
+
+    useEffect(() => {
 
         registerForPushNotificationsAsync().then(token => {
             setExpoPushToken(token);
@@ -67,7 +32,7 @@ export const UserNotificationsProvider = ({ children }) => {
 
         // This listener is fired whenever a notification is received while the app is foregrounded
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-            saveNotification(notification);
+            console.log('notifications')
             setNotification(notification);
         });
 
@@ -87,14 +52,13 @@ export const UserNotificationsProvider = ({ children }) => {
 
 
     return (
-        <UserNotificationsContext.Provider
+        <NotificationsContext.Provider
             value={{
                 notification,
-                notifications,
                 expoPushToken,
             }}>
             {children}
-        </UserNotificationsContext.Provider>
+        </NotificationsContext.Provider>
     );
 }
 
@@ -128,4 +92,3 @@ async function registerForPushNotificationsAsync() {
 
     return token;
 }
-

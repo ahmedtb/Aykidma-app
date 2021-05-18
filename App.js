@@ -4,7 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import Route from './App/Route'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://10.0.3.2:8000';
+// axios.defaults.baseURL = 'http://10.0.3.2:8000';
+
+axios.defaults.baseURL = 'http://10.44.70.23:50';
 
 
 export default function App() {

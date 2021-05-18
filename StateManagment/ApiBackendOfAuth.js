@@ -18,11 +18,12 @@ export async function checkIfUserTokenIsValid(token) {
     return await axios.get('api/user', config)
 }
 
-export async function loginUserAuth(phoneNumber, password) {
+export async function loginUserAuth(phoneNumber, password, expoPushToken) {
     const userAuthResponse = (await axios.post('api/login', {
         'phone_number': phoneNumber,
         'password': password,
-        'device_name': 'mobile'
+        'device_name': 'mobile',
+        'expo_token': expoPushToken
     })).data
     return (userAuthResponse)
 }
@@ -64,11 +65,12 @@ export async function checkIfProviderTokenIsValid(token) {
     return await axios.get('api/provider', config)
 }
 
-export async function loginProviderAuth(phoneNumber, password) {
+export async function loginProviderAuth(phoneNumber, password, expoPushToken) {
 
     const providerAuthResponse = (await axios.post('api/loginProvider', {
         'phone_number': phoneNumber,
-        'password': password
+        'password': password,
+        'expo_token': expoPushToken
     })).data
     return (providerAuthResponse)
 
