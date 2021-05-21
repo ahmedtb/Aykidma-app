@@ -10,10 +10,16 @@ import MoreTab from './moreTab';
 import OffersTab from './OffersTab';
 import ProfileTab from './ProfileTab'
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import friendsReducer from './StateReducer';
+const store = createStore(friendsReducer);
+
 const Tab = createBottomTabNavigator();
 
 export default function TabStack() {
     return (
+        <Provider store={store}>
             <Tab.Navigator>
                 <Tab.Screen name="الرئيسية" component={MainTab}
                     options={{
@@ -38,5 +44,6 @@ export default function TabStack() {
                 <Tab.Screen name="الملف الشخصي" component={ProfileTab} />
                 <Tab.Screen name="المزيد" component={MoreTab} />
             </Tab.Navigator>
+        </Provider>
     );
 }

@@ -9,7 +9,7 @@ import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
 import ListOptions from './ListOptions'
 
-export default function StatusBar(props) {
+function StatusBar(props) {
     const { notification } = React.useContext(NotificationsContext)
     const { user } = React.useContext(AuthContext)
     // const [notification, s]
@@ -40,3 +40,11 @@ export default function StatusBar(props) {
         </View>
     )
 }
+
+import { connect } from 'react-redux';
+const mapStateToProps = (state) => {
+    const { friends } = state
+    return { friends }
+};
+
+export default connect(mapStateToProps)(StatusBar);
