@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from 'react';
 
-import {NotificationsContext} from './NotificationsProvider'
+import { NotificationsContext } from './NotificationsProvider'
 
 export const AuthContext = React.createContext();
 
@@ -22,7 +22,7 @@ import {
 } from './ApiBackendOfAuth'
 
 export const AuthProvider = ({ children }) => {
-    const {expoPushToken} = React.useContext(NotificationsContext)
+    const { expoPushToken } = React.useContext(NotificationsContext)
 
     const [user, setUser] = useState(null);
     const [providerAuth, setProvider] = useState(null)
@@ -31,13 +31,16 @@ export const AuthProvider = ({ children }) => {
         getUserAuth().then((data) => {
             checkIfUserTokenIsValid(data.token)
                 .then(() => setUser(data))
-                .catch(error => console.log('user is in the store but is not validated'))
+                .catch(error => {
+                    setUser(null)
+                    console.log('user is in the store but is not validated')
+                })
         }).catch(error => console.log('user not validated'))
     }
 
     function login(phoneNumber, password) {
         console.log(expoPushToken)
-        loginUserAuth(phoneNumber, password, expoPushToken)
+        loginUserAuth(phoneNumber, password, 'expoPushToken')
             .then((data) => {
                 storeUserAuthRecord(data)
                 setUser(data)
@@ -46,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     function logout() {
-        logoutUserAuth(user).then((response) => {
+        logoutUserAuth(user.token).then((response) => {
             console.log(response)
             deleteUserAuthRecord()
             setUser(null)
@@ -57,7 +60,10 @@ export const AuthProvider = ({ children }) => {
         getProviderAuth().then((data) => {
             checkIfProviderTokenIsValid(data.token)
                 .then(() => setProvider(data))
-                .catch(error => console.log('provider is in the store but is not validated'))
+                .catch(error => {
+                    setProvider(null)
+                    console.log('provider is in the store but is not validated')
+                })
         }).catch(error => null)
     }
 
@@ -87,6 +93,27 @@ export const AuthProvider = ({ children }) => {
             )
     }
 
+    function InspectAPIError(error) {
+
+        if (error.response) {
+            // Request made and server responded
+            console.log(error.response.data);
+            console.log(error.response.status);
+            if (error.response.status == 401) {
+                tryLoginUserFromStore()
+                tryLoginProviderFromStore()
+            }
+            console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }
+
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -98,7 +125,9 @@ export const AuthProvider = ({ children }) => {
                 providerAuth,
                 tryLoginProviderFromStore,
                 loginProvider,
-                logoutProvider
+                logoutProvider,
+
+                InspectAPIError
             }}
         >
             {children}

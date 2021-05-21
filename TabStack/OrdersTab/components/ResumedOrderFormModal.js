@@ -13,10 +13,10 @@ import {
 import LocationModal from './LocationModal'
 
 import { AuthContext } from '../../../StateManagment/AuthState'
-import { logError, doneResumedOrder } from '../../../utilityFunctions/apiCalls'
+import { doneResumedOrder } from '../../../utilityFunctions/apiCalls'
 
 export default function OrderFormModal(props) {
-    const { login, user } = React.useContext(AuthContext)
+    const { login, user, InspectAPIError } = React.useContext(AuthContext)
 
 
     const [modalVisible, setModalVisible] = props.visible;
@@ -128,7 +128,7 @@ export default function OrderFormModal(props) {
                             onPress={() => {
                                 doneResumedOrder(user.token, id)
                                     .then((data) => console.log(data))
-                                    .catch(error => logError(error))
+                                    .catch(error => InspectAPIError(error))
                             }}
                         >
                             <Text style={styles.textStyle}>اكمل الطلب</Text>

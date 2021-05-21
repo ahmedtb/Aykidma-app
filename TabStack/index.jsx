@@ -12,8 +12,8 @@ import ProfileTab from './ProfileTab'
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import friendsReducer from './StateReducer';
-const store = createStore(friendsReducer);
+import stateReducer from './StateReducer';
+const store = createStore(stateReducer);
 
 const Tab = createBottomTabNavigator();
 

@@ -1,6 +1,7 @@
-export const addFriend = friendsIndex => (
+export const refreshNotifications = (notifications) => (
     {
-        type: 'ADD_FRIEND',
-        payload: friendsIndex,
+        type: 'refresh-notifications',
+        // payload: stateIndex,
+        notifications: notifications
     }
 );

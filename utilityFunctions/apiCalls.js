@@ -133,5 +133,9 @@ export const fetchOffersByCategory = async (category_id) => {
 }
 
 export const fetchUserNotifications = async (token) => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    return (await axios.get('api/userNotifications', config)).data
 
 }
