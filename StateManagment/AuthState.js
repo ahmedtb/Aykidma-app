@@ -2,7 +2,7 @@ import React, { useReducer, useState } from 'react';
 
 import {NotificationsContext} from './NotificationsProvider'
 
-export const AuthContext = React.createContext({});
+export const AuthContext = React.createContext();
 
 import logError from '../utilityFunctions/logError'
 import {

@@ -2,17 +2,25 @@ import React, { useContext } from 'react';
 
 import ServiceProviderTabStack from '../ServiceProviderTabStack'
 import TabStack from '../TabStack';
+// import {UserAppStateProvider} from '../StateManagment/UserAppStateProvider'
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
 export const StacksEnum = {
     TabStack: 1,
     ServiceProviderTabStack: 2
 }
 
-import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
+// function TabStackWrapper () {
+
+//     return (
+//         <UserAppStateProvider>
+//             <TabStack />
+//         </UserAppStateProvider>
+//     )
+// }
 
 const ParenStack = () => {
-
     return (
         <Stack.Navigator
             screenOptions={{
@@ -33,16 +41,6 @@ const ParenStack = () => {
 }
 
 export default function AppStack() {
-
-    // const [stack, setStack] = React.useState(StacksEnum.ServiceProviderTabStack)
-    // if (stack == StacksEnum.ServiceProviderTabStack )
-    //     return (
-    //         <ServiceProviderTabStack />
-    //     )
-    // else
-    //     return (
-    //         <TabStack />
-    //     )
     return (
         <ParenStack />
     )

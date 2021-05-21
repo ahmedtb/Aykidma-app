@@ -18,7 +18,7 @@ import ImagePicker from '../components/ImagePicker'
 
 import { useNavigation } from '@react-navigation/native';
 
-const Second = (props) => {
+const FormFields = (props) => {
     const navigation = useNavigation();
 
     const [fields, dispatch] = props.ReducerState;
@@ -148,4 +148,4 @@ const Second = (props) => {
     );
 }
 
-export default Second;
+export default FormFields;

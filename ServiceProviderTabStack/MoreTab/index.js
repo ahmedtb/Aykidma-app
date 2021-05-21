@@ -17,7 +17,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import { StacksEnum } from '../../StateManagment/AppState'
 export default function MoreTabStack(props) {
     return (
         <Stack.Navigator

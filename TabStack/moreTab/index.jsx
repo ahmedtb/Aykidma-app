@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
-    TextInput,
-    FlatList,
-    ScrollView,
-    Button,
     TouchableOpacity,
-    ProgressViewIOSComponent
 } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useLinkProps } from '@react-navigation/native';
 
 
 const Stack = createStackNavigator();

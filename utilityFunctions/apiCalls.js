@@ -131,3 +131,7 @@ export const fetchOffersByCategory = async (category_id) => {
     return response
 
 }
+
+export const fetchUserNotifications = async (token) => {
+
+}
