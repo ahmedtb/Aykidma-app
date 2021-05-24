@@ -40,7 +40,6 @@ export const NotificationsProvider = ({ children }) => {
             console.log('user fired response receiced listener');
         });
 
-
         return () => {
             Notifications.removeNotificationSubscription(notificationListener.current);
             Notifications.removeNotificationSubscription(responseListener.current);

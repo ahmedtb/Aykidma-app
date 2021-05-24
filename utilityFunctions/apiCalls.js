@@ -104,7 +104,6 @@ export const creatNewServiceWtihOffer = async (title, description, fields, categ
 
 export const getAvailableCategories = async () => {
     try {
-
         const response = (await axios.get('api/category')).data
         return response
     } catch (error) {

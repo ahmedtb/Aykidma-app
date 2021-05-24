@@ -51,6 +51,7 @@ export default function LoginModal(props) {
                     <TextInput
                         style={{ flex: 1 }}
                         value={phoneNumber}
+                        keyboardType='numeric'
                         onChangeText={setPhoneNumber}
                     />
                 </View>

@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import { AuthContext } from '../../StateManagment/AuthState'
+import StatusBar from '../components/StatusBar'
 
 export default function ProfileScreen({ navigation }) {
 
@@ -22,6 +23,8 @@ export default function ProfileScreen({ navigation }) {
 
     return (
         <ScrollView>
+
+            <StatusBar />
 
             <View style={{ alignItems: 'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor: 'red' }}>
                 <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>

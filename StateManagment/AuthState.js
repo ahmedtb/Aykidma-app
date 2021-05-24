@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [providerAuth, setProvider] = useState(null)
 
-    function setUserAndAxiosToken(data){
+    function setUserAndAxiosToken(data) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
         setUser(data)
     }
@@ -44,12 +44,13 @@ export const AuthProvider = ({ children }) => {
     }
 
     function login(phoneNumber, password) {
-        loginUserAuth(phoneNumber, password, expoPushToken)
-            .then((data) => {
-                storeUserAuthRecord(data)
-                setUserAndAxiosToken(data)
-            })
-            .catch(error => logError(error))
+        if (expoPushToken)
+            loginUserAuth(phoneNumber, password, expoPushToken)
+                .then((data) => {
+                    storeUserAuthRecord(data)
+                    setUserAndAxiosToken(data)
+                })
+                .catch(error => logError(error))
     }
 
     function logout() {

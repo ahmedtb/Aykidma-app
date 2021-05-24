@@ -33,15 +33,15 @@ export async function storeUserAuthRecord(data) {
 }
 
 
-export async function logoutUserAuth(token) {
-    if (!token) {
-        console.log('user token is not valid')
-        return
-    }
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
-    response = await axios.delete('api/logout', config)
+export async function logoutUserAuth() {
+    // if (!token) {
+    //     console.log('user token is not valid')
+    //     return
+    // }
+    // const config = {
+    //     headers: { Authorization: `Bearer ${token}` }
+    // };
+    response = await axios.delete('api/logout')
     return response
 }
 

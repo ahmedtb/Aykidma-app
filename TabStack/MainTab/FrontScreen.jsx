@@ -41,7 +41,7 @@ export default function FrontScreen({ navigation }) {
 
                 {(categories) ? (
                     categories.map((category, index) => (
-                        <TouchableOpacity key={index} style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen',{category:category})}>
+                        <TouchableOpacity key={index} style={styles.serviceBox} onPress={() => navigation.navigate('OffersScreen', { category: category })}>
                             <Image source={require('../../resources/carpet-cleaning-service.png')} style={{ width: 100, height: 100 }} />
                             <Text style={styles.serviceLabel} >{category.name}</Text>
                         </TouchableOpacity>
