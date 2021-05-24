@@ -32,7 +32,6 @@ export const NotificationsProvider = ({ children }) => {
 
         // This listener is fired whenever a notification is received while the app is foregrounded
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-            console.log('notifications')
             setNotification(notification);
         });
 

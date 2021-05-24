@@ -37,12 +37,9 @@ export const fetchOffers = async () => {
     return null
 }
 
-export const fetchServices = async (token) => {
+export const fetchServices = async () => {
     try {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        }
-        let response = await axios.get('/api/myServices', config)
+        let response = await axios.get('/api/myServices')
         let data = await response.data
         return data
     } catch (error) {
@@ -51,12 +48,9 @@ export const fetchServices = async (token) => {
     return null
 }
 
-export const fetchServiceProviderOrders = async (token) => {
+export const fetchServiceProviderOrders = async () => {
     try {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-        const orders = (await axios.get('/api/orders', config)).data
+        const orders = (await axios.get('/api/orders')).data
         return orders
     } catch (error) {
         console.log('fetchServiceProviderOrders error')
@@ -65,15 +59,12 @@ export const fetchServiceProviderOrders = async (token) => {
 
 }
 
-export const resumeNewOrder = async (token, orderId) => {
+export const resumeNewOrder = async (orderId) => {
     try {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
         const body = {
             order_id: orderId
         }
-        const orders = (await axios.put('api/order/resume', body, config)).data
+        const orders = (await axios.put('api/order/resume', body)).data
         return orders
     } catch (error) {
         console.log('resumeNewOrder error')
@@ -89,7 +80,7 @@ export const doneResumedOrder = async (token, orderId) => {
     const body = {
         order_id: orderId
     }
-    const orders = (await axios.put('api/order/done', body, config)).data
+    const orders = (await axios.put('api/order/done', body)).data
     return orders
     // } catch (error) {
     //     console.log('doneResumedOrder error')
@@ -97,15 +88,12 @@ export const doneResumedOrder = async (token, orderId) => {
     // }
 }
 
-export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details, token) => {
+export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details) => {
     try {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
         const body = {
             title: title, description: description, fields: fields, category_id: category_id, meta_data: meta_data, details: details
         }
-        const response = (await axios.post('api/createServiceWithOffer', body, config)).data
+        const response = (await axios.post('api/createServiceWithOffer', body)).data
         console.log(response)
         return response
     } catch (error) {
@@ -132,10 +120,10 @@ export const fetchOffersByCategory = async (category_id) => {
 
 }
 
-export const fetchUserNotifications = async (token) => {
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
-    return (await axios.get('api/userNotifications', config)).data
+export const fetchUserNotifications = async () => {
+    // const config = {
+    //     headers: { Authorization: `Bearer ${token}` }
+    // };
+    return (await axios.get('api/userNotifications')).data
 
 }

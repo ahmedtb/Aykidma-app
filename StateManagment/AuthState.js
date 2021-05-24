@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react';
-
+import axios from 'axios'
 import { NotificationsContext } from './NotificationsProvider'
 
 export const AuthContext = React.createContext();
@@ -27,23 +27,27 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [providerAuth, setProvider] = useState(null)
 
+    function setUserAndAxiosToken(data){
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
+        setUser(data)
+    }
+
     function tryLoginUserFromStore() {
         getUserAuth().then((data) => {
             checkIfUserTokenIsValid(data.token)
-                .then(() => setUser(data))
+                .then(() => setUserAndAxiosToken(data))
                 .catch(error => {
-                    setUser(null)
+                    setUserAndAxiosToken(null)
                     console.log('user is in the store but is not validated')
                 })
         }).catch(error => console.log('user not validated'))
     }
 
     function login(phoneNumber, password) {
-        console.log(expoPushToken)
-        loginUserAuth(phoneNumber, password, 'expoPushToken')
+        loginUserAuth(phoneNumber, password, expoPushToken)
             .then((data) => {
                 storeUserAuthRecord(data)
-                setUser(data)
+                setUserAndAxiosToken(data)
             })
             .catch(error => logError(error))
     }
@@ -52,7 +56,7 @@ export const AuthProvider = ({ children }) => {
         logoutUserAuth(user.token).then((response) => {
             console.log(response)
             deleteUserAuthRecord()
-            setUser(null)
+            setUserAndAxiosToken(null)
         }).catch((error) => logError(error))
     }
 

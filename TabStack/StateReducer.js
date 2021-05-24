@@ -7,9 +7,7 @@ const INITIAL_STATE = {
 const stateReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'refresh-notifications':
-            console.log(state.notifications)
             return { notifications: action.notifications };
-
         default:
             return state
     }
