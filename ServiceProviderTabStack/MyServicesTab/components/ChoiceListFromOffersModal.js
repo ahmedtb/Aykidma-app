@@ -25,8 +25,9 @@ const RenderOfferCard = (props) => {
 import OfferChoiceModal from './OfferChoiceModal'
 
 export default function ChoiceListFromOffersModal(props) {
+    const [ChoiceListVisibility, setChoiceListVisibility] = useState(false)
 
-    const [visibility, setVisibility] = props.visibility
+    // const [visibility, setChoiceListVisibility] = props.visibility
     const [offers, setOffers] = useState([])
 
     const [offerChoiceModalVisibility, setOfferChoiceModalVisibility] = useState(false)
@@ -42,67 +43,77 @@ export default function ChoiceListFromOffersModal(props) {
     const [password, setPassword] = useState(null)
 
     return (
-        <Modal
-            animationType="fade"
-            transparent={true}
-            visible={visibility}>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    backgroundColor: 'rgba(52, 52, 52, 0.6)',
-                }}>
-                <View style={{
-                    height: '80%',
-                    width: '80%',
-                    backgroundColor: 'white',
-                    padding: 10,
-                    marginHorizontal: 40,
-                    borderRadius: 10,
-                    shadowColor: 'blue',
-                    shadowOffset: {
-                        width: 10,
-                        height: 20,
-                    },
-                    shadowOpacity: 0.9,
-                    shadowRadius: 40,
-                }}>
-                    <ScrollView>
-                        {
-                            (offers) ?
-                                offers.map(
-                                    (offer, index) => {
-                                        return (
-                                            <TouchableOpacity key={index} onPress={() => {
-                                                setChoiceModalOffer(offer)
-                                                setOfferChoiceModalVisibility(true)
-                                            }} style={styles.offerCard}>
-                                                <RenderOfferCard image={offer.image} title={offer.title} price={offer.meta_data?.price} />
-                                            </TouchableOpacity>
-                                        )
-                                    }
-                                ) : (null)
-                        }
-                    </ScrollView>
+        <View>
+            <TouchableOpacity onPress={() => { setChoiceListVisibility(true) }}
+                style={{}}
+            >
+                <Text>اختر تصميما لعرض</Text>
 
-                    <OfferChoiceModal
-                        visibility={[offerChoiceModalVisibility, setOfferChoiceModalVisibility]}
-                        offer={ChoiceModalOffer}
-                    />
+            </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                        onPress={() => {
-                            setVisibility(false)
-                        }}
-                    >
-                        <Text style={{ color: 'white' }}>دخول</Text>
-                    </TouchableOpacity>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={ChoiceListVisibility}>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(52, 52, 52, 0.6)',
+                    }}>
+                    <View style={{
+                        height: '80%',
+                        width: '80%',
+                        backgroundColor: 'white',
+                        padding: 10,
+                        marginHorizontal: 40,
+                        borderRadius: 10,
+                        shadowColor: 'blue',
+                        shadowOffset: {
+                            width: 10,
+                            height: 20,
+                        },
+                        shadowOpacity: 0.9,
+                        shadowRadius: 40,
+                    }}>
+                        <ScrollView>
+                            {
+                                (offers) ?
+                                    offers.map(
+                                        (offer, index) => {
+                                            return (
+                                                <TouchableOpacity key={index} onPress={() => {
+                                                    setChoiceModalOffer(offer)
+                                                    setOfferChoiceModalVisibility(true)
+                                                }} style={styles.offerCard}>
+                                                    <RenderOfferCard image={offer.image} title={offer.title} price={offer.meta_data?.price} />
+                                                </TouchableOpacity>
+                                            )
+                                        }
+                                    ) : (null)
+                            }
+                        </ScrollView>
+
+                        <OfferChoiceModal
+                            visibility={[offerChoiceModalVisibility, setOfferChoiceModalVisibility]}
+                            offer={ChoiceModalOffer}
+                        />
+
+                        <TouchableOpacity
+                            style={{ alignSelf: 'center', backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                            onPress={() => {
+                                setChoiceListVisibility(false)
+                            }}
+                        >
+                            <Text style={{ color: 'white' }}>اغلاق</Text>
+                        </TouchableOpacity>
 
 
+                    </View>
                 </View>
-            </View>
-        </Modal>
+            </Modal>
+        </View>
+
     )
 }
 

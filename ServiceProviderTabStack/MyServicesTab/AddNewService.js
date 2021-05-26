@@ -21,30 +21,28 @@ import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 import CreatedFieldsRender from './components/CreatedFieldsRender'
 import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
+import CreateOfferComponent from './CreateOfferComponent'
 
-import {AuthContext} from '../../StateManagment/AuthState'
-import {creatNewServiceWtihOffer} from '../../utilityFunctions/apiCalls'
+import { creatNewServiceWtihOffer } from '../../utilityFunctions/apiCalls'
 
 
 
 export default function AddNewService({ navigation }) {
-    const { loginProvider, providerAuth } = React.useContext(AuthContext)
 
-    const [ChoiceListVisibility, setChoiceListVisibility] = useState(false)
-    const [newFieldCreateComponent, setNewFieldCreateComponent] = useState(false)
+    // const [ChoiceListVisibility, setChoiceListVisibility] = useState(false)
+    // const [newFieldCreateComponent, setNewFieldCreateComponent] = useState(false)
 
 
     const [title, setTitle] = useState(null)
-    const [description, setDescription] = useState(null)
-    const [fields, setFields] = useState([])
-    const [category_id, selectCategory] = useState(null)
-    console.log(category_id)
+    // const [description, setDescription] = useState(null)
+    // const [fields, setFields] = useState([])
+    // const [category_id, selectCategory] = useState(null)
 
-    function addNewField(fieldConfig) {
-        setFields(prevFields => (
-            [...prevFields, fieldConfig]
-        ));
-    }
+    // function addNewField(fieldConfig) {
+    //     setFields(prevFields => (
+    //         [...prevFields, fieldConfig]
+    //     ));
+    // }
 
 
     return (
@@ -61,24 +59,12 @@ export default function AddNewService({ navigation }) {
 
                 <View style={{ margin: 10 }}>
                     <Text style={styles.fieldLable} >اختر تصميم عرض موجود بالفعل (موصى به)</Text>
-                    <TouchableOpacity onPress={() => { setChoiceListVisibility(true) }}
-                        style={{}}
-                    >
-                        <Text>اختر تصميما لعرض</Text>
-                        <ChoiceListFromOffersModal visibility={[ChoiceListVisibility, setChoiceListVisibility]} />
-                    </TouchableOpacity>
+                    <ChoiceListFromOffersModal />
                 </View>
 
-                <CreatedFieldsRender fields={fields} />
-                {/* {
-                    fields.map((field, index) => {
-                        return (
-                            <View key={index} >
 
-                            </View>
-                        )
-                    })
-                } */}
+                <CreateOfferComponent title={title} />
+                {/* <CreatedFieldsRender fields={fields} />
 
                 {
                     (newFieldCreateComponent) ? (
@@ -110,20 +96,20 @@ export default function AddNewService({ navigation }) {
                     <Text>توضيح عام لخدمتك (اختياري)</Text>
                     <TextInput
                         multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                        onChangeText={(text) => {setDescription(text)}}
+                        onChangeText={(text) => { setDescription(text) }}
                         value={description}
                     />
 
                 </View>
 
-                <CategoryComponent selectCategory={selectCategory}/>
-                
+                <CategoryComponent selectCategory={selectCategory} />
+
 
                 <TouchableOpacity
-                    onPress={() => creatNewServiceWtihOffer(title, description, fields, category_id, [], 'null', providerAuth.token)}
+                    onPress={() => creatNewServiceWtihOffer(title, description, fields, category_id, [], 'null')}
                     style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
                     <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>طلب تسجيل الخدمة</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
 
         </ScrollView>
