@@ -8,7 +8,7 @@ import { AuthContext } from '../../../StateManagment/AuthState'
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
 
-import { fetchUserNotifications } from '../../../utilityFunctions/apiCalls'
+import { fetchProviderNotifications } from '../../../utilityFunctions/apiCalls'
 
 
 function StatusBar(props) {
@@ -16,7 +16,7 @@ function StatusBar(props) {
     const { providerAuth, InspectAPIError } = React.useContext(AuthContext)
 
     React.useEffect(() => {
-        fetchUserNotifications()
+        fetchProviderNotifications()
             .then(data => props.refreshNotifications(data))
             .catch(error => InspectAPIError(error))
     }, [notification])

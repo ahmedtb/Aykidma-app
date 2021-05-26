@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { ScrollView, useWindowDimensions, View, TouchableOpacity, Text } from "react-native";
 import HTML from "react-native-render-html";
+import NavigationBar from '../../components/NavigationBar'
 
 
 export default function OfferDetailsScreen({ navigation, route }) {
@@ -14,6 +15,8 @@ export default function OfferDetailsScreen({ navigation, route }) {
   const contentWidth = useWindowDimensions().width;
   return (
     <View style={{ flex: 1 }}>
+      <NavigationBar name='تفاصيل العرض'/>
+
       <ScrollView style={{ marginHorizontal: 15, padding: 5, }}>
         <HTML source={{ html: htmlContent }} contentWidth={contentWidth} />
       </ScrollView>

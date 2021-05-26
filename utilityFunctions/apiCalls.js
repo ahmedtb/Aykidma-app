@@ -38,6 +38,7 @@ export const fetchOffers = async () => {
 }
 
 export const fetchServices = async () => {
+    
     try {
         let response = await axios.get('/api/myServices')
         let data = await response.data
@@ -120,9 +121,11 @@ export const fetchOffersByCategory = async (category_id) => {
 }
 
 export const fetchUserNotifications = async () => {
-    // const config = {
-    //     headers: { Authorization: `Bearer ${token}` }
-    // };
+    
     return (await axios.get('api/userNotifications')).data
+}
 
+export const fetchProviderNotifications= async () => {
+    
+    return (await axios.get('api/providerNotifications')).data
 }

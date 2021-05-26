@@ -46,7 +46,7 @@ export default function ServiceScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchServices(providerAuth.token).then(data => {
+        fetchServices().then(data => {
             setServices(data);
             setLoading(false);
         })

@@ -15,7 +15,7 @@ import {
 import HTML from "react-native-render-html";
 
 import { AntDesign } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
+import NavigationBar from '../../components/NavigationBar'
 
 function ToggleDetailsComments(props) {
     let htmlContent = props.description;
@@ -72,7 +72,7 @@ export default function ServiceProviderScreen(props) {
             try {
                 const orders = (await axios.get('/api/orders/1')).data
                 setOrders(orders)
-            } catch(error){
+            } catch (error) {
                 if (error.response) {
                     // Request made and server responded
                     console.log(error.response.data);
@@ -86,13 +86,14 @@ export default function ServiceProviderScreen(props) {
                     console.log('Error', error.message);
                 }
             }
-            
+
         }
         fetch()
     }, [])
 
     return (
         <View style={{}}>
+            <NavigationBar name='مزود خدمة' />
 
 
             <View style={{ flexDirection: 'row', margin: 20 }}>

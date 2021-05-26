@@ -61,12 +61,17 @@ export const AuthProvider = ({ children }) => {
         }).catch((error) => logError(error))
     }
 
+    function setProviderAndAxiosToken(data) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
+        setProvider(data)
+    }
+
     function tryLoginProviderFromStore() {
         getProviderAuth().then((data) => {
             checkIfProviderTokenIsValid(data.token)
-                .then(() => setProvider(data))
+                .then(() => setProviderAndAxiosToken(data))
                 .catch(error => {
-                    setProvider(null)
+                    setProviderAndAxiosToken(null)
                     console.log('provider is in the store but is not validated')
                 })
         }).catch(error => null)
@@ -77,7 +82,7 @@ export const AuthProvider = ({ children }) => {
             .then((data) => {
                 console.log('loginProvider')
                 storeProviderAuthRecord(data)
-                setProvider(data)
+                setProviderAndAxiosToken(data)
             })
             .catch((error) => {
                 logError(error)
@@ -89,7 +94,7 @@ export const AuthProvider = ({ children }) => {
             console.log('logout response')
             console.log(response)
             deleteProviderAuthRecord()
-            setProvider(null)
+            setProviderAndAxiosToken(null)
         })
             .catch(
                 (error) => {

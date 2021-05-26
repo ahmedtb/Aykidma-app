@@ -12,6 +12,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import LoadingIndicator from '../components/loadingIndicator'
+import NavigationBar from '../components/NavigationBar'
 
 import { fetchOffersByCategory } from '../../utilityFunctions/apiCalls'
 import logError from '../../utilityFunctions/logError'
@@ -57,6 +58,7 @@ export default function OffersScreen({ navigation, route }) {
     return (
 
         <View style={styles.container}>
+            <NavigationBar name={category.name} />
 
             <ScrollView style={{ padding: 20 }}>
 

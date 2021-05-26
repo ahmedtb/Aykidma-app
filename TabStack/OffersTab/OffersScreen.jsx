@@ -16,7 +16,6 @@ import {
 import axios from 'axios'
 import LoadingIndicator from '../components/loadingIndicator'
 
-
 const RenderOfferCard = (props) => {
     const image = props.image;
     const title = props.title;
@@ -76,7 +75,6 @@ export default function OffersScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-
             <ScrollView style={{ padding: 20 }}>
 
                 {

@@ -88,6 +88,7 @@ const fetchOfferServices = async (offerId) => {
 import FormModal from './components/formModal'
 import LoginModal from '../../LoginModal'
 import { AuthContext } from '../../../../StateManagment/AuthState'
+import NavigationBar from '../../../components/NavigationBar'
 
 const FormScreen = ({ route }) => {
     const offer = route.params.offer
@@ -124,6 +125,8 @@ const FormScreen = ({ route }) => {
 
     return (
         <View style={styles.container} >
+            <NavigationBar name={offerTitle} />
+
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', margin: 15 }}>
                     {
