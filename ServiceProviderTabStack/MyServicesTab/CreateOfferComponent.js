@@ -12,7 +12,7 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native'
-import ChoiceListFromOffersModal from './components/ChoiceListFromOffersModal'
+
 import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 import CreatedFieldsRender from './components/CreatedFieldsRender'
 import ImagePickerComponent from './components/ImagePickerComponent'

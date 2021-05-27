@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
 
-import { fetchOffers } from '../../../utilityFunctions/apiCalls'
+import { fetchOffers, createNewService } from '../../../utilityFunctions/apiCalls'
 
-
+import OfferChoiceModal from './OfferChoiceModal'
 
 const RenderOfferCard = (props) => {
     const image = props.image;
@@ -22,16 +22,10 @@ const RenderOfferCard = (props) => {
     )
 }
 
-import OfferChoiceModal from './OfferChoiceModal'
-
 export default function ChoiceListFromOffersModal(props) {
-    const [ChoiceListVisibility, setChoiceListVisibility] = useState(false)
-
-    // const [visibility, setChoiceListVisibility] = props.visibility
+    const [ListVisibility, setListVisibility] = useState(false)
     const [offers, setOffers] = useState([])
-
-    const [offerChoiceModalVisibility, setOfferChoiceModalVisibility] = useState(false)
-    const [ChoiceModalOffer, setChoiceModalOffer] = useState(null)
+    const [ChosenOffer, setChosenOffer] = useState(null)
 
     useEffect(() => {
         fetchOffers().then(data => {
@@ -39,22 +33,36 @@ export default function ChoiceListFromOffersModal(props) {
         })
     }, [])
 
-    const [phoneNumber, setPhoneNumber] = useState(null)
-    const [password, setPassword] = useState(null)
 
     return (
         <View>
-            <TouchableOpacity onPress={() => { setChoiceListVisibility(true) }}
+            <TouchableOpacity onPress={() => { setListVisibility(true) }}
                 style={{}}
             >
                 <Text>اختر تصميما لعرض</Text>
 
             </TouchableOpacity>
 
+            {
+                (ChosenOffer) ? (
+                    <View>
+                        <RenderOfferCard image={ChosenOffer.image} title={ChosenOffer.title} price={ChosenOffer.meta_data?.price} />
+
+
+                        <TouchableOpacity
+                            onPress={() => createNewService(ChosenOffer.id, [])}
+                            style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
+                            <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>طلب تسجيل الخدمة</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (null)
+            }
+
+
             <Modal
                 animationType="fade"
                 transparent={true}
-                visible={ChoiceListVisibility}>
+                visible={ListVisibility}>
                 <View
                     style={{
                         flex: 1,
@@ -82,27 +90,24 @@ export default function ChoiceListFromOffersModal(props) {
                                     offers.map(
                                         (offer, index) => {
                                             return (
-                                                <TouchableOpacity key={index} onPress={() => {
-                                                    setChoiceModalOffer(offer)
-                                                    setOfferChoiceModalVisibility(true)
-                                                }} style={styles.offerCard}>
-                                                    <RenderOfferCard image={offer.image} title={offer.title} price={offer.meta_data?.price} />
-                                                </TouchableOpacity>
+
+                                                <OfferChoiceModal
+                                                    key={index}
+                                                    offer={offer}
+                                                    choice={[ChosenOffer, setChosenOffer]}
+                                                />
+
                                             )
                                         }
                                     ) : (null)
                             }
                         </ScrollView>
 
-                        <OfferChoiceModal
-                            visibility={[offerChoiceModalVisibility, setOfferChoiceModalVisibility]}
-                            offer={ChoiceModalOffer}
-                        />
 
                         <TouchableOpacity
                             style={{ alignSelf: 'center', backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                             onPress={() => {
-                                setChoiceListVisibility(false)
+                                setListVisibility(false)
                             }}
                         >
                             <Text style={{ color: 'white' }}>اغلاق</Text>

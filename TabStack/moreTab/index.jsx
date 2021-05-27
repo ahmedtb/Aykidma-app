@@ -32,16 +32,15 @@ export default function MoreTabStack() {
         </Stack.Navigator>
     );
 }
-import {AuthContext} from '../../StateManagment/AuthState'
+import { AuthContext } from '../../StateManagment/AuthState'
 import axios from 'axios'
 function MoreTab(props) {
     const { providerAuth } = React.useContext(AuthContext)
 
     function switchToProvider() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
-        setTimeout(() => {
-            props.navigation.navigate('ServiceProviderTabStack', { screen: 'MyServicesTab' })
-        }, 2000);
+        props.navigation.navigate('ServiceProviderTabStack', { screen: 'MyServicesTab' })
+
     }
 
     return (
@@ -77,7 +76,7 @@ function MoreTab(props) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                onPress={() => switchToProvider() }
+                onPress={() => switchToProvider()}
                 style={styles.menuItem} >
                 <Text style={styles.fieldLable} >تبديل الى مزود الخدمات</Text>
             </TouchableOpacity>

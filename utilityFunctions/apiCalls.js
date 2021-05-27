@@ -89,6 +89,16 @@ export const doneResumedOrder = async (token, orderId) => {
     // }
 }
 
+export const createNewService = async (offer_id, meta_data) => {
+        const body = {
+            offer_id: offer_id, meta_data: meta_data
+        }
+        const response = (await axios.post('api/services', body)).data
+        console.log(response)
+        return response
+
+}
+
 export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details) => {
     try {
         const body = {
