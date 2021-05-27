@@ -14,9 +14,10 @@ import {
 } from 'react-native';
 
 import axios from 'axios'
+import { AuthContext} from '../../StateManagment/AuthState'
 import LoadingIndicator from '../components/loadingIndicator'
 
-const RenderOfferCard = (props) => {
+const RenderServiceCard = (props) => {
     const image = props.image;
     const title = props.title;
     const price = props.price
@@ -26,50 +27,32 @@ const RenderOfferCard = (props) => {
             <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
 
             <View style={{ margin: 10 }}>
-                <Text style={styles.offerTitle}>{title}</Text>
+                <Text style={styles.serviceTitle}>{title}</Text>
                 <Text style={{ color: 'red' }}>{price}</Text>
             </View>
         </View>
     )
 }
 
+import {fetchServices} from '../../utilityFunctions/apiCalls'
 
-const fetchOffers = async () => {
-    try {
-        let response = await axios.get('/api/offers')
-        let data = await response.data
-        return data
-    } catch (error) {
-        if (error.response) {
-            // Request made and server responded
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request);
-        } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-        }
-    }
-    return null
-}
-
-export default function OffersScreen({ navigation }) {
-    const [offers, setOffers] = useState(null);
+export default function servicesScreen({ navigation }) {
+    const {InspectAPIError} = React.useContext(AuthContext)
+    const [services, setServices] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchOffers().then(data => {
-            setOffers(data);
+        fetchServices().then(data => {
+            setServices(data);
             setLoading(false);
+        }).catch(error => {
+            InspectAPIError(error)
         })
     }, [])
 
-    const navigateToDetails = (offer) => {
-        navigation.navigate('OfferProcedureStack', {
-            screen: 'OfferDetailsScreen', params: { offer: offer }
+    const navigateToDetails = (service) => {
+        navigation.navigate('ServiceProcedureStack', {
+            screen: 'ServiceDetailsScreen', params: { service: service }
         })
     }
 
@@ -78,12 +61,12 @@ export default function OffersScreen({ navigation }) {
             <ScrollView style={{ padding: 20 }}>
 
                 {
-                    (offers) ?
-                        offers.map(
-                            (offer, index) => {
+                    (services) ?
+                        services.map(
+                            (service, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => navigateToDetails(offer)} style={styles.offerCard}>
-                                        <RenderOfferCard image={offer.image} title={offer.title} price={offer.meta_data?.price} />
+                                    <TouchableOpacity key={index} onPress={() => navigateToDetails(service)} style={styles.serviceCard}>
+                                        <RenderServiceCard image={service.image} title={service.title} price={service.meta_data?.price} />
                                     </TouchableOpacity>
                                 )
                             }
@@ -110,12 +93,12 @@ const styles = StyleSheet.create({
         // marginTop: StatusBar.currentHeight,
         paddingBottom: 10,
     },
-    offerCard: {
+    serviceCard: {
         borderWidth: 1, marginVertical: 10,
         borderRadius: 10,
         borderColor: 'red',
     },
-    offerTitle: {
+    serviceTitle: {
         fontSize: 20,
         // textAlign:'justify',
     }

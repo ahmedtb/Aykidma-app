@@ -6,11 +6,11 @@ import HTML from "react-native-render-html";
 import NavigationBar from '../../components/NavigationBar'
 
 
-export default function OfferDetailsScreen({ navigation, route }) {
-  const offer = route.params.offer;
-  const offerId = offer.id;
-  const offerTitle = offer.title;
-  let htmlContent = offer.description;
+export default function ServiceDetailsScreen({ navigation, route }) {
+  const service = route.params.service;
+  const serviceId = service.id;
+  const serviceTitle = service.title;
+  let htmlContent = service.description;
 
   const contentWidth = useWindowDimensions().width;
   return (
@@ -21,7 +21,7 @@ export default function OfferDetailsScreen({ navigation, route }) {
         <HTML source={{ html: htmlContent }} contentWidth={contentWidth} />
       </ScrollView>
       <TouchableOpacity
-        onPress={() => navigation.navigate('FormScreen', { offer: offer })}
+        onPress={() => navigation.navigate('FormScreen', { service: service })}
         style={{ backgroundColor: 'red', flexDirection: 'row', margin: 10, padding: 10, borderRadius: 10, }}
       >
         <Text style={{ textAlign: 'center', color: 'white', fontSize: 20, flex: 1 }}>املأ نموذج طلبك الان</Text>

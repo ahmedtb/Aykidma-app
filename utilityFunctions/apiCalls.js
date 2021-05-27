@@ -26,19 +26,14 @@ export const activateUser = async (name, phoneNumber, password, activationNumber
     }
 }
 
-export const fetchOffers = async () => {
-    try {
-        let response = await axios.get('/api/offers')
-        let data = await response.data
-        return data
-    } catch (error) {
-        logError(error)
-    }
-    return null
+export const fetchServices = async () => {
+    let response = await axios.get('/api/services')
+    let data = await response.data
+    return data
 }
 
-export const fetchServices = async () => {
-    
+export const fetchMyServices = async () => {
+
     try {
         let response = await axios.get('/api/myServices')
         let data = await response.data
@@ -58,6 +53,16 @@ export const fetchServiceProviderOrders = async () => {
         logError(error)
     }
 
+}
+
+export const submitOrder = async (fields, service_id) => {
+
+    const bodyParameters = {
+        fields: fields, service_id: service_id
+    };
+
+    const response = (await axios.post('/api/orders', bodyParameters)).data
+    return response
 }
 
 export const resumeNewOrder = async (orderId) => {
@@ -114,18 +119,18 @@ export const getAvailableCategories = async () => {
     }
 }
 
-export const fetchOffersByCategory = async (category_id) => {
-    const response = (await axios.get('api/offers/' + category_id)).data
+export const fetchServicesByCategory = async (category_id) => {
+    const response = (await axios.get('api/services/' + category_id)).data
     return response
 
 }
 
 export const fetchUserNotifications = async () => {
-    
+
     return (await axios.get('api/userNotifications')).data
 }
 
-export const fetchProviderNotifications= async () => {
-    
+export const fetchProviderNotifications = async () => {
+
     return (await axios.get('api/providerNotifications')).data
 }

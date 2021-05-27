@@ -5,12 +5,12 @@ import {
     StyleSheet,
     Text,
     Pressable,
-    Image
+    Image,
+    ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import LoadingIndicator from '../../../loadingIndicator'
-import axios from 'axios';
 
 function DialogBox(props) {
     const [dialogBox, setDialogBox] = props.visibility
@@ -54,49 +54,27 @@ function DialogBox(props) {
 }
 
 import { AuthContext } from '../../../../../StateManagment/AuthState'
-import { ScrollView } from 'react-native-gesture-handler';
+import {submitOrder} from '../../../../../utilityFunctions/apiCalls'
 
 export default function FormModal(props) {
-    const { login, user } = useContext(AuthContext)
-
-    const navigation = useNavigation();
+    const {InspectAPIError } = useContext(AuthContext)
 
     const [loading, setLoading] = useState(false)
     const [dialogBox, setDialogBox] = useState(false)
 
-    const offerTitle = props.offerTitle
+    const serviceTitle = props.state.serviceTitle
     const fields = props.state.fields
-    const service = props.state.service
+    const service_id = props.state.service_id
 
     const [modalVisible, setModalVisible] = props.visibility
 
-    function submitOrder() {
+    function submit() {
 
         setLoading(true)
-
-        const bodyParameters = {
-            fields: fields, service_id: service, user_id: user.user.id
-        };
-        const token = user.token
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-
-        axios.post('/api/orders', bodyParameters, config).then(response => {
-            console.log(response.data)
+        submitOrder(fields,service_id).then(response => {
+            console.log(response)
         }).catch(error => {
-            if (error.response) {
-                // Request made and server responded
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.log(error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-            }
+            InspectAPIError(error)
         }).finally(() => {
             setLoading(false)
             setModalVisible(false)
@@ -128,7 +106,7 @@ export default function FormModal(props) {
                             <View style={{}}>
                                 <Text style={{ color: 'black', }}>مقدم الخدمـــة: {'شركة التضامن'}</Text>
                                 <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                    <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {offerTitle}</Text>
+                                    <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {serviceTitle}</Text>
                                     <Text style={{ color: 'black', paddingHorizontal: 10 }}>الــــســـعـــــر : .........</Text>
                                 </View>
                             </View>
@@ -174,7 +152,7 @@ export default function FormModal(props) {
                             <Pressable
                                 style={{ ...styles.button, backgroundColor: '#f4c18b' }}
                                 onPress={() => {
-                                    submitOrder()
+                                    submit()
                                 }}
                             >
                                 <Text style={styles.textStyle}>تقديم الطلب</Text>

@@ -14,7 +14,7 @@ import {
 import LoadingIndicator from '../components/loadingIndicator'
 import NavigationBar from '../components/NavigationBar'
 
-import { fetchOffersByCategory } from '../../utilityFunctions/apiCalls'
+import { fetchServicesByCategory } from '../../utilityFunctions/apiCalls'
 import logError from '../../utilityFunctions/logError'
 
 const RenderOfferCard = (props) => {
@@ -42,7 +42,7 @@ export default function OffersScreen({ navigation, route }) {
 
     React.useEffect(() => {
 
-        fetchOffersByCategory(category.id).then((data) => {
+        fetchServicesByCategory(category.id).then((data) => {
             setOffers(data)
             // console.log(data)
             setLoading(false)

@@ -64,26 +64,20 @@ const reducer = (state, action) => {
 
 }
 
-function initialFieldsOfOffer(offer) {
-    return { fields: offer.fields, service: null }
-    // .concat({
-    //     "label": "اختر مزود للخدمة",
-    //     "name": "testingSPs",
-    //     "type": "SPs",
-    //     "value": null
-    // })
+function initialFieldsOfService(service) {
+    return { fields: service.fields, service_id: service.id }
 }
 
-const fetchOfferServices = async (offerId) => {
-    try {
-        let response = await axios.get('/api/service/' + offerId)
-        let data = await response.data
-        return data
-    } catch (error) {
-        console.error(error.message + " at FormScreen/Index.jsx offerServices function");
-    }
-    return null
-}
+// const fetchserviceServices = async (serviceId) => {
+//     try {
+//         let response = await axios.get('/api/service/' + serviceId)
+//         let data = await response.data
+//         return data
+//     } catch (error) {
+//         console.error(error.message + " at FormScreen/Index.jsx serviceServices function");
+//     }
+//     return null
+// }
 
 import FormModal from './components/formModal'
 import LoginModal from '../../LoginModal'
@@ -91,18 +85,18 @@ import { AuthContext } from '../../../../StateManagment/AuthState'
 import NavigationBar from '../../../components/NavigationBar'
 
 const FormScreen = ({ route }) => {
-    const offer = route.params.offer
-    const offerId = offer.id;
-    const offerTitle = offer.title;
-    const initial_state = initialFieldsOfOffer(offer)
+    const service = route.params.service
+    const serviceId = service.id;
+    const serviceTitle = service.title;
+    const initial_state = initialFieldsOfService(service)
 
-    const [services, setServices] = useState([]);
+    // const [services, setServices] = useState([]);
 
     useEffect(() => {
-        async function fetch() {
-            setServices(await fetchOfferServices(offerId))
-        }
-        fetch()
+        // async function fetch() {
+        //     setServices(await fetchserviceServices(serviceId))
+        // }
+        // fetch()
 
     }, [])
 
@@ -115,17 +109,15 @@ const FormScreen = ({ route }) => {
     const [state, dispatch] = useReducer(reducer, initial_state);
 
     let FormPages = [
-        <Second ReducerState={[state.fields.slice(0, state.fields.length), dispatch]} />,
-        // <Second ReducerState={[state.fields.slice(3, 5), dispatch]} />,
-        // <Second ReducerState={[fields.slice(5, 6), dispatch]} />,
-        <Services ReducerState={[state.fields, dispatch]} services={services} />,
+        <Second ReducerState={[state.fields, dispatch]} />,
+        // <Services ReducerState={[state.fields, dispatch]} services={services} />,
     ];
 
     const numberOfPages = FormPages.length;
 
     return (
         <View style={styles.container} >
-            <NavigationBar name={offerTitle} />
+            <NavigationBar name={serviceTitle} />
 
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', margin: 15 }}>
@@ -182,7 +174,7 @@ const FormScreen = ({ route }) => {
                         <FormModal visibility={[dialogVisible, setDialogVisible]}
                             // fields={state.fields}
                             state={state}
-                            offerTitle={offerTitle}
+                            serviceTitle={serviceTitle}
                         />
                     )
                     :
