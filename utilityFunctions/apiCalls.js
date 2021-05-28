@@ -116,6 +116,14 @@ export const createService = async (title, description, fields, category_id, ima
     return response
 }
 
+export const editService = async (service_id,title, description, fields, category_id, image, meta_data) => {
+    const body = {
+        title: title, description: description, fields: fields, category_id: category_id, image: image, meta_data: meta_data
+    }
+    const response = (await axios.put('api/services/'+service_id, body)).data
+    return response
+}
+
 export const getAvailableCategories = async () => {
     try {
         const response = (await axios.get('api/category')).data

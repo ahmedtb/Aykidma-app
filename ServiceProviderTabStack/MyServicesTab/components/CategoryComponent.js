@@ -20,8 +20,9 @@ import { Picker } from '@react-native-picker/picker';
 import { getAvailableCategories } from '../../../utilityFunctions/apiCalls'
 import { AuthContext } from '../../../StateManagment/AuthState'
 export default function CategoryComponent(props) {
+    const category_id = props.category_id
     const selectCategory = props.selectCategory
-    const [SelectedCategory, setSelectedCategory] = useState();
+    const [SelectedCategory, setSelectedCategory] = useState(category_id??null);
     const [categories, setCategories] = useState([])
 
     const { providerAuth } = React.useContext(AuthContext)

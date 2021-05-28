@@ -12,26 +12,25 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native'
-import {AuthContext} from '../../StateManagment/AuthState'
+import {AuthContext} from '../../../StateManagment/AuthState'
 
-import CreateNewFieldComponent from './components/CreateNewFieldComponent'
-import CreatedFieldsRender from './components/CreatedFieldsRender'
-import ImagePickerComponent from './components/ImagePickerComponent'
-import CategoryComponent from './components/CategoryComponent'
-import { createService } from '../../utilityFunctions/apiCalls'
+import CreateNewFieldComponent from './CreateNewFieldComponent'
+import CreatedFieldsRender from './CreatedFieldsRender'
+import ImagePickerComponent from './ImagePickerComponent'
+import CategoryComponent from './CategoryComponent'
+import { createService } from '../../../utilityFunctions/apiCalls'
 
 export default function CreateOfferComponent(props) {
     const {InspectAPIError} = React.useContext(AuthContext)
     const title = props.title;
-
-    const [newFieldCreateComponent, setNewFieldCreateComponent] = React.useState(false)
-
-
-    // const [title, setTitle] = React.useState(null)
     const [description, setDescription] = React.useState(null)
     const [fields, setFields] = React.useState([])
     const [category_id, selectCategory] = React.useState(null)
     const [image, setImage] = React.useState(null)
+
+    const [newFieldCreateComponent, setNewFieldCreateComponent] = React.useState(false)
+
+
 
     function addNewField(fieldConfig) {
         setFields(prevFields => (

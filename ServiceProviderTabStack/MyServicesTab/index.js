@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -16,6 +16,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import ServicesScreen from './ServicesScreen'
 import AddNewService from './AddNewService'
+import ViewServiceScreen from './ViewServiceScreen'
+import EditServiceScreen from './EditServiceScreen'
 
 import { AuthContext } from '../../StateManagment/AuthState'
 import AuthenticationStack from '../components/AuthenticationStack'
@@ -39,13 +41,21 @@ export default function MyServicesTab() {
                 }}
             >
                 <Stack.Screen name="ServicesScreen" component={ServicesScreen}
-                    options={{ title: 'كل العروض' }}
+                    options={{ title: 'كل خدماتي' }}
                 />
 
                 <Stack.Screen name='AddNewService' component={AddNewService}
                     options={{ title: 'طلب اضافة خدمة جديد' }}
                 />
-                
+
+                <Stack.Screen name="ViewServiceScreen" component={ViewServiceScreen}
+                    options={{ title: 'تفاصيل الخدمة' }}
+                />
+
+                <Stack.Screen name="EditServiceScreen" component={EditServiceScreen}
+                    options={{ title: 'تعديل الخدمة' }}
+                />
+
 
             </Stack.Navigator>
         )

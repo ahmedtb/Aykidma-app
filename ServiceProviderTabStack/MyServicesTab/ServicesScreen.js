@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import { AuthContext } from '../../StateManagment/AuthState'
-
+import LoadingIndicator from '../components/loadingIndicator'
 const RenderServiceCard = (props) => {
     const image = props.image;
     const title = props.title;
@@ -62,7 +62,7 @@ export default function ServiceScreen({ navigation }) {
                         Services.map(
                             (service, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('serviceDetailsScreen', { service: service })} style={styles.serviceCard}>
+                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('ViewServiceScreen', { service: service })} style={styles.serviceCard}>
                                         <RenderServiceCard
                                             image={service.image}
                                             title={service.title}
