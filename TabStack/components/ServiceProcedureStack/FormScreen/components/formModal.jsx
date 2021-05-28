@@ -66,6 +66,9 @@ export default function FormModal(props) {
     const fields = props.state.fields
     const service_id = props.state.service_id
 
+    console.log('image',fields[4].value.length)
+    // console.log('service_id',service_id)
+
     const [modalVisible, setModalVisible] = props.visibility
 
     function submit() {
@@ -135,7 +138,7 @@ export default function FormModal(props) {
                             }
 
                             <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', }}>{'مزود الخدمة'}: {service}</Text>
+                                <Text style={{ color: 'black', }}>{'مزود الخدمة'}: {service_id}</Text>
                             </View>
 
                         </View>

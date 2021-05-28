@@ -12,8 +12,8 @@ import {
 
 import { createStackNavigator } from '@react-navigation/stack';
 import FrontScreen from './FrontScreen';
-import OffersScreen from './OffersScreen';
-import OfferProcedureStack from '../components/OfferProcedureStack'
+import ServicesScreen from './ServicesScreen';
+import ServiceProcedureStack from '../components/ServiceProcedureStack'
 
 const Stack = createStackNavigator();
 
@@ -36,11 +36,11 @@ export default function MainTab() {
                 options={{ title: '' }}
 
             />
-            <Stack.Screen name="OffersScreen" component={OffersScreen}
+            <Stack.Screen name="ServicesScreen" component={ServicesScreen}
                 options={{ title: 'العروض' }}
             />
 
-            <Stack.Screen name="OfferProcedureStack" component={OfferProcedureStack}
+            <Stack.Screen name="ServiceProcedureStack" component={ServiceProcedureStack}
                 options={{ title: 'العروض' }}
             />
             {/* <Stack.Screen name="OfferDetailsScreen" component={OfferDetailsScreen}

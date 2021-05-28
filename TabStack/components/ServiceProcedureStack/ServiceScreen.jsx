@@ -15,7 +15,7 @@ import {
 import HTML from "react-native-render-html";
 
 import { AntDesign } from '@expo/vector-icons';
-import NavigationBar from '../../components/NavigationBar'
+import NavigationBar from '../NavigationBar'
 
 function ToggleDetailsComments(props) {
     let htmlContent = props.description;

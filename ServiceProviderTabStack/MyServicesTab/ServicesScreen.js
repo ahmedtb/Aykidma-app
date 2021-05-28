@@ -65,9 +65,9 @@ export default function ServiceScreen({ navigation }) {
                                 return (
                                     <TouchableOpacity key={index} onPress={() => navigation.navigate('serviceDetailsScreen', { service: service })} style={styles.serviceCard}>
                                         <RenderServiceCard
-                                            image={service.offer.image}
-                                            title={service.offer.title}
-                                            price={service.offer.meta_data?.price}
+                                            image={service.image}
+                                            title={service.title}
+                                            price={service.meta_data?.price}
                                             rating={service.meta_data?.rating}
                                             servicePrice={service.meta_data?.cost}
                                         />

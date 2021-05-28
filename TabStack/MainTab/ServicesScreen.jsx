@@ -17,7 +17,7 @@ import NavigationBar from '../components/NavigationBar'
 import { fetchServicesByCategory } from '../../utilityFunctions/apiCalls'
 import logError from '../../utilityFunctions/logError'
 
-const RenderOfferCard = (props) => {
+const RenderServiceCard = (props) => {
     const image = props.image;
     const title = props.title;
     const price = props.price
@@ -27,31 +27,31 @@ const RenderOfferCard = (props) => {
             <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
 
             <View style={{ margin: 10 }}>
-                <Text style={styles.offerTitle}>{title}</Text>
+                <Text style={styles.serviceTitle}>{title}</Text>
                 <Text style={{ color: 'red' }}>{price}</Text>
             </View>
         </View>
     )
 }
 
-export default function OffersScreen({ navigation, route }) {
+export default function ServicesScreen({ navigation, route }) {
     const category = route.params.category
 
-    const [offers, setOffers] = React.useState([])
+    const [services, setServices] = React.useState([])
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
 
         fetchServicesByCategory(category.id).then((data) => {
-            setOffers(data)
+            setServices(data)
             // console.log(data)
             setLoading(false)
         }).catch((error) => logError(error))
     }, [])
 
-    const navigateToDetails = (offer) => {
-        navigation.navigate('OfferProcedureStack', {
-            screen: 'OfferDetailsScreen', params: { offer: offer }
+    const navigateToDetails = (service) => {
+        navigation.navigate('ServiceProcedureStack', {
+            screen: 'ServiceDetailsScreen', params: { service: service }
         })
     }
 
@@ -62,10 +62,10 @@ export default function OffersScreen({ navigation, route }) {
 
             <ScrollView style={{ padding: 20 }}>
 
-                {(offers) ? offers.map((offer, index) => {
+                {(services) ? services.map((service, index) => {
                     return (
-                        <TouchableOpacity key={index} onPress={() => navigateToDetails(offer)} style={styles.offerCard}>
-                            <RenderOfferCard image={offer.image} title={offer.title} price={offer.meta_data?.price} />
+                        <TouchableOpacity key={index} onPress={() => navigateToDetails(service)} style={styles.serviceCard}>
+                            <RenderServiceCard image={service.image} title={service.title} price={service.meta_data?.price} />
                         </TouchableOpacity>
                     )
                 }) : (null)}
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
         // marginTop: StatusBar.currentHeight,
         paddingBottom: 10,
     },
-    offerCard: {
+    serviceCard: {
         borderWidth: 1, marginVertical: 10,
         borderRadius: 10,
         borderColor: 'red',
     },
-    offerTitle: {
+    serviceTitle: {
         fontSize: 20,
         // textAlign:'justify',
     }

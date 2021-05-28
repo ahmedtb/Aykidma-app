@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import OfferDetailsScreen from './OfferDetailsScreen';
+import ServiceDetailsScreen from './ServiceDetailsScreen';
 import FormScreen from './FormScreen';
 import ServiceScreen from './ServiceScreen'
 
@@ -26,7 +26,7 @@ export default function OfferProcedureStack() {
             }}
         >
 
-            <Stack.Screen name="OfferDetailsScreen" component={OfferDetailsScreen}
+            <Stack.Screen name="ServiceDetailsScreen" component={ServiceDetailsScreen}
                 options={{ title: 'تفاصيل العرض' }}
             />
 

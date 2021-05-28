@@ -27,7 +27,7 @@ export const activateUser = async (name, phoneNumber, password, activationNumber
 }
 
 export const fetchServices = async () => {
-    let response = await axios.get('/api/services')
+    let response = await axios.get('/api/myServices')
     let data = await response.data
     return data
 }
