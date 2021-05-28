@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import OffersScreen from './OffersScreen'
+import ServicesScreen from './ServicesScreen'
 import ServiceProcedureStack from '../components/ServiceProcedureStack'
 
 
@@ -33,7 +33,7 @@ export default function OffersTab() {
                 headerShown: false
             }}
         >
-            <Stack.Screen name="OffersScreen" component={OffersScreen}
+            <Stack.Screen name="ServicesScreen" component={ServicesScreen}
                 options={{ title: 'كل العروض' }}
             />
             <Stack.Screen name="ServiceProcedureStack" component={ServiceProcedureStack}

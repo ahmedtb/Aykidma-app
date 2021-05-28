@@ -27,7 +27,6 @@ export default function CategoryComponent(props) {
     const { providerAuth } = React.useContext(AuthContext)
     useEffect( () => {
         getAvailableCategories(providerAuth).then( (data) => {
-            console.log(data)
             setCategories(data)
         })
     },[])

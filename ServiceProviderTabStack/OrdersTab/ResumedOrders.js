@@ -66,12 +66,12 @@ export default function ResumedOrders(props) {
                     if (order.status == "resumed")
                         return <OrderItem
                             key={index}
-                            title={order.service.offer.title}
+                            title={order.service.title}
                             location={'this field should be canceled'}
-                            category={order.service.offer.category}
+                            category={order.service.category}
                             date={order.created_at}
                             cost={ order.meta_data?.cost }
-                            image={order.service.offer.image }
+                            image={order.service.image }
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
 

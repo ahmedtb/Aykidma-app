@@ -37,16 +37,15 @@ const RenderServiceCard = (props) => {
     )
 }
 
-import { fetchServices } from '../../utilityFunctions/apiCalls'
+import { fetchMyServices } from '../../utilityFunctions/apiCalls'
 import { Feather } from '@expo/vector-icons';
 
 export default function ServiceScreen({ navigation }) {
-    const { providerAuth } = useContext(AuthContext)
     const [Services, setServices] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchServices().then(data => {
+        fetchMyServices().then(data => {
             setServices(data);
             setLoading(false);
         })
@@ -89,7 +88,7 @@ export default function ServiceScreen({ navigation }) {
                     <Feather name="plus-circle" size={50} color="red" />
                 </TouchableOpacity>
             </View>
-            {/* <LoadingIndicator visibility={loading} /> */}
+            <LoadingIndicator visibility={loading} />
 
 
         </View >

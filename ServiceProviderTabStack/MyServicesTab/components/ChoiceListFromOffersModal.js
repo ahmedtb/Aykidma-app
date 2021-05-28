@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
 
-import { fetchOffers } from '../../../utilityFunctions/apiCalls'
+import { fetchServices } from '../../../utilityFunctions/apiCalls'
 
 
 
@@ -34,7 +34,7 @@ export default function ChoiceListFromOffersModal(props) {
     const [ChoiceModalOffer, setChoiceModalOffer] = useState(null)
 
     useEffect(() => {
-        fetchOffers().then(data => {
+        fetchServices().then(data => {
             setOffers(data);
         })
     }, [])

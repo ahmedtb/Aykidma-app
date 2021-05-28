@@ -27,7 +27,7 @@ export const activateUser = async (name, phoneNumber, password, activationNumber
 }
 
 export const fetchServices = async () => {
-    let response = await axios.get('/api/myServices')
+    let response = await axios.get('/api/services')
     let data = await response.data
     return data
 }
@@ -94,18 +94,26 @@ export const doneResumedOrder = async (token, orderId) => {
     // }
 }
 
-export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details) => {
-    try {
-        const body = {
-            title: title, description: description, fields: fields, category_id: category_id, meta_data: meta_data, details: details
-        }
-        const response = (await axios.post('api/createServiceWithOffer', body)).data
-        console.log(response)
-        return response
-    } catch (error) {
-        console.log('creatNewServiceWtihOffer error')
-        logError(error)
+// export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details) => {
+//     try {
+//         const body = {
+//             title: title, description: description, fields: fields, category_id: category_id, meta_data: meta_data, details: details
+//         }
+//         const response = (await axios.post('api/createServiceWithOffer', body)).data
+//         console.log(response)
+//         return response
+//     } catch (error) {
+//         console.log('creatNewServiceWtihOffer error')
+//         logError(error)
+//     }
+// }
+
+export const createService = async (title, description, fields, category_id, image, meta_data) => {
+    const body = {
+        title: title, description: description, fields: fields, category_id: category_id, image: image, meta_data: meta_data
     }
+    const response = (await axios.post('api/services', body)).data
+    return response
 }
 
 export const getAvailableCategories = async () => {

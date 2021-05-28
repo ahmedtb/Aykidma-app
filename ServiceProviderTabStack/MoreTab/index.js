@@ -47,9 +47,9 @@ function MoreTab(props) {
 
     function switchToUser() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
-        setTimeout(() => {
+        // setTimeout(() => {
             props.navigation.navigate('TabStack', { screen: 'MainTab' })
-        }, 2000);
+        // }, 2000);
         
     }
 

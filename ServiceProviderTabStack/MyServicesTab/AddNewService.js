@@ -57,10 +57,10 @@ export default function AddNewService({ navigation }) {
                     />
                 </View>
 
-                <View style={{ margin: 10 }}>
+                {/* <View style={{ margin: 10 }}>
                     <Text style={styles.fieldLable} >اختر تصميم عرض موجود بالفعل (موصى به)</Text>
                     <ChoiceListFromOffersModal />
-                </View>
+                </View> */}
 
 
                 <CreateOfferComponent title={title} />

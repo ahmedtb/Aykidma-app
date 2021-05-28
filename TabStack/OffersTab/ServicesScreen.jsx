@@ -36,7 +36,7 @@ const RenderServiceCard = (props) => {
 
 import {fetchServices} from '../../utilityFunctions/apiCalls'
 
-export default function servicesScreen({ navigation }) {
+export default function ServicesScreen({ navigation }) {
     const {InspectAPIError} = React.useContext(AuthContext)
     const [services, setServices] = useState(null);
     const [loading, setLoading] = useState(true);
