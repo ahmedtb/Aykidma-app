@@ -7,7 +7,7 @@ import { AuthContext } from '../StateManagment/AuthState'
 import MainTab from './MainTab';
 import OrdersTab from './OrdersTab';
 import MoreTab from './moreTab';
-import OffersTab from './OffersTab';
+import ServicesTab from './ServicesTab';
 import ProfileTab from './ProfileTab'
 
 import { Provider } from 'react-redux';
@@ -39,7 +39,7 @@ export default function TabStack(props) {
                     }}
                 />
                 <Tab.Screen name="طلباتي" component={OrdersTab} />
-                <Tab.Screen name="كل العروض" component={OffersTab}
+                <Tab.Screen name="كل العروض" component={ServicesTab}
                     options={{
                         tabBarIcon: ({ size, focused, color }) => {
                             return (
