@@ -47,7 +47,8 @@ export default function AuthenticationStack () {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold'
-                    }
+                    },
+                    headerShown: false
                 }}
             >
 

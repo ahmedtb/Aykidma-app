@@ -66,7 +66,7 @@ export default function FormModal(props) {
     const fields = props.state.fields
     const service_id = props.state.service_id
 
-    console.log('image',fields[4].value.length)
+    // console.log('image',fields[4].value.length)
     // console.log('service_id',service_id)
 
     const [modalVisible, setModalVisible] = props.visibility

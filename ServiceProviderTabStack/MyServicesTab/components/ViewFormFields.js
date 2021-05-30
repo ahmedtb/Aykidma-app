@@ -43,11 +43,8 @@ const ViewFormFields = (props) => {
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             {(field.subLabel) ? (<Text style={{ fontSize: 12 }}>{field.subLabel}</Text>) : (null)}
 
-                            <TextInput
-                                multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                                onChangeText={(text) => {
-                                }}
-                                value={field.value}
+                            <View
+                                style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, padding: 20 }}
                             />
                         </View>
                     )
@@ -55,14 +52,12 @@ const ViewFormFields = (props) => {
                     return (
                         <View key={fieldIndex}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-                            <Text>here list of the options</Text>
-                            {/* <ListOptions
-                                onChange={
-                                    (option) => {
-                                    }
-                                }
-                                choice={field.value}
-                                list={field.titles} label='اختر' /> */}
+                            <Text>خيارات حقل الاحتيار</Text>
+                            {field.titles.map((title, index) => (
+                                <Text key={index} style={{ fontSize: 12, borderWidth: 1 }}>
+                                    {title}
+                                </Text>
+                            ))}
                         </View>
                     )
                 } else if (field.type === 'location') {
@@ -84,57 +79,14 @@ const ViewFormFields = (props) => {
                 } else if (field.type == 'image') {
                     return (
                         <View key={fieldIndex}>
+                            <Text>حقل اختيار صورى</Text>
                             <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-                            <Text>this is a image picker fields</Text>
-                            {/* <ImagePicker
-                                onChange={
-                                    (imageUri) => {
-                                    }
-                                }
-                                value={field.value}
-                                style={{ marginVertical: 5, borderRadius: 10, padding: 50 }}
-                            /> */}
+                            <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1 }}>
+                                <AntDesign name="camerao" size={75} color="black" />
+                            </View>
                         </View>
                     )
-                } 
-                // else if (field.type == 'SPs') {
-                //     const [choice, setChoice] = useState(null);
-                //     return SPs.map(
-                //         (SP, index) => (
-                //             <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceProviderScreen')} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
-                //                 <Image source={{ uri: SP.imageUri }} style={{flex:0.5}} />
-                //                 <View style={{ margin: 10, flex: 1 }}>
-                //                     <Text>{SP.name}</Text>
-                //                     <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
-                //                         <AntDesign name="staro" size={15} color="black" />
-                //                         <AntDesign name="staro" size={15} color="black" />
-                //                         <AntDesign name="staro" size={15} color="black" />
-                //                         <AntDesign name="staro" size={15} color="black" />
-                //                         <AntDesign name="staro" size={15} color="black" />
-                //                         <Text>تقييم {SP.rating}</Text>
-                //                     </View>
-                //                     <Text style={{ color: 'red' }}>{SP.description}</Text>
-                //                 </View>
-                //                 <TouchableOpacity onPress={() => {
-                //                     dispatch({ type: 'change', payload: { name: field.name, value: SP.id } });
-                //                     setChoice(SP.id);
-                //                 }
-                //                 } style={{ justifyContent: 'center', paddingHorizontal: 25, paddingVertical: 10, alignSelf: 'center', borderRadius: 10 }}>
-                //                     <View>
-                //                         {(choice == SP.id) ?
-                //                             (<AntDesign name="check" size={50} color="black" />)
-
-                //                             :
-                //                             (<Ionicons name={"radio-button-off"} size={24} color="black" />)
-                //                         }
-                //                     </View>
-                //                 </TouchableOpacity>
-
-                //             </TouchableOpacity>
-                //         )
-                //     )
-
-                // }
+                }
                 return null;
             })
         }

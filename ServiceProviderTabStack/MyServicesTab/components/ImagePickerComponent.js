@@ -8,8 +8,25 @@ import { onChange } from 'react-native-reanimated';
 
 //required pros:
 // onChange, value, style
+
+function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+};
+
+function imageValueSetup(value) {
+    if (value) {
+        if (isValidURL(value)){
+            return value
+        }else
+            return 'data:image/png;base64,' + value
+    } else
+        return null
+}
+
 export default function ImagePickerComponent(props) {
-    const [image, setImage] = useState(props.value ? props.value : null);
+    const [image, setImage] = useState(imageValueSetup(props.value));
+    
     useEffect(() => {
         (async () => {
             if (Platform.OS !== 'web') {
@@ -34,7 +51,7 @@ export default function ImagePickerComponent(props) {
 
         if (!result.cancelled) {
             // setImage(result.uri);
-            setImage(result.base64)
+            setImage('data:image/png;base64,' + result.base64)
             props.onChange(result.base64);
         }
     };
@@ -47,7 +64,7 @@ export default function ImagePickerComponent(props) {
             <TouchableOpacity onPress={pickImage} >
 
                 {(image) ?
-                    <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />
+                    <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
                     :
                     null
                 }

@@ -18,7 +18,7 @@ import ServiceScreen from './ServiceScreen'
 const Stack = createStackNavigator();
 
 
-export default function OfferProcedureStack() {
+export default function ServiceProcedureStack() {
     return (
         <Stack.Navigator
             screenOptions={{

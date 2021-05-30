@@ -4,10 +4,15 @@ import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'reac
 import { AuthContext } from '../../StateManagment/AuthState'
 
 export default function LoginModal(props) {
-    const { login, user } = useContext(AuthContext)
+    const { login, user, tryLoginUserFromStore } = useContext(AuthContext)
     const [loginVisible, setLoginVisible] = props.visibility
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
+
+
+    React.useEffect(() => {
+        tryLoginUserFromStore()
+    }, [])
 
     return (
         <Modal
@@ -66,6 +71,7 @@ export default function LoginModal(props) {
                         <TextInput
                             style={{ flex: 1 }}
                             value={phoneNumber}
+                            keyboardType='phone-pad'
                             onChangeText={setPhoneNumber}
                         />
                     </View>
