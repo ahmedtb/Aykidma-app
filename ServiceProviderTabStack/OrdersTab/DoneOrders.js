@@ -27,7 +27,7 @@ const OrderItem = (props) => {
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
                         <Text style={{ textAlign: 'center' }}>{date}</Text>
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>

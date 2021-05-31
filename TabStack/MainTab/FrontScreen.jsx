@@ -42,7 +42,7 @@ export default function FrontScreen({ navigation }) {
                 {(categories) ? (
                     categories.map((category, index) => (
                         <TouchableOpacity key={index} style={styles.serviceBox} onPress={() => navigation.navigate('ServicesScreen', { category: category })}>
-                            <Image source={{ uri: category.image }} style={{ width: 100, height: 100 }} />
+                            <Image source={{ uri: 'data:image/png;base64,' + category.image }} style={{ width: 100, height: 100 }} />
                             <Text style={styles.serviceLabel} >{category.name}</Text>
                         </TouchableOpacity>
                     ))
