@@ -18,7 +18,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 const CreatedFieldsRender = (props) => {
 
-    const fields = props.fields;    
+    const fields = props.fields;
     return (
         <View style={{ padding: 25 }}>
             <ScrollView>
@@ -55,13 +55,11 @@ const CreatedFieldsRender = (props) => {
                                 <View key={fieldIndex}>
                                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                                     <Text>here list of the options</Text>
-                                    {/* <ListOptions
-                                onChange={
-                                    (option) => {
+                                    {
+                                        field.titles.map((title, index) => (
+                                            <Text key={index}>{title}</Text>
+                                        ))
                                     }
-                                }
-                                choice={field.value}
-                                list={field.titles} label='اختر' /> */}
                                 </View>
                             )
                         } else if (field.type === 'location') {
@@ -71,13 +69,7 @@ const CreatedFieldsRender = (props) => {
                                         <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>{field.label}</Text>
                                     </View>
                                     <Text>here we should pick the location</Text>
-                                    {/* <LocationPicker
-                                onChange={
-                                    (value) => {
-                                    }
-                                }
-                                value={field.value}
-                            /> */}
+                                    <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
                                 </View>
                             )
                         } else if (field.type == 'image') {
@@ -85,14 +77,9 @@ const CreatedFieldsRender = (props) => {
                                 <View key={fieldIndex}>
                                     <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                                     <Text>this is a image picker fields</Text>
-                                    {/* <ImagePicker
-                                onChange={
-                                    (imageUri) => {
-                                    }
-                                }
-                                value={field.value}
-                                style={{ marginVertical: 5, borderRadius: 10, padding: 50 }}
-                            /> */}
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1 }}>
+                                        <AntDesign name="camerao" size={75} color="black" />
+                                    </View>
                                 </View>
                             )
                         }
@@ -102,6 +89,6 @@ const CreatedFieldsRender = (props) => {
             </ScrollView>
         </View>
     );
-    }
+}
 
-    export default CreatedFieldsRender;
+export default CreatedFieldsRender;

@@ -21,7 +21,7 @@ export default function Fourth(props) {
                     );
                     return;
                 }
-                let { status } = await Location.requestPermissionsAsync();
+                let { status } = await Location.requestForegroundPermissionsAsync();
                 if (status !== 'granted') {
                     setErrorMsg('Permission to access location was denied');
                     return;

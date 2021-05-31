@@ -67,13 +67,7 @@ const ViewFormFields = (props) => {
                                 <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>{field.label}</Text>
                             </View>
                             <Text>here we should pick the location</Text>
-                            {/* <LocationPicker
-                                onChange={
-                                    (value) => {
-                                    }
-                                }
-                                value={field.value}
-                            /> */}
+                            <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
                         </View>
                     )
                 } else if (field.type == 'image') {
