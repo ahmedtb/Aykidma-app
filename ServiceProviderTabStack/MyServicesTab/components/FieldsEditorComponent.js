@@ -19,7 +19,7 @@ function OptionsTitlesEditor(props) {
     const onChange = props.onChange
     const [visible, setVisible] = React.useState(false)
 
-    function onTitleChange(title,index){
+    function onTitleChange(title, index) {
         let changedArray = [...titles]
         changedArray[index] = title
         setTitles(changedArray)
@@ -69,9 +69,9 @@ function OptionsTitlesEditor(props) {
 
                         <View>
                             {titles.map((title, index) => (
-                                <TextInput key={index} style={{ fontSize: 12, borderWidth:1 }}
+                                <TextInput key={index} style={{ fontSize: 12, borderWidth: 1 }}
                                     onChangeText={(text) => {
-                                        onTitleChange(text,index)
+                                        onTitleChange(text, index)
                                     }}
                                     value={title}
                                 />
@@ -93,6 +93,15 @@ function OptionsTitlesEditor(props) {
                 </View>
             </Modal>
         </View >
+    )
+}
+
+function RemoveFieldButton(props) {
+    const deleteField = props.deleteField
+    return (
+        <TouchableOpacity onPress={() => deleteField()}>
+            <AntDesign name="closecircleo" size={24} color="black" />
+        </TouchableOpacity>
     )
 }
 
@@ -124,9 +133,16 @@ const FieldsEditorComponent = (props) => {
         onChange(changed)
     }
 
-    function changeTitles(titles,index){
+    function changeTitles(titles, index) {
         let changed = [...newFields]
         changed[index].titles = titles
+        setNewFields(changed)
+        onChange(changed)
+    }
+
+    function deleteField(index){
+        let changed = [...newFields]
+        changed.splice(index, 1);
         setNewFields(changed)
         onChange(changed)
     }
@@ -136,10 +152,11 @@ const FieldsEditorComponent = (props) => {
         <View style={{ padding: 25 }}>
             <ScrollView>
                 {
-                    fields.map((field, fieldIndex) => {
+                    newFields.map((field, fieldIndex) => {
                         if (field.type === 'string') {
                             return (
                                 <View key={fieldIndex}>
+                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
                                     <TextInput style={{ fontSize: 12 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
@@ -158,16 +175,13 @@ const FieldsEditorComponent = (props) => {
                         } else if (field.type === 'textarea') {
                             return (
                                 <View key={fieldIndex}>
-                                    {/* <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text> */}
-
+                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
                                     <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
                                         }}
                                         value={field.label}
                                     />
-                                    {/* <Text style={{ fontSize: 12 }}>{field.subLabel}</Text> */}
-
                                     {(field.subLabel) ? (
                                         <TextInput style={{ fontSize: 12, borderWidth: 1, borderRadius: 7 }}
                                             onChangeText={(text) => {
@@ -183,7 +197,7 @@ const FieldsEditorComponent = (props) => {
                         } else if (field.type === 'options') {
                             return (
                                 <View key={fieldIndex}>
-                                    {/* <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text> */}
+                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
                                     <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
@@ -191,30 +205,31 @@ const FieldsEditorComponent = (props) => {
                                         value={field.label}
                                     />
                                     <OptionsTitlesEditor titles={field.titles} onChange={
-                                        (value) => changeTitles(value,fieldIndex)
-                                    }/>
+                                        (value) => changeTitles(value, fieldIndex)
+                                    } />
                                 </View>
                             )
                         } else if (field.type === 'location') {
                             return (
                                 <View key={fieldIndex} >
+                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
+
                                     <View style={{ margin: 8 }}>
-                                        <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>{field.label}</Text>
+
+                                        <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
+                                            onChangeText={(text) => {
+                                                changeLabel(text, fieldIndex)
+                                            }}
+                                            value={field.label}
+                                        />
                                     </View>
-                                    <Text>here we should pick the location</Text>
-                                    {/* <LocationPicker
-                                onChange={
-                                    (value) => {
-                                    }
-                                }
-                                value={field.value}
-                            /> */}
+                                    <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
                                 </View>
                             )
                         } else if (field.type == 'image') {
                             return (
                                 <View key={fieldIndex}>
-                                    {/* <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text> */}
+                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
                                     <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)

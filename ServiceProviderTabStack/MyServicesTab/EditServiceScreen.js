@@ -6,7 +6,7 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native'
-import {AuthContext} from '../../StateManagment/AuthState'
+import { AuthContext } from '../../StateManagment/AuthState'
 
 import FieldsEditorComponent from './components/FieldsEditorComponent'
 import ImagePickerComponent from './components/ImagePickerComponent'
@@ -14,7 +14,7 @@ import CategoryComponent from './components/CategoryComponent'
 import { editService } from '../../utilityFunctions/apiCalls'
 
 export default function EditServiceScreen(props) {
-    const {InspectAPIError} = React.useContext(AuthContext)
+    const { InspectAPIError } = React.useContext(AuthContext)
 
     const service = props.route.params.service
     const [title, setTitle] = React.useState(service.title)
@@ -41,7 +41,7 @@ export default function EditServiceScreen(props) {
             <ScrollView>
 
                 <View style={{ margin: 10 }}>
-                    <Text >عنوان الخدمة</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>عنوان الخدمة</Text>
                     <TextInput
                         style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
                         onChangeText={setTitle}
@@ -50,6 +50,7 @@ export default function EditServiceScreen(props) {
                 </View>
 
                 <View style={{}}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>حقول الخدمة </Text>
                     <FieldsEditorComponent fields={editedFields} onChange={onChange} />
                 </View>
 
@@ -69,7 +70,7 @@ export default function EditServiceScreen(props) {
                     <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>الوصف</Text>
 
                     <TextInput
-                        multiline={true} numberOfLines={4} style={{ borderWidth: 1, margin:10, borderRadius: 10, marginVertical: 5 }}
+                        multiline={true} numberOfLines={4} style={{ borderWidth: 1, margin: 10, borderRadius: 10, marginVertical: 5 }}
                         onChangeText={(text) => { setDescription(text) }}
                         value={description}
                     />
@@ -77,10 +78,8 @@ export default function EditServiceScreen(props) {
 
                 </View>
 
-                <TouchableOpacity
-                    onPress={() => submit()}
-                    style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
-                    <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>طلب عديل الخدمة</Text>
+                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
+                    <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>طلب تعديل الخدمة</Text>
                 </TouchableOpacity>
 
             </ScrollView>
