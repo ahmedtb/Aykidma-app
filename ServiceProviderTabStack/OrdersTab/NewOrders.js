@@ -23,7 +23,6 @@ import NewOrderFormModal from './components/NewOrderFormModal'
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { title, location, category, date, cost, image, service_provider_name, fields, id, animate } = props;
-
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
     useEffect(() => {
@@ -43,7 +42,7 @@ const OrderItem = (props) => {
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3 }}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
+                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
                         <Text style={{ textAlign: 'center' }}>{date}</Text>
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>

@@ -21,7 +21,8 @@ const ListOptions = (props) => {
     const [choice, setChoice] = useState(props.choice);
     const list = props.list;
     const onChange = props.onChange;
-
+    // console.log(props)
+    // return null
     return (
         <View style={props.style} >
             <View style={{ padding: 5 }}>

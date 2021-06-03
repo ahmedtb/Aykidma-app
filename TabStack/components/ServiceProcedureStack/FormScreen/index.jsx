@@ -13,53 +13,57 @@ import Services from './formSteps/Services'
 import axios from 'axios'
 
 const reducer = (state, action) => {
-    switch (action.type) {
+
+    switch (action.actionType) {
         case 'change':
-            state.fields = state.fields.map((field) => {
-                if (field.name == action.payload.name)
-                    field.value = action.payload.value;
+            state.fields = state.fields.map((field, fieldIndex) => {
+                if (fieldIndex == action.fieldIndex)
+                    field.value = action.value;
                 return field;
             })
+            // console.log(state)
+
             return state
-        case 'change_testingOptions':
-            state.fields = state.fields.map((field) => {
-                if (field.name == action.payload.name)
-                    field.value = action.payload.value;
-                return field;
-            })
-            return state
-        case 'change_testingString':
-            state.fields = state.fields.map((field) => {
-                if (field.name == action.payload.name)
-                    field.value = action.payload.value;
-                return field;
-            })
-            return state
-        case 'change_testingTextArea':
-            state.fields = state.fields.map((field) => {
-                if (field.name == action.payload.name)
-                    field.value = action.payload.value;
-                return field;
-            })
-            return state
-        case 'change_testingLocation':
-            state.fields = state.fields.map((field) => {
-                if (field.name == action.payload.name)
-                    field.value = action.payload.value;
-                return field;
-            })
-            return state
-        case 'change_testingImage':
-            state.fields = state.fields.map((field) => {
-                if (field.name == action.payload.name)
-                    field.value = action.payload.value;
-                return field;
-            })
-            return state
-        case 'change_service':
-            state.service = action.payload.value
-            return state
+        // case 'change_testingOptions':
+        //     state.fields = state.fields.map((field) => {
+        //         if (field.name == action.payload.name)
+        //             field.value = action.payload.value;
+        //         return field;
+        //     })
+        //     return state
+        // case 'change_testingString':
+        //     state.fields = state.fields.map((field) => {
+        //         if (field.name == action.payload.name)
+        //             field.value = action.payload.value;
+        //         return field;
+        //     })
+        //     return state
+        // case 'change_testingTextArea':
+        //     state.fields = state.fields.map((field) => {
+        //         if (field.name == action.payload.name)
+        //             field.value = action.payload.value;
+        //         return field;
+        //     })
+        //     return state
+        // case 'change_testingLocation':
+        //     state.fields = state.fields.map((field) => {
+        //         if (field.name == action.payload.name)
+        //             field.value = action.payload.value;
+        //         return field;
+        //     })
+        //     return state
+        // case 'change_testingImage':
+        //     state.fields = state.fields.map((field) => {
+        //         if (field.name == action.payload.name)
+        //             field.value = action.payload.value;
+        //         return field;
+        //     })
+        //     return state
+        // case 'change_service':
+        //     state.service = action.payload.value
+        //     return state
     }
+
     return state;
 
 }

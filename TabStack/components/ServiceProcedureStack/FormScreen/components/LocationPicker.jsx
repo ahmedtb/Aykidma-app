@@ -6,14 +6,14 @@ import MapView, { Marker } from 'react-native-maps';
 
 
 // props required [value{latitude:..., longitude:...}, onChange={function(value) } ]
-export default function Fourth(props) {
+export default function LocationPicker(props) {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-    const [latitude, setLatitude] = useState((props.value.latitude) ? (props.value.latitude) : (0));
-    const [longitude, setLongitude] = useState((props.value.longitude) ? (props.value.longitude) : (0));
+    const [latitude, setLatitude] = useState((props.value?.latitude) ? (props.value.latitude) : (0));
+    const [longitude, setLongitude] = useState((props.value?.longitude) ? (props.value.longitude) : (0));
 
     useEffect(() => {
-        if (!props.value.longitude)
+        if (!props.value?.longitude)
             (async () => {
                 if (Platform.OS === 'android' && !Constants.isDevice) {
                     setErrorMsg(

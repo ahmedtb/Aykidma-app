@@ -53,10 +53,12 @@ export default function OrdersTab({ navigation }) {
         async function fetch() {
             if (!user) return
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${user.token}` }
-                };
-                const orders = (await axios.get('/api/orders', config)).data
+                // const config = {
+                //     headers: { Authorization: `Bearer ${user.token}` }
+                // };
+                const orders = (await axios.get('/api/orders'
+                // , config
+                )).data
                 setNewOrders(filterOrders(orders, 'new'))
                 setResumedOrder(filterOrders(orders, 'resumed'))
                 setDoneOrders(filterOrders(orders, 'done'))

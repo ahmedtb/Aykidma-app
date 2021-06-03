@@ -22,6 +22,8 @@ const FormFields = (props) => {
     const navigation = useNavigation();
 
     const [fields, dispatch] = props.ReducerState;
+
+    // console.log(fields);
     const CustomFields = (props) => <ScrollView>
         {
             fields.map((field, fieldIndex) => {
@@ -32,7 +34,7 @@ const FormFields = (props) => {
                             <TextInput
                                 style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                 onChangeText={(text) => {
-                                    dispatch({ type: 'change', payload: { name: field.name, value: text } })
+                                    dispatch({ actionType: 'change', fieldIndex:fieldIndex,  value: text  })
                                 }}
                                 value={field.value}
                             />
@@ -47,7 +49,7 @@ const FormFields = (props) => {
                             <TextInput
                                 multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                 onChangeText={(text) => {
-                                    dispatch({ type: 'change', payload: { name: field.name, value: text } })
+                                    dispatch({ actionType: 'change', fieldIndex:fieldIndex,  value: text  })
                                 }}
                                 value={field.value}
                             />
@@ -60,7 +62,7 @@ const FormFields = (props) => {
                             <ListOptions
                                 onChange={
                                     (option) => {
-                                        dispatch({ type: 'change', payload: { name: field.name, value: option } })
+                                        dispatch({ actionType: 'change', fieldIndex:fieldIndex,  value: option  })
                                     }
                                 }
                                 choice={field.value}
@@ -76,7 +78,7 @@ const FormFields = (props) => {
                             <LocationPicker
                                 onChange={
                                     (value) => {
-                                        dispatch({ type: 'change', payload: { name: field.name, value: value } })
+                                        dispatch({ actionType: 'change', fieldIndex:fieldIndex,  value: value  })
                                     }
                                 }
                                 value={field.value}
@@ -89,9 +91,9 @@ const FormFields = (props) => {
                             <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             <ImagePicker
                                 onChange={
-                                    (imageUri) => {
-                                        // console.log(imageUri)
-                                        dispatch({ type: 'change', payload: { name: field.name, value: imageUri } })
+                                    (image) => {
+                                        // console.log(image)
+                                        dispatch({ actionType: 'change', fieldIndex:fieldIndex,  value: image  })
                                     }
                                 }
                                 value={field.value}
@@ -99,43 +101,6 @@ const FormFields = (props) => {
                             />
                         </View>
                     )
-                } else if (field.type == 'SPs') {
-                    const [choice, setChoice] = useState(null);
-                    return SPs.map(
-                        (SP, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('ServiceProviderScreen')} style={{ flexDirection: 'row', borderWidth: 1, margin: 10 }}>
-                                <Image source={{ uri: SP.imageUri }} style={{flex:0.5}} />
-                                <View style={{ margin: 10, flex: 1 }}>
-                                    <Text>{SP.name}</Text>
-                                    <View style={{ alignSelf: 'flex-start', flexDirection: 'row', backgroundColor: 'yellow' }}>
-                                        <AntDesign name="staro" size={15} color="black" />
-                                        <AntDesign name="staro" size={15} color="black" />
-                                        <AntDesign name="staro" size={15} color="black" />
-                                        <AntDesign name="staro" size={15} color="black" />
-                                        <AntDesign name="staro" size={15} color="black" />
-                                        <Text>تقييم {SP.rating}</Text>
-                                    </View>
-                                    <Text style={{ color: 'red' }}>{SP.description}</Text>
-                                </View>
-                                <TouchableOpacity onPress={() => {
-                                    dispatch({ type: 'change', payload: { name: field.name, value: SP.id } });
-                                    setChoice(SP.id);
-                                }
-                                } style={{ justifyContent: 'center', paddingHorizontal: 25, paddingVertical: 10, alignSelf: 'center', borderRadius: 10 }}>
-                                    <View>
-                                        {(choice == SP.id) ?
-                                            (<AntDesign name="check" size={50} color="black" />)
-
-                                            :
-                                            (<Ionicons name={"radio-button-off"} size={24} color="black" />)
-                                        }
-                                    </View>
-                                </TouchableOpacity>
-
-                            </TouchableOpacity>
-                        )
-                    )
-
                 }
                 return null;
             })

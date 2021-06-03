@@ -125,7 +125,7 @@ export default function NewOrderFormModal(props) {
                         <Pressable
                             style={{ ...styles.button, backgroundColor: '#f4c18b' }}
                             onPress={() => {
-                                resumeNewOrder(providerAuth.token,id) 
+                                resumeNewOrder(id) 
                                 setModalVisible(!modalVisible)
                             }}
                         >

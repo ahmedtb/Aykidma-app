@@ -26,7 +26,6 @@ function OptionsCreator(props) {
     const [label, setLabel] = React.useState(null)
     const [title, setTitle] = React.useState(null)
     const [titles, setTitles] = React.useState([])
-    console.log(titles)
 
     function addTitle(title) {
         if (!title)
