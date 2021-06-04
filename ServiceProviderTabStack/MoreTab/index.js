@@ -38,7 +38,7 @@ export default function MoreTabStack(props) {
         </Stack.Navigator>
     );
 }
-import {AuthContext} from '../../StateManagment/AuthState'
+import { AuthContext } from '../../StateManagment/AuthState'
 import axios from 'axios'
 
 function MoreTab(props) {
@@ -48,9 +48,9 @@ function MoreTab(props) {
     function switchToUser() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
         // setTimeout(() => {
-            props.navigation.navigate('TabStack', { screen: 'MainTab' })
+        props.navigation.navigate('TabStack', { screen: 'الرئيسية' })
         // }, 2000);
-        
+
     }
 
     return (
@@ -86,7 +86,7 @@ function MoreTab(props) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                onPress={() => switchToUser() }
+                onPress={() => switchToUser()}
                 style={styles.menuItem} >
                 <Text style={styles.fieldLable} >تبديل الى المستخدم العادي</Text>
             </TouchableOpacity>

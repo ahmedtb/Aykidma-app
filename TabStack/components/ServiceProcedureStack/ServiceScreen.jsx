@@ -18,13 +18,14 @@ import { AntDesign } from '@expo/vector-icons';
 import NavigationBar from '../NavigationBar'
 
 function ToggleDetailsComments(props) {
-    let htmlContent = props.description;
+    // let htmlContent = props.description;
     const contentWidth = useWindowDimensions().width;
 
     const orders = props.orders
 
-    switch (props.tab) {
-        case 1: return (
+    // switch (props.tab) {
+        // case 1:
+             return (
             <ScrollView>
                 {
                     orders.map((order, index) => {
@@ -51,12 +52,12 @@ function ToggleDetailsComments(props) {
                 <View style={{ height: 100 }} />
             </ScrollView>
         )
-        case 2: return (
-            <ScrollView style={{}}>
-                <HTML source={{ html: htmlContent }} contentWidth={contentWidth} />
-            </ScrollView>
-        )
-    }
+    //     case 2: return (
+    //         <ScrollView style={{}}>
+    //             <HTML source={{ html: htmlContent }} contentWidth={contentWidth} />
+    //         </ScrollView>
+    //     )
+    // }
 }
 
 import axios from 'axios'
@@ -130,7 +131,9 @@ export default function ServiceProviderScreen(props) {
                     </TouchableOpacity>
                 </View>
 
-                <ToggleDetailsComments tab={tab} orders={orders} description={service.meta_data?.details} />
+                <ToggleDetailsComments tab={tab} orders={orders}
+                    // description={service.meta_data?.details}
+                />
 
             </View>
 

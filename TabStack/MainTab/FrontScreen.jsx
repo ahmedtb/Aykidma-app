@@ -11,21 +11,25 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
-
+import RefreshScrollView from '../components/RefreshScrollView'
 import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
 
 export default function FrontScreen({ navigation }) {
 
     const [categories, setCategories] = React.useState([])
-    React.useEffect(() => {
+
+    function setupCategories() {
         getAvailableCategories().then((data) => {
             setCategories(data)
         })
+    }
+
+    React.useEffect(() => {
+        setupCategories()
     }, [])
 
     return (
-        <ScrollView style={styles.container}>
+        <RefreshScrollView style={styles.container} refreshFunction={setupCategories} >
             <ImageBackground source={require('../../resources/background.jpg')} style={{ alignItems: 'center', justifyContent: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width / 1.77, alignSelf: 'center' }}>
                 <Image source={require('../../resources/Aykidma.png')} style={{ width: 100 * 2.4, height: 100 }} />
 
@@ -49,7 +53,7 @@ export default function FrontScreen({ navigation }) {
                 ) : (null)}
 
             </View>
-        </ScrollView>
+        </RefreshScrollView>
 
     );
 }

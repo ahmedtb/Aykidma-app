@@ -20,7 +20,7 @@ const RenderServiceCard = (props) => {
     const title = props.title;
     const price = props.price
     const rating = props.rating
-    const servicePrice = props.servicePrice
+    // const servicePrice = props.servicePrice
     return (
         <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
             <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100 }} />
@@ -28,7 +28,7 @@ const RenderServiceCard = (props) => {
             <View style={{ margin: 10 }}>
                 <Text style={styles.serviceTitle}>{title}</Text>
                 <Text style={{ color: 'red' }}>سعر العروض{price}</Text>
-                <Text style={{ color: 'red' }}>سعري{servicePrice}</Text>
+                {/* <Text style={{ color: 'red' }}>سعري{servicePrice}</Text> */}
 
                 <Text style={{ color: 'red' }}>التقييم: {rating}</Text>
 
@@ -68,7 +68,7 @@ export default function ServiceScreen({ navigation }) {
                                             title={service.title}
                                             price={service.meta_data?.price}
                                             rating={service.meta_data?.rating}
-                                            servicePrice={service.meta_data?.cost}
+                                            // servicePrice={service.meta_data?.cost}
                                         />
                                     </TouchableOpacity>
                                 )

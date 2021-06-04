@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import axios from 'axios'
-import { AuthContext} from '../../StateManagment/AuthState'
+import { AuthContext } from '../../StateManagment/AuthState'
 import LoadingIndicator from '../components/loadingIndicator'
 
 const RenderServiceCard = (props) => {
@@ -34,20 +34,26 @@ const RenderServiceCard = (props) => {
     )
 }
 
-import {fetchServices} from '../../utilityFunctions/apiCalls'
+import RefreshScrollView from '../components/RefreshScrollView'
+import { fetchServices } from '../../utilityFunctions/apiCalls'
 
 export default function ServicesScreen({ navigation }) {
-    const {InspectAPIError} = React.useContext(AuthContext)
+    const { InspectAPIError } = React.useContext(AuthContext)
     const [services, setServices] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchServices().then(data => {
-            setServices(data);
-            setLoading(false);
-        }).catch(error => {
+    async function setupServices() {
+        try {
+            const data = await fetchServices()
+            setServices(data)
+            setLoading(false)
+        } catch (error) {
             InspectAPIError(error)
-        })
+        }
+    }
+
+    useEffect(() => {
+        setupServices()
     }, [])
 
     const navigateToDetails = (service) => {
@@ -58,7 +64,7 @@ export default function ServicesScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <ScrollView style={{ padding: 20 }}>
+            <RefreshScrollView refreshFunction={setupServices} style={{ padding: 20 }}>
 
                 {
                     (services) ?
@@ -76,7 +82,7 @@ export default function ServicesScreen({ navigation }) {
                 {/* this is for bottom spaceing */}
                 <View style={{ height: 50 }}></View>
 
-            </ScrollView>
+            </RefreshScrollView >
 
 
             <LoadingIndicator visibility={loading} />
@@ -100,6 +106,5 @@ const styles = StyleSheet.create({
     },
     serviceTitle: {
         fontSize: 20,
-        // textAlign:'justify',
     }
 });
