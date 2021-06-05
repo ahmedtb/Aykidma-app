@@ -23,7 +23,7 @@ import { AuthContext } from '../../../StateManagment/AuthState'
 
 export default function AuthenticationStack () {
 
-    const { login, user, tryLoginUserFromStore } = useContext(AuthContext)
+    const { user, tryLoginUserFromStore } = useContext(AuthContext)
 
     React.useEffect(() => {
         tryLoginUserFromStore()

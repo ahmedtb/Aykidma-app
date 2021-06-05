@@ -4,7 +4,12 @@ import { ActivityIndicator, StyleSheet, Text, View, Modal } from 'react-native';
 const LoadingIndicator = (props) => {
     const [stopIndicating, setStopIndicating] = React.useState(false);
     useEffect(() => {
-        setTimeout(()=>setStopIndicating(true),7000)
+        if (props.visibility) {
+            setStopIndicating(false)
+            setTimeout(() => setStopIndicating(true), 7000)
+        } else {
+            setStopIndicating(false)
+        }
     },[props.visibility])
 
     return (

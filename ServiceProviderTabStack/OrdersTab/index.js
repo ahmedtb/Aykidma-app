@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -15,12 +15,6 @@ import {
     Pressable,
     StatusBar
 } from 'react-native';
-import { useEffect } from 'react';
-
-import { createStackNavigator } from '@react-navigation/stack';
-
-
-const Stack = createStackNavigator();
 
 import NewOrders from './NewOrders'
 import ResumedOrders from './ResumedOrders'
@@ -28,6 +22,7 @@ import DoneOrders from './DoneOrders'
 import { fetchServiceProviderOrders } from '../../utilityFunctions/apiCalls'
 import { AuthContext } from '../../StateManagment/AuthState'
 import LoginScreen from '../components/AuthenticationStack/LoginScreen'
+import LoadingIndicator from '../components/loadingIndicator'
 
 function filterOrders(orders, status) {
     return orders.filter((order) => {
@@ -39,32 +34,43 @@ function filterOrders(orders, status) {
 }
 
 function OrdersDisplay(props) {
+    const { InspectAPIError } = useContext(AuthContext)
+    const [isLoading, setIsLoading] = useState(true)
     const [viewOrders, setViewOrders] = useState(1);
 
     const [newOrders, setNewOrders] = useState([])
     const [resumedOrders, setResumedOrder] = useState([])
     const [doneOrders, setDoneOrders] = useState([])
 
-    useEffect(() => {
-        fetchServiceProviderOrders(props.token).then((orders) => {
+    async function setupServiceProviderOrders() {
+        try {
+            setIsLoading(true)
+            const orders = await fetchServiceProviderOrders()
+            setIsLoading(false)
+
             setNewOrders(filterOrders(orders, 'new'))
             setResumedOrder(filterOrders(orders, 'resumed'))
             setDoneOrders(filterOrders(orders, 'done'))
-        }).catch(error => null)
+        } catch (error) {
+            InspectAPIError(error)
+        }
+    }
 
-        const unsubscribe = props.navigation.addListener('focus', () => {
-            fetchServiceProviderOrders(props.token).then((orders) => {
-                setNewOrders(filterOrders(orders, 'new'))
-                setResumedOrder(filterOrders(orders, 'resumed'))
-                setDoneOrders(filterOrders(orders, 'done'))
-            }).catch(error => null)
-        });
+    useEffect(() => {
+        setupServiceProviderOrders()
 
-        return unsubscribe;
+        // const unsubscribe = props.navigation.addListener('focus', () => {
+        //     setupServiceProviderOrders()
+        // });
+
+        // return unsubscribe;
     }, []);
 
     return (
-        <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, marginTop: StatusBar.currentHeight }}>
+
+        <View
+            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, marginTop: StatusBar.currentHeight }}
+        >
 
             <View style={{ alignItems: 'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor: 'red' }}>
                 <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>
@@ -78,8 +84,6 @@ function OrdersDisplay(props) {
                 <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders == 3) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات منتهية</Text></TouchableOpacity>
             </View>
 
-            {/* <OrdersList viewOrders={viewOrders} {...props} /> */}
-
             <View style={{ flex: 1 }}>
                 <View style={{ height: (viewOrders == 1) ? null : 0 }}>
                     <NewOrders newOrders={newOrders} />
@@ -92,17 +96,18 @@ function OrdersDisplay(props) {
                 </View>
             </View>
 
+            <LoadingIndicator visibility={isLoading} />
         </View>
+
 
     );
 }
 
 export default function OrdersTab({ navigation }) {
-    const { providerAuth, loginProvider } = useContext(AuthContext)
-
+    const { providerAuth } = useContext(AuthContext)
     if (providerAuth)
         return (
-            <OrdersDisplay navigation={navigation} token={providerAuth.token} />
+            <OrdersDisplay navigation={navigation} />
         )
     else
         return (

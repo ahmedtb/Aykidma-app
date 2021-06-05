@@ -7,22 +7,136 @@ import {
     ScrollView,
     Modal,
     Pressable,
-    TouchableOpacity
+    TouchableOpacity,
+    TextInput
 } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import LocationModal from './LocationModal'
 
 import { AuthContext } from '../../../StateManagment/AuthState'
 import { doneResumedOrder } from '../../../utilityFunctions/apiCalls'
 
-export default function OrderFormModal(props) {
-    const { login, user, InspectAPIError } = React.useContext(AuthContext)
+function SubmitModal(props) {
 
+    const { InspectAPIError } = React.useContext(AuthContext)
+
+    const vis = props.submitModalVis
+    const toggle = props.toggleSubmitModal
+    const id = props.id
+    // let comment = ''
+    const comment = React.useRef();
+    const [rating, setRating] = React.useState(0)
+    function ratingTab(starNumber){
+        if(starNumber == rating){
+            setRating(0)
+        } else {
+            setRating(starNumber)
+        }
+    }
+
+    function submit() {
+        doneResumedOrder(id, comment.current, rating)
+            .then((data) => console.log(data))
+            .catch(error => InspectAPIError(error))
+    }
+
+
+    return (
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={vis}
+            onRequestClose={() => { toggle() }}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+
+                    <Text>what is your rate of the service</Text>
+
+                    <TouchableOpacity onPress={() => ratingTab(1)}>
+                        {
+                            (rating >= 1) ?
+                                (<AntDesign name="star" size={24} color="black" />)
+                                :
+                                (<AntDesign name="staro" size={24} color="black" />)
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => ratingTab(2)}>
+                        {
+                            (rating >= 2) ?
+                                (<AntDesign name="star" size={24} color="black" />)
+                                :
+                                (<AntDesign name="staro" size={24} color="black" />)
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => ratingTab(3)}>
+                        {
+                            (rating >= 3) ?
+                                (<AntDesign name="star" size={24} color="black" />)
+                                :
+                                (<AntDesign name="staro" size={24} color="black" />)
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => ratingTab(4)}>
+                        {
+                            (rating >= 4) ?
+                                (<AntDesign name="star" size={24} color="black" />)
+                                :
+                                (<AntDesign name="staro" size={24} color="black" />)
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => ratingTab(5)}>
+                        {
+                            (rating == 5) ?
+                                (<AntDesign name="star" size={24} color="black" />)
+                                :
+                                (<AntDesign name="staro" size={24} color="black" />)
+                        }
+                    </TouchableOpacity>
+
+                    <Text>Please write a comment</Text>
+                    <TextInput
+                        multiline={true} numberOfLines={4}
+                        style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                        onChangeText={(text) => (comment.current = text)}
+                    // value={comment.current}
+                    />
+
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => toggle()}
+                    >
+                        <Text style={styles.textStyle}>اغلاق</Text>
+                    </Pressable>
+
+                    <Pressable
+                        style={{ ...styles.button, backgroundColor: '#f4c18b' }}
+                        onPress={() => submit()}
+                    >
+                        <Text style={styles.textStyle}>اكمل الطلب</Text>
+                    </Pressable>
+                </View>
+
+            </View>
+        </Modal>
+    )
+}
+
+export default function OrderFormModal(props) {
+    const { InspectAPIError } = React.useContext(AuthContext)
+
+    const [submitModalVis, setSubmitModalVis] = React.useState(false)
+    function toggleSubmitModal() {
+        setSubmitModalVis(!submitModalVis)
+    }
 
     const [modalVisible, setModalVisible] = props.visible;
     const { date, service_provider_name,
         offer_title, cost,
         location_name, fields, id } = props;
+
+
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
     return (
@@ -125,14 +239,11 @@ export default function OrderFormModal(props) {
 
                         <Pressable
                             style={{ ...styles.button, backgroundColor: '#f4c18b' }}
-                            onPress={() => {
-                                doneResumedOrder(user.token, id)
-                                    .then((data) => console.log(data))
-                                    .catch(error => InspectAPIError(error))
-                            }}
+                            onPress={() => toggleSubmitModal()}
                         >
-                            <Text style={styles.textStyle}>اكمل الطلب</Text>
+                            <Text style={styles.textStyle}>اعلن استكمال الطلب</Text>
                         </Pressable>
+                        <SubmitModal id={id} submitModalVis={submitModalVis} toggleSubmitModal={toggleSubmitModal} />
                     </View>
 
                 </ScrollView>
@@ -144,9 +255,6 @@ export default function OrderFormModal(props) {
 
 
 const styles = StyleSheet.create({
-
-
-
     // modal styles
     centeredView: {
         flex: 1,

@@ -4,14 +4,19 @@ import { ActivityIndicator, StyleSheet, Text, View, Modal } from 'react-native';
 const LoadingIndicator = (props) => {
     const [stopIndicating, setStopIndicating] = React.useState(false);
     useEffect(() => {
-        setTimeout(()=>setStopIndicating(true),7000)
-    },[props.visibility])
+        if (props.visibility) {
+            setStopIndicating(false)
+            setTimeout(() => setStopIndicating(true), 7000)
+        } else {
+            setStopIndicating(false)
+        }
+    }, [props.visibility])
 
     return (
         <Modal
             animationType="fade"
             transparent={true}
-            visible={(stopIndicating)? false : props.visibility}>
+            visible={(stopIndicating) ? false : props.visibility}>
             <View
                 style={{
                     flex: 1,
@@ -39,8 +44,8 @@ const LoadingIndicator = (props) => {
                         fontSize: 15,
                         fontWeight: 'bold',
                     }}>
-                        { (props.label) ? (props.label) : ('جار التحميل')}
-                        </Text>
+                        {(props.label) ? (props.label) : ('جار التحميل')}
+                    </Text>
                 </View>
             </View>
         </Modal>

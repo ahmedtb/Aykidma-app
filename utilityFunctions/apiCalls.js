@@ -45,14 +45,13 @@ export const fetchMyServices = async () => {
 }
 
 export const fetchServiceProviderOrders = async () => {
-    try {
-        const orders = (await axios.get('/api/orders')).data
-        return orders
-    } catch (error) {
-        console.log('fetchServiceProviderOrders error')
-        logError(error)
-    }
+    const orders = (await axios.get('/api/orders')).data
+    return orders
+}
 
+export const fetchUserOrders = async () => {
+    const orders = (await axios.get('/api/orders')).data
+    return orders
 }
 
 export const submitOrder = async (fields, service_id) => {
@@ -78,35 +77,15 @@ export const resumeNewOrder = async (orderId) => {
     }
 }
 
-export const doneResumedOrder = async (token, orderId) => {
-    // try {
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
+export const doneResumedOrder = async (orderId, comment, rating) => {
     const body = {
-        order_id: orderId
+        order_id: orderId,
+        comment: comment,
+        rating: rating
     }
     const orders = (await axios.put('api/order/done', body)).data
     return orders
-    // } catch (error) {
-    //     console.log('doneResumedOrder error')
-    //     logError(error)
-    // }
 }
-
-// export const creatNewServiceWtihOffer = async (title, description, fields, category_id, meta_data, details) => {
-//     try {
-//         const body = {
-//             title: title, description: description, fields: fields, category_id: category_id, meta_data: meta_data, details: details
-//         }
-//         const response = (await axios.post('api/createServiceWithOffer', body)).data
-//         console.log(response)
-//         return response
-//     } catch (error) {
-//         console.log('creatNewServiceWtihOffer error')
-//         logError(error)
-//     }
-// }
 
 export const createService = async (title, description, fields, category_id, image, meta_data) => {
     const body = {
@@ -116,11 +95,11 @@ export const createService = async (title, description, fields, category_id, ima
     return response
 }
 
-export const editService = async (service_id,title, description, fields, category_id, image, meta_data) => {
+export const editService = async (service_id, title, description, fields, category_id, image, meta_data) => {
     const body = {
         title: title, description: description, fields: fields, category_id: category_id, image: image, meta_data: meta_data
     }
-    const response = (await axios.put('api/services/'+service_id, body)).data
+    const response = (await axios.put('api/services/' + service_id, body)).data
     return response
 }
 
