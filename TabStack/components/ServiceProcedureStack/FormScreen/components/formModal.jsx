@@ -17,47 +17,36 @@ function DialogBox(props) {
     const navigation = useNavigation();
 
     return (
-        <Modal
-            animationType="fade"
-            transparent={true}
-            visible={dialogBox}
-            onRequestClose={() => {
-                setDialogBox(!dialogBox);
-                navigation.navigate('طلباتي', { newOrderId: 1 })
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <View style={{}}>
-                        <Text style={{ fontSize: 20 }}>
-                            تم تقديم طلبك بنجاح
+        <ModalWrapper visible={dialogBox}>
+
+            <View style={{}}>
+                <Text style={{ fontSize: 20 }}>
+                    تم تقديم طلبك بنجاح
                         </Text>
-                        <Text>سيتم عرض طلبك على مزود الخدمة حتى يقبل به....لدى يرجى الانتظار حتى استجابة مزود الخدمة</Text>
+                <Text>سيتم عرض طلبك على مزود الخدمة حتى يقبل به....لدى يرجى الانتظار حتى استجابة مزود الخدمة</Text>
 
-                        <Pressable
-                            onPress={() => {
-                                setDialogBox(false)
-                                navigation.navigate('طلباتي', { newOrderId: 1 })
-                            }}
-                            style={{ backgroundColor: 'red', elevation: 3, padding: 7, borderRadius: 6 }}
-                        >
-                            <Text style={{ textAlign: 'center', color: 'white' }}>موافق</Text>
-                        </Pressable>
+                <Pressable
+                    onPress={() => {
+                        setDialogBox(false)
+                        navigation.navigate('طلباتي', { newOrderId: 1 })
+                    }}
+                    style={{ backgroundColor: 'red', elevation: 3, padding: 7, borderRadius: 6 }}
+                >
+                    <Text style={{ textAlign: 'center', color: 'white' }}>موافق</Text>
+                </Pressable>
 
-                    </View>
-
-                </View>
             </View>
 
-        </Modal>
+        </ModalWrapper>
     )
 }
 
 import { AuthContext } from '../../../../../StateManagment/AuthState'
-import {submitOrder} from '../../../../../utilityFunctions/apiCalls'
+import { submitOrder } from '../../../../../utilityFunctions/apiCalls'
+import ModalWrapper from '../../../ModalWrapper'
 
 export default function FormModal(props) {
-    const {InspectAPIError } = useContext(AuthContext)
+    const { InspectAPIError } = useContext(AuthContext)
 
     const [loading, setLoading] = useState(false)
     const [dialogBox, setDialogBox] = useState(false)
@@ -66,15 +55,12 @@ export default function FormModal(props) {
     const fields = props.state.fields
     const service_id = props.state.service_id
 
-    // console.log('image',fields[4].value.length)
-    // console.log('service_id',service_id)
-
     const [modalVisible, setModalVisible] = props.visibility
 
     function submit() {
 
         setLoading(true)
-        submitOrder(fields,service_id).then(response => {
+        submitOrder(fields, service_id).then(response => {
             console.log(response)
         }).catch(error => {
             InspectAPIError(error)
@@ -87,84 +73,75 @@ export default function FormModal(props) {
 
     return (
         <View>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <ScrollView style={styles.modalView}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>نموذج طلب خدمة</Text>
 
-                            <View style={{ alignItems: 'center' }}>
-                                <Text style={{ color: 'black', }}>التاريخ: 3/3/2021 م</Text>
-                            </View>
+            <ModalWrapper visible={modalVisible}>
+
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>نموذج طلب خدمة</Text>
+
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={{ color: 'black', }}>التاريخ: 3/3/2021 م</Text>
+                    </View>
+                </View>
+
+                <View style={{ borderWidth: 1, marginBottom: 20 }}>
+                    <View style={{}}>
+                        <Text style={{ color: 'black', }}>مقدم الخدمـــة: {'شركة التضامن'}</Text>
+                        <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                            <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {serviceTitle}</Text>
+                            <Text style={{ color: 'black', paddingHorizontal: 10 }}>الــــســـعـــــر : .........</Text>
                         </View>
+                    </View>
 
-                        <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                            <View style={{}}>
-                                <Text style={{ color: 'black', }}>مقدم الخدمـــة: {'شركة التضامن'}</Text>
-                                <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                    <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {serviceTitle}</Text>
-                                    <Text style={{ color: 'black', paddingHorizontal: 10 }}>الــــســـعـــــر : .........</Text>
-                                </View>
-                            </View>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10 }}>تــفــاصــيـــل الطـلــــب</Text>
 
-                            <Text style={{ fontSize: 15, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10 }}>تــفــاصــيـــل الطـلــــب</Text>
+                    {
+                        fields.map((field, index) => {
+                            if (field.type == 'location')
+                                return null
 
-                            {
-                                fields.map((field, index) => {
-                                    if (field.type == 'location')
-                                        return null
-
-                                    if (field.type == 'image') {
-                                        return (
-                                            <View key={index}>
-                                                <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
-                                            </View>
-                                        )
-                                    }
-
-                                    return (
-                                        <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                            <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
-                                        </View>
-                                    )
-                                })
+                            if (field.type == 'image') {
+                                return (
+                                    <View key={index}>
+                                        <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
+                                    </View>
+                                )
                             }
 
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', }}>{'مزود الخدمة'}: {service_id}</Text>
-                            </View>
+                            return (
+                                <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                    <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
+                                </View>
+                            )
+                        })
+                    }
 
-                        </View>
+                    <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                        <Text style={{ color: 'black', }}>{'مزود الخدمة'}: {service_id}</Text>
+                    </View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}
-                            >
-                                <Text style={styles.textStyle}>اغلاق</Text>
-                            </Pressable>
-
-                            <Pressable
-                                style={{ ...styles.button, backgroundColor: '#f4c18b' }}
-                                onPress={() => {
-                                    submit()
-                                }}
-                            >
-                                <Text style={styles.textStyle}>تقديم الطلب</Text>
-                            </Pressable>
-                        </View>
-
-                    </ScrollView>
                 </View>
-            </Modal>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setModalVisible(!modalVisible)}
+                    >
+                        <Text style={styles.textStyle}>اغلاق</Text>
+                    </Pressable>
+
+                    <Pressable
+                        style={{ ...styles.button, backgroundColor: '#f4c18b' }}
+                        onPress={() => {
+                            submit()
+                        }}
+                    >
+                        <Text style={styles.textStyle}>تقديم الطلب</Text>
+                    </Pressable>
+                </View>
+            </ModalWrapper>
+
 
             <LoadingIndicator visibility={loading} label='جاري تقديم طلبك' />
             <DialogBox visibility={[dialogBox, setDialogBox]} />
@@ -206,10 +183,6 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
         textAlign: "center"
     }
 });

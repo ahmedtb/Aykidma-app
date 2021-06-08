@@ -12,10 +12,12 @@ import {
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import RefreshScrollView from '../components/RefreshScrollView'
+// import ModalWrapper from '../components/ModalWrapper'
 import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
 
 export default function FrontScreen({ navigation }) {
 
+    // const [messageVis, setMessageVis] = React.useState(true)
     const [categories, setCategories] = React.useState([])
 
     function setupCategories() {
@@ -30,6 +32,14 @@ export default function FrontScreen({ navigation }) {
 
     return (
         <RefreshScrollView style={styles.container} refreshFunction={setupCategories} >
+            
+            {/* <ModalWrapper visible={messageVis}>
+                <Text>test</Text>
+                <TouchableOpacity onPress={() => setMessageVis(false)}>
+                    <Text>close</Text>
+                </TouchableOpacity>
+            </ModalWrapper> */}
+            
             <ImageBackground source={require('../../resources/background.jpg')} style={{ alignItems: 'center', justifyContent: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width / 1.77, alignSelf: 'center' }}>
                 <Image source={require('../../resources/Aykidma.png')} style={{ width: 100 * 2.4, height: 100 }} />
 
@@ -53,6 +63,9 @@ export default function FrontScreen({ navigation }) {
                 ) : (null)}
 
             </View>
+
+            
+
         </RefreshScrollView>
 
     );
