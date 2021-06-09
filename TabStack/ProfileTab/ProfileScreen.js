@@ -1,25 +1,28 @@
 
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import {
-    StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
-    TextInput,
-    FlatList,
     ScrollView,
-    Button,
     TouchableOpacity
 } from 'react-native';
 
 import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
+import { getUserImage } from '../../utilityFunctions/apiCalls'
 
 export default function ProfileScreen({ navigation }) {
 
-    const { logout, user } = useContext(AuthContext)
+    const { logout, user, InspectAPIError } = React.useContext(AuthContext)
+    const name = user.user.name
+    const phone_number = user.user.phone_number
+
+    const [image, setimage] = React.useState(null)
+
+    React.useEffect(() => {
+        getUserImage().then(data => setimage(data)).catch(error => InspectAPIError(error))
+    }, [])
 
     return (
         <ScrollView >
@@ -35,15 +38,16 @@ export default function ProfileScreen({ navigation }) {
             <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
 
                 <View style={{ margin: 10 }}>
-                    <Text style={{ fontSize: 20 }} >الاسم: {user.user.name}</Text>
+                    <Text style={{ fontSize: 20 }} >الاسم: {name}</Text>
                 </View>
 
                 <View style={{ margin: 10 }}>
-                    <Text style={{ fontSize: 20 }} >رقم الهاتف: {user.user.phone_number}</Text>
+                    <Text style={{ fontSize: 20 }} >رقم الهاتف: {phone_number}</Text>
                 </View>
 
             </View>
 
+            <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />
 
 
             <TouchableOpacity

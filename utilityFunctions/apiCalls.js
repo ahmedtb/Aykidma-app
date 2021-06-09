@@ -4,6 +4,11 @@ import logError from './logError'
 
 export { logError }
 
+export const getUserImage = async () => {
+    const data = (await axios.get('/api/myImage')).data
+    return data
+}
+
 export const signUpUser = async (name, phoneNumber, password) => {
     try {
         const data = await axios.post('/api/signup', {
