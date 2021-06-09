@@ -32,6 +32,18 @@ export const fetchServices = async () => {
     return data
 }
 
+export const searchThroughServices = async (q) => {
+    let response = await axios.get('api/search/services/' + q)
+    let data = await response.data
+    return data
+}
+
+export const searchThroughServicesWithCategory = async (category_id, q) => {
+    let response = await axios.get('api/search/services/' + category_id + '/' + q)
+    let data = await response.data
+    return data
+}
+
 export const fetchMyServices = async () => {
 
     try {
