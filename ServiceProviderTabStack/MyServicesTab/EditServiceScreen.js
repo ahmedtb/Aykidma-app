@@ -9,8 +9,11 @@ import {
 import { AuthContext } from '../../StateManagment/AuthState'
 
 import FieldsEditorComponent from './components/FieldsEditorComponent'
+import CreateNewFieldComponent from './components/CreateNewFieldComponent'
+
 import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
+
 import { editService } from '../../utilityFunctions/apiCalls'
 
 export default function EditServiceScreen(props) {
@@ -19,15 +22,15 @@ export default function EditServiceScreen(props) {
     const service = props.route.params.service
     const [title, setTitle] = React.useState(service.title)
     const [description, setDescription] = React.useState(service.description)
-    // const [editedFields, setEditedFields] = React.useState(service.fields)
     let editedFields = [...service.fields]
     const [category_id, selectCategory] = React.useState(service.category_id)
     const [image, setImage] = React.useState(service.image)
-    // console.log(image)
 
     function onChange(data) {
         editedFields = (data)
-        console.log(editedFields)
+    }
+    function addNewField(fieldConfig) {
+        editedFields = [...editedFields, fieldConfig]
     }
 
     function submit() {
@@ -52,6 +55,10 @@ export default function EditServiceScreen(props) {
                 <View style={{}}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>حقول الخدمة </Text>
                     <FieldsEditorComponent fields={editedFields} onChange={onChange} />
+                </View>
+
+                <View>
+                    <CreateNewFieldComponent addNewField={addNewField} />
                 </View>
 
                 <View>

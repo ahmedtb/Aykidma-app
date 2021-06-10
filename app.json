@@ -3,6 +3,7 @@
   "displayName": "aykidma-app",
   "expo": {
     "name": "aykidma-app",
+    "orientation": "portrait",
     "slug": "aykidma-app",
     "version": "1.0.0",
     "assetBundlePatterns": [

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { AntDesign } from '@expo/vector-icons';
+import CreatedFieldsRender from './CreatedFieldsRender'
 
 
 const fieldsTypes = {
@@ -73,15 +74,29 @@ function OptionsCreator(props) {
     )
 }
 
+
 export default function CreateNewFieldComponent(props) {
     const addNewField = props.addNewField
+    const [CreatedHere, setCreatedHere] = useState([]);
     const [selectedType, setSelectedType] = useState();
     const [fieldConfig, setFieldConfig] = useState({});
+
+    function add (config){
+        setCreatedHere([...CreatedHere, config])
+        addNewField(config)
+    }
+
+    function remove(index){
+        
+    }
 
     return (
 
 
         <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
+
+            <CreatedFieldsRender fields={CreatedHere} />
+
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{}}>نوع الحقل</Text>
@@ -175,7 +190,7 @@ export default function CreateNewFieldComponent(props) {
 
             })()}
 
-            <TouchableOpacity onPress={() => addNewField(fieldConfig)} >
+            <TouchableOpacity onPress={() => add(fieldConfig)} >
                 <Text>اضف الحقل</Text>
             </TouchableOpacity>
 

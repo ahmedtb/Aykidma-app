@@ -20,6 +20,18 @@ export const signUpUser = async (name, phoneNumber, password) => {
     }
 }
 
+export const editUserProfile = async (name,phoneNumber, image) => {
+    const data = (await axios.post('/api/editProfile', {
+        name: name, phone_number: phoneNumber, image: image
+    }) ).data
+    return data
+}
+
+export const refreshUser = async() => {
+    const data = (await axios.get('/api/user') ).data
+    return data
+}
+
 export const activateUser = async (name, phoneNumber, password, activationNumber) => {
     try {
         const data = await axios.post('/api/signup', {
@@ -146,3 +158,4 @@ export const fetchProviderNotifications = async () => {
 
     return (await axios.get('api/providerNotifications')).data
 }
+

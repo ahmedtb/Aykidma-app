@@ -17,7 +17,7 @@ import {
 import { AuthContext } from '../../StateManagment/AuthState'
 
 import CreateNewFieldComponent from './components/CreateNewFieldComponent'
-import CreatedFieldsRender from './components/CreatedFieldsRender'
+// import CreatedFieldsRender from './components/CreatedFieldsRender'
 import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
 import { createService } from '../../utilityFunctions/apiCalls'
@@ -65,7 +65,7 @@ export default function AddNewService({ navigation }) {
                 </View>
 
                 <View>
-                    <CreatedFieldsRender fields={fields} />
+                    {/* <CreatedFieldsRender fields={fields} /> */}
 
                     {
                         (newFieldCreateComponent) ? (

@@ -53,6 +53,15 @@ export default function ProfileScreen({ navigation }) {
             <TouchableOpacity
                 style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                 onPress={() => {
+                    navigation.navigate('EditProfileScreen',{image:image})
+                }}
+            >
+                <Text style={{ color: 'white' }}>تعديل الملف الشخصي</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                onPress={() => {
                     logout()
                 }
                 }
