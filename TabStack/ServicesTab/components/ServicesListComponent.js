@@ -19,6 +19,7 @@ import LoadingIndicator from '../../components/loadingIndicator'
 
 import RefreshScrollView from '../../components/RefreshScrollView'
 import { fetchServices } from '../../../utilityFunctions/apiCalls'
+import useIsMountedRef from '../../../utilityFunctions/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
     const image = props.image;
@@ -37,6 +38,8 @@ const RenderServiceCard = (props) => {
     )
 }
 export default function ServicesListComponent(props, { navigation }) {
+    const isMountedRef = useIsMountedRef()
+
     const focus = props.focus
     const focusHere = props.focusHere
     const unFocusFromHere = props.unFocusFromHere
@@ -49,8 +52,10 @@ export default function ServicesListComponent(props, { navigation }) {
         try {
             setLoading(true)
             const data = await fetchServices()
-            setServices(data)
-            setLoading(false)
+            if (isMountedRef.current) {
+                setServices(data)
+                setLoading(false)
+            }
         } catch (error) {
             InspectAPIError(error)
         }

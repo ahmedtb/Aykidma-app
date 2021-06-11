@@ -32,6 +32,11 @@ export const refreshUser = async() => {
     return data
 }
 
+export const refreshProvider = async() => {
+    const data = (await axios.get('/api/provider') ).data
+    return data
+}
+
 export const activateUser = async (name, phoneNumber, password, activationNumber) => {
     try {
         const data = await axios.post('/api/signup', {

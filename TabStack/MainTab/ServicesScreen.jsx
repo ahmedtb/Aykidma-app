@@ -16,6 +16,7 @@ import NavigationBar from '../components/NavigationBar'
 
 import { fetchServicesByCategory } from '../../utilityFunctions/apiCalls'
 import logError from '../../utilityFunctions/logError'
+import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
     const image = props.image;
@@ -35,6 +36,8 @@ const RenderServiceCard = (props) => {
 }
 
 export default function ServicesScreen({ navigation, route }) {
+    const isMountedRef = useIsMountedRef();
+
     const category = route.params.category
 
     const [services, setServices] = React.useState([])
@@ -43,9 +46,10 @@ export default function ServicesScreen({ navigation, route }) {
     React.useEffect(() => {
 
         fetchServicesByCategory(category.id).then((data) => {
-            setServices(data)
-            // console.log(data)
-            setLoading(false)
+            if(isMountedRef.current){
+                setServices(data)
+                setLoading(false)
+            }
         }).catch((error) => logError(error))
     }, [])
 

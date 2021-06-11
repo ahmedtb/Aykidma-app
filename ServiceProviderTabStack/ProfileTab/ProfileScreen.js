@@ -16,13 +16,18 @@ import {
 
 import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
+import RefreshScrollView from '../components/RefreshScrollView'
 
 export default function ProfileScreen({ navigation }) {
 
-    const { logoutProvider, providerAuth } = useContext(AuthContext)
+    const { logoutProvider, providerAuth, RefreshProviderData } = useContext(AuthContext)
+
+    async function refreshProviderAuth() {
+        await RefreshProviderData()
+    }
 
     return (
-        <ScrollView>
+        <RefreshScrollView refreshFunction={refreshProviderAuth}>
 
             <StatusBar />
 
@@ -57,7 +62,7 @@ export default function ProfileScreen({ navigation }) {
             </TouchableOpacity>
 
 
-        </ScrollView>
+        </RefreshScrollView>
 
     );
 }

@@ -11,21 +11,33 @@ import {
 import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
 import { getUserImage } from '../../utilityFunctions/apiCalls'
+import RefreshScrollView from '../components/RefreshScrollView'
+import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 export default function ProfileScreen({ navigation }) {
-
-    const { logout, user, InspectAPIError } = React.useContext(AuthContext)
+    const isMountedRef = useIsMountedRef()
+    const { logout, user, InspectAPIError, RefreshUserData } = React.useContext(AuthContext)
     const name = user.user.name
     const phone_number = user.user.phone_number
 
     const [image, setimage] = React.useState(null)
 
     React.useEffect(() => {
-        getUserImage().then(data => setimage(data)).catch(error => InspectAPIError(error))
+        getUserImage()
+            .then(data => {
+                if (isMountedRef.current)
+                    setimage(data)
+            })
+            .catch(error => InspectAPIError(error))
     }, [])
 
+    function refreshFunction() {
+        RefreshUserData()
+        getUserImage().then(data => setimage(data)).catch(error => InspectAPIError(error))
+    }
+
     return (
-        <ScrollView >
+        <RefreshScrollView refreshFunction={refreshFunction}>
 
             <StatusBar />
 
@@ -53,7 +65,7 @@ export default function ProfileScreen({ navigation }) {
             <TouchableOpacity
                 style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                 onPress={() => {
-                    navigation.navigate('EditProfileScreen',{image:image})
+                    navigation.navigate('EditProfileScreen', { image: image })
                 }}
             >
                 <Text style={{ color: 'white' }}>تعديل الملف الشخصي</Text>
@@ -70,7 +82,7 @@ export default function ProfileScreen({ navigation }) {
             </TouchableOpacity>
 
 
-        </ScrollView>
+        </RefreshScrollView>
 
     );
 }

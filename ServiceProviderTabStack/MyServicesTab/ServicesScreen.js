@@ -15,6 +15,11 @@ import {
 
 import { AuthContext } from '../../StateManagment/AuthState'
 import LoadingIndicator from '../components/loadingIndicator'
+import { fetchMyServices } from '../../utilityFunctions/apiCalls'
+import { Feather } from '@expo/vector-icons';
+import RefreshScrollView from '../components/RefreshScrollView'
+import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+
 const RenderServiceCard = (props) => {
     const image = props.image;
     const title = props.title;
@@ -37,25 +42,35 @@ const RenderServiceCard = (props) => {
     )
 }
 
-import { fetchMyServices } from '../../utilityFunctions/apiCalls'
-import { Feather } from '@expo/vector-icons';
 
 export default function ServiceScreen({ navigation }) {
+    const isMountedRef = useIsMountedRef()
     const [Services, setServices] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    async function setupServices() {
+
+        setLoading(true);
+        try {
+
+            const data = await fetchMyServices()
+            if (isMountedRef.current)
+                setServices(data);
+        } catch (error) {
+
+        }
+        setLoading(false)
+    }
 
     useEffect(() => {
-        fetchMyServices().then(data => {
-            setServices(data);
-            setLoading(false);
-        })
+        setupServices()
     }, [])
 
 
     return (
         <View style={styles.container}>
 
-            <ScrollView style={{ padding: 20 }}>
+            <RefreshScrollView refreshFunction={setupServices} style={{ padding: 20 }}>
 
                 {
                     (Services) ?
@@ -68,7 +83,7 @@ export default function ServiceScreen({ navigation }) {
                                             title={service.title}
                                             price={service.meta_data?.price}
                                             rating={service.meta_data?.rating}
-                                            // servicePrice={service.meta_data?.cost}
+                                        // servicePrice={service.meta_data?.cost}
                                         />
                                     </TouchableOpacity>
                                 )
@@ -81,7 +96,7 @@ export default function ServiceScreen({ navigation }) {
                 {/* this is for bottom spaceing */}
                 <View style={{ height: 50 }}></View>
 
-            </ScrollView>
+            </RefreshScrollView >
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 20 }}>
                 <TouchableOpacity onPress={() => { navigation.navigate('AddNewService') }} >

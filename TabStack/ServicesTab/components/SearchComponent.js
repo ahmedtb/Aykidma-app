@@ -61,9 +61,9 @@ export default function SearchComponent(props, { navigation }) {
         }
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    }, [])
+    // }, [])
 
     const navigateToDetails = (service) => {
         navigation.navigate('ServiceProcedureStack', {

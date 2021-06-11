@@ -25,6 +25,8 @@ import { AuthContext } from '../../StateManagment/AuthState'
 import AuthenticationStack from '../components/AuthenticationStack'
 import { fetchUserOrders } from '../../utilityFunctions/apiCalls'
 import LoadingIndicator from '../components/loadingIndicator'
+import RefreshScrollView from '../components/RefreshScrollView'
+import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 function filterOrders(orders, status) {
     return orders.filter((order) => {
@@ -36,6 +38,8 @@ function filterOrders(orders, status) {
 }
 
 function OrdersView({ navigation }) {
+    const isMountedRef = useIsMountedRef();
+
     const { InspectAPIError } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -50,10 +54,12 @@ function OrdersView({ navigation }) {
         try {
             setIsLoading(true)
             const orders = await fetchUserOrders()
-            setIsLoading(false)
-            setNewOrders(filterOrders(orders, 'new'))
-            setResumedOrder(filterOrders(orders, 'resumed'))
-            setDoneOrders(filterOrders(orders, 'done'))
+            if (isMountedRef.current) {
+                setIsLoading(false)
+                setNewOrders(filterOrders(orders, 'new'))
+                setResumedOrder(filterOrders(orders, 'resumed'))
+                setDoneOrders(filterOrders(orders, 'done'))
+            }
         } catch (error) {
             InspectAPIError(error)
         }
@@ -61,10 +67,10 @@ function OrdersView({ navigation }) {
 
     useEffect(() => {
         setupOrderFetch()
-        const unsubscribe = navigation.addListener('focus', () => {
-            setupOrderFetch()
-        });
-        return unsubscribe;
+        // const unsubscribe = navigation.addListener('focus', () => {
+        //     setupOrderFetch()
+        // });
+        // return unsubscribe;
     }, []);
 
     return (
@@ -85,7 +91,7 @@ function OrdersView({ navigation }) {
 
             {/* <OrdersList viewOrders={viewOrders} {...props} /> */}
 
-            <View style={{ flex: 1 }}>
+            <RefreshScrollView refreshFunction={setupOrderFetch} style={{ flex: 1 }}>
                 <View style={{ height: (viewOrders == 1) ? null : 0 }}>
                     <NewOrders newOrders={newOrders} />
                 </View>
@@ -95,7 +101,7 @@ function OrdersView({ navigation }) {
                 <View style={{ height: (viewOrders == 3) ? null : 0 }}>
                     <DoneOrders doneOrders={doneOrders} />
                 </View>
-            </View>
+            </RefreshScrollView>
             <LoadingIndicator visibility={isLoading} />
 
         </View>

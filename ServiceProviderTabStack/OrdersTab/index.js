@@ -23,6 +23,8 @@ import { fetchServiceProviderOrders } from '../../utilityFunctions/apiCalls'
 import { AuthContext } from '../../StateManagment/AuthState'
 import LoginScreen from '../components/AuthenticationStack/LoginScreen'
 import LoadingIndicator from '../components/loadingIndicator'
+import RefreshScrollView from '../components/RefreshScrollView'
+import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 function filterOrders(orders, status) {
     return orders.filter((order) => {
@@ -34,6 +36,8 @@ function filterOrders(orders, status) {
 }
 
 function OrdersDisplay(props) {
+    const isMountedRef = useIsMountedRef()
+
     const { InspectAPIError } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(true)
     const [viewOrders, setViewOrders] = useState(1);
@@ -43,17 +47,18 @@ function OrdersDisplay(props) {
     const [doneOrders, setDoneOrders] = useState([])
 
     async function setupServiceProviderOrders() {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
             const orders = await fetchServiceProviderOrders()
-            setIsLoading(false)
-
-            setNewOrders(filterOrders(orders, 'new'))
-            setResumedOrder(filterOrders(orders, 'resumed'))
-            setDoneOrders(filterOrders(orders, 'done'))
+            if (isMountedRef.current) {
+                setNewOrders(filterOrders(orders, 'new'))
+                setResumedOrder(filterOrders(orders, 'resumed'))
+                setDoneOrders(filterOrders(orders, 'done'))
+            }
         } catch (error) {
             InspectAPIError(error)
         }
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -84,7 +89,7 @@ function OrdersDisplay(props) {
                 <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders == 3) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات منتهية</Text></TouchableOpacity>
             </View>
 
-            <View style={{ flex: 1 }}>
+            <RefreshScrollView refreshFunction={setupServiceProviderOrders} style={{ flex: 1 }}>
                 <View style={{ height: (viewOrders == 1) ? null : 0 }}>
                     <NewOrders newOrders={newOrders} />
                 </View>
@@ -94,7 +99,7 @@ function OrdersDisplay(props) {
                 <View style={{ height: (viewOrders == 3) ? null : 0 }}>
                     <DoneOrders doneOrders={doneOrders} />
                 </View>
-            </View>
+            </RefreshScrollView>
 
             <LoadingIndicator visibility={isLoading} />
         </View>

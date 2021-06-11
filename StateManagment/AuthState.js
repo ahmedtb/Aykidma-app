@@ -21,7 +21,7 @@ import {
     deleteProviderAuthRecord
 } from './ApiBackendOfAuth'
 
-import { refreshUser } from '../utilityFunctions/apiCalls'
+import { refreshUser, refreshProvider } from '../utilityFunctions/apiCalls'
 
 export const AuthProvider = ({ children }) => {
     const { expoPushToken } = React.useContext(NotificationsContext)
@@ -80,6 +80,22 @@ export const AuthProvider = ({ children }) => {
     function setProviderAndAxiosToken(data) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
         setProvider(data)
+    }
+
+    async function RefreshProviderData() {
+        try {
+            const data = await refreshProvider()
+            
+            const freshProvider = {
+                provider: data,
+                token: providerAuth.token
+            }
+            // console.log(freshProvider)
+            setProvider(freshProvider)
+        } catch (error) {
+            logError(error)
+        }
+
     }
 
     function tryLoginProviderFromStore() {
@@ -153,6 +169,7 @@ export const AuthProvider = ({ children }) => {
                 tryLoginProviderFromStore,
                 loginProvider,
                 logoutProvider,
+                RefreshProviderData,
 
                 InspectAPIError
             }}
