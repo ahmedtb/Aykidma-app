@@ -12,10 +12,12 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { AuthContext } from '../../../StateManagment/AuthState'
 import LoadingIndicator from '../../components/loadingIndicator'
+import { searchThroughServices } from '../../../utilityFunctions/apiCalls'
 
 const RenderServiceCard = (props) => {
     const image = props.image;
@@ -33,11 +35,9 @@ const RenderServiceCard = (props) => {
         </View>
     )
 }
+export default function SearchComponent(props) {
+    const navigation = useNavigation()
 
-import RefreshScrollView from '../../components/RefreshScrollView'
-import { searchThroughServices } from '../../../utilityFunctions/apiCalls'
-
-export default function SearchComponent(props, { navigation }) {
     const focus = props.focus
     const focusHere = props.focusHere
     const unFocusFromHere = props.unFocusFromHere

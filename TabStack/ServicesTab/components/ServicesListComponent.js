@@ -12,7 +12,7 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native';
-
+import { useNavigation } from '@react-navigation/core';
 import { AuthContext } from '../../../StateManagment/AuthState'
 import LoadingIndicator from '../../components/loadingIndicator'
 
@@ -37,7 +37,8 @@ const RenderServiceCard = (props) => {
         </View>
     )
 }
-export default function ServicesListComponent(props, { navigation }) {
+export default function ServicesListComponent(props) {
+    const navigation = useNavigation()
     const isMountedRef = useIsMountedRef()
 
     const focus = props.focus
