@@ -3,10 +3,9 @@ import { I18nManager, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Route from './App/Route'
 import axios from 'axios'
+import _Environments from './env'
 
-// axios.defaults.baseURL = 'http://10.0.3.2:8000';
-axios.defaults.baseURL = 'http://192.168.1.116:50'
-// axios.defaults.baseURL = 'http://10.44.70.23:50';
+axios.defaults.baseURL = _Environments.BASE_URL
 
 
 export default function App() {
