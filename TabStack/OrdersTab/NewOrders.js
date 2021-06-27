@@ -22,7 +22,7 @@ import OrderFormModal from './components/OrderFormModal'
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const { title, location, category, date, cost, image, service_provider_name, fields, animate } = props;
+    const { title, category, date, cost, image, service_provider_name, fields, animate } = props;
 
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
@@ -48,7 +48,6 @@ const OrderItem = (props) => {
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text style={{ color: '#98a023' }}>{location}</Text>
                         <Text>{category}</Text>
 
                     </View>
@@ -57,8 +56,8 @@ const OrderItem = (props) => {
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
-                offer_title={title} cost={cost}
-                location_name={location} fields={fields}
+                service_title={title} cost={cost}
+                fields={fields}
             />
         </Animated.View>
     )
@@ -80,10 +79,9 @@ export default function NewOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.title}
-                            location={'this field should be canceled'}
                             category={order.service.category}
                             date={order.created_at}
-                            cost={order.meta_data?.cost }
+                            cost={order.cost}
                             image={order.service.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}

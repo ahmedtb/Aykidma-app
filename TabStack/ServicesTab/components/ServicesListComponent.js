@@ -75,7 +75,7 @@ export default function ServicesListComponent(props) {
     return (
         <View>
 
-            <RefreshScrollView refreshFunction={setupServices} style={{ padding: 20 }}>
+            <RefreshScrollView refreshFunction={setupServices} style={{ padding: 10 }}>
 
                 {
                     (focus && services) ?
@@ -91,7 +91,7 @@ export default function ServicesListComponent(props) {
                 }
 
                 {/* this is for bottom spaceing */}
-                <View style={{ height: 50 }}></View>
+                <View style={{ height: 150 }}></View>
 
             </RefreshScrollView >
 

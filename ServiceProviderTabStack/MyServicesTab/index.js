@@ -37,7 +37,8 @@ export default function MyServicesTab() {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold'
-                    }
+                    },
+                    headerShown:false
                 }}
             >
                 <Stack.Screen name="ServicesScreen" component={ServicesScreen}

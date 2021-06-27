@@ -6,44 +6,18 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-
-const Stack = createStackNavigator();
-
-export default function MoreTabStack() {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: 'red',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold'
-                },
-                headerShown: false
-            }}
-        >
-            <Stack.Screen name="enrollment" component={MoreTab}
-                options={{ title: 'المزيد' }}
-            />
-
-        </Stack.Navigator>
-    );
-}
+import ModalScreen from '../components/ModalScreen';
 import { AuthContext } from '../../StateManagment/AuthState'
 import axios from 'axios'
-function MoreTab(props) {
+export default function MoreTab(props) {
     const { providerAuth } = React.useContext(AuthContext)
 
     function switchToProvider() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
-        // setTimeout(() => {
         props.navigation.navigate('ServiceProviderTabStack', { screen: 'MyServicesTab' })
-        // }, 2000);
     }
 
+    const [aboutVis, setAboutVis] = React.useState(false)
     return (
 
         <View style={styles.container}>
@@ -52,29 +26,25 @@ function MoreTab(props) {
 
             <Text style={{ fontSize: 30, backgroundColor: 'white', opacity: 0.7 }}>اطلب خدمتك الان</Text>
 
-            <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('الرئيسية')} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الرئيسية</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={styles.menuItem}>
-                <Text style={styles.fieldLable} >الاشعارات</Text>
-            </View>
-
-            <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('طلباتي')} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >طلباتي</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={styles.menuItem}>
-                <Text style={styles.fieldLable} >المحفظة</Text>
-            </View>
+            <TouchableOpacity onPress={() => props.navigation.navigate('كل العروض')} style={styles.menuItem}>
+                <Text style={styles.fieldLable} >كل العروض</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >الملف الشخصي</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => props.navigation.navigate('الملف الشخصي')} style={styles.menuItem} >
-                <Text style={styles.fieldLable} >تسجيل الدخول</Text>
-            </TouchableOpacity>
+            <View style={styles.menuItem}>
+                <Text style={styles.fieldLable} >الاشعارات</Text>
+            </View>
 
             <TouchableOpacity
                 onPress={() => switchToProvider()}
@@ -82,9 +52,17 @@ function MoreTab(props) {
                 <Text style={styles.fieldLable} >تبديل الى مزود الخدمات</Text>
             </TouchableOpacity>
 
-            <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => setAboutVis(true)} style={styles.menuItem}>
                 <Text style={styles.fieldLable} >عن الشركة</Text>
-            </View>
+                <ModalScreen visible={aboutVis}>
+                    <Text>
+                    Expos are global events dedicated to finding solutions to fundamental challenges facing humanity by offering a journey inside a chosen theme through engaging and immersive activities. Organised and facilitated by governments and bringing together countries and international organisations (Official Participants), these major public events are unrivalled in their ability to gather millions of visitors, create new dynamics and catalyse change in their host cities.
+                    </Text>
+                    <TouchableOpacity style={{ borderWidth:1 }} onPress={() => setAboutVis(false)}>
+                        <Text>اغلاق</Text>
+                    </TouchableOpacity>
+                </ModalScreen>
+            </TouchableOpacity>
 
             <View style={{ margin: 10, flex: 1 }}>
                 <Text style={styles.fieldLable} >اتصل بنا</Text>

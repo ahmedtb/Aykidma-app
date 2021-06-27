@@ -49,8 +49,8 @@ export default function ServiceScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
 
     async function setupServices() {
-
-        setLoading(true);
+        if (isMountedRef.current)
+            setLoading(true);
         try {
 
             const data = await fetchMyServices()
@@ -59,7 +59,9 @@ export default function ServiceScreen({ navigation }) {
         } catch (error) {
 
         }
-        setLoading(false)
+        if (isMountedRef.current)
+
+            setLoading(false)
     }
 
     useEffect(() => {

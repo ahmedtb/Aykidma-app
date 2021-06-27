@@ -74,7 +74,7 @@ export default function SearchComponent(props) {
     return (
         <View >
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 5, padding: 10, }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 5, padding: 5, }}>
                 <View style={{ borderWidth: 1, borderRadius: 5, flex: 1, textAlign: 'right' }}>
                     <TextInput onChangeText={(text) => { setSearchTerm(text) }} />
                     {
@@ -87,8 +87,8 @@ export default function SearchComponent(props) {
 
 
                 </View>
-                <TouchableOpacity onPress={() => (search(searchTerm))}>
-                    <FontAwesome5 style={{}} name="search-location" size={24} color="black" />
+                <TouchableOpacity style={{}} onPress={() => (search(searchTerm))}>
+                    <FontAwesome5  name="search-location" size={30} color="black" />
                 </TouchableOpacity>
             </View>
 
@@ -114,7 +114,7 @@ export default function SearchComponent(props) {
                         }
 
                         {/* this is for bottom spaceing */}
-                        <View style={{ height: 50 }}></View>
+                        {/* <View style={{ height: 50 }}></View> */}
 
                     </ScrollView >
                 ) : null

@@ -9,14 +9,14 @@ import {
     Pressable,
     TouchableOpacity
 } from 'react-native';
-
+import moment from 'moment';
 import LocationModal from './LocationModal'
 
 export default function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
     const { date, service_provider_name,
-        offer_title, cost,
-        location_name, fields, } = props;
+        service_title, cost,
+        fields, } = props;
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
     return (
@@ -31,38 +31,35 @@ export default function OrderFormModal(props) {
             <View style={styles.centeredView}>
                 <ScrollView style={styles.modalView}>
                     <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>تــفــاصــيـــل الطـلــــب</Text>
+                        <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>تــفــاصــيـــل الطـلــب</Text>
 
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: 'black', }}>التاريخ: {date} م</Text>
+                            <Text style={{ color: 'black', }}>التاريخ: {moment(date).format('yyyy-MM-DD hh::mm')} م</Text>
                         </View>
                     </View>
 
                     <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                        <View style={{}}>
-                            <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service_provider_name}</Text>
+                        <View >
+
+                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة:</Text>
+                                <Text style={{ color: 'black', fontSize: 20, flex: 1 }}>{service_provider_name}</Text>
+                            </View>
+
+                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center'}}>الخدمة :</Text>
+                                <Text style={{ color: 'black', fontSize: 20,  textAlign:'center', flex: 2 }}>{service_title}</Text>
+                            </View>
+
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer_title}</Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الــــســـعـــــر : {cost}</Text>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>الـمـنـطـقـة : </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>{location_name}</Text>
-                            </View>
-
-
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>نوع الخدمة المراد تنفيذها: </Text>
-                                <Text style={{ color: 'black', fontSize: 20, }}>{offer_title}</Text>
+                                <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center' }}>الــــســـعـــــر :</Text>
+                                <Text style={{ color: 'black', fontSize: 20,  textAlign:'center', flex: 2 }}>{cost}</Text>
                             </View>
 
                         </View>
 
-                        <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>نموذج الطـلــــب</Text>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-
-
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>حقول الطـلــــب</Text>
+                        <View style={{ marginVertical: 2 }}>
                             {
                                 fields.map((field, index) => {
                                     let value = field.value;
@@ -71,8 +68,8 @@ export default function OrderFormModal(props) {
                                     if (field.type == "location") {
                                         value = field.value.latitude + ", " + field.value.longitude;
                                         return (
-                                            <View key={index}>
-                                                <TouchableOpacity onPress={()=> setLocationModalVisibility(true)}>
+                                            <View key={index} style={{ backgroundColor: (index % 2) ? 'white' : '#d8d0cd'}}>
+                                                <TouchableOpacity onPress={() => setLocationModalVisibility(true)}>
                                                     <Text style={{ color: 'blue', fontSize: 20, }}>{label}: {value}</Text>
                                                 </TouchableOpacity>
                                                 <LocationModal
@@ -85,24 +82,24 @@ export default function OrderFormModal(props) {
 
                                     if (field.type == 'image') {
                                         return (
-                                            <View key={index}>
+                                            <View key={index}  style={{backgroundColor: (index % 2) ? 'white' : '#d8d0cd'}}>
+                                                <Text style={{ fontSize: 21, fontWeight:'bold', textAlign: 'center', marginBottom: 10, height: 35 }}>{field.label}</Text>
                                                 <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
                                             </View>
-
                                         )
                                     }
-
+                                //     <View key={index} style={{ padding: 10, flexDirection: 'row', backgroundColor: (index % 2) ? 'white' : '#d8d0cd' }}>
+                                //     <Text style={{ flex: 2, textAlign: 'center', fontWeight:'bold',alignSelf: 'center', fontSize:17  }}>{label}</Text>
+                                //     <Text style={{ flex: 3, textAlign: 'center', alignSelf: 'center',  }}>{value}</Text>
+                                // </View>
                                     return (
-                                        <View key={index}>
-                                            <Text style={{ color: 'black', fontSize: 20, }}>{label}: {value}</Text>
+                                        <View key={index} style={{...styles.fieldRow, backgroundColor: (index % 2) ? 'white' : '#d8d0cd'}}>
+                                            <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center', fontWeight:'bold' }}>{label}:</Text>
+                                            <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center' }}>{value}</Text>
                                         </View>
                                     )
                                 })
                             }
-                        </View>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10, borderTopWidth: 1 }}>
-                            {/* <Text style={{ color: 'black', fontSize: 20, }}>الـمـوقع: 32.8753, 13.3619 GPS</Text>
-                            <Text style={{ color: 'black', fontSize: 20, }}>صــورة تـوضـحـيـة : .........</Text> */}
                         </View>
 
 
@@ -134,14 +131,10 @@ export default function OrderFormModal(props) {
 
 
 const styles = StyleSheet.create({
-
-
-
     // modal styles
     centeredView: {
         flex: 1,
         justifyContent: "center",
-        // alignItems: "center",
         backgroundColor: 'rgba(52, 52, 52, 0.9)',
         marginTop: 22
     },
@@ -150,7 +143,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20,
         padding: 10,
-        // alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -173,8 +165,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center"
     },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
+    fieldRow: {
+        padding: 10, flexDirection: 'row',
     }
 })

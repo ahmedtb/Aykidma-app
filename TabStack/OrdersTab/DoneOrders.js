@@ -45,7 +45,7 @@ const OrderItem = (props) => {
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
-                offer_title={title} cost={cost}
+                service_title={title} cost={cost}
                 location_name={location} fields={fields}
             />
         </>
