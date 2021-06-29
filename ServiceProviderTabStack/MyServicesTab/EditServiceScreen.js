@@ -13,7 +13,7 @@ import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 
 import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
-
+import StatusBar from '../components/StatusBar'
 import { editService } from '../../utilityFunctions/apiCalls'
 
 export default function EditServiceScreen(props) {
@@ -41,6 +41,7 @@ export default function EditServiceScreen(props) {
 
     return (
         <View>
+            <StatusBar />
             <ScrollView>
 
                 <View style={{ margin: 10 }}>

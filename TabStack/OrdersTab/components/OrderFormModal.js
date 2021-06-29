@@ -29,82 +29,82 @@ export default function OrderFormModal(props) {
             }}
         >
             <View style={styles.centeredView}>
-                <ScrollView style={styles.modalView}>
-                    <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>تــفــاصــيـــل الطـلــب</Text>
+                <View style={styles.modalView}>
 
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: 'black', }}>التاريخ: {moment(date).format('yyyy-MM-DD hh::mm')} م</Text>
-                        </View>
-                    </View>
+                    <ScrollView >
+                        <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                            <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>تــفــاصــيـــل الطـلــب</Text>
 
-                    <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                        <View >
-
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة:</Text>
-                                <Text style={{ color: 'black', fontSize: 20, flex: 1 }}>{service_provider_name}</Text>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ color: 'black', }}>التاريخ: {moment(date).format('yyyy-MM-DD hh::mm')} م</Text>
                             </View>
-
-                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center'}}>الخدمة :</Text>
-                                <Text style={{ color: 'black', fontSize: 20,  textAlign:'center', flex: 2 }}>{service_title}</Text>
-                            </View>
-
-                            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-                                <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center' }}>الــــســـعـــــر :</Text>
-                                <Text style={{ color: 'black', fontSize: 20,  textAlign:'center', flex: 2 }}>{cost}</Text>
-                            </View>
-
                         </View>
 
-                        <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>حقول الطـلــــب</Text>
-                        <View style={{ marginVertical: 2 }}>
-                            {
-                                fields.map((field, index) => {
-                                    let value = field.value;
-                                    let label = field.label;
+                        <View style={{ borderWidth: 1, marginBottom: 20 }}>
+                            <View >
 
-                                    if (field.type == "location") {
-                                        value = field.value.latitude + ", " + field.value.longitude;
+                                <View style={{ flexDirection: 'row', marginVertical: 3 }}>
+                                    <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة:</Text>
+                                    <Text style={{ color: 'black', fontSize: 20, flex: 1 }}>{service_provider_name}</Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', marginVertical: 3 }}>
+                                    <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center' }}>الخدمة :</Text>
+                                    <Text style={{ color: 'black', fontSize: 20, textAlign: 'center', flex: 2 }}>{service_title}</Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 3 }}>
+                                    <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center' }}>الــــســـعـــــر :</Text>
+                                    <Text style={{ color: 'black', fontSize: 20, textAlign: 'center', flex: 2 }}>{cost}</Text>
+                                </View>
+
+                            </View>
+
+                            <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>حقول الطـلــــب</Text>
+                            <View style={{ marginVertical: 2 }}>
+                                {
+                                    fields.map((field, index) => {
+                                        let value = field.value;
+                                        let label = field.label;
+
+                                        if (field.type == "location") {
+                                            value = field.value.latitude + ", " + field.value.longitude;
+                                            return (
+                                                <View key={index} style={{ ...styles.fieldRow, backgroundColor: (index % 2) ? 'white' : '#d8d0cd' }}>
+                                                    <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', fontWeight: 'bold' }}>{label}:</Text>
+                                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => setLocationModalVisibility(true)}>
+                                                        <Text style={{ color: 'blue', fontSize: 20, textAlign: 'center' }}>{value}</Text>
+                                                    </TouchableOpacity>
+                                                    <LocationModal
+                                                        visible={[locationModalVisibility, setLocationModalVisibility]}
+                                                        latitude={field.value.latitude} longitude={field.value.longitude}
+                                                    />
+                                                </View>
+                                            )
+                                        }
+
+                                        if (field.type == 'image') {
+                                            return (
+                                                <View key={index} style={{ backgroundColor: (index % 2) ? 'white' : '#d8d0cd', alignItems: 'center' }}>
+                                                    <Text style={{ fontSize: 21, fontWeight: 'bold', textAlign: 'center', marginBottom: 10, height: 35 }}>{field.label}</Text>
+                                                    <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200, borderRadius: 7 }} />
+                                                </View>
+                                            )
+                                        }
+
                                         return (
-                                            <View key={index} style={{ backgroundColor: (index % 2) ? 'white' : '#d8d0cd'}}>
-                                                <TouchableOpacity onPress={() => setLocationModalVisibility(true)}>
-                                                    <Text style={{ color: 'blue', fontSize: 20, }}>{label}: {value}</Text>
-                                                </TouchableOpacity>
-                                                <LocationModal
-                                                    visible={[locationModalVisibility, setLocationModalVisibility]}
-                                                    latitude={field.value.latitude} longitude={field.value.longitude}
-                                                />
+                                            <View key={index} style={{ ...styles.fieldRow, backgroundColor: (index % 2) ? 'white' : '#d8d0cd' }}>
+                                                <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', fontWeight: 'bold' }}>{label}:</Text>
+                                                <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center' }}>{value}</Text>
                                             </View>
                                         )
-                                    }
+                                    })
+                                }
+                            </View>
 
-                                    if (field.type == 'image') {
-                                        return (
-                                            <View key={index}  style={{backgroundColor: (index % 2) ? 'white' : '#d8d0cd'}}>
-                                                <Text style={{ fontSize: 21, fontWeight:'bold', textAlign: 'center', marginBottom: 10, height: 35 }}>{field.label}</Text>
-                                                <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
-                                            </View>
-                                        )
-                                    }
-                                //     <View key={index} style={{ padding: 10, flexDirection: 'row', backgroundColor: (index % 2) ? 'white' : '#d8d0cd' }}>
-                                //     <Text style={{ flex: 2, textAlign: 'center', fontWeight:'bold',alignSelf: 'center', fontSize:17  }}>{label}</Text>
-                                //     <Text style={{ flex: 3, textAlign: 'center', alignSelf: 'center',  }}>{value}</Text>
-                                // </View>
-                                    return (
-                                        <View key={index} style={{...styles.fieldRow, backgroundColor: (index % 2) ? 'white' : '#d8d0cd'}}>
-                                            <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center', fontWeight:'bold' }}>{label}:</Text>
-                                            <Text style={{ color: 'black', fontSize: 20, flex:1, textAlign:'center' }}>{value}</Text>
-                                        </View>
-                                    )
-                                })
-                            }
+
                         </View>
-
-
-                    </View>
-
+                    </ScrollView>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
 
                         <Pressable
@@ -121,8 +121,8 @@ export default function OrderFormModal(props) {
                             <Text style={styles.textStyle}>الغاء الطلب</Text>
                         </Pressable>
                     </View>
+                </View>
 
-                </ScrollView>
             </View>
         </Modal>
     )

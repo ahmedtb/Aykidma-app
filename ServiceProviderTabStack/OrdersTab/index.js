@@ -12,8 +12,7 @@ import {
     Button,
     TouchableOpacity,
     Modal,
-    Pressable,
-    StatusBar
+    Pressable
 } from 'react-native';
 
 import NewOrders from './NewOrders'
@@ -24,6 +23,7 @@ import { AuthContext } from '../../StateManagment/AuthState'
 import LoginScreen from '../components/AuthenticationStack/LoginScreen'
 import LoadingIndicator from '../components/loadingIndicator'
 import RefreshScrollView from '../components/RefreshScrollView'
+import StatusBar from '../components/StatusBar'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 function filterOrders(orders, status) {
@@ -74,14 +74,10 @@ function OrdersDisplay(props) {
     return (
 
         <View
-            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, marginTop: StatusBar.currentHeight }}
+            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20,}}
         >
 
-            <View style={{ alignItems: 'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor: 'red' }}>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>
-                    طلبــاتـي
-            </Text>
-            </View>
+            <StatusBar title="طلباتي"/>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
                 <TouchableOpacity onPress={() => { setViewOrders(1) }} ><Text style={{ backgroundColor: (viewOrders == 1) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات جديد {newOrders?.length}</Text></TouchableOpacity>

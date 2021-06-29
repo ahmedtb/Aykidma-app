@@ -39,47 +39,43 @@ export default function ProfileScreen({ navigation }) {
     return (
         <RefreshScrollView refreshFunction={refreshFunction}>
 
-            <StatusBar />
+            <StatusBar style={{margin:10}} title='الملف الشخصي'/>
 
-            <View style={{ alignItems: 'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor: 'red' }}>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>
-                    الملف الشخصي
-                </Text>
-            </View>
 
-            <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
+            <View style={{ flexDirection: 'row' }}>
 
-                <View style={{ margin: 10 }}>
-                    <Text style={{ fontSize: 20 }} >الاسم: {name}</Text>
+                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />
+
+                <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
+
+                    <View style={{ margin: 10 }}>
+                        <Text style={{ fontSize: 20 }} >الاسم: {name}</Text>
+                    </View>
+
+                    <View style={{ margin: 10 }}>
+                        <Text style={{ fontSize: 20 }} >رقم الهاتف: {phone_number}</Text>
+                    </View>
+
                 </View>
 
-                <View style={{ margin: 10 }}>
-                    <Text style={{ fontSize: 20 }} >رقم الهاتف: {phone_number}</Text>
-                </View>
-
             </View>
 
-            <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />
 
+            <View style={{justifyContent:'center', flexDirection:'row', marginTop: 30}}>
+                <TouchableOpacity
+                    style={{ backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                    onPress={() => { logout() }}
+                >
+                    <Text style={{ color: 'white' }}>تسجيل الخروج</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
+                    onPress={() => { navigation.navigate('EditProfileScreen', { image: image }) }}
+                >
+                    <Text style={{ color: 'white', textAlign: 'center' }}>تعديل الملف الشخصي</Text>
+                </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity
-                style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                onPress={() => {
-                    navigation.navigate('EditProfileScreen', { image: image })
-                }}
-            >
-                <Text style={{ color: 'white' }}>تعديل الملف الشخصي</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                onPress={() => {
-                    logout()
-                }
-                }
-            >
-                <Text style={{ color: 'white' }}>تسجيل الخروج</Text>
-            </TouchableOpacity>
 
 
         </RefreshScrollView>

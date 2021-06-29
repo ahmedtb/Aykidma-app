@@ -12,6 +12,8 @@ import { fetchUserNotifications } from '../../../utilityFunctions/apiCalls'
 
 
 function StatusBar(props) {
+    const title = props.title
+    const style = props.style
     const { notification } = React.useContext(NotificationsContext)
     const { user, InspectAPIError } = React.useContext(AuthContext)
 
@@ -23,13 +25,16 @@ function StatusBar(props) {
 
     return (
         <View style={{
-            marginTop: Constants.statusBarHeight, borderWidth: 1, padding: 15, margin: 10,
+            ...style,
+            marginTop: Constants.statusBarHeight, borderWidth: 1, padding: 5,
             borderRadius: 5,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
             <Text style={{ fontSize: 15 }}>{user.user.name}</Text>
+            <Text style={{ fontSize: 15 }}>{title}</Text>
+
             <NotificationsBell
                 notifications={props.state.notifications}
                 notification={notification}

@@ -3,17 +3,11 @@ import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
-    TextInput,
-    ScrollView,
-    Button,
-    StatusBar,
     TouchableOpacity
 } from 'react-native';
 
-import { AuthContext } from '../../StateManagment/AuthState'
+import StatusBar from '../components/StatusBar';
 import LoadingIndicator from '../components/loadingIndicator'
 import { fetchMyServices } from '../../utilityFunctions/apiCalls'
 import { Feather } from '@expo/vector-icons';
@@ -25,7 +19,7 @@ const RenderServiceCard = (props) => {
     const title = props.title;
     const price = props.price
     const rating = props.rating
-    // const servicePrice = props.servicePrice
+
     return (
         <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
             <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100 }} />
@@ -33,8 +27,6 @@ const RenderServiceCard = (props) => {
             <View style={{ margin: 10 }}>
                 <Text style={styles.serviceTitle}>{title}</Text>
                 <Text style={{ color: 'red' }}>سعر العروض{price}</Text>
-                {/* <Text style={{ color: 'red' }}>سعري{servicePrice}</Text> */}
-
                 <Text style={{ color: 'red' }}>التقييم: {rating}</Text>
 
             </View>
@@ -60,7 +52,6 @@ export default function ServiceScreen({ navigation }) {
 
         }
         if (isMountedRef.current)
-
             setLoading(false)
     }
 
@@ -71,6 +62,8 @@ export default function ServiceScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+
+            <StatusBar />
 
             <RefreshScrollView refreshFunction={setupServices} style={{ padding: 20 }}>
 
@@ -117,15 +110,14 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         flex: 1,
-        paddingBottom: 10,
     },
     serviceCard: {
-        borderWidth: 1, marginVertical: 10,
+        borderWidth: 1,
+        marginVertical: 10,
         borderRadius: 10,
         borderColor: 'red',
     },
     serviceTitle: {
         fontSize: 20,
-        // textAlign:'justify',
     }
 });

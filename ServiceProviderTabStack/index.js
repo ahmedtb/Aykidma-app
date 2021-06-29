@@ -1,16 +1,7 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    ImageBackground,
-    Dimensions,
-    Image,
-    TextInput,
 
-} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../StateManagment/AuthState'
 import MyServicesTab from './MyServicesTab';
 import OrdersTab from './OrdersTab'
@@ -41,9 +32,7 @@ export default function TabStack(props) {
                     options={{
                         title: 'خدماتي',
                         tabBarIcon: ({ size, focused, color }) => {
-                            return (
-                                <FontAwesome name="home" size={24} color="black" />
-                            );
+                            return (<MaterialIcons name="design-services" size={24} color="black" />);
                         },
                     }}
                 />
@@ -52,9 +41,7 @@ export default function TabStack(props) {
                     options={{
                         title: 'طلباتي',
                         tabBarIcon: ({ size, focused, color }) => {
-                            return (
-                                <FontAwesome name="home" size={24} color="black" />
-                            );
+                            return (<AntDesign name="form" size={24} color="black" />                            );
                         },
                     }}
                 />
@@ -63,9 +50,8 @@ export default function TabStack(props) {
                     options={{
                         title: 'الملف الشخصي',
                         tabBarIcon: ({ size, focused, color }) => {
-                            return (
-                                <FontAwesome name="home" size={24} color="black" />
-                            );
+                            return (<MaterialCommunityIcons name="human-child" size={24} color="black" />);
+
                         },
                     }}
                 />
@@ -74,9 +60,7 @@ export default function TabStack(props) {
                     options={{
                         title: 'المزيد',
                         tabBarIcon: ({ size, focused, color }) => {
-                            return (
-                                <FontAwesome name="home" size={24} color="black" />
-                            );
+                            return (<MaterialIcons name="more-horiz" size={24} color="black" />);
                         },
                     }}
                 />

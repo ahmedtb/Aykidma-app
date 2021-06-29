@@ -1,17 +1,21 @@
 import React from 'react'
 import {
     View,
-    Text
+    Text,
+    TouchableOpacity
 } from 'react-native'
 import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
 import { AuthContext } from '../../../StateManagment/AuthState'
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
-
 import { fetchProviderNotifications } from '../../../utilityFunctions/apiCalls'
-
+import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 function StatusBar(props) {
+    const title = props.title
+    const backButton = props.backButton
+    const navigation = useNavigation()
     const { notification } = React.useContext(NotificationsContext)
     const { providerAuth, InspectAPIError } = React.useContext(AuthContext)
 
@@ -29,7 +33,12 @@ function StatusBar(props) {
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
+            {(backButton) ? <TouchableOpacity onPress={() => navigation.goBack()}>
+                <FontAwesome name="arrow-right" size={24} color="black" />
+            </TouchableOpacity> : null}
             <Text style={{ fontSize: 15 }}>{providerAuth.provider.name}</Text>
+            <Text style={{ fontSize: 15 }}>{title}</Text>
+
             <NotificationsBell
                 notifications={props.state.notifications}
                 notification={notification}

@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Fontisto } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { Fontisto, FontAwesome, Octicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+
 import { AuthContext } from '../StateManagment/AuthState'
 import MainTab from './MainTab';
 import OrdersTab from './OrdersTab';
@@ -32,25 +31,39 @@ export default function TabStack(props) {
                 <Tab.Screen name="الرئيسية" component={MainTab}
                     options={{
                         tabBarIcon: ({ size, focused, color }) => {
-                            return (
-                                <FontAwesome name="home" size={24} color="black" />
-                            );
-                        },
+                            return (<FontAwesome name="home" size={24} color="black" />);
+                        }
                     }}
                 />
-                <Tab.Screen name="طلباتي" component={OrdersTab} />
+                <Tab.Screen name="طلباتي" component={OrdersTab}
+                    options={{
+                        tabBarIcon: ({ size, focused, color }) => {
+                            return (<Octicons name="list-ordered" size={24} color="black" />);
+                        }
+                    }}
+                />
                 <Tab.Screen name="كل العروض" component={ServicesTab}
                     options={{
                         tabBarIcon: ({ size, focused, color }) => {
-                            return (
-                                <Fontisto name="shopping-sale" size={24} color="black" />
-                            );
-                        },
+                            return (<Fontisto name="shopping-sale" size={24} color="black" />);
+                        }
                     }}
                 />
 
-                <Tab.Screen name="الملف الشخصي" component={ProfileTab} />
-                <Tab.Screen name="المزيد" component={MoreTab} />
+                <Tab.Screen name="الملف الشخصي" component={ProfileTab}
+                    options={{
+                        tabBarIcon: ({ size, focused, color }) => {
+                            return (<MaterialCommunityIcons name="human-child" size={24} color="black" />);
+                        }
+                    }}
+                />
+                <Tab.Screen name="المزيد" component={MoreTab}
+                    options={{
+                        tabBarIcon: ({ size, focused, color }) => {
+                            return (<MaterialIcons name="more-horiz" size={24} color="black" />);
+                        }
+                    }}
+                />
             </Tab.Navigator>
         </Provider>
     );

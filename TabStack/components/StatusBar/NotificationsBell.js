@@ -36,9 +36,9 @@ const NotificationsBell = (props) => {
 
     return (
         <View style={props.style} >
-            <View style={{ padding: 5 }}>
-                <TouchableOpacity onPress={() => bellTab()}>
-                    {(newBell) ? <MaterialIcons name="notifications-on" size={24} color="black" /> : <AntDesign name="bells" size={24} color="black" />}
+            <View style={{ borderWidth: 1, borderRadius: 20 }}>
+                <TouchableOpacity  onPress={() => bellTab()}>
+                    {(newBell) ? <MaterialIcons style={{ padding:15 }} name="notifications-on" size={24} color="black" /> : <AntDesign  style={{ padding:15 }} name="bells" size={24} color="black" />}
                 </TouchableOpacity>
             </View>
 
