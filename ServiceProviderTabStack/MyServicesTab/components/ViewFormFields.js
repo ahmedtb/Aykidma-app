@@ -22,39 +22,39 @@ const ViewFormFields = (props) => {
     const navigation = useNavigation();
 
     const fields = props.fields;
-    const CustomFields = (props) => <ScrollView>
+    const CustomFields = (props) => <View>
         {
             fields.map((field, fieldIndex) => {
                 if (field.type === 'string') {
                     return (
-                        <View key={fieldIndex}>
-                            <Text style={{ fontSize: 12 }}>{field.label}</Text>
+                        <View key={fieldIndex} style={{marginVertical:5}}>
+                            <Text style={{ fontSize: 20, fontWeight:'bold' }}>{field.label}</Text>
                             <TextInput
                                 style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                                onChangeText={(text) => {
-                                }}
+                                
                                 value={field.value}
+                                editable={false}
                             />
                         </View>
                     )
                 } else if (field.type === 'textarea') {
                     return (
-                        <View key={fieldIndex}>
+                        <View key={fieldIndex} style={{marginVertical:5}}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             {(field.subLabel) ? (<Text style={{ fontSize: 12 }}>{field.subLabel}</Text>) : (null)}
-
-                            <View
-                                style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, padding: 20 }}
+                            <TextInput
+                                multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                                
+                                value={field.value}
                             />
                         </View>
                     )
                 } else if (field.type === 'options') {
                     return (
-                        <View key={fieldIndex}>
+                        <View key={fieldIndex} style={{marginVertical:5}}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-                            <Text>خيارات حقل الاحتيار</Text>
                             {field.titles.map((title, index) => (
-                                <Text key={index} style={{ fontSize: 12, borderWidth: 1 }}>
+                                <Text key={index} style={{ fontSize: 15, textAlign:'center' }}>
                                     {title}
                                 </Text>
                             ))}
@@ -62,20 +62,18 @@ const ViewFormFields = (props) => {
                     )
                 } else if (field.type === 'location') {
                     return (
-                        <View key={fieldIndex} >
+                        <View key={fieldIndex} style={{marginVertical:5}}>
                             <View style={{ margin: 8 }}>
-                                <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>{field.label}</Text>
+                                <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>{field.label}</Text>
                             </View>
-                            <Text>here we should pick the location</Text>
-                            <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
+                            <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100,alignSelf: 'center', }} />
                         </View>
                     )
                 } else if (field.type == 'image') {
                     return (
-                        <View key={fieldIndex}>
-                            <Text>حقل اختيار صورى</Text>
+                        <View key={fieldIndex} style={{marginVertical:5}}>
                             <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1 }}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center', padding:20, borderWidth: 1, borderRadius:10 }}>
                                 <AntDesign name="camerao" size={75} color="black" />
                             </View>
                         </View>
@@ -84,9 +82,9 @@ const ViewFormFields = (props) => {
                 return null;
             })
         }
-    </ScrollView>
+    </View>
     return (
-        <View style={{ padding: 25 }}>
+        <View >
             <CustomFields />
         </View>
     );

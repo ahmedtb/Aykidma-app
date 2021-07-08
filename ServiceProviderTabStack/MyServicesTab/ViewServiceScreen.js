@@ -47,11 +47,12 @@ function ViewServiceScreen(props) {
     const [category, setCategory] = React.useState(null)
 
     async function setupCategories() {
-        if (!props.state.categories.length)
+        if (props.state.categories.length == 0)
             try {
                 const data = await getAvailableCategories()
+                props.setCategories(data)
                 if (isMountedRef.current)
-                    props.setCategories(data)
+                    setCategory(searchCategories(category_id, data))
             } catch (error) {
                 InspectAPIError(error)
             }
@@ -66,24 +67,40 @@ function ViewServiceScreen(props) {
     return (
         <ScrollView>
             <StatusBar backButton={true} />
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10, textAlign: 'center' }} >
-                {title}
-            </Text>
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-                <Image source={{ uri: image }} style={{ width: 200, height: 200, borderRadius: 15 }} />
-            </View>
-            <Text style={{ borderWidth: 1, margin: 10, borderRadius: 10, marginVertical: 5 }}>
-                {description}
-            </Text>
-            <View>
-                <Image source={{ uri: 'data:image/png;base64,' + category?.image }} style={{ width: 200, height: 200, borderRadius: 15 }} />
-                <Text>{category?.name}</Text>
+            <View style={{ backgroundColor: 'grey', flexDirection: 'row' }}>
+                <Text style={{ flex: 1, textAlign: 'center', textAlignVertical: 'center' }}>العنوان </Text>
+                <Text style={{flex: 2, fontSize: 20, fontWeight: 'bold', marginBottom: 10, textAlign: 'center',  }} >
+                    {title}
+                </Text>
             </View>
 
-            <ViewFormFields fields={fields} />
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={{ flex: 1, textAlign: 'center', textAlignVertical: 'center' }}>صورة الخدمة </Text>
+                <Image source={{ uri: image }} style={{ flex: 2, width: 200, height: 200, borderRadius: 15 }} />
+            </View>
 
-            <TouchableOpacity onPress={() => props.navigation.navigate('EditServiceScreen', { service: service })}>
-                <Text style={{ fontSize: 20, padding: 20 }}>تعديل عرض الخدمة</Text>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={{ flex: 1, textAlign: 'center', textAlignVertical: 'center' }}>وصف وتوضيح الخدمة </Text>
+                <Text style={{ flex:2, borderWidth: 1,  borderRadius: 10}}>
+                    {description}
+                </Text>
+            </View>
+
+            <View style={{ flexDirection: 'row'}}>
+                <Text style={{flex:1, fontSize: 25, textAlignVertical: 'center' }}>التصنيف: </Text>
+                <View style={{flex:2}}>
+                    <Image source={{ uri: 'data:image/png;base64,' + category?.image }} style={{ width: 100, height: 100, borderRadius: 15 }} />
+                    <Text style={{ textAlign: 'center' }}>{category?.name}</Text>
+                </View>
+            </View>
+
+            <View style={{ padding: 25, backgroundColor: '#e3e6e3', borderRadius: 10 }}>
+                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold' }}>حقول الخدمة</Text>
+                <ViewFormFields fields={fields} />
+            </View>
+
+            <TouchableOpacity style={{backgroundColor:'red', margin:10, borderRadius:10}} onPress={() => props.navigation.navigate('EditServiceScreen', { service: service })}>
+                <Text style={{ fontSize: 20, padding: 20, color:'white' }}>تعديل العرض</Text>
             </TouchableOpacity>
         </ScrollView>
     )
