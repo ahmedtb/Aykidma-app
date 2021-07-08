@@ -4,3 +4,10 @@ export const refreshNotifications = (notifications) => (
         notifications: notifications
     }
 );
+
+export const setCategories = (categories) => (
+    {
+        type: 'setCategories',
+        categories: categories
+    }
+);

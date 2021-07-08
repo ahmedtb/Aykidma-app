@@ -1,13 +1,16 @@
 import { combineReducers } from 'redux';
 
 const INITIAL_STATE = {
-    notifications: []
+    notifications: [],
+    categories: []
 };
 
 const stateReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'refresh-notifications':
-            return { notifications: action.notifications };
+            return { ...state, notifications: action.notifications };
+        case 'setCategories':
+            return { ...state, categories: action.categories };
         default:
             return state
     }

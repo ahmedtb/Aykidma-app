@@ -27,8 +27,15 @@ function imageValueSetup(value) {
         return null
 }
 
+function searchCategories(id, categories) {
+    for (var i = 0; i < categories.length; i++) {
+        if (categories[i].id === id) {
+            return categories[i];
+        }
+    }
+}
 
-export default function ViewServiceScreen(props) {
+function ViewServiceScreen(props) {
     const service = props.route.params.service
     const title = service.title
     const description = service.description
@@ -37,15 +44,19 @@ export default function ViewServiceScreen(props) {
     const image = imageValueSetup(service.image)
 
     const isMountedRef = useIsMountedRef();
-    const [categories, setCategories] = React.useState([])
+    const [category, setCategory] = React.useState(null)
+
     async function setupCategories() {
-        try {
-            const data = await getAvailableCategories()
-            if (isMountedRef.current)
-                setCategories(data)
-            console.log(data)
-        } catch (error) {
-            InspectAPIError(error)
+        if (!props.state.categories.length)
+            try {
+                const data = await getAvailableCategories()
+                if (isMountedRef.current)
+                    props.setCategories(data)
+            } catch (error) {
+                InspectAPIError(error)
+            }
+        else {
+            setCategory(searchCategories(category_id, props.state.categories))
         }
     }
     React.useEffect(() => {
@@ -64,7 +75,11 @@ export default function ViewServiceScreen(props) {
             <Text style={{ borderWidth: 1, margin: 10, borderRadius: 10, marginVertical: 5 }}>
                 {description}
             </Text>
-            <Text>{category_id}</Text>
+            <View>
+                <Image source={{ uri: 'data:image/png;base64,' + category?.image }} style={{ width: 200, height: 200, borderRadius: 15 }} />
+                <Text>{category?.name}</Text>
+            </View>
+
             <ViewFormFields fields={fields} />
 
             <TouchableOpacity onPress={() => props.navigation.navigate('EditServiceScreen', { service: service })}>
@@ -73,3 +88,18 @@ export default function ViewServiceScreen(props) {
         </ScrollView>
     )
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { refreshNotifications, setCategories } from '../StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        refreshNotifications, setCategories
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewServiceScreen);
