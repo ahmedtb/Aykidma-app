@@ -29,13 +29,7 @@ export default function ProfileScreen({ navigation }) {
     return (
         <RefreshScrollView refreshFunction={refreshProviderAuth}>
 
-            <StatusBar />
-
-            <View style={{ alignItems: 'center', borderBottomWidth: 1, marginBottom: 10, padding: 10, backgroundColor: 'red' }}>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>
-                    الملف الشخصي
-                </Text>
-            </View>
+            <StatusBar title='الملف الشخصي'/>
 
             <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
 

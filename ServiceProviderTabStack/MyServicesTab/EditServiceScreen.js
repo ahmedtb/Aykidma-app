@@ -41,7 +41,7 @@ export default function EditServiceScreen(props) {
 
     return (
         <View>
-            <StatusBar />
+            <StatusBar backButton={true} title={'تعديل خدمة'} />
             <ScrollView>
 
                 <View style={{ margin: 10 }}>
