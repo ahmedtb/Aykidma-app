@@ -66,72 +66,83 @@ function ViewServiceScreen(props) {
     }, [])
 
     return (
-        <ScrollView>
-            <StatusBar backButton={true} />
+        <View>
 
-            <View style={style.card}>
-                <View style={{flexDirection: 'row', }}>
-                    <MaterialIcons name="title" size={30} color="black" />
-                    <Text style={style.cardTitle}>العنوان </Text>
+            <ScrollView>
+                <StatusBar backButton={true} />
+
+                <View style={style.card}>
+                    <View style={style.cardTitle}>
+                        <MaterialIcons name="title" size={30} color="black" />
+                        <Text style={style.cardTitleText}>العنوان </Text>
+                    </View>
+                    <Text style={{ ...style.cardContent, fontSize: 20, textAlign: 'center' }}  >
+                        {title}
+                    </Text>
                 </View>
-                <Text style={{ ...style.cardContent, fontSize: 20, textAlign: 'center' }}  >
-                    {title}
-                </Text>
-            </View>
 
-            <View style={style.card}>
-                <AntDesign name="picture" size={30} color="black" />
-                <View style={{ flex: 1 }}>
+                <View style={style.card}>
+                    <View style={style.cardTitle}>
+                        <AntDesign name="picture" size={30} color="black" />
 
-                    <Text style={style.cardTitle}>صورة الخدمة </Text>
+                        <Text style={style.cardTitleText}>صورة الخدمة </Text>
+                    </View>
                     <Image source={{ uri: image }} style={{ ...style.cardContent, height: 120, width: 120, borderRadius: 15 }} />
+
                 </View>
 
-            </View>
+                <View style={style.card}>
+                    <View style={style.cardTitle}>
+                        <MaterialCommunityIcons name="subtitles-outline" size={30} color="black" />
 
-            <View style={style.card}>
-                <MaterialCommunityIcons name="subtitles-outline" size={30} color="black" />
-                <View style={{}}>
-
-                    <Text style={style.cardTitle}>وصف وتوضيح الخدمة </Text>
+                        <Text style={style.cardTitleText}>وصف وتوضيح الخدمة </Text>
+                    </View>
                     <Text style={{ ...style.cardContent, fontSize: 20, textAlign: 'center' }} >
                         {description}
                     </Text>
                 </View>
-            </View>
 
-            <View style={style.card}>
-                <MaterialIcons name="category" size={30} color="black" />
-                <View style={{}}>
+                <View style={style.card}>
+                    <View style={style.cardTitle}>
+                        <MaterialIcons name="category" size={30} color="black" />
 
-                    <Text style={style.cardTitle}>التصنيف: </Text>
+                        <Text style={style.cardTitleText}>التصنيف: </Text>
+                    </View>
                     <View style={{ ...style.cardContent }} >
                         <Image source={{ uri: 'data:image/png;base64,' + category?.image }} style={{ width: 100, height: 100, borderRadius: 15 }} />
                         <Text style={{ textAlign: 'center' }}>{category?.name}</Text>
                     </View>
                 </View>
-            </View>
 
-            <View style={{ padding: 25, backgroundColor: '#e3e6e3', borderRadius: 10 }}>
-                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold' }}>حقول الخدمة</Text>
-                <ViewFormFields fields={fields} />
-            </View>
+                <View style={style.card}>
+                    <View style={style.cardTitle}>
+                        <AntDesign name="form" size={24} color="black" />
+                        <Text style={style.cardTitleText}>حقول نموذج الطلب</Text>
+                    </View>
 
-            <TouchableOpacity style={{ backgroundColor: 'red', margin: 10, borderRadius: 10 }} onPress={() => props.navigation.navigate('EditServiceScreen', { service: service })}>
-                <Text style={{ fontSize: 20, padding: 20, color: 'white' }}>تعديل العرض</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                    <ViewFormFields fields={fields} />
+                </View>
+
+                <TouchableOpacity style={{ backgroundColor: 'red', margin: 10, borderRadius: 10 }} onPress={() => props.navigation.navigate('EditServiceScreen', { service: service })}>
+                    <Text style={{ fontSize: 20, padding: 20, color: 'white' }}>تعديل العرض</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
+
     )
 }
 
 const style = StyleSheet.create({
-    card: { margin: 10, borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 15, },
+    card: { margin: 10, padding: 5, borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 15, },
     cardIcon: {
 
     },
-    cardTitle: {
+    cardTitle: { flexDirection: 'row', borderBottomWidth: 1, borderColor: '#d1c5c5', paddingVertical: 5, marginBottom: 10 },
+    cardTitleText: {
         fontSize: 20,
-        textAlignVertical:'center'
+        fontWeight: 'bold',
+        marginLeft: 5,
+        textAlignVertical: 'center'
     },
     cardContent: {
         marginBottom: 10, alignSelf: 'center'

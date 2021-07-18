@@ -81,120 +81,125 @@ export default function CreateNewFieldComponent(props) {
     const [selectedType, setSelectedType] = useState();
     const [fieldConfig, setFieldConfig] = useState({});
 
-    function add (config){
+    function add(config) {
         setCreatedHere([...CreatedHere, config])
         addNewField(config)
     }
 
-    function remove(index){
-        
+    function remove(index) {
+
     }
+
+    console.log(fieldsTypes)
 
     return (
 
 
-        <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
+        <View style={{ flex: 1, paddingHorizontal: 20 }}>
 
             <CreatedFieldsRender fields={CreatedHere} />
 
 
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ borderWidth: 1, flexDirection: 'row', flex: 1, alignItems: 'center' }}>
                 <Text style={{}}>نوع الحقل</Text>
-
-                <Picker
-                    style={{ flex: 1 }}
-                    selectedValue={selectedType}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSelectedType(itemValue)
-                    }>
-                    <Picker.Item label={'اختر نوع الحقل'} value={'dummey'} />
-                    {
-                        Object.keys(fieldsTypes).map(function (key, index) {
-                            return <Picker.Item key={index} label={fieldsTypes[key]} value={key} />
-                        })
-                    }
-                </Picker>
+                <View style={{ flex: 1, padding: 0, margin: 0 }}>
+                    <Picker
+                        style={{}}
+                        selectedValue={selectedType}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setSelectedType(itemValue)
+                        }>
+                        <Picker.Item label={'اختر نوع الحقل'} value={'dummey'} />
+                        {
+                            Object.keys(fieldsTypes).map(function (key, index) {
+                                return <Picker.Item key={index} label={fieldsTypes[key]} value={key} />
+                            })
+                        }
+                    </Picker>
+                </View>
             </View>
 
-            {(() => {
-                if (selectedType == 'string') {
-                    return (
-                        <View>
-                            <Text>اكتب النص الذي يصف هذا الحقل للزبون</Text>
-                            <TextInput
-                                style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                                onChangeText={(text) => {
-                                    setFieldConfig({
-                                        label: text, type: 'string', value: null
-                                    })
-                                }}
-                            />
-                        </View>
-                    )
-                } else if (selectedType == 'textarea') {
-                    return (
-                        <View>
-                            <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
-                            <TextInput
-                                style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                                onChangeText={(text) => {
-                                    setFieldConfig({
-                                        label: text, type: 'textarea', value: null
-                                    })
-                                }}
-                            />
-                        </View>
-                    )
-                } else if (selectedType == 'options') {
-                    return (
-                        <View >
-
-                            <OptionsCreator setFieldConfig={setFieldConfig} fieldConfig={fieldConfig} />
-                        </View>
-                    )
-                } else if (selectedType == 'location') {
-                    return (
-                        <View>
-                            <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
-                            <TextInput
-                                style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                                onChangeText={(text) => {
-                                    setFieldConfig({
-                                        label: text, type: 'location', value: null
-                                    })
-                                }}
-                            />
-                            <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
-
-                        </View>
-                    )
-                } else if (selectedType == 'image') {
-                    return (
-                        <View>
-                            <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
-                            <TextInput
-                                style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-                                onChangeText={(text) => {
-                                    setFieldConfig({
-                                        label: text, type: 'image', value: null
-                                    })
-                                }}
-                            />
-                            <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1 }} >
-                                <AntDesign name="camerao" size={75} color="black" />
+            {
+                (() => {
+                    if (selectedType == 'string') {
+                        return (
+                            <View>
+                                <Text>اكتب النص الذي يصف هذا الحقل للزبون</Text>
+                                <TextInput
+                                    style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                                    onChangeText={(text) => {
+                                        setFieldConfig({
+                                            label: text, type: 'string', value: null
+                                        })
+                                    }}
+                                />
                             </View>
-                        </View>
-                    )
-                }
+                        )
+                    } else if (selectedType == 'textarea') {
+                        return (
+                            <View>
+                                <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
+                                <TextInput
+                                    style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                                    onChangeText={(text) => {
+                                        setFieldConfig({
+                                            label: text, type: 'textarea', value: null
+                                        })
+                                    }}
+                                />
+                            </View>
+                        )
+                    } else if (selectedType == 'options') {
+                        return (
+                            <View >
+
+                                <OptionsCreator setFieldConfig={setFieldConfig} fieldConfig={fieldConfig} />
+                            </View>
+                        )
+                    } else if (selectedType == 'location') {
+                        return (
+                            <View>
+                                <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
+                                <TextInput
+                                    style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                                    onChangeText={(text) => {
+                                        setFieldConfig({
+                                            label: text, type: 'location', value: null
+                                        })
+                                    }}
+                                />
+                                <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
+
+                            </View>
+                        )
+                    } else if (selectedType == 'image') {
+                        return (
+                            <View>
+                                <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
+                                <TextInput
+                                    style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                                    onChangeText={(text) => {
+                                        setFieldConfig({
+                                            label: text, type: 'image', value: null
+                                        })
+                                    }}
+                                />
+                                <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1 }} >
+                                    <AntDesign name="camerao" size={75} color="black" />
+                                </View>
+                            </View>
+                        )
+                    }
 
 
-            })()}
+                })()
+            }
 
             <TouchableOpacity onPress={() => add(fieldConfig)} >
                 <Text>اضف الحقل</Text>
             </TouchableOpacity>
 
-        </View>
+        </View >
 
     );
 }
