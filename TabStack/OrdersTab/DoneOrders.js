@@ -14,7 +14,7 @@ import {
     Modal,
     Pressable
 } from 'react-native';
-
+import moment from 'moment';
 
 import OrderFormModal from './components/OrderFormModal'
 
@@ -25,28 +25,30 @@ const OrderItem = (props) => {
     return (
         <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
-                        <Text style={{ textAlign: 'center' }}>{date}</Text>
+                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7,}} />
+                        <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
                     </View>
-                    <View style={{ margin: 10, flex: 1 }}>
+                    <View style={{ margin: 10, flex: 1, justifyContent:'space-between' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text style={{ color: '#98a023' }}>{location}</Text>
-                        <Text>{category}</Text>
-
+                        <Text>تصنيف الخدمة: {category.name}</Text>
                     </View>
-
-
                 </View>
-                <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
-                    <Text style={{ color: 'red', alignSelf: 'flex-end' }}>commnet: {comment}</Text>
-                    <Text style={{ color: 'red', alignSelf: 'flex-end' }}>rating: {rating}</Text>
+                {/* <View style={{ flexDirection: 'row', justifyContent:'space-around' }}>
+                    <Text style={{ color: 'red',flex:1 }}>التكلفة: {cost}</Text>
+                    <View style={{ color: 'red',flex:1 }}>
+                        <Text style={{ color: 'red' }}numberOfLines={1}>تعليقك: {comment}</Text>
+                        <Text style={{ color: 'red' }}>تقييمك: {rating}</Text>
+                    </View>
+                </View> */}
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
                 service_title={title} cost={cost}
                 location_name={location} fields={fields}
+                comment={comment}  rating={rating}
             />
         </>
     )
@@ -65,10 +67,10 @@ export default function DoneOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.title}
-                            location={'this field should be canceled'}
+                            // location={'this field should be canceled'}
                             category={order.service.category}
                             date={order.created_at}
-                            cost={order.meta_data?.cost}
+                            cost={order.cost}
                             image={order.service.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}

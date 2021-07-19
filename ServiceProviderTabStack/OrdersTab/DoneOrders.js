@@ -21,7 +21,7 @@ import OrderFormModal from './components/OrderFormModal'
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, image, service_provider_name, fields } = props;
+    const { title, location, category, date, cost, image, service_provider_name, fields, comment, rating } = props;
     return (
         <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
@@ -33,7 +33,7 @@ const OrderItem = (props) => {
                     <View style={{ margin: 10, flex: 1 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
                         <Text style={{ color: '#98a023' }}>{location}</Text>
-                        <Text>{category}</Text>
+                        <Text>{category.name}</Text>
 
                     </View>
                     <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
@@ -43,6 +43,7 @@ const OrderItem = (props) => {
                 date={date} service_provider_name={service_provider_name}
                 offer_title={title} cost={cost}
                 location_name={location} fields={fields}
+                comment={comment} rating={rating}
             />
         </>
     )
@@ -67,6 +68,8 @@ export default function DoneOrders(props) {
                             image={order.service.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
+                            comment={order.comment}
+                            rating={order.rating}
                         />
                     else
                         return null
