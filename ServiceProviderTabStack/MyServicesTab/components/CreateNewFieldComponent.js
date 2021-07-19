@@ -90,8 +90,6 @@ export default function CreateNewFieldComponent(props) {
 
     }
 
-    console.log(fieldsTypes)
-
     return (
 
 
@@ -100,9 +98,9 @@ export default function CreateNewFieldComponent(props) {
             <CreatedFieldsRender fields={CreatedHere} />
 
 
-            <View style={{ borderWidth: 1, flexDirection: 'row', flex: 1, alignItems: 'center' }}>
-                <Text style={{}}>نوع الحقل</Text>
-                <View style={{ flex: 1, padding: 0, margin: 0 }}>
+            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}>
+                <Text style={{ fontSize: 15, fontWeight:'bold'}}>نوع الحقل</Text>
+                <View style={{ flex: 1, borderWidth:0.5, margin:3, borderRadius:8 }}>
                     <Picker
                         style={{}}
                         selectedValue={selectedType}
@@ -123,7 +121,7 @@ export default function CreateNewFieldComponent(props) {
                 (() => {
                     if (selectedType == 'string') {
                         return (
-                            <View>
+                            <View style={{marginVertical:10}}>
                                 <Text>اكتب النص الذي يصف هذا الحقل للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -137,7 +135,7 @@ export default function CreateNewFieldComponent(props) {
                         )
                     } else if (selectedType == 'textarea') {
                         return (
-                            <View>
+                            <View style={{marginVertical:10}}>
                                 <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -158,8 +156,8 @@ export default function CreateNewFieldComponent(props) {
                         )
                     } else if (selectedType == 'location') {
                         return (
-                            <View>
-                                <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
+                            <View style={{marginVertical:10}}>
+                                <Text>اكتب النص الذي يصف حقل تحديد الموقع للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                     onChangeText={(text) => {
@@ -174,8 +172,8 @@ export default function CreateNewFieldComponent(props) {
                         )
                     } else if (selectedType == 'image') {
                         return (
-                            <View>
-                                <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
+                            <View style={{marginVertical:10}}>
+                                <Text>اكتب النص الذي يصف حقل اضافة الصورة للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                     onChangeText={(text) => {
@@ -195,8 +193,8 @@ export default function CreateNewFieldComponent(props) {
                 })()
             }
 
-            <TouchableOpacity onPress={() => add(fieldConfig)} >
-                <Text>اضف الحقل</Text>
+            <TouchableOpacity onPress={() => add(fieldConfig)} style={{ alignSelf:'flex-end', backgroundColor: 'red', width: '20%', padding:10, marginVertical:5, justifyContent:'center', borderRadius: 19 }} >
+                <Text style={{ textAlign: 'center', color: 'white', fontSize: 10 }}>اضف الحقل</Text>
             </TouchableOpacity>
 
         </View >

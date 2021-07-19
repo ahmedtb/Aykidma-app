@@ -21,15 +21,16 @@ const RenderServiceCard = (props) => {
     const rating = props.rating
 
     return (
-        <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-            <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100 }} />
-
-            <View style={{ margin: 10 }}>
+        <View style={{ paddingVertical:10, paddingHorizontal:4 }}>
+            <View style={{ flexDirection: 'row', marginHorizontal: 10, }}>
+                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius:7 }} />
                 <Text style={styles.serviceTitle}>{title}</Text>
-                <Text style={{ color: 'red' }}>سعر العروض{price}</Text>
-                <Text style={{ color: 'red' }}>التقييم: {rating}</Text>
-
             </View>
+            <View style={{ flexDirection: 'row', marginHorizontal: 10, paddingVertical:3, justifyContent:'space-evenly', }}>
+                <Text style={{ color: 'red' }}>سعر: {price}</Text>
+                <Text style={{ color: 'red' }}>التقييم: {rating}</Text>
+            </View>
+
         </View>
     )
 }
@@ -65,7 +66,7 @@ export default function ServiceScreen({ navigation }) {
 
             <StatusBar />
 
-            <RefreshScrollView refreshFunction={setupServices} style={{ padding: 20 }}>
+            <RefreshScrollView refreshFunction={setupServices} style={{ paddingHorizontal: 20 }}>
 
                 {
                     (Services) ?
@@ -76,7 +77,7 @@ export default function ServiceScreen({ navigation }) {
                                         <RenderServiceCard
                                             image={service.image}
                                             title={service.title}
-                                            price={service.meta_data?.price}
+                                            price={service.price}
                                             rating={service.meta_data?.rating}
                                         // servicePrice={service.meta_data?.cost}
                                         />
@@ -118,6 +119,6 @@ const styles = StyleSheet.create({
         borderColor: 'red',
     },
     serviceTitle: {
-        fontSize: 20,
+        fontSize: 20,flex:1
     }
 });

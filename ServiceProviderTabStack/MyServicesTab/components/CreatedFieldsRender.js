@@ -20,7 +20,7 @@ const CreatedFieldsRender = (props) => {
 
     const fields = props.fields;
     return (
-        <View style={{ padding: 25 }}>
+        <View style={{ padding: 10 }}>
             <ScrollView>
                 {
                     fields.map((field, fieldIndex) => {

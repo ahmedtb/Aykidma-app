@@ -140,7 +140,7 @@ const FieldsEditorComponent = (props) => {
         onChange(changed)
     }
 
-    function deleteField(index){
+    function deleteField(index) {
         let changed = [...newFields]
         changed.splice(index, 1);
         setNewFields(changed)
@@ -149,22 +149,27 @@ const FieldsEditorComponent = (props) => {
 
 
     return (
-        <View style={{ padding: 25 }}>
+        <View style={{ padding: 10 }}>
             <ScrollView>
                 {
                     newFields.map((field, fieldIndex) => {
                         if (field.type === 'string') {
                             return (
-                                <View key={fieldIndex}>
-                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
-                                    <TextInput style={{ fontSize: 12 }}
+                                <View key={fieldIndex} style={{ marginVertical: 15 }}>
+
+                                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                        <Text>حقل نصي</Text>
+                                        <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
+                                    </View>
+
+                                    <TextInput style={{ fontSize: 12, borderWidth: 1, borderColor: '#dec9c8', borderRadius: 10 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
                                         }}
                                         value={field.label}
                                     />
                                     <TextInput
-                                        style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+                                        style={{ borderWidth: 1, borderColor: '#dec9c8', borderRadius: 10, marginVertical: 5 }}
                                         onChangeText={(text) => {
                                             change(text, fieldIndex)
                                         }}
@@ -174,16 +179,19 @@ const FieldsEditorComponent = (props) => {
                             )
                         } else if (field.type === 'textarea') {
                             return (
-                                <View key={fieldIndex}>
-                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
-                                    <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
+                                <View key={fieldIndex} style={{ marginVertical: 15 }}>
+                                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                        <Text>حقل مساحة نصية</Text>
+                                        <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
+                                    </View>
+                                    <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
                                         }}
                                         value={field.label}
                                     />
                                     {(field.subLabel) ? (
-                                        <TextInput style={{ fontSize: 12, borderWidth: 1, borderRadius: 7 }}
+                                        <TextInput style={{ fontSize: 12, borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                                             onChangeText={(text) => {
                                                 changeSubLabel(text, fieldIndex)
                                             }}
@@ -191,14 +199,17 @@ const FieldsEditorComponent = (props) => {
                                         />
                                     ) : null}
 
-                                    <View style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, padding: 30, backgroundColor: 'grey' }} />
+                                    <View style={{ borderWidth: 1, borderColor: '#e4f0ec', borderRadius: 10, marginVertical: 5, padding: 30, backgroundColor: 'grey' }} />
                                 </View>
                             )
                         } else if (field.type === 'options') {
                             return (
-                                <View key={fieldIndex}>
-                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
-                                    <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
+                                <View key={fieldIndex} style={{ marginVertical: 15 }}>
+                                   <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                        <Text>حقل اختياري</Text>
+                                        <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
+                                    </View>
+                                    <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
                                         }}
@@ -212,15 +223,19 @@ const FieldsEditorComponent = (props) => {
                         } else if (field.type === 'location') {
                             return (
                                 <View key={fieldIndex} >
-                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
+                                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                        <Text>حقل تحديد الموقع</Text>
+                                        <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
+                                    </View>
 
                                     <View style={{ margin: 8 }}>
 
-                                        <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
+                                        <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                                             onChangeText={(text) => {
                                                 changeLabel(text, fieldIndex)
                                             }}
                                             value={field.label}
+                                            multiline={true}
                                         />
                                     </View>
                                     <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
@@ -228,15 +243,18 @@ const FieldsEditorComponent = (props) => {
                             )
                         } else if (field.type == 'image') {
                             return (
-                                <View key={fieldIndex}>
-                                    <RemoveFieldButton deleteField={()=>deleteField(fieldIndex)} />
-                                    <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderRadius: 7 }}
+                                <View key={fieldIndex} style={{ marginVertical: 15 }}>
+                                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                        <Text>حقل صورة</Text>
+                                        <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
+                                    </View>
+                                    <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                                         onChangeText={(text) => {
                                             changeLabel(text, fieldIndex)
                                         }}
                                         value={field.label}
                                     />
-                                    <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1 }} >
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#dec9c8', }} >
                                         <AntDesign name="camerao" size={75} color="black" />
                                     </View>
                                 </View>

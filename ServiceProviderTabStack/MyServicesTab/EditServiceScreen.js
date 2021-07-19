@@ -84,7 +84,7 @@ export default function EditServiceScreen(props) {
 
                     <TextInput
                         multiline={true} numberOfLines={4}
-                        style={{ ...style.cardContent, borderWidth: 1, margin: 10, borderRadius: 10, marginVertical: 5 }}
+                        style={{ ...style.cardContent, borderWidth: 1,borderColor: '#dec9c8', margin: 10, borderRadius: 10, marginVertical: 5 }}
                         onChangeText={(text) => { setDescription(text) }}
                         value={description}
                     />
@@ -118,11 +118,11 @@ export default function EditServiceScreen(props) {
                     <CreateNewFieldComponent addNewField={addNewField} />
                 </View>
 
-                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: 'red', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
+                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: 'red', width: '50%', alignSelf: 'center', justifyContent:'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
                     <Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}>طلب تعديل الخدمة</Text>
                 </TouchableOpacity>
 
-                <View style={{ padding: 50 }}></View>
+                <View style={{ padding: 30 }}></View>
 
             </ScrollView>
         </View>
