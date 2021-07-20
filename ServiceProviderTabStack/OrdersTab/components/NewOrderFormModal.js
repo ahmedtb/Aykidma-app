@@ -9,8 +9,9 @@ import {
     Pressable,
     TouchableOpacity
 } from 'react-native';
-
+import moment from 'moment'
 import LocationModal from './LocationModal'
+import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 import { resumeNewOrder } from '../../../utilityFunctions/apiCalls'
 import { AuthContext } from '../../../StateManagment/AuthState'
@@ -20,56 +21,91 @@ export default function NewOrderFormModal(props) {
     const [dialogVis, setDialogVis] = React.useState(false)
     const [modalVisible, setModalVisible] = props.visible;
     const { date, service_provider_name,
-        offer_title, cost,
-        location_name, fields, id } = props;
+        service_title, cost, comment, rating,
+        fields, id } = props;
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
     return (
         <ModalWrapper visible={modalVisible}>
-            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>تــفــاصــيـــل الطـلــــب</Text>
+            <View style={{ marginBottom: 10, borderBottomWidth: 0.5 }}>
+                <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 25, flex: 1 }}>تفاصــيـل الطـلــب</Text>
 
-                <View style={{ alignItems: 'center' }}>
-                    <Text style={{ color: 'black', }}>التاريخ: {date} م</Text>
-                </View>
+                <Text style={{ color: 'black', alignSelf: 'flex-end' }}>تاريخ الطلب: {moment(date).format('yyyy-MM-DD hh:mm')} م</Text>
             </View>
 
-            <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                <View style={{}}>
-                    <Text style={{ color: 'black', fontSize: 20, }}>مقدم الخدمـــة: {service_provider_name}</Text>
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
-                        <Text style={{ color: 'black', fontSize: 20, }}>الــخـــدمــــــــة : {offer_title}</Text>
-                        <Text style={{ color: 'black', fontSize: 20, }}>الــــســـعـــــر : {cost}</Text>
+            <View style={{ marginBottom: 20 }}>
+
+                <View style={{ flexDirection: 'row', }}>
+                    <View style={{ flex: 1 }}>
+                        <View style={{ borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 7, flex: 1, margin: 7, padding: 4 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <FontAwesome5 name="person-booth" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>مقدم الخدمـــة</Text>
+                            </View>
+                            <Text style={{ color: 'black', fontSize: 20 }}>{service_provider_name}</Text>
+                        </View>
+
+                        <View style={{ borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 7, flex: 1, margin: 7 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <FontAwesome5 name="tools" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>الخدمة</Text>
+                            </View>
+
+                            <Text style={{ color: 'black', fontSize: 20, flex: 2 }}>{service_title}</Text>
+                        </View>
+
                     </View>
+                    <View style={{ flex: 1 }}>
 
-                    <View style={{ flexDirection: 'row', }}>
-                        <Text style={{ color: 'black', fontSize: 20, }}>الـمـنـطـقـة : </Text>
-                        <Text style={{ color: 'black', fontSize: 20, }}>{location_name}</Text>
+                        <View style={{ borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 7, flex: 1, margin: 7 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <FontAwesome name="comments-o" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2, flex: 1 }}>تعليقك على الخدمة</Text>
+                            </View>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center', flex: 2 }}>{comment}</Text>
+                        </View>
+
+                        <View style={{ borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 7, flex: 1, margin: 7 }}>
+
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <MaterialIcons name="star-rate" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>تقييمك للخدمة</Text>
+                            </View>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center', flex: 2 }}>{rating}</Text>
+                        </View>
+
+                        <View style={{ borderWidth: 1, borderColor: '#d1c5c5', borderRadius: 7, flex: 1, margin: 7 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <Entypo name="price-tag" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>الــــســـعـــــر</Text>
+                            </View>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center', flex: 2 }}>{cost}</Text>
+                        </View>
                     </View>
-
-
-                    <View style={{ flexDirection: 'row', }}>
-                        <Text style={{ color: 'black', fontSize: 20, }}>نوع الخدمة المراد تنفيذها: </Text>
-                        <Text style={{ color: 'black', fontSize: 20, }}>{offer_title}</Text>
-                    </View>
-
                 </View>
 
-                <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10, height: 35 }}>نموذج الطـلــــب</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10 }}>
 
-
+                <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', height: 35 }}>تفاصيل حقول المعبئة للطلب</Text>
+                <View style={{ borderWidth: 0.7, borderRadius: 7 }}>
                     {
                         fields.map((field, index) => {
                             let value = field.value;
                             let label = field.label;
+                            let type = field.type
 
                             if (field.type == "location") {
                                 value = field.value.latitude + ", " + field.value.longitude;
                                 return (
-                                    <View key={index}>
-                                        <TouchableOpacity onPress={() => setLocationModalVisibility(true)}>
-                                            <Text style={{ color: 'blue', fontSize: 20, }}>{label}: {value}</Text>
+                                    <View key={index} style={{ ...styles.fieldRow }}>
+                                        <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                            <Entypo name="image" size={24} color="grey" />
+                                            <View style={{ marginLeft: 5 }}>
+                                                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
+                                            </View>
+                                        </View>
+                                        <TouchableOpacity style={{ flex: 1, backgroundColor: '#d1c5c5' }} onPress={() => setLocationModalVisibility(true)}>
+                                            <Text style={{ color: 'blue', fontSize: 20, textAlign: 'center' }}>{value}</Text>
                                         </TouchableOpacity>
                                         <LocationModal
                                             visible={[locationModalVisibility, setLocationModalVisibility]}
@@ -81,29 +117,40 @@ export default function NewOrderFormModal(props) {
 
                             if (field.type == 'image') {
                                 return (
-                                    <View key={index}>
-                                        <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
-                                    </View>
+                                    <View key={index} style={{ ...styles.fieldRow, }}>
+                                        <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                            <Entypo name="image" size={24} color="grey" />
+                                            <View style={{ marginLeft: 5 }}>
+                                                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ backgroundColor: '#d1c5c5', alignItems: 'center' }}>
+                                            <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 150, height: 150, borderRadius: 7 }} />
+                                        </View>
 
+                                    </View>
                                 )
                             }
 
                             return (
-                                <View key={index}>
-                                    <Text style={{ color: 'black', fontSize: 20, }}>{label}: {value}</Text>
+                                <View key={index} style={{ ...styles.fieldRow }}>
+                                    <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                        <Entypo name="list" size={24} color="grey" />
+                                        <View style={{ marginLeft: 5 }}>
+                                            <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                            <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيارات</Text>
+                                        </View>
+                                    </View>
+                                    <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#d1c5c5' }}>{value}</Text>
                                 </View>
                             )
                         })
                     }
                 </View>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 10, borderTopWidth: 1 }}>
-                    {/* <Text style={{ color: 'black', fontSize: 20, }}>الـمـوقع: 32.8753, 13.3619 GPS</Text>
-                            <Text style={{ color: 'black', fontSize: 20, }}>صــورة تـوضـحـيـة : .........</Text> */}
-                </View>
 
 
             </View>
-
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
 
                 <Pressable

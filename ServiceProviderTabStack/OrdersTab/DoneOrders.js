@@ -14,6 +14,7 @@ import {
     Modal,
     Pressable
 } from 'react-native';
+import moment from 'moment';
 
 
 import OrderFormModal from './components/OrderFormModal'
@@ -25,18 +26,16 @@ const OrderItem = (props) => {
     return (
         <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderWidth: 2, borderColor: '#777c2e' }} />
-                        <Text style={{ textAlign: 'center' }}>{date}</Text>
+                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7, }} />
+                        <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
                     </View>
-                    <View style={{ margin: 10, flex: 1 }}>
+                    <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text style={{ color: '#98a023' }}>{location}</Text>
-                        <Text>{category.name}</Text>
-
+                        <Text>تصنيف الخدمة: {category.name}</Text>
                     </View>
-                    <Text style={{ color: 'red', alignSelf: 'flex-end' }}>{cost}</Text>
                 </View>
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
@@ -61,7 +60,6 @@ export default function DoneOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.title}
-                            location={'this field should be canceled'}
                             category={order.service.category}
                             date={order.created_at}
                             cost={order.meta_data?.cost}

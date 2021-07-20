@@ -30,7 +30,7 @@ const FormFields = (props) => {
                 if (field.type === 'string') {
                     return (
                         <View key={fieldIndex}>
-                            <Text style={{ fontSize: 12 }}>{field.label}</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
                             <TextInput
                                 style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                 onChangeText={(text) => {

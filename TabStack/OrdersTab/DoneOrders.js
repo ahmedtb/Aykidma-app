@@ -36,13 +36,6 @@ const OrderItem = (props) => {
                         <Text>تصنيف الخدمة: {category.name}</Text>
                     </View>
                 </View>
-                {/* <View style={{ flexDirection: 'row', justifyContent:'space-around' }}>
-                    <Text style={{ color: 'red',flex:1 }}>التكلفة: {cost}</Text>
-                    <View style={{ color: 'red',flex:1 }}>
-                        <Text style={{ color: 'red' }}numberOfLines={1}>تعليقك: {comment}</Text>
-                        <Text style={{ color: 'red' }}>تقييمك: {rating}</Text>
-                    </View>
-                </View> */}
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
