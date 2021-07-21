@@ -62,7 +62,7 @@ export default function DoneOrders(props) {
                             title={order.service.title}
                             category={order.service.category}
                             date={order.created_at}
-                            cost={order.meta_data?.cost}
+                            cost={order.service.cost}
                             image={order.service.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}

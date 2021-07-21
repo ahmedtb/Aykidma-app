@@ -22,7 +22,7 @@ import OrderFormModal from './components/OrderFormModal'
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, image, service_provider_name, fields } = props;
+    const { title, category, date, cost, image, service_provider_name, fields, comment, rating } = props;
 
     return (
         <View >
@@ -41,8 +41,8 @@ const OrderItem = (props) => {
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
-                offer_title={title} cost={cost}
-                location_name={location} fields={fields}
+                service_title={title} cost={cost}
+                comment={comment} rating={rating} fields={fields}
             />
         </View>
     )
@@ -65,13 +65,14 @@ export default function ResumedOrders(props) {
                         return <OrderItem
                             key={index}
                             title={order.service.title}
-                            location={'this field should be canceled'}
                             category={order.service.category}
                             date={order.created_at}
-                            cost={order.meta_data?.cost}
+                            cost={order.service.cost}
                             image={order.service.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
+                            comment={order.comment}
+                            rating={order.rating}
 
                         // animate={true}
                         />
