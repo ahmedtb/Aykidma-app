@@ -8,9 +8,7 @@ import {
     Modal
 } from 'react-native';
 
-import Second from './formSteps/FormSlide'
-import Services from './formSteps/Services'
-import axios from 'axios'
+import FormFields from './components/FormFields'
 
 const reducer = (state, action) => {
 
@@ -21,47 +19,7 @@ const reducer = (state, action) => {
                     field.value = action.value;
                 return field;
             })
-            // console.log(state)
-
             return state
-        // case 'change_testingOptions':
-        //     state.fields = state.fields.map((field) => {
-        //         if (field.name == action.payload.name)
-        //             field.value = action.payload.value;
-        //         return field;
-        //     })
-        //     return state
-        // case 'change_testingString':
-        //     state.fields = state.fields.map((field) => {
-        //         if (field.name == action.payload.name)
-        //             field.value = action.payload.value;
-        //         return field;
-        //     })
-        //     return state
-        // case 'change_testingTextArea':
-        //     state.fields = state.fields.map((field) => {
-        //         if (field.name == action.payload.name)
-        //             field.value = action.payload.value;
-        //         return field;
-        //     })
-        //     return state
-        // case 'change_testingLocation':
-        //     state.fields = state.fields.map((field) => {
-        //         if (field.name == action.payload.name)
-        //             field.value = action.payload.value;
-        //         return field;
-        //     })
-        //     return state
-        // case 'change_testingImage':
-        //     state.fields = state.fields.map((field) => {
-        //         if (field.name == action.payload.name)
-        //             field.value = action.payload.value;
-        //         return field;
-        //     })
-        //     return state
-        // case 'change_service':
-        //     state.service = action.payload.value
-        //     return state
     }
 
     return state;
@@ -71,17 +29,6 @@ const reducer = (state, action) => {
 function initialFieldsOfService(service) {
     return { fields: service.fields, service_id: service.id }
 }
-
-// const fetchserviceServices = async (serviceId) => {
-//     try {
-//         let response = await axios.get('/api/service/' + serviceId)
-//         let data = await response.data
-//         return data
-//     } catch (error) {
-//         console.error(error.message + " at FormScreen/Index.jsx serviceServices function");
-//     }
-//     return null
-// }
 
 import FormModal from './components/formModal'
 import LoginModal from '../../LoginModal'
@@ -94,17 +41,9 @@ const FormScreen = ({ route }) => {
     const serviceTitle = service.title;
     const initial_state = initialFieldsOfService(service)
 
-    // const [services, setServices] = useState([]);
+    useEffect(() => { }, [])
 
-    useEffect(() => {
-        // async function fetch() {
-        //     setServices(await fetchserviceServices(serviceId))
-        // }
-        // fetch()
-
-    }, [])
-
-    const [index, setIndex] = useState(0);
+    // const [index, setIndex] = useState(0);
 
     const { user } = useContext(AuthContext)
 
@@ -113,8 +52,7 @@ const FormScreen = ({ route }) => {
     const [state, dispatch] = useReducer(reducer, initial_state);
 
     let FormPages = [
-        <Second ReducerState={[state.fields, dispatch]} />,
-        // <Services ReducerState={[state.fields, dispatch]} services={services} />,
+        ,
     ];
 
     const numberOfPages = FormPages.length;
@@ -124,67 +62,29 @@ const FormScreen = ({ route }) => {
             <NavigationBar name={serviceTitle} />
 
             <View style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', margin: 15 }}>
-                    {
-                        FormPages.map((page, pageIndex) => (
-                            <View
-                                key={pageIndex}
-                                style={{
-                                    width: 40, height: 2, marginHorizontal: 5, borderRadius: 4,
-                                    backgroundColor: (index == pageIndex) ? 'yellow' : 'grey'
-                                }}
-                            />
-                        ))
-                    }
-                </View>
-                {
-                    FormPages.map((page, pageIndex) => (
-                        <View key={pageIndex} style={{ height: (index == pageIndex) ? null : 0 }}>
-                            {page}
-                        </View>
-                    ))
-                }
+                <FormFields ReducerState={[state.fields, dispatch]} />
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.1, alignItems: 'center' }}>
-
-                {(index) ?
-                    <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                        onPress={() => { if (index > 0) setIndex(index - 1) }}
-                    >
-                        <Text style={{ color: 'white' }}>السابق</Text>
-                    </TouchableOpacity> : null}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 
 
                 <TouchableOpacity style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => {
-                        // less than pages last index
-                        if (index < (numberOfPages - 1))
-                            setIndex(index + 1)
-                        else {
-                            setDialogVisible(true)
-
-                        }
-                    }}
+                    onPress={() => { setDialogVisible(true) }}
                 >
-                    <Text style={{ color: 'white' }}>{(index < (numberOfPages - 1)) ? ('التالي') : ('نموذج الطلب')}</Text>
+                    <Text style={{ color: 'white' }}>{'تقديم الطلب'}</Text>
                 </TouchableOpacity>
             </View>
 
 
             {
                 (user) ?
-                    (
-                        <FormModal visibility={[dialogVisible, setDialogVisible]}
-                            // fields={state.fields}
-                            state={state}
-                            serviceTitle={serviceTitle}
-                        />
-                    )
+                    (<FormModal visibility={[dialogVisible, setDialogVisible]}
+                        state={state}
+                        serviceTitle={serviceTitle}
+                        service={service}
+                    />)
                     :
-                    (
-                        <LoginModal visibility={[dialogVisible, setDialogVisible]} />
-                    )
+                    (<LoginModal visibility={[dialogVisible, setDialogVisible]} />)
             }
 
 

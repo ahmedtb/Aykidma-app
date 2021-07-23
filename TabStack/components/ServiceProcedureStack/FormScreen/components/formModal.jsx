@@ -6,11 +6,16 @@ import {
     Text,
     Pressable,
     Image,
-    ScrollView
+    ScrollView,
+    TouchableOpacity
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
+import moment from 'moment'
 import LoadingIndicator from '../../../loadingIndicator'
+import { AuthContext } from '../../../../../StateManagment/AuthState'
+import { submitOrder } from '../../../../../utilityFunctions/apiCalls'
+import ModalWrapper from '../../../ModalWrapper'
+import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 function DialogBox(props) {
     const [dialogBox, setDialogBox] = props.visibility
@@ -22,7 +27,7 @@ function DialogBox(props) {
             <View style={{}}>
                 <Text style={{ fontSize: 20 }}>
                     تم تقديم طلبك بنجاح
-                        </Text>
+                </Text>
                 <Text>سيتم عرض طلبك على مزود الخدمة حتى يقبل به....لدى يرجى الانتظار حتى استجابة مزود الخدمة</Text>
 
                 <Pressable
@@ -41,9 +46,6 @@ function DialogBox(props) {
     )
 }
 
-import { AuthContext } from '../../../../../StateManagment/AuthState'
-import { submitOrder } from '../../../../../utilityFunctions/apiCalls'
-import ModalWrapper from '../../../ModalWrapper'
 
 export default function FormModal(props) {
     const { InspectAPIError } = useContext(AuthContext)
@@ -71,74 +73,178 @@ export default function FormModal(props) {
         })
     }
 
+    const service = props.service
+    React.useEffect(() => {
+        // console.log(service.service_provider)
+    }, [])
+
     return (
         <View>
 
             <ModalWrapper visible={modalVisible}>
+                <View style={{padding:10}}>
+                    <View style={{ marginBottom: 10, borderWidth: 0.4, borderRadius: 7, }}>
+                        <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 25, flex: 1 }}>تفاصــيـل الطـلــب</Text>
 
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 20, flex: 1 }}>نموذج طلب خدمة</Text>
-
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={{ color: 'black', }}>التاريخ: 3/3/2021 م</Text>
+                        <Text style={{ color: 'black', alignSelf: 'flex-end' }}>تاريخ الطلب: {moment().format('yyyy-MM-DD hh:mm')} م</Text>
                     </View>
-                </View>
 
-                <View style={{ borderWidth: 1, marginBottom: 20 }}>
-                    <View style={{}}>
-                        <Text style={{ color: 'black', }}>مقدم الخدمـــة: {'شركة التضامن'}</Text>
-                        <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                            <Text style={{ color: 'black', }}>الــخـــدمــــــــة : {serviceTitle}</Text>
-                            <Text style={{ color: 'black', paddingHorizontal: 10 }}>الــــســـعـــــر : .........</Text>
+
+
+                    <View style={{  borderWidth:0.5, borderRadius:8, marginBottom:5  }}>
+                        <View style={{ borderWidth: 1, borderColor: '#f5f0f0', borderRadius: 7, flex: 1, margin: 7, padding: 4 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <FontAwesome5 name="person-booth" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>مقدم الخدمـــة</Text>
+                            </View>
+                            <Text style={{ color: 'black', fontSize: 20 }}>{service.service_provider.name}</Text>
+                        </View>
+
+                        <View style={{ borderWidth: 1, borderColor: '#f5f0f0', borderRadius: 7, flex: 1, margin: 7 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <FontAwesome5 name="tools" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>الخدمة</Text>
+                            </View>
+
+                            <Text style={{ color: 'black', fontSize: 20, flex: 2 }}>{service.title}</Text>
+                        </View>
+
+
+                        <View style={{ borderWidth: 1, borderColor: '#f5f0f0', borderRadius: 7, margin: 7 }}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
+                                <Entypo name="price-tag" size={24} color="red" />
+                                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>الــــســـعـــــر</Text>
+                            </View>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center', flex: 2 }}>{service.price}</Text>
                         </View>
                     </View>
 
-                    <Text style={{ fontSize: 15, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', marginBottom: 10 }}>تــفــاصــيـــل الطـلــــب</Text>
 
-                    {
-                        fields.map((field, index) => {
-                            if (field.type == 'location')
-                                return null
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: 'red', borderWidth: 0.4, borderRadius: 7, textAlign: 'center', height: 35 }}>حقول الطلب</Text>
 
-                            if (field.type == 'image') {
+                    <View style={{ marginTop: 5, borderWidth:0.5, borderRadius:8 }}>
+                        {
+                            fields.map((field, index) => {
+                                let value = field.value;
+                                let label = field.label;
+                                let type = field.type
+
+                                if (field.type == "location") {
+                                    value = field.value.latitude + ", " + field.value.longitude;
+                                    return (
+                                        <View key={index} style={{ ...styles.fieldRow }}>
+                                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                                <Entypo name="image" size={24} color="grey" />
+                                                <View style={{ marginLeft: 5,flex:1, }}>
+                                                    <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', }}>{label}</Text>
+                                                    <Text style={{ color: 'grey', fontSize: 10 }}>حقل تحديد موقع</Text>
+                                                </View>
+                                            </View>
+                                            <Text style={{ backgroundColor: '#f5f0f0', color: 'blue', fontSize: 20, textAlign: 'center' }}>{value}</Text>
+
+                                        </View>
+                                    )
+                                }
+
+                                if (field.type == 'image') {
+                                    return (
+                                        <View key={index} style={{ ...styles.fieldRow, }}>
+                                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                                <Entypo name="image" size={24} color="grey" />
+                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                    <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                    <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
+                                                </View>
+                                            </View>
+                                            <View style={{ backgroundColor: '#f5f0f0', alignItems: 'center' }}>
+                                                <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 150, height: 150, borderRadius: 7 }} />
+                                            </View>
+
+                                        </View>
+                                    )
+                                }
+
+                                if (field.type == 'string') {
+                                    return (
+                                        <View key={index} style={{ ...styles.fieldRow }}>
+                                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                                <Entypo name="list" size={24} color="grey" />
+                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                    <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                    <Text style={{ color: 'grey', fontSize: 10, }}>حقل نصي</Text>
+                                                </View>
+                                            </View>
+                                            <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 10, backgroundColor: '#f5f0f0' }}>{value}</Text>
+                                        </View>
+                                    )
+                                }
+
+                                if (field.type == 'textarea') {
+                                    return (
+                                        <View key={index} style={{ ...styles.fieldRow }}>
+                                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                                <Entypo name="list" size={24} color="grey" />
+                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                    <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                    <Text style={{ color: 'grey', fontSize: 10, }}>حقل منطفة نصية</Text>
+                                                </View>
+                                            </View>
+                                            <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 15, backgroundColor: '#f5f0f0' }}>{value}</Text>
+                                        </View>
+                                    )
+                                }
+
+                                if (field.type == 'options') {
+                                    return (
+                                        <View key={index} style={{ ...styles.fieldRow }}>
+                                            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                                <Entypo name="list" size={24} color="grey" />
+                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                    <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                    <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيارات</Text>
+                                                </View>
+                                            </View>
+                                            <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#f5f0f0' }}>{value}</Text>
+                                        </View>
+                                    )
+                                }
+
                                 return (
-                                    <View key={index}>
-                                        <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 200, height: 200 }} />
+                                    <View key={index} style={{ ...styles.fieldRow }}>
+                                        <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                            <Entypo name="list" size={24} color="grey" />
+                                            <View style={{ marginLeft: 5,flex:1,}}>
+                                                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                                <Text style={{ color: 'grey', fontSize: 10, }}>حقل</Text>
+                                            </View>
+                                        </View>
+                                        <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#f5f0f0' }}>{value}</Text>
                                     </View>
                                 )
-                            }
-
-                            return (
-                                <View key={index} style={{ flexDirection: 'row', marginVertical: 10 }}>
-                                    <Text style={{ color: 'black', }}>{field.label}: {field.value}</Text>
-                                </View>
-                            )
-                        })
-                    }
-
-                    <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                        <Text style={{ color: 'black', }}>{'مزود الخدمة'}: {service_id}</Text>
+                            })
+                        }
                     </View>
 
-                </View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
 
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>اغلاق</Text>
-                    </Pressable>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop:5 }}>
 
-                    <Pressable
-                        style={{ ...styles.button, backgroundColor: '#f4c18b' }}
-                        onPress={() => {
-                            submit()
-                        }}
-                    >
-                        <Text style={styles.textStyle}>تقديم الطلب</Text>
-                    </Pressable>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>اغلاق</Text>
+                        </Pressable>
+
+                        <Pressable
+                            style={{ ...styles.button, backgroundColor: 'red' }}
+                            onPress={() => {
+                                submit()
+                            }}
+                        >
+                            <Text style={styles.textStyle}>تقديم الطلب</Text>
+                        </Pressable>
+                    </View>
                 </View>
             </ModalWrapper>
 
@@ -173,7 +279,7 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     button: {
-        borderRadius: 5,
+        borderRadius: 15,
         padding: 10,
         elevation: 2
     },
@@ -184,5 +290,12 @@ const styles = StyleSheet.create({
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
+    },
+    fieldRow: {
+        marginHorizontal: 8,
+        borderWidth: 0.5,
+        borderColor: '#d1c5c5',
+        borderRadius: 10,
+        marginVertical: 5,
     }
 });

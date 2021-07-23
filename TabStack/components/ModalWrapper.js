@@ -22,8 +22,8 @@ export default function ModalWrapper(props) {
                     // height: '80%',
                     // width: '80%',
                     backgroundColor: 'white',
-                    padding: 10,
-                    marginHorizontal: 40,
+                    // padding: 10,
+                    marginHorizontal: 30,
                     borderRadius: 10,
                     shadowColor: 'blue',
                     shadowOffset: {

@@ -74,7 +74,7 @@ export default function SearchComponent(props) {
     return (
         <View >
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 5, padding: 5, }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginHorizontal:5, paddingTop: 5, paddingHorizontal: 5, paddingBottom:1 }}>
                 <View style={{ borderWidth: 1, borderRadius: 5, flex: 1, textAlign: 'right' }}>
                     <TextInput onChangeText={(text) => { setSearchTerm(text) }} />
                     {
