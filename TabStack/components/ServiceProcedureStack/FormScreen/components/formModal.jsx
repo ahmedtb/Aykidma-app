@@ -81,23 +81,32 @@ export default function FormModal(props) {
     return (
         <View>
 
-            <ModalWrapper visible={modalVisible}>
-                <View style={{padding:10}}>
+            <ModalWrapper style={{ marginHorizontal: 20 }} visible={modalVisible}>
+
+                <View style={{ padding: 10 }}>
                     <View style={{ marginBottom: 10, borderWidth: 0.4, borderRadius: 7, }}>
-                        <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 25, flex: 1 }}>تفاصــيـل الطـلــب</Text>
+                        <View style={{flexDirection:'row', marginBottom:3}}>
+                            <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 25, flex: 1 }}>تفاصــيـل الطـلــب</Text>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>اغلاق</Text>
+                            </Pressable>
+                        </View>
 
                         <Text style={{ color: 'black', alignSelf: 'flex-end' }}>تاريخ الطلب: {moment().format('yyyy-MM-DD hh:mm')} م</Text>
                     </View>
 
 
 
-                    <View style={{  borderWidth:0.5, borderRadius:8, marginBottom:5  }}>
+                    <View style={{ borderWidth: 0.5, borderRadius: 8, marginBottom: 5 }}>
                         <View style={{ borderWidth: 1, borderColor: '#f5f0f0', borderRadius: 7, flex: 1, margin: 7, padding: 4 }}>
                             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5 }}>
                                 <FontAwesome5 name="person-booth" size={24} color="red" />
                                 <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', color: 'red', marginLeft: 2 }}>مقدم الخدمـــة</Text>
                             </View>
-                            <Text style={{ color: 'black', fontSize: 20 }}>{service.service_provider.name}</Text>
+                            <Text style={{ color: 'black', fontSize: 20 }}>{service.service_provider?.name}</Text>
                         </View>
 
                         <View style={{ borderWidth: 1, borderColor: '#f5f0f0', borderRadius: 7, flex: 1, margin: 7 }}>
@@ -122,7 +131,7 @@ export default function FormModal(props) {
 
                     <Text style={{ fontSize: 21, fontWeight: 'bold', color: 'red', borderWidth: 0.4, borderRadius: 7, textAlign: 'center', height: 35 }}>حقول الطلب</Text>
 
-                    <View style={{ marginTop: 5, borderWidth:0.5, borderRadius:8 }}>
+                    <View style={{ marginTop: 5, borderWidth: 0.5, borderRadius: 8 }}>
                         {
                             fields.map((field, index) => {
                                 let value = field.value;
@@ -135,7 +144,7 @@ export default function FormModal(props) {
                                         <View key={index} style={{ ...styles.fieldRow }}>
                                             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                                                 <Entypo name="image" size={24} color="grey" />
-                                                <View style={{ marginLeft: 5,flex:1, }}>
+                                                <View style={{ marginLeft: 5, flex: 1, }}>
                                                     <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', }}>{label}</Text>
                                                     <Text style={{ color: 'grey', fontSize: 10 }}>حقل تحديد موقع</Text>
                                                 </View>
@@ -151,7 +160,7 @@ export default function FormModal(props) {
                                         <View key={index} style={{ ...styles.fieldRow, }}>
                                             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                                                 <Entypo name="image" size={24} color="grey" />
-                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                <View style={{ marginLeft: 5, flex: 1, }}>
                                                     <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
                                                     <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
                                                 </View>
@@ -169,7 +178,7 @@ export default function FormModal(props) {
                                         <View key={index} style={{ ...styles.fieldRow }}>
                                             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                                                 <Entypo name="list" size={24} color="grey" />
-                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                <View style={{ marginLeft: 5, flex: 1, }}>
                                                     <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
                                                     <Text style={{ color: 'grey', fontSize: 10, }}>حقل نصي</Text>
                                                 </View>
@@ -184,7 +193,7 @@ export default function FormModal(props) {
                                         <View key={index} style={{ ...styles.fieldRow }}>
                                             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                                                 <Entypo name="list" size={24} color="grey" />
-                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                <View style={{ marginLeft: 5, flex: 1, }}>
                                                     <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
                                                     <Text style={{ color: 'grey', fontSize: 10, }}>حقل منطفة نصية</Text>
                                                 </View>
@@ -199,7 +208,7 @@ export default function FormModal(props) {
                                         <View key={index} style={{ ...styles.fieldRow }}>
                                             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                                                 <Entypo name="list" size={24} color="grey" />
-                                                <View style={{ marginLeft: 5,flex:1,}}>
+                                                <View style={{ marginLeft: 5, flex: 1, }}>
                                                     <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
                                                     <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيارات</Text>
                                                 </View>
@@ -213,7 +222,7 @@ export default function FormModal(props) {
                                     <View key={index} style={{ ...styles.fieldRow }}>
                                         <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                                             <Entypo name="list" size={24} color="grey" />
-                                            <View style={{ marginLeft: 5,flex:1,}}>
+                                            <View style={{ marginLeft: 5, flex: 1, }}>
                                                 <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
                                                 <Text style={{ color: 'grey', fontSize: 10, }}>حقل</Text>
                                             </View>
@@ -227,7 +236,7 @@ export default function FormModal(props) {
 
 
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop:5 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5 }}>
 
                         <Pressable
                             style={[styles.button, styles.buttonClose]}

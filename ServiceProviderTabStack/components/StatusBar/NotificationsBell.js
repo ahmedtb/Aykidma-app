@@ -11,6 +11,7 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment'
+import ModalWrapper from '../ModalWrapper'
 
 function useForceUpdate() {
     const [value, setValue] = useState(0); // integer state
@@ -30,56 +31,68 @@ const NotificationsBell = (props) => {
     const notifications = props.notifications;
     const notification = props.notification
     React.useEffect(() => {
-        if (notification)
+        if (notification?.request.content.data.type == 'provider') {
             setNewBell(true)
+        }
     }, [notification])
 
     return (
         <View style={props.style} >
-            <View style={{ padding: 5 }}>
+            <View style={{ borderWidth: 1, borderRadius: 20 }}>
                 <TouchableOpacity onPress={() => bellTab()}>
-                    {(newBell) ? <MaterialIcons name="notifications-on" size={24} color="black" /> : <AntDesign name="bells" size={24} color="black" />}
+                    {(newBell) ? <MaterialIcons style={{ padding: 15 }} name="notifications-on" size={24} color="black" /> : <AntDesign style={{ padding: 15 }} name="bells" size={24} color="black" />}
                 </TouchableOpacity>
             </View>
 
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={visible}
-                onRequestClose={() => {
-                    setVisible(!visible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <ScrollView style={styles.modalView}>
-                        <View style={{ borderWidth: 1, borderRadius: 10, marginBottom: 20 }}>
-                            {
-                                notifications.reverse().map((notification, index) => {
-                                    return (
-                                        <View
-                                            key={index}
-                                            style={{ borderColor: 'grey', justifyContent: 'center', borderBottomWidth: 1 }}>
-                                            <Text style={{ color: 'black', textAlign: 'center', fontSize: 15, }}>{notification.title}</Text>
-                                            <Text style={{ color: 'black', textAlign: 'center', fontSize: 15, }}>{notification.body}</Text>
-                                            <Text style={{ color: 'black', textAlign: 'center', fontSize: 15, }}>{moment(notification.created_at).fromNow()}</Text>
-                                        </View>
-                                    )
-                                })
-                            }
-                        </View>
+            <ModalWrapper style={{ marginHorizontal: 25, marginVertical:10, padding:3}} visible={visible}>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => setVisible(!visible)}
-                            >
-                                <Text style={styles.textStyle}>اغلاق</Text>
-                            </Pressable>
-                        </View>
-
-                    </ScrollView>
+                <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setVisible(!visible)}
+                    >
+                        <Text style={styles.textStyle}>اغلاق</Text>
+                    </Pressable>
                 </View>
-            </Modal>
+                {
+                    notification?.request.content.data.type == 'provider' ? (
+                        <View
+                            style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderColor:'red', borderRadius: 10, padding: 10, margin: 5 }}>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, color: 'red', borderBottomWidth: 0.3, marginBottom: 3, paddingBottom: 3 }}>اشعار جديد</Text>
+
+                            <Text style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: 15, }}>{notification.request.content.title}</Text>
+                            <Text style={{ color: 'black', fontSize: 15, }}>{notification.request.content.body}</Text>
+                            <Text style={{ color: 'black', fontSize: 15, }}>{moment(notification.created_at).fromNow()}</Text>
+                        </View>
+                    ) : null
+                }
+                <View style={{ borderWidth: 0.5, borderRadius: 10, borderColor:'red', padding: 10, margin: 5 }}>
+                    <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, color: 'red', borderBottomWidth: 1, marginBottom: 3, paddingBottom: 3 }}>كل الاشعارات</Text>
+
+                    {
+                        notifications.reverse().map((notification, index) => {
+                            return (
+                                <View
+                                    key={index}
+                                    style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderRadius:4, marginBottom:5 }}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: 15, }}>{notification.title}</Text>
+                                    <Text style={{ color: 'black', fontSize: 15, }}>{notification.body}</Text>
+                                    <Text style={{ color: 'black', fontSize: 15, }}>{moment(notification.created_at).fromNow()}</Text>
+                                </View>
+                            )
+                        })
+                    }
+                </View>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setVisible(!visible)}
+                    >
+                        <Text style={styles.textStyle}>اغلاق</Text>
+                    </Pressable>
+                </View>
+            </ModalWrapper>
         </View >
     );
 }

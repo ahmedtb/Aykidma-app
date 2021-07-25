@@ -31,9 +31,14 @@ export default function ProfileScreen({ navigation }) {
             .catch(error => InspectAPIError(error))
     }, [])
 
-    function refreshFunction() {
-        RefreshUserData()
-        getUserImage().then(data => setimage(data)).catch(error => InspectAPIError(error))
+    async function refreshFunction() {
+        await RefreshUserData()
+        try{
+            const data = await getUserImage()
+            setimage(data)
+        }catch(error){
+            InspectAPIError(error)
+        }
     }
 
     return (
@@ -42,18 +47,21 @@ export default function ProfileScreen({ navigation }) {
             <StatusBar style={{margin:10}} title='الملف الشخصي'/>
 
 
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', padding:10, borderWidth:0.4, borderRadius:10, marginHorizontal:15 }}>
 
-                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />
+                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 150, height: 150, borderRadius:8, borderColor:'red', borderWidth:1 }} />
 
-                <View style={{ justifyContent: 'center', flex: 1, paddingHorizontal: 20 }}>
+                <View style={{ justifyContent: 'space-around', flex: 1, marginLeft:5 }}>
 
-                    <View style={{ margin: 10 }}>
-                        <Text style={{ fontSize: 20 }} >الاسم: {name}</Text>
+                    <View style={{ margin: 3, flexDirection:'row' }}>
+                        <Text style={{ fontSize: 20, marginRight:5 }} >الاسم</Text>
+                        <Text style={{ fontSize: 20, flex:1, textAlign:'center' }} >{name}</Text>
+
                     </View>
 
-                    <View style={{ margin: 10 }}>
-                        <Text style={{ fontSize: 20 }} >رقم الهاتف: {phone_number}</Text>
+                    <View style={{ margin: 3, flexDirection:'row' }}>
+                        <Text style={{ fontSize: 20, marginRight:5 }} >رقم الهاتف</Text>
+                        <Text style={{ fontSize: 20, flex:1, textAlign:'center' }} >{phone_number}</Text>
                     </View>
 
                 </View>
@@ -61,7 +69,7 @@ export default function ProfileScreen({ navigation }) {
             </View>
 
 
-            <View style={{justifyContent:'center', flexDirection:'row', marginTop: 30}}>
+            <View style={{justifyContent:'space-around', flexDirection:'row', marginTop: 30}}>
                 <TouchableOpacity
                     style={{ backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => { logout() }}

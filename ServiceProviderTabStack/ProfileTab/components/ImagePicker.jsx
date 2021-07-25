@@ -40,6 +40,8 @@ export default function ImagePickerExample(props) {
         // console.log(result);
 
         if (!result.cancelled) {
+            // setImage(result.uri);
+            // console.log(result.base64.length)
             if (result.base64.length >= 8000000) {
                 Alert.alert(
                     "Please choose image with approprite size",
@@ -53,7 +55,7 @@ export default function ImagePickerExample(props) {
     };
 
     return (
-        <View style={{ style, alignItems: 'center', justifyContent: 'center', borderWidth: 1, }} >
+        <View style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 1,...style }} >
             <TouchableOpacity onPress={pickImage} >
                 {!image && <AntDesign name="camerao" size={75} color="black" />}
             </TouchableOpacity>

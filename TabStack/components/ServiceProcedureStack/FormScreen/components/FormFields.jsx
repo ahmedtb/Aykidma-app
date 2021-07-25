@@ -64,15 +64,11 @@ const FormFields = (props) => {
                         } else if (field.type === 'location') {
                             return (
                                 <View key={fieldIndex} >
-                                    <View style={{ margin: 8 }}>
-                                        <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>{field.label}</Text>
+                                    <View style={{  }}>
+                                        <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', }}>{field.label}</Text>
                                     </View>
                                     <LocationPicker
-                                        onChange={
-                                            (value) => {
-                                                dispatch({ actionType: 'change', fieldIndex: fieldIndex, value: value })
-                                            }
-                                        }
+                                        onChange={(value) => { dispatch({ actionType: 'change', fieldIndex: fieldIndex, value: value }) }}
                                         value={field.value}
                                     />
                                 </View>

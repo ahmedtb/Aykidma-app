@@ -34,18 +34,18 @@ export const AuthProvider = ({ children }) => {
         setUser(data)
     }
 
-    function RefreshUserData() {
-        refreshUser()
-            .then(data => {
-                freshUser = {
-                    user: data,
-                    token: user.token
-                }
-                setUser(freshUser)
-            })
-            .catch(error => {
-                logError(error)
-            })
+    async function RefreshUserData() {
+        try {
+            const data = await refreshUser()
+
+            const freshUser = {
+                user: data,
+                token: user.token
+            }
+            setUser(freshUser)
+        } catch (error) {
+            logError(error)
+        }
     }
 
     function tryLoginUserFromStore() {
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     async function RefreshProviderData() {
         try {
             const data = await refreshProvider()
-            
+
             const freshProvider = {
                 provider: data,
                 token: providerAuth.token

@@ -6,6 +6,7 @@ import { View, Modal, ScrollView } from 'react-native'
 export default function ModalWrapper(props) {
     const visible = props.visible
     const children = props.children
+    const style = props.style
 
     return (
         <Modal
@@ -32,6 +33,7 @@ export default function ModalWrapper(props) {
                     },
                     shadowOpacity: 0.9,
                     shadowRadius: 40,
+                    ...style
                 }}>
                     <ScrollView>
                         {children}

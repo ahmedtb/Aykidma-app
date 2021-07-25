@@ -85,7 +85,7 @@ export default function MoreTab(props) {
                     onPress={() => switchToUser()}
                     style={styles.menuItem} >
                     <MaterialIcons name="switch-account" size={24} color="red" />
-                    <Text style={styles.fieldLable} >تبديل الى الحساب العاديس</Text>
+                    <Text style={styles.fieldLable} >تبديل الى الحساب العادي</Text>
                 </TouchableOpacity>
             </View>
 

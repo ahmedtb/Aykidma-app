@@ -6,9 +6,13 @@ import {
 } from 'react-native'
 import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 export default function NavigationBar(props) {
+    const navigation = useNavigation();
+
     const name = props.name
     return (
         <View style={{
@@ -18,7 +22,7 @@ export default function NavigationBar(props) {
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
                 <AntDesign name="caretright" size={24} color="black" />
             </TouchableOpacity>
             <Text style={{ fontSize: 15 }}>{name}</Text>

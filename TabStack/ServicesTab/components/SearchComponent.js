@@ -75,8 +75,8 @@ export default function SearchComponent(props) {
         <View >
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginHorizontal:5, paddingTop: 5, paddingHorizontal: 5, paddingBottom:1 }}>
-                <View style={{ borderWidth: 1, borderRadius: 5, flex: 1, textAlign: 'right' }}>
-                    <TextInput onChangeText={(text) => { setSearchTerm(text) }} />
+                <View style={{ borderWidth: 1, borderRadius: 5, flex: 1, textAlign: 'right', flexDirection:'row', justifyContent:'space-between', alignItems:'center' }}>
+                    <TextInput style={{flex:1}} onChangeText={(text) => { setSearchTerm(text) }} />
                     {
                         (focus) ? (
                             <TouchableOpacity onPress={() => (unFocusFromHere())}>
@@ -84,7 +84,6 @@ export default function SearchComponent(props) {
                             </TouchableOpacity>
                         ) : (null)
                     }
-
 
                 </View>
                 <TouchableOpacity style={{}} onPress={() => (search(searchTerm))}>

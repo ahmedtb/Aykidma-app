@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Platform, Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
@@ -46,7 +46,7 @@ export default function LocationPicker(props) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} >
             {/* <View style={{ margin: 8 }}>
                 <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', borderBottomWidth: 1, }}>سيتم استخدام موقعك الحالي كدليل لتقديم الخدمة</Text>
             </View> */}
@@ -55,22 +55,30 @@ export default function LocationPicker(props) {
             <Text style={styles.paragraph}>خط العرض: {latitude}</Text>
             <Text style={styles.paragraph}>خط الطول: {longitude}</Text>
 
-            <MapView
-                style={styles.map}
-                initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                region={{
-                    latitude: latitude ? latitude : 37.78825,
-                    longitude: longitude ? longitude : -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}>
-                <Marker coordinate={{ latitude: latitude, longitude: longitude }} title="موقعك" description="موقعك الحالي" />
-            </MapView>
+
+            <View
+                pointerEvents="none"
+            >
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    region={{
+                        latitude: latitude ? latitude : 37.78825,
+                        longitude: longitude ? longitude : -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    pointerEvents="none"
+                >
+                    <Marker coordinate={{ latitude: latitude, longitude: longitude }} title="موقعك" description="موقعك الحالي" />
+                </MapView>
+            </View>
+
         </View>
     );
 }
@@ -88,8 +96,6 @@ const styles = StyleSheet.create({
     },
     map: {
         width: Dimensions.get('window').width / 1.5,
-        // height: Dimensions.get('window').height / 1.5,
-        // width: '60%',
         height: 200,
     },
 });

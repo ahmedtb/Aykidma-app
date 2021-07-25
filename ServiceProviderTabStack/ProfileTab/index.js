@@ -1,23 +1,16 @@
 import React, { useState, useContext } from 'react';
 import {
     StyleSheet,
-    Text,
-    View,
-    ImageBackground,
-    Dimensions,
-    Image,
-    TextInput,
-    FlatList,
-    ScrollView,
-    Button,
-    TouchableOpacity
+
 } from 'react-native';
+
+import { AuthContext } from '../../StateManagment/AuthState'
+
 
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
-
 import ProfileScreen from './ProfileScreen'
-import { AuthContext } from '../../StateManagment/AuthState'
+import EditProfileScreen from './EditProfileScreen'
 
 import AuthenticationStack from '../components/AuthenticationStack'
 
@@ -27,7 +20,15 @@ export default function ProfileTabStack() {
 
     if (providerAuth)
         return (
-            <ProfileScreen />
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen name="ProviderProfileScreen" component={ProfileScreen} />
+                <Stack.Screen name="ProviderEditProfileScreen" component={EditProfileScreen} />
+
+            </Stack.Navigator>
         )
     else
         return (

@@ -5,7 +5,12 @@ import logError from './logError'
 export { logError }
 
 export const getUserImage = async () => {
-    const data = (await axios.get('/api/myImage')).data
+    const data = (await axios.get('/api/user/image')).data
+    return data
+}
+
+export const getProviderImage = async () => {
+    const data = (await axios.get('/api/provider/image')).data
     return data
 }
 
@@ -21,7 +26,14 @@ export const signUpUser = async (name, phoneNumber, password) => {
 }
 
 export const editUserProfile = async (name,phoneNumber, image) => {
-    const data = (await axios.post('/api/editProfile', {
+    const data = (await axios.post('/api/user/edit', {
+        name: name, phone_number: phoneNumber, image: image
+    }) ).data
+    return data
+}
+
+export const editProviderProfile = async (name,phoneNumber, image) => {
+    const data = (await axios.post('/api/provider/edit', {
         name: name, phone_number: phoneNumber, image: image
     }) ).data
     return data
