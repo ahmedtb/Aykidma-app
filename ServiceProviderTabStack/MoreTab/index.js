@@ -21,9 +21,9 @@ import ModalWrapper from '../components/ModalWrapper';
 import { AuthContext } from '../../StateManagment/AuthState'
 import axios from 'axios'
 
-export default function MoreTab(props) {
+function MoreTab(props) {
 
-    const { user } = React.useContext(AuthContext)
+    // const { user } = React.useContext(AuthContext)
 
     function switchToUser() {
         // axios.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
@@ -100,6 +100,18 @@ export default function MoreTab(props) {
     );
 }
 
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreTab);
 
 const styles = StyleSheet.create({
     menuItem: {

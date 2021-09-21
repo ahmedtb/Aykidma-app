@@ -14,11 +14,11 @@ import EditProfileScreen from './EditProfileScreen'
 
 import AuthenticationStack from '../components/AuthenticationStack'
 
-export default function ProfileTabStack() {
+function ProfileTabStack() {
 
-    const { loginProvider, providerAuth } = useContext(AuthContext)
+    // const { loginProvider, providerAuth } = useContext(AuthContext)
 
-    if (providerAuth)
+    if (props.state.provider)
         return (
             <Stack.Navigator
                 screenOptions={{
@@ -37,6 +37,20 @@ export default function ProfileTabStack() {
 }
 
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
 
 const styles = StyleSheet.create({
     enrollField: {

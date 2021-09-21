@@ -71,8 +71,7 @@ function ProfileTabStack(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserNotifications } from '../../redux/StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

@@ -4,18 +4,16 @@ import { AuthProvider } from '../StateManagment/AuthState'
 import { NotificationsProvider, NotificationsContext } from '../StateManagment/NotificationsProvider'
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import stateReducer from '../redux/StateReducer';
-const store = createStore(stateReducer);
+import store from '../redux/store';
 
 export default function Route() {
 
     return (
         <NotificationsProvider>
             <Provider store={store}>
-                <AuthProvider>
+                {/* <AuthProvider> */}
                     <AppStack />
-                </AuthProvider>
+                {/* </AuthProvider> */}
             </Provider>
         </NotificationsProvider>
     )

@@ -21,7 +21,7 @@ function StatusBar(props) {
         fetchUserNotifications(props.state.token)
             .then(data => props.setUserNotifications(data))
             .catch(error => InspectAPIError(error))
-        console.log('statusbar props',props)
+        // console.log('statusbar props',props)
     }, [notification])
 
     return (
@@ -47,8 +47,7 @@ function StatusBar(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserNotifications } from '../../../redux/StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

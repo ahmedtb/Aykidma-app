@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { MaterialIcons, AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
 
-import { AuthContext } from '../../StateManagment/AuthState'
+// import { AuthContext } from '../../StateManagment/AuthState'
 
 import FieldsEditorComponent from './components/FieldsEditorComponent'
 import CreateNewFieldComponent from './components/CreateNewFieldComponent'
@@ -17,10 +17,10 @@ import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
 import StatusBar from '../components/StatusBar'
-import { editService } from '../../utilityFunctions/apiCalls'
+import { editService, logError } from '../../utilityFunctions/apiCalls'
 
 export default function EditServiceScreen(props) {
-    const { InspectAPIError } = React.useContext(AuthContext)
+    // const { logError } = React.useContext(AuthContext)
 
     const service = props.route.params.service
     const [title, setTitle] = React.useState(service.title)
@@ -39,7 +39,7 @@ export default function EditServiceScreen(props) {
     function submit() {
         editService(service.id, title, description, editedFields, category_id, image, service.meta_data)
             .then(data => console.log(data))
-            .catch(error => InspectAPIError(error))
+            .catch(error => logError(error))
     }
 
     return (

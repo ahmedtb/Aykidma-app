@@ -22,25 +22,23 @@ import ConfirmationScreen from './ConfirmationScreen'
 import { AuthContext } from '../../../StateManagment/AuthState'
 import { refreshProvider } from '../../../utilityFunctions/apiCalls';
 import logError from '../../../utilityFunctions/logError';
+import {fetchProvider, tryLoginUserFromStore} from '../../../redux/AuthFunctions'
 
 function AuthenticationStack(props) {
 
-    const { loginProvider, providerAuth, tryLoginProviderFromStore } = useContext(AuthContext)
-
+    // const { loginProvider, providerAuth, tryLoginProviderFromStore } = useContext(AuthContext)
+    
+    useEffect(() => {
+        tryLoginUserFromStore()
+        fetchProvider(props.state.token)
+        // console.log('provider', props.provider)
+    }, [props.state.token])
 
     useEffect(() => {
-        // tryLoginProviderFromStore()
-        refreshProvider().then(provider => {
-            console.log('refresh provider output', provider)
-            props.setProvider(provider)
-        }).catch(error => logError(error))
-    }, [])
+        console.log('AuthenticationStack provider', props.state)
+    }, [props.state.provider])
 
-    useEffect(() => {
-        console.log('provider', props.provider)
-    }, [props.provider])
-
-    if (providerAuth)
+    if (props.state.provider)
         return (
             <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Text>
@@ -81,18 +79,19 @@ function AuthenticationStack(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setProvider } from '../../StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+import { setUser, setToken } from '../../../redux/StateActions';
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        setProvider
+        setUser,
+        setToken
     }, dispatch)
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthenticationStack);
+
 
 
 const styles = StyleSheet.create({

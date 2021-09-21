@@ -14,18 +14,16 @@ import {
 } from 'react-native';
 
 // import CreateServiceComponent from './components/CreateServiceComponent'
-import { AuthContext } from '../../StateManagment/AuthState'
 
 import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 // import CreatedFieldsRender from './components/CreatedFieldsRender'
 import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
-import { createService } from '../../utilityFunctions/apiCalls'
+import { createService, logError } from '../../utilityFunctions/apiCalls'
 
 export default function AddNewService({ navigation }) {
     const [title, setTitle] = useState(null)
 
-    const { InspectAPIError } = React.useContext(AuthContext)
     const [description, setDescription] = React.useState(null)
     const [fields, setFields] = React.useState([])
     const [category_id, selectCategory] = React.useState(null)
@@ -47,7 +45,7 @@ export default function AddNewService({ navigation }) {
                 console.log(data)
             })
             .catch(error => {
-                InspectAPIError(error)
+                logError(error)
             })
     }
 

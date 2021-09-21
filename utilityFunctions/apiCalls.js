@@ -44,9 +44,12 @@ export const refreshUser = async () => {
     return data
 }
 
-export const refreshProvider = async () => {
-    console.log('refreshProvider auth token', axios.defaults.headers.common['Authorization'])
-    const data = (await axios.get('/api/provider')).data
+export const refreshProvider = async (token) => {
+    // console.log('refreshProvider auth token', axios.defaults.headers.common['Authorization'])
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    const data = (await axios.get('/api/provider', config)).data
     return data
 }
 
@@ -202,11 +205,4 @@ export async function logout(token) {
     };
     response = await axios.delete('api/logout', config)
     return response
-}
-
-export async function getProvider(token) {
-    const config = {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-    };
-    return await axios.get('api/provider', config)
 }

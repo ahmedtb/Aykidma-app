@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import ViewFormFields from './components/ViewFormFields'
 import StatusBar from '../components/StatusBar'
-import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
+import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 import { MaterialIcons, AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
 
@@ -55,7 +55,7 @@ function ViewServiceScreen(props) {
                 if (isMountedRef.current)
                     setCategory(searchCategories(category_id, data))
             } catch (error) {
-                InspectAPIError(error)
+                logError(error)
             }
         else {
             setCategory(searchCategories(category_id, props.state.categories))
@@ -151,14 +151,14 @@ const style = StyleSheet.create({
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { refreshNotifications, setCategories } from '../StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        refreshNotifications, setCategories
+        setUser,
+        setToken
     }, dispatch)
 );
 

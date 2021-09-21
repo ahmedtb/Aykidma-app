@@ -3,21 +3,13 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 
 import { AuthContext } from '../../../StateManagment/AuthState'
 import { loginUser, logError } from '../../../utilityFunctions/apiCalls'
-import { storeUserAuthRecord } from '../../../utilityFunctions/AuthFunctions'
-import axios from 'axios'
+import { storeUserAuthRecord, setUserAndAxiosToken } from '../../../redux/AuthFunctions'
+
 function LoginModal(props) {
     // const { login, user } = useContext(AuthContext)
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
 
-    function setUserAndAxiosToken(data) {
-        if (data) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
-            props.setUser(data.user)
-            props.setToken(data.token)
-        }
-
-    }
 
     function loginButton(phoneNumber, password) {
         const expoPushToken = 'sadsad'
@@ -103,8 +95,7 @@ function LoginModal(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../../redux/StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

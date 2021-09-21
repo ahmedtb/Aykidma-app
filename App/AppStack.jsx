@@ -11,25 +11,19 @@ export const StacksEnum = {
     ServiceProviderTabStack: 2
 }
 
-const ParenStack = () => {
+export default function AppStack() {
     return (
         <Stack.Navigator
             screenOptions={{
                 headerShown: false
             }}
         >
-            <Stack.Screen name="TabStack" component={TabStack}
-                options={{ title: 'المستخدم' }}
-            />
             <Stack.Screen name="ServiceProviderTabStack" component={ServiceProviderTabStack}
                 options={{ title: 'مزود خدمات' }}
             />
+            <Stack.Screen name="TabStack" component={TabStack}
+                options={{ title: 'المستخدم' }}
+            />
         </Stack.Navigator>
-    );
-}
-
-export default function AppStack() {
-    return (
-        <ParenStack />
     )
 }

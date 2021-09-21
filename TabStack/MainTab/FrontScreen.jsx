@@ -12,14 +12,14 @@ import {
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import RefreshScrollView from '../components/RefreshScrollView'
-import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
-import { AuthContext } from '../../StateManagment/AuthState'
+import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
+// import { AuthContext } from '../../StateManagment/AuthState'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 export default function FrontScreen({ navigation }) {
     const isMountedRef = useIsMountedRef();
 
-    const { InspectAPIError } = React.useContext(AuthContext)
+    // const { InspectAPIError } = React.useContext(AuthContext)
     const [categories, setCategories] = React.useState([])
 
     async function setupCategories() {
@@ -28,7 +28,7 @@ export default function FrontScreen({ navigation }) {
             if (isMountedRef.current)
                 setCategories(data)
         } catch (error) {
-            InspectAPIError(error)
+            logError(error)
         }
     }
 

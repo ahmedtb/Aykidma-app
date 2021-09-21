@@ -19,34 +19,10 @@ const Stack = createStackNavigator();
 import LoginScreen from './LoginScreen'
 import EnrolmentScreen from './EnrolmentScreen'
 import ConfirmationScreen from './ConfirmationScreen'
-import { getUser, logError } from "../../../utilityFunctions/apiCalls"
-import { getUserAuth } from '../../../utilityFunctions/AuthFunctions'
-import axios from 'axios';
+import { tryLoginUserFromStore } from '../../../redux/AuthFunctions'
 
 function AuthenticationStack(props) {
 
-    function setUserAndAxiosToken(data) {
-        // console.log('setUserAndAxiosToken', data)
-
-        if (data) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
-            props.setUser(data.user)
-            props.setToken(data.token)
-        }
-
-    }
-
-    function tryLoginUserFromStore() {
-        getUserAuth().then((data) => {
-            getUser(data.token)
-                .then(() => setUserAndAxiosToken(data))
-                .catch(error => {
-                    logError(error)
-                    setUserAndAxiosToken(null)
-                    console.log('AuthenticationStack', 'user is in the store but is not validated')
-                })
-        }).catch(error => logError(error))
-    }
 
     React.useEffect(() => {
         tryLoginUserFromStore()
@@ -99,8 +75,7 @@ function AuthenticationStack(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../../redux/StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

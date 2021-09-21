@@ -10,10 +10,10 @@ import {
 
 import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
-import { getUserImage, logout } from '../../utilityFunctions/apiCalls'
+import { getUserImage, logout, logError, getUser } from '../../utilityFunctions/apiCalls'
 import RefreshScrollView from '../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
-import { deleteUserAuthRecord } from '../../utilityFunctions/AuthFunctions'
+import { logoutProcedure } from '../../redux/AuthFunctions'
 
 function ProfileScreen(props, { navigation }) {
     const isMountedRef = useIsMountedRef()
@@ -29,8 +29,26 @@ function ProfileScreen(props, { navigation }) {
                 if (isMountedRef.current)
                     setimage(data)
             })
-            .catch(error => InspectAPIError(error))
+            .catch(error => logError(error))
     }, [])
+
+
+    async function RefreshUserData() {
+        try {
+            const data = await getUser()
+
+            // const freshUser = {
+            //     user: data,
+            //     token: user.token
+            // }
+            // props.setUser(data.user)
+            // props.setToken(data.token)
+            console.log('RefreshUserData', data)
+        } catch (error) {
+            logError(error)
+        }
+    }
+
 
     async function refreshFunction() {
         await RefreshUserData()
@@ -40,27 +58,6 @@ function ProfileScreen(props, { navigation }) {
         } catch (error) {
             InspectAPIError(error)
         }
-    }
-
-    function setUserAndAxiosToken(data) {
-        // console.log('setUserAndAxiosToken', data)
-        if (data) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
-            props.setUser(data.user)
-            props.setToken(data.token)
-        } else {
-            axios.defaults.headers.common['Authorization'] = null;
-            props.setUser(null)
-            props.setToken(null)
-        }
-    }
-
-    function logoutButton() {
-        logout(props.state.token).then((response) => {
-            console.log('logoutButton', response)
-            deleteUserAuthRecord()
-            setUserAndAxiosToken(null)
-        }).catch((error) => logError(error))
     }
 
     return (
@@ -94,7 +91,7 @@ function ProfileScreen(props, { navigation }) {
             <View style={{ justifyContent: 'space-around', flexDirection: 'row', marginTop: 30 }}>
                 <TouchableOpacity
                     style={{ backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => {  logoutButton() }}
+                    onPress={() => { logoutProcedure() }}
                 >
                     <Text style={{ color: 'white' }}>تسجيل الخروج</Text>
                 </TouchableOpacity>
@@ -116,8 +113,7 @@ function ProfileScreen(props, { navigation }) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserNotifications } from '../../redux/StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

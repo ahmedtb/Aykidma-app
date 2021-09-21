@@ -103,9 +103,6 @@ function OrdersView({ navigation }) {
 function OrdersTab(props, { navigation }) {
     const { InspectAPIError, user } = useContext(AuthContext)
 
-    React.useEffect(()=>{
-        console.log('state',props.state)
-    },[])
 
     if (props.state.user)
         return (

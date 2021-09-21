@@ -22,12 +22,12 @@ import EditServiceScreen from './EditServiceScreen'
 import { AuthContext } from '../../StateManagment/AuthState'
 import AuthenticationStack from '../components/AuthenticationStack'
 
-export default function MyServicesTab() {
-    const { loginProvider, providerAuth } = React.useContext(AuthContext)
+function MyServicesTab(props) {
+    // const { loginProvider, providerAuth } = React.useContext(AuthContext)
 
 
 
-    if (providerAuth)
+    if (props.state.provider)
         return (
             <Stack.Navigator
                 screenOptions={{
@@ -65,3 +65,19 @@ export default function MyServicesTab() {
             <AuthenticationStack />
         )
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyServicesTab);

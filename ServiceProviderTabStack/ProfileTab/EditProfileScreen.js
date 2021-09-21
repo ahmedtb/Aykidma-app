@@ -10,13 +10,12 @@ import {
 import ImagePicker from './components/ImagePicker'
 import { AuthContext } from '../../StateManagment/AuthState'
 import NavigationBar from '../components/NavigationBar'
-import { editProviderProfile } from '../../utilityFunctions/apiCalls'
+import { editProviderProfile, logError } from '../../utilityFunctions/apiCalls'
 
-export default function EditProfileScreen(props) {
-    const { providerAuth, RefreshProviderData, InspectAPIError } = React.useContext(AuthContext)
+function EditProfileScreen(props) {
     const imageRoute = props.route.params.image
-    const [name, setName] = React.useState(providerAuth.provider.name)
-    const [phoneNumber, setPhoneNumber] = React.useState(providerAuth.provider.phone_number)
+    const [name, setName] = React.useState(props.state.provider?.name)
+    const [phoneNumber, setPhoneNumber] = React.useState(props.state.provider?.phone_number)
     const [image, setimage] = React.useState(imageRoute)
 
     const submit = () => {
@@ -26,7 +25,7 @@ export default function EditProfileScreen(props) {
                 // console.log('edit provider', data)
                 props.navigation.goBack()
             })
-            .catch(error => InspectAPIError(error))
+            .catch(error => logError(error))
     }
     return (
         <ScrollView>
@@ -77,3 +76,19 @@ export default function EditProfileScreen(props) {
         </ScrollView>
     )
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfileScreen);

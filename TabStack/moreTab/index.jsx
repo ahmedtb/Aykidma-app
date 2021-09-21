@@ -7,13 +7,13 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import ModalScreen from '../components/ModalScreen';
-import { AuthContext } from '../../StateManagment/AuthState'
-import axios from 'axios'
+// import { AuthContext } from '../../StateManagment/AuthState'
+
 import { MaterialIcons, Ionicons, Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 
 export default function MoreTab(props) {
-    const { providerAuth } = React.useContext(AuthContext)
+    // const { providerAuth } = React.useContext(AuthContext)
 
     function switchToProvider() {
         // axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;

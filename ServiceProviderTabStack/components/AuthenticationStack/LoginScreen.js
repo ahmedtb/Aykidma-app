@@ -1,12 +1,18 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-
+import { loginProcendure, fetchProvider } from '../../../redux/AuthFunctions'
 import { AuthContext } from '../../../StateManagment/AuthState'
 
-export default function LoginModal(props) {
-    const { loginProvider, providerAuth } = useContext(AuthContext)
+function LoginModal(props) {
+    // const { loginProvider, providerAuth } = useContext(AuthContext)
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
+
+    // React.useEffect(()=>{
+    //     if(props.state.token){
+    //         fetchProvider(props.state.token)
+    //     }
+    // },[props.state.token])
 
     return (
 
@@ -67,13 +73,12 @@ export default function LoginModal(props) {
                 <TouchableOpacity
                     style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
-                        loginProvider(phoneNumber, password)
-                    }
-                    }
+                        loginProcendure(phoneNumber, password)
+                    }}
                 >
                     <Text style={{ color: 'white' }}>
                         دخول
-                        </Text>
+                    </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -87,7 +92,7 @@ export default function LoginModal(props) {
                 >
                     <Text style={{ color: 'white' }}>
                         تسجيل حساب
-                        </Text>
+                    </Text>
                 </TouchableOpacity>
 
 
@@ -96,6 +101,21 @@ export default function LoginModal(props) {
 
     )
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setProvider} from '../../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setProvider
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
 
 const styles = StyleSheet.create({
 

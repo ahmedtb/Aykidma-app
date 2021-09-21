@@ -18,16 +18,17 @@ import { Picker } from '@react-native-picker/picker';
 // ]
 
 import { getAvailableCategories } from '../../../utilityFunctions/apiCalls'
-import { AuthContext } from '../../../StateManagment/AuthState'
-export default function CategoryComponent(props) {
+// import { AuthContext } from '../../../StateManagment/AuthState'
+
+function CategoryComponent(props) {
     const category_id = props.category_id
     const selectCategory = props.selectCategory
     const [SelectedCategory, setSelectedCategory] = useState(category_id??null);
     const [categories, setCategories] = useState([])
 
-    const { providerAuth } = React.useContext(AuthContext)
+    // const { props.state.provider } = React.useContext(AuthContext)
     useEffect( () => {
-        getAvailableCategories(providerAuth).then( (data) => {
+        getAvailableCategories(props.state.provider).then( (data) => {
             setCategories(data)
         })
     },[])
@@ -61,6 +62,22 @@ export default function CategoryComponent(props) {
     );
 }
 
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryComponent);
 
 const styles = StyleSheet.create({
     enrollField: {

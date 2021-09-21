@@ -18,8 +18,7 @@ import {
 import NewOrders from './NewOrders'
 import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
-import { fetchServiceProviderOrders } from '../../utilityFunctions/apiCalls'
-import { AuthContext } from '../../StateManagment/AuthState'
+import { fetchServiceProviderOrders, logError } from '../../utilityFunctions/apiCalls'
 import LoginScreen from '../components/AuthenticationStack/LoginScreen'
 import LoadingIndicator from '../components/loadingIndicator'
 import RefreshScrollView from '../components/RefreshScrollView'
@@ -38,7 +37,6 @@ function filterOrders(orders, status) {
 function OrdersDisplay(props) {
     const isMountedRef = useIsMountedRef()
 
-    const { InspectAPIError } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(true)
     const [viewOrders, setViewOrders] = useState(1);
 
@@ -56,7 +54,7 @@ function OrdersDisplay(props) {
                 setDoneOrders(filterOrders(orders, 'done'))
             }
         } catch (error) {
-            InspectAPIError(error)
+            logError(error)
         }
         setIsLoading(false)
     }
@@ -104,9 +102,9 @@ function OrdersDisplay(props) {
     );
 }
 
-export default function OrdersTab({ navigation }) {
-    const { providerAuth } = useContext(AuthContext)
-    if (providerAuth)
+function OrdersTab(props, { navigation }) {
+    // const { providerAuth } = useContext(AuthContext)
+    if (props.state.provider)
         return (
             <OrdersDisplay navigation={navigation} />
         )
@@ -116,7 +114,17 @@ export default function OrdersTab({ navigation }) {
         )
 }
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
 
-const styles = StyleSheet.create({
-
-})
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersTab);

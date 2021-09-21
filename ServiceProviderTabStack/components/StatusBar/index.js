@@ -5,10 +5,9 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
-import { AuthContext } from '../../../StateManagment/AuthState'
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
-import { fetchProviderNotifications } from '../../../utilityFunctions/apiCalls'
+import { fetchProviderNotifications, logError } from '../../../utilityFunctions/apiCalls'
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -17,12 +16,11 @@ function StatusBar(props) {
     const backButton = props.backButton
     const navigation = useNavigation()
     const { notification } = React.useContext(NotificationsContext)
-    const { providerAuth, InspectAPIError } = React.useContext(AuthContext)
 
     React.useEffect(() => {
         fetchProviderNotifications()
             .then(data => props.refreshNotifications(data))
-            .catch(error => InspectAPIError(error))
+            .catch(error => logError(error))
     }, [notification])
 
     return (
@@ -36,7 +34,7 @@ function StatusBar(props) {
             {(backButton) ? <TouchableOpacity onPress={() => navigation.goBack()}>
                 <FontAwesome name="arrow-right" size={24} color="black" />
             </TouchableOpacity> : null}
-            <Text style={{ fontSize: 15 }}>{providerAuth.provider.name}</Text>
+            <Text style={{ fontSize: 15 }}>{props.state.provider.name}</Text>
             <Text style={{ fontSize: 15 }}>{title}</Text>
 
             <NotificationsBell
@@ -49,14 +47,14 @@ function StatusBar(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { refreshNotifications } from '../../StateActions';
-const mapStateToProps = (state1) => {
-    const { state } = state1
+import { setUser, setToken } from '../../../redux/StateActions';
+const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        refreshNotifications,
+        setUser,
+        setToken
     }, dispatch)
 );
 

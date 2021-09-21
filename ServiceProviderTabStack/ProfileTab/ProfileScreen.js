@@ -14,19 +14,18 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
 import RefreshScrollView from '../components/RefreshScrollView'
-import {getProviderImage} from '../../utilityFunctions/apiCalls'
+import {getProviderImage, logError} from '../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import {fetchProvider, logoutProcedure} from '../../redux/AuthFunctions'
 
-export default function ProfileScreen({ navigation }) {
+function ProfileScreen(props) {
     const isMountedRef = useIsMountedRef()
 
-    const { logoutProvider, providerAuth, RefreshProviderData } = useContext(AuthContext)
 
-    const name = providerAuth.provider.name
-    const phone_number = providerAuth.provider.phone_number
+    const name = props.state.provider?.name
+    const phone_number = props.state.user?.phone_number
     const [image, setimage] = React.useState(null)
 
     async function getImage(){
@@ -35,7 +34,7 @@ export default function ProfileScreen({ navigation }) {
             if (isMountedRef.current)
                     setimage(data)
         }catch(error){
-            InspectAPIError(error)
+            logError(error)
         }
     }
 
@@ -43,12 +42,8 @@ export default function ProfileScreen({ navigation }) {
         getImage()
     }, [])
 
-    async function refreshProviderAuth() {
-        await RefreshProviderData()
-    }
-
     return (
-        <RefreshScrollView refreshFunction={refreshProviderAuth}>
+        <RefreshScrollView refreshFunction={fetchProvider}>
 
             <StatusBar title='الملف الشخصي'/>
 
@@ -78,13 +73,13 @@ export default function ProfileScreen({ navigation }) {
             <View style={{justifyContent:'space-around', flexDirection:'row', marginTop: 30}}>
                 <TouchableOpacity
                     style={{ backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => { logoutProvider() }}
+                    onPress={() => { logoutProcedure() }}
                 >
                     <Text style={{ color: 'white' }}>تسجيل الخروج</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => { navigation.navigate('ProviderEditProfileScreen', { image: image }) }}
+                    onPress={() => { props.navigation.navigate('ProviderEditProfileScreen', { image: image }) }}
                 >
                     <Text style={{ color: 'white', textAlign: 'center' }}>تعديل الملف الشخصي</Text>
                 </TouchableOpacity>
@@ -95,3 +90,18 @@ export default function ProfileScreen({ navigation }) {
 
     );
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

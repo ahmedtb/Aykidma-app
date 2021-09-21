@@ -2,30 +2,25 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome, MaterialIcons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import { AuthContext } from '../StateManagment/AuthState'
+// import { AuthContext } from '../StateManagment/AuthState'
 import MyServicesTab from './MyServicesTab';
 import OrdersTab from './OrdersTab'
 import ProfileTab from './ProfileTab'
 import MoreTab from './MoreTab'
-
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import stateReducer from './StateReducer';
-import axios from 'axios';
-const store = createStore(stateReducer);
+// import axios from 'axios';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabStack(props) {
+export default function ServiceProviderTabStack(props) {
 
     // those lines to make sure that bearer token of requests is from provider
-    const { providerAuth } = React.useContext(AuthContext)
-    React.useEffect(() => {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
-    }, [providerAuth])
+    // const { providerAuth } = React.useContext(AuthContext)
+    // React.useEffect(() => {
+    //     axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
+    // }, [providerAuth])
 
     return (
-        <Provider store={store}>
+        // <Provider store={store}>
 
             <Tab.Navigator>
                 <Tab.Screen name="MyServicesTab" component={MyServicesTab}
@@ -65,7 +60,7 @@ export default function TabStack(props) {
                     }}
                 />
             </Tab.Navigator>
-        </Provider>
+        // </Provider>
 
     );
 }
