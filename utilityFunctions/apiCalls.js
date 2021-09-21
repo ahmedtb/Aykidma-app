@@ -25,27 +25,28 @@ export const signUpUser = async (name, phoneNumber, password) => {
     }
 }
 
-export const editUserProfile = async (name,phoneNumber, image) => {
+export const editUserProfile = async (name, phoneNumber, image) => {
     const data = (await axios.post('/api/user/edit', {
         name: name, phone_number: phoneNumber, image: image
-    }) ).data
+    })).data
     return data
 }
 
-export const editProviderProfile = async (name,phoneNumber, image) => {
+export const editProviderProfile = async (name, phoneNumber, image) => {
     const data = (await axios.post('/api/provider/edit', {
         name: name, phone_number: phoneNumber, image: image
-    }) ).data
+    })).data
     return data
 }
 
-export const refreshUser = async() => {
-    const data = (await axios.get('/api/user') ).data
+export const refreshUser = async () => {
+    const data = (await axios.get('/api/user')).data
     return data
 }
 
-export const refreshProvider = async() => {
-    const data = (await axios.get('/api/provider') ).data
+export const refreshProvider = async () => {
+    console.log('refreshProvider auth token', axios.defaults.headers.common['Authorization'])
+    const data = (await axios.get('/api/provider')).data
     return data
 }
 
@@ -176,3 +177,36 @@ export const fetchProviderNotifications = async () => {
     return (await axios.get('api/providerNotifications')).data
 }
 
+
+export async function getUser(token) {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    return await axios.get('api/user', config)
+}
+
+export async function loginUser(phoneNumber, password, expoPushToken) {
+    const userAuthResponse = (await axios.post('api/login', {
+        'phone_number': phoneNumber,
+        'password': password,
+        'device_name': 'mobile',
+        'expo_token': expoPushToken
+    })).data
+    return (userAuthResponse)
+}
+
+export async function logout(token) {
+
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    response = await axios.delete('api/logout', config)
+    return response
+}
+
+export async function getProvider(token) {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    return await axios.get('api/provider', config)
+}

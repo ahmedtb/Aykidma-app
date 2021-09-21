@@ -18,9 +18,10 @@ function StatusBar(props) {
     const { user, InspectAPIError } = React.useContext(AuthContext)
 
     React.useEffect(() => {
-        fetchUserNotifications(user.token)
-            .then(data => props.refreshNotifications(data))
+        fetchUserNotifications(props.state.token)
+            .then(data => props.setUserNotifications(data))
             .catch(error => InspectAPIError(error))
+        console.log('statusbar props',props)
     }, [notification])
 
     return (
@@ -32,7 +33,7 @@ function StatusBar(props) {
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
-            <Text style={{ fontSize: 15 }}>{user.user.name}</Text>
+            <Text style={{ fontSize: 15 }}>{props.state.user.name}</Text>
             <Text style={{ fontSize: 15 }}>{title}</Text>
 
             <NotificationsBell
@@ -45,14 +46,14 @@ function StatusBar(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { refreshNotifications } from '../../StateActions';
+import { setUserNotifications } from '../../../redux/StateActions';
 const mapStateToProps = (state1) => {
     const { state } = state1
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        refreshNotifications,
+        setUserNotifications,
     }, dispatch)
 );
 

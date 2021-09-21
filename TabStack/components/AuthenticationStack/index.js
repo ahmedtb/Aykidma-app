@@ -19,19 +19,46 @@ const Stack = createStackNavigator();
 import LoginScreen from './LoginScreen'
 import EnrolmentScreen from './EnrolmentScreen'
 import ConfirmationScreen from './ConfirmationScreen'
-import { AuthContext } from '../../../StateManagment/AuthState'
+import { getUser, logError } from "../../../utilityFunctions/apiCalls"
+import { getUserAuth } from '../../../utilityFunctions/AuthFunctions'
+import axios from 'axios';
 
-export default function AuthenticationStack () {
+function AuthenticationStack(props) {
 
-    const { user, tryLoginUserFromStore } = useContext(AuthContext)
+    function setUserAndAxiosToken(data) {
+        // console.log('setUserAndAxiosToken', data)
+
+        if (data) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
+            props.setUser(data.user)
+            props.setToken(data.token)
+        }
+
+    }
+
+    function tryLoginUserFromStore() {
+        getUserAuth().then((data) => {
+            getUser(data.token)
+                .then(() => setUserAndAxiosToken(data))
+                .catch(error => {
+                    logError(error)
+                    setUserAndAxiosToken(null)
+                    console.log('AuthenticationStack', 'user is in the store but is not validated')
+                })
+        }).catch(error => logError(error))
+    }
 
     React.useEffect(() => {
         tryLoginUserFromStore()
-    },[])
+    }, [])
 
-    if (user)
+    React.useEffect(() => {
+        // console.log('auth stack, user:', props.state.user)
+    }, [props.user])
+
+    if (props.state.user)
         return (
-            <View style={{flex:1, justifyContent:'center'}}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Text>
                     انت بالفعل مسجل الدخول
                 </Text>
@@ -52,7 +79,7 @@ export default function AuthenticationStack () {
                 }}
             >
 
-                <Stack.Screen name="Login" component={LoginScreen} 
+                <Stack.Screen name="Login" component={LoginScreen}
                     options={{ title: 'صفحة تسجيل الدخول' }}
                 />
 
@@ -69,6 +96,21 @@ export default function AuthenticationStack () {
 }
 
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../../redux/StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthenticationStack);
 
 const styles = StyleSheet.create({
     enrollField: {

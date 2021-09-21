@@ -26,7 +26,7 @@ export default function MoreTab(props) {
     const { user } = React.useContext(AuthContext)
 
     function switchToUser() {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
         props.navigation.navigate('TabStack', { screen: 'الرئيسية' })
     }
     const [aboutVis, setAboutVis] = React.useState(false)

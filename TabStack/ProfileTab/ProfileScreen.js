@@ -10,15 +10,16 @@ import {
 
 import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
-import { getUserImage } from '../../utilityFunctions/apiCalls'
+import { getUserImage, logout } from '../../utilityFunctions/apiCalls'
 import RefreshScrollView from '../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import { deleteUserAuthRecord } from '../../utilityFunctions/AuthFunctions'
 
-export default function ProfileScreen({ navigation }) {
+function ProfileScreen(props, { navigation }) {
     const isMountedRef = useIsMountedRef()
-    const { logout, user, InspectAPIError, RefreshUserData } = React.useContext(AuthContext)
-    const name = user.user.name
-    const phone_number = user.user.phone_number
+    // const { logout, user, InspectAPIError, RefreshUserData } = React.useContext(AuthContext)
+    const name = props.state.user.name
+    const phone_number = props.state.user.phone_number
 
     const [image, setimage] = React.useState(null)
 
@@ -33,35 +34,56 @@ export default function ProfileScreen({ navigation }) {
 
     async function refreshFunction() {
         await RefreshUserData()
-        try{
+        try {
             const data = await getUserImage()
             setimage(data)
-        }catch(error){
+        } catch (error) {
             InspectAPIError(error)
         }
+    }
+
+    function setUserAndAxiosToken(data) {
+        // console.log('setUserAndAxiosToken', data)
+        if (data) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
+            props.setUser(data.user)
+            props.setToken(data.token)
+        } else {
+            axios.defaults.headers.common['Authorization'] = null;
+            props.setUser(null)
+            props.setToken(null)
+        }
+    }
+
+    function logoutButton() {
+        logout(props.state.token).then((response) => {
+            console.log('logoutButton', response)
+            deleteUserAuthRecord()
+            setUserAndAxiosToken(null)
+        }).catch((error) => logError(error))
     }
 
     return (
         <RefreshScrollView refreshFunction={refreshFunction}>
 
-            <StatusBar style={{margin:10}} title='الملف الشخصي'/>
+            <StatusBar style={{ margin: 10 }} title='الملف الشخصي' />
 
 
-            <View style={{ flexDirection: 'row', padding:10, borderWidth:0.4, borderRadius:10, marginHorizontal:15 }}>
+            <View style={{ flexDirection: 'row', padding: 10, borderWidth: 0.4, borderRadius: 10, marginHorizontal: 15 }}>
 
-                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 150, height: 150, borderRadius:8, borderColor:'red', borderWidth:1 }} />
+                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 150, height: 150, borderRadius: 8, borderColor: 'red', borderWidth: 1 }} />
 
-                <View style={{ justifyContent: 'space-around', flex: 1, marginLeft:5 }}>
+                <View style={{ justifyContent: 'space-around', flex: 1, marginLeft: 5 }}>
 
-                    <View style={{ margin: 3, flexDirection:'row' }}>
-                        <Text style={{ fontSize: 20, marginRight:5 }} >الاسم</Text>
-                        <Text style={{ fontSize: 20, flex:1, textAlign:'center' }} >{name}</Text>
+                    <View style={{ margin: 3, flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 20, marginRight: 5 }} >الاسم</Text>
+                        <Text style={{ fontSize: 20, flex: 1, textAlign: 'center' }} >{name}</Text>
 
                     </View>
 
-                    <View style={{ margin: 3, flexDirection:'row' }}>
-                        <Text style={{ fontSize: 20, marginRight:5 }} >رقم الهاتف</Text>
-                        <Text style={{ fontSize: 20, flex:1, textAlign:'center' }} >{phone_number}</Text>
+                    <View style={{ margin: 3, flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 20, marginRight: 5 }} >رقم الهاتف</Text>
+                        <Text style={{ fontSize: 20, flex: 1, textAlign: 'center' }} >{phone_number}</Text>
                     </View>
 
                 </View>
@@ -69,10 +91,10 @@ export default function ProfileScreen({ navigation }) {
             </View>
 
 
-            <View style={{justifyContent:'space-around', flexDirection:'row', marginTop: 30}}>
+            <View style={{ justifyContent: 'space-around', flexDirection: 'row', marginTop: 30 }}>
                 <TouchableOpacity
                     style={{ backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => { logout() }}
+                    onPress={() => {  logoutButton() }}
                 >
                     <Text style={{ color: 'white' }}>تسجيل الخروج</Text>
                 </TouchableOpacity>
@@ -90,3 +112,18 @@ export default function ProfileScreen({ navigation }) {
 
     );
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUserNotifications } from '../../redux/StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUserNotifications,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

@@ -20,19 +20,29 @@ import LoginScreen from './LoginScreen'
 import EnrolmentScreen from './EnrolmentScreen'
 import ConfirmationScreen from './ConfirmationScreen'
 import { AuthContext } from '../../../StateManagment/AuthState'
+import { refreshProvider } from '../../../utilityFunctions/apiCalls';
+import logError from '../../../utilityFunctions/logError';
 
-export default function AuthenticationStack () {
+function AuthenticationStack(props) {
 
     const { loginProvider, providerAuth, tryLoginProviderFromStore } = useContext(AuthContext)
 
 
     useEffect(() => {
-        tryLoginProviderFromStore()
-    },[])
+        // tryLoginProviderFromStore()
+        refreshProvider().then(provider => {
+            console.log('refresh provider output', provider)
+            props.setProvider(provider)
+        }).catch(error => logError(error))
+    }, [])
+
+    useEffect(() => {
+        console.log('provider', props.provider)
+    }, [props.provider])
 
     if (providerAuth)
         return (
-            <View style={{flex:1, justifyContent:'center'}}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Text>
                     لقد سجلت الدخول بالفعل!
                 </Text>
@@ -53,7 +63,7 @@ export default function AuthenticationStack () {
                 }}
             >
 
-                <Stack.Screen name="Login" component={LoginScreen} 
+                <Stack.Screen name="Login" component={LoginScreen}
                     options={{ title: 'صفحة تسجيل الدخول' }}
                 />
 
@@ -69,6 +79,20 @@ export default function AuthenticationStack () {
         );
 }
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setProvider } from '../../StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setProvider
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthenticationStack);
 
 
 const styles = StyleSheet.create({

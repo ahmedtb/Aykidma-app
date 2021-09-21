@@ -22,11 +22,11 @@ import { AuthContext } from '../../StateManagment/AuthState'
 
 import AuthenticationStack from '../components/AuthenticationStack'
 
-export default function ProfileTabStack() {
+function ProfileTabStack(props) {
 
     const { login, user } = useContext(AuthContext)
 
-    if (user)
+    if (props.state.user)
         return (
             <Stack.Navigator
             screenOptions={{
@@ -66,3 +66,19 @@ export default function ProfileTabStack() {
             </View>
         );
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUserNotifications } from '../../redux/StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUserNotifications,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileTabStack);

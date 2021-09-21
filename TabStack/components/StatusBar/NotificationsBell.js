@@ -28,13 +28,13 @@ const NotificationsBell = (props) => {
         setNewBell(false)
         forceUpdate();
     }
-    const notifications = props.notifications;
+    const notifications = props.state.userNotifications;
     const notification = props.notification
     React.useEffect(() => {
         if (notification?.request.content.data.type == 'user') {
             setNewBell(true)
         }
-
+        console.log('NotificationsBell state from props', props.state)
     }, [notification])
 
     return (
@@ -97,7 +97,21 @@ const NotificationsBell = (props) => {
         </View >
     );
 }
-export default NotificationsBell;
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUserNotifications } from '../../../redux/StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUserNotifications,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
 
 
 const styles = StyleSheet.create({

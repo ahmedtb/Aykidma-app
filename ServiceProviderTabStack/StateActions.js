@@ -11,3 +11,10 @@ export const setCategories = (categories) => (
         categories: categories
     }
 );
+
+export const setProvider = (provider) => (
+    {
+        type: 'setProvider',
+        provider: provider
+    }
+);

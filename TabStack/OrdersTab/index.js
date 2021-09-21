@@ -100,11 +100,14 @@ function OrdersView({ navigation }) {
     );
 }
 
-export default function OrdersTab({ navigation }) {
+function OrdersTab(props, { navigation }) {
     const { InspectAPIError, user } = useContext(AuthContext)
 
+    React.useEffect(()=>{
+        console.log('state',props.state)
+    },[])
 
-    if (user)
+    if (props.state.user)
         return (
             <OrdersView navigation={navigation} />
         )
@@ -136,3 +139,19 @@ export default function OrdersTab({ navigation }) {
             </View>
         )
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersTab);

@@ -16,7 +16,7 @@ export default function MoreTab(props) {
     const { providerAuth } = React.useContext(AuthContext)
 
     function switchToProvider() {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
         props.navigation.navigate('ServiceProviderTabStack', { screen: 'MyServicesTab' })
     }
 

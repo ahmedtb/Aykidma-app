@@ -2,11 +2,33 @@ import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 
 import { AuthContext } from '../../../StateManagment/AuthState'
-
-export default function LoginModal(props) {
-    const { login, user } = useContext(AuthContext)
+import { loginUser, logError } from '../../../utilityFunctions/apiCalls'
+import { storeUserAuthRecord } from '../../../utilityFunctions/AuthFunctions'
+import axios from 'axios'
+function LoginModal(props) {
+    // const { login, user } = useContext(AuthContext)
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
+
+    function setUserAndAxiosToken(data) {
+        if (data) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
+            props.setUser(data.user)
+            props.setToken(data.token)
+        }
+
+    }
+
+    function loginButton(phoneNumber, password) {
+        const expoPushToken = 'sadsad'
+        if (expoPushToken)
+            loginUser(phoneNumber, password, expoPushToken)
+                .then((data) => {
+                    storeUserAuthRecord(data)
+                    setUserAndAxiosToken(data)
+                })
+                .catch(error => logError(error))
+    }
 
     return (
 
@@ -21,7 +43,7 @@ export default function LoginModal(props) {
                     borderBottomWidth: 1
                 }}>
                     يرجى تسجيل الدخول
-                    </Text>
+                </Text>
 
             </View>
 
@@ -47,13 +69,14 @@ export default function LoginModal(props) {
             <TouchableOpacity
                 style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                 onPress={() => {
-                    login(phoneNumber, password)
+                    // login(phoneNumber, password)
+                    loginButton(phoneNumber, password) 
                 }
                 }
             >
                 <Text style={{ color: 'white' }}>
                     دخول
-                        </Text>
+                </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -67,7 +90,7 @@ export default function LoginModal(props) {
             >
                 <Text style={{ color: 'white' }}>
                     تسجيل حساب
-                        </Text>
+                </Text>
             </TouchableOpacity>
 
 
@@ -75,6 +98,23 @@ export default function LoginModal(props) {
 
     )
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUser, setToken } from '../../../redux/StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUser,
+        setToken
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
 
 const styles = StyleSheet.create({
 

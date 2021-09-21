@@ -9,11 +9,12 @@ import MoreTab from './moreTab';
 import ServicesTab from './ServicesTab';
 import ProfileTab from './ProfileTab'
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import stateReducer from './StateReducer';
+// import { Provider } from 'react-redux';
+// import { createStore } from 'redux';
+// import stateReducer from './StateReducer';
+// const store = createStore(stateReducer);
+
 import axios from 'axios';
-const store = createStore(stateReducer);
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ export default function TabStack(props) {
     }, [user])
 
     return (
-        <Provider store={store}>
+        // <Provider store={store}>
             <Tab.Navigator>
                 <Tab.Screen name="الرئيسية" component={MainTab}
                     options={{
@@ -65,6 +66,6 @@ export default function TabStack(props) {
                     }}
                 />
             </Tab.Navigator>
-        </Provider>
+        // </Provider>
     );
 }

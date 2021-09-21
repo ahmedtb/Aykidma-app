@@ -12,11 +12,11 @@ import { AuthContext } from '../../StateManagment/AuthState'
 import NavigationBar from '../components/NavigationBar'
 import { editUserProfile } from '../../utilityFunctions/apiCalls'
 
-export default function EditProfileScreen(props) {
+function EditProfileScreen(props) {
     const { user, RefreshUserData, InspectAPIError } = React.useContext(AuthContext)
     const imageRoute = props.route.params.image
-    const [name, setName] = React.useState(user.user.name)
-    const [phoneNumber, setPhoneNumber] = React.useState(user.user.phone_number)
+    const [name, setName] = React.useState(props.state.user.name)
+    const [phoneNumber, setPhoneNumber] = React.useState(props.state.user.phone_number)
     const [image, setimage] = React.useState(imageRoute)
 
     const submit = () => {
@@ -26,7 +26,7 @@ export default function EditProfileScreen(props) {
     }
     return (
         <View>
-            <NavigationBar name={user.user.name} />
+            <NavigationBar name={props.state.user.name} />
 
 
             <TextInput
@@ -64,3 +64,19 @@ export default function EditProfileScreen(props) {
         </View>
     )
 }
+
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUserNotifications } from '../../redux/StateActions';
+const mapStateToProps = (state1) => {
+    const { state } = state1
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setUserNotifications,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfileScreen);
