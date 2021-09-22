@@ -32,11 +32,10 @@ function initialFieldsOfService(service) {
 
 import FormModal from './components/formModal'
 import LoginModal from '../../LoginModal'
-import { AuthContext } from '../../../../StateManagment/AuthState'
 import NavigationBar from '../../NavigationBar'
 
-const FormScreen = ({ route }) => {
-    const service = route.params.service
+const FormScreen = (props) => {
+    const service = props.route.params?.service
     const serviceId = service.id;
     const serviceTitle = service.title;
     const initial_state = initialFieldsOfService(service)
@@ -45,7 +44,6 @@ const FormScreen = ({ route }) => {
 
     // const [index, setIndex] = useState(0);
 
-    const { user } = useContext(AuthContext)
 
     const [dialogVisible, setDialogVisible] = useState(false)
 
@@ -77,7 +75,7 @@ const FormScreen = ({ route }) => {
 
 
             {
-                (user) ?
+                (props.state.user) ?
                     (<FormModal visibility={[dialogVisible, setDialogVisible]}
                         state={state}
                         serviceTitle={serviceTitle}
@@ -93,7 +91,17 @@ const FormScreen = ({ route }) => {
     );
 }
 
-export default FormScreen
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormScreen);
 
 const styles = StyleSheet.create({
     container: {

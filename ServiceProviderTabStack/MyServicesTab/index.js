@@ -27,7 +27,7 @@ function MyServicesTab(props) {
 
 
 
-    if (props.state.provider)
+    if (props.state.provider?.activated )
         return (
             <Stack.Navigator
                 screenOptions={{

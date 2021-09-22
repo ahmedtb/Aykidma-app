@@ -20,9 +20,8 @@ import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
 import StatusBar from '../components/StatusBar'
 
-import { AuthContext } from '../../StateManagment/AuthState'
 import AuthenticationStack from '../components/AuthenticationStack'
-import { fetchUserOrders } from '../../utilityFunctions/apiCalls'
+import { fetchUserOrders, logError } from '../../utilityFunctions/apiCalls'
 import LoadingIndicator from '../components/loadingIndicator'
 import RefreshScrollView from '../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
@@ -39,7 +38,6 @@ function filterOrders(orders, status) {
 function OrdersView({ navigation }) {
     const isMountedRef = useIsMountedRef();
 
-    const { InspectAPIError } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
 
     const [viewOrders, setViewOrders] = useState(1);
@@ -60,7 +58,7 @@ function OrdersView({ navigation }) {
                 setDoneOrders(filterOrders(orders, 'done'))
             }
         } catch (error) {
-            InspectAPIError(error)
+            logError(error)
         }
     }
 
@@ -101,8 +99,6 @@ function OrdersView({ navigation }) {
 }
 
 function OrdersTab(props, { navigation }) {
-    const { InspectAPIError, user } = useContext(AuthContext)
-
 
     if (props.state.user)
         return (

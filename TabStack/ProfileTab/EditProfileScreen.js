@@ -8,12 +8,10 @@ import {
 } from 'react-native';
 
 import ImagePicker from './components/ImagePicker'
-import { AuthContext } from '../../StateManagment/AuthState'
 import NavigationBar from '../components/NavigationBar'
-import { editUserProfile } from '../../utilityFunctions/apiCalls'
-
+import { editUserProfile, logError } from '../../utilityFunctions/apiCalls'
+import { fetchUser } from '../../redux/AuthFunctions'
 function EditProfileScreen(props) {
-    const { user, RefreshUserData, InspectAPIError } = React.useContext(AuthContext)
     const imageRoute = props.route.params.image
     const [name, setName] = React.useState(props.state.user.name)
     const [phoneNumber, setPhoneNumber] = React.useState(props.state.user.phone_number)
@@ -21,8 +19,8 @@ function EditProfileScreen(props) {
 
     const submit = () => {
         editUserProfile(name, phoneNumber, image)
-            .then(data => RefreshUserData())
-            .catch(error => InspectAPIError(error))
+            .then(data => fetchUser())
+            .catch(error => logError(error))
     }
     return (
         <View>
@@ -69,7 +67,7 @@ function EditProfileScreen(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserNotifications } from '../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

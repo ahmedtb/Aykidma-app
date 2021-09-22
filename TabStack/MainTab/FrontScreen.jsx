@@ -13,13 +13,11 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 import RefreshScrollView from '../components/RefreshScrollView'
 import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
-// import { AuthContext } from '../../StateManagment/AuthState'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 export default function FrontScreen({ navigation }) {
     const isMountedRef = useIsMountedRef();
 
-    // const { InspectAPIError } = React.useContext(AuthContext)
     const [categories, setCategories] = React.useState([])
 
     async function setupCategories() {

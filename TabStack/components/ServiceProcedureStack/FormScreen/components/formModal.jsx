@@ -12,8 +12,8 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
 import LoadingIndicator from '../../../loadingIndicator'
-import { AuthContext } from '../../../../../StateManagment/AuthState'
-import { submitOrder } from '../../../../../utilityFunctions/apiCalls'
+import { submitOrder
+ } from '../../../../../utilityFunctions/apiCalls'
 import ModalWrapper from '../../../ModalWrapper'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
@@ -48,8 +48,6 @@ function DialogBox(props) {
 
 
 export default function FormModal(props) {
-    const { InspectAPIError } = useContext(AuthContext)
-
     const [loading, setLoading] = useState(false)
     const [dialogBox, setDialogBox] = useState(false)
 
@@ -65,7 +63,7 @@ export default function FormModal(props) {
         submitOrder(fields, service_id).then(response => {
             console.log(response)
         }).catch(error => {
-            InspectAPIError(error)
+            logError(error)
         }).finally(() => {
             setLoading(false)
             setModalVisible(false)

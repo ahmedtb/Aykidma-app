@@ -19,7 +19,7 @@ function StatusBar(props) {
 
     React.useEffect(() => {
         fetchProviderNotifications()
-            .then(data => props.refreshNotifications(data))
+            .then(data => props.setProviderNotifications(data))
             .catch(error => logError(error))
     }, [notification])
 
@@ -34,7 +34,7 @@ function StatusBar(props) {
             {(backButton) ? <TouchableOpacity onPress={() => navigation.goBack()}>
                 <FontAwesome name="arrow-right" size={24} color="black" />
             </TouchableOpacity> : null}
-            <Text style={{ fontSize: 15 }}>{props.state.provider.name}</Text>
+            <Text style={{ fontSize: 15 }}>{props.state.provider?.name}</Text>
             <Text style={{ fontSize: 15 }}>{title}</Text>
 
             <NotificationsBell
@@ -47,14 +47,14 @@ function StatusBar(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser, setToken } from '../../../redux/StateActions';
+import { setUser, setProviderNotifications } from '../../../redux/StateActions';
 const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         setUser,
-        setToken
+        setProviderNotifications
     }, dispatch)
 );
 

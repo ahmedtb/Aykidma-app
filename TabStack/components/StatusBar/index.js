@@ -4,23 +4,22 @@ import {
     Text
 } from 'react-native'
 import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
-import { AuthContext } from '../../../StateManagment/AuthState'
+
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
 
-import { fetchUserNotifications } from '../../../utilityFunctions/apiCalls'
+import { fetchUserNotifications, logError } from '../../../utilityFunctions/apiCalls'
 
 
 function StatusBar(props) {
     const title = props.title
     const style = props.style
     const { notification } = React.useContext(NotificationsContext)
-    const { user, InspectAPIError } = React.useContext(AuthContext)
 
     React.useEffect(() => {
         fetchUserNotifications(props.state.token)
             .then(data => props.setUserNotifications(data))
-            .catch(error => InspectAPIError(error))
+            .catch(error => logError(error))
         // console.log('statusbar props',props)
     }, [notification])
 

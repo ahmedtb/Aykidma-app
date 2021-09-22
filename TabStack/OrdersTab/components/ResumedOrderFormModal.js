@@ -16,12 +16,10 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 
 import LocationModal from './LocationModal'
 
-import { AuthContext } from '../../../StateManagment/AuthState'
-import { doneResumedOrder } from '../../../utilityFunctions/apiCalls'
+import { doneResumedOrder, logError } from '../../../utilityFunctions/apiCalls'
 
 function SubmitModal(props) {
 
-    const { InspectAPIError } = React.useContext(AuthContext)
 
     const vis = props.submitModalVis
     const toggle = props.toggleSubmitModal
@@ -40,7 +38,7 @@ function SubmitModal(props) {
     function submit() {
         doneResumedOrder(id, comment.current, rating)
             .then((data) => console.log(data))
-            .catch(error => InspectAPIError(error))
+            .catch(error => logError(error))
     }
 
 
@@ -130,7 +128,6 @@ function SubmitModal(props) {
 }
 
 export default function OrderFormModal(props) {
-    const { InspectAPIError } = React.useContext(AuthContext)
 
     const [submitModalVis, setSubmitModalVis] = React.useState(false)
     function toggleSubmitModal() {

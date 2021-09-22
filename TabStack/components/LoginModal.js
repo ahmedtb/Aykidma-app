@@ -1,18 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native'
+import { loginProcendure } from '../../redux/AuthFunctions'
 
-import { AuthContext } from '../../StateManagment/AuthState'
 
 export default function LoginModal(props) {
-    const { login, user, tryLoginUserFromStore } = useContext(AuthContext)
     const [loginVisible, setLoginVisible] = props.visibility
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
 
-
-    React.useEffect(() => {
-        tryLoginUserFromStore()
-    }, [])
 
     return (
         <Modal
@@ -87,7 +82,7 @@ export default function LoginModal(props) {
                     <TouchableOpacity
                         style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                         onPress={() => {
-                            login(phoneNumber, password)
+                            loginProcendure(phoneNumber, password)
                             // .then((data) => { console.log(data) })
                             // .catch((error) => console.log(error))
                         }

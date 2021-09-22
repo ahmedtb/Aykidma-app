@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 
-import { AuthContext } from '../../../StateManagment/AuthState'
 import { loginUser, logError } from '../../../utilityFunctions/apiCalls'
 import { storeUserAuthRecord, setUserAndAxiosToken } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {
-    // const { login, user } = useContext(AuthContext)
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
 

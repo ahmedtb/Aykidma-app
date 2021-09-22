@@ -14,7 +14,7 @@ import EditProfileScreen from './EditProfileScreen'
 
 import AuthenticationStack from '../components/AuthenticationStack'
 
-function ProfileTabStack() {
+function ProfileTabStack(props) {
 
     // const { loginProvider, providerAuth } = useContext(AuthContext)
 
@@ -50,7 +50,7 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileTabStack);
 
 const styles = StyleSheet.create({
     enrollField: {

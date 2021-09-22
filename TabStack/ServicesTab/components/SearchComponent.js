@@ -15,7 +15,6 @@ import {
 import { useNavigation } from '@react-navigation/core';
 
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { AuthContext } from '../../../StateManagment/AuthState'
 import LoadingIndicator from '../../components/loadingIndicator'
 import { searchThroughServices } from '../../../utilityFunctions/apiCalls'
 
@@ -42,7 +41,6 @@ export default function SearchComponent(props) {
     const focusHere = props.focusHere
     const unFocusFromHere = props.unFocusFromHere
 
-    const { InspectAPIError } = React.useContext(AuthContext)
     const [services, setServices] = useState(null);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -57,7 +55,7 @@ export default function SearchComponent(props) {
             focusHere()
             setLoading(false)
         } catch (error) {
-            InspectAPIError(error)
+            logError(error)
         }
     }
 

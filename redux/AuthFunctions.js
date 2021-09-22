@@ -2,7 +2,7 @@ import { getValueFor, deleteItem, saveItem } from "../utilityFunctions/SecureSto
 import axios from 'axios'
 import store from './store'
 import { setUser, setToken, setProvider } from "./StateActions";
-import { getUser, refreshProvider, logError, logout, loginUser } from "../utilityFunctions/apiCalls"
+import { getUser, refreshProvider, logError, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
 
 export function setUserAndAxiosToken(data) {
     if (data) {
@@ -31,7 +31,7 @@ export function loginProcendure(phoneNumber, password) {
 
 
 export function tryLoginUserFromStore() {
-    getUserAuth().then((data) => {
+    getUserAuthFromStorage().then((data) => {
         getUser(data.token)
             .then(() => setUserAndAxiosToken(data))
             .catch(error => {
@@ -48,6 +48,7 @@ export function logoutProcedure() {
         console.log('logoutProcedure', response)
         deleteUserAuthRecord()
         setUserAndAxiosToken(null)
+        store.dispatch(setProvider(null))
     }).catch((error) => logError(error))
 }
 
@@ -61,7 +62,18 @@ export function fetchProvider(token) {
     }).catch((error) => logError(error))
 }
 
-export async function getUserAuth() {
+
+export function fetchUser(token) {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    refreshUser().then((response) => {
+        console.log('fetchUser response', response)
+        store.dispatch(setUser(response))
+    }).catch((error) => logError(error))
+}
+
+export async function getUserAuthFromStorage() {
     const storedResult = await getValueFor('userAuth')
     if (storedResult) {
         return JSON.parse(storedResult)
@@ -78,21 +90,21 @@ export async function deleteUserAuthRecord() {
     deleteItem('userAuth')
 }
 
-export async function getProviderAuthFromStorage() {
-    const storedResult = await getValueFor('providerAuth')
-    if (storedResult) {
-        return JSON.parse(storedResult)
-    } else {
-        throw new Error('providerAuth does not in exist in Secure Store')
-    }
-}
+// export async function getProviderAuthFromStorage() {
+//     const storedResult = await getValueFor('providerAuth')
+//     if (storedResult) {
+//         return JSON.parse(storedResult)
+//     } else {
+//         throw new Error('providerAuth does not in exist in Secure Store')
+//     }
+// }
 
 
-export async function storeProviderAuthRecord(data) {
-    saveItem('providerAuth', JSON.stringify(data))
-}
+// export async function storeProviderAuthRecord(data) {
+//     saveItem('providerAuth', JSON.stringify(data))
+// }
 
 
-export async function deleteProviderAuthRecord() {
-    deleteItem('providerAuth')
-}
+// export async function deleteProviderAuthRecord() {
+//     deleteItem('providerAuth')
+// }

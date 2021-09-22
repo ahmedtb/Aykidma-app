@@ -13,12 +13,11 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { AuthContext } from '../../../StateManagment/AuthState'
 import LoadingIndicator from '../../components/loadingIndicator'
 
 
 import RefreshScrollView from '../../components/RefreshScrollView'
-import { fetchServices } from '../../../utilityFunctions/apiCalls'
+import { fetchServices,logError } from '../../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../../utilityFunctions/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
@@ -45,7 +44,6 @@ export default function ServicesListComponent(props) {
     const focusHere = props.focusHere
     const unFocusFromHere = props.unFocusFromHere
 
-    const { InspectAPIError } = React.useContext(AuthContext)
     const [services, setServices] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -58,7 +56,7 @@ export default function ServicesListComponent(props) {
                 setLoading(false)
             }
         } catch (error) {
-            InspectAPIError(error)
+            logError(error)
         }
     }
 

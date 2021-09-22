@@ -22,31 +22,28 @@ import ConfirmationScreen from './ConfirmationScreen'
 import { AuthContext } from '../../../StateManagment/AuthState'
 import { refreshProvider } from '../../../utilityFunctions/apiCalls';
 import logError from '../../../utilityFunctions/logError';
-import {fetchProvider, tryLoginUserFromStore} from '../../../redux/AuthFunctions'
+import { fetchProvider, tryLoginUserFromStore } from '../../../redux/AuthFunctions'
 
 function AuthenticationStack(props) {
 
     // const { loginProvider, providerAuth, tryLoginProviderFromStore } = useContext(AuthContext)
-    
-    useEffect(() => {
-        tryLoginUserFromStore()
-        fetchProvider(props.state.token)
-        // console.log('provider', props.provider)
-    }, [props.state.token])
 
     useEffect(() => {
-        console.log('AuthenticationStack provider', props.state)
+        if (!props.state.user)
+            tryLoginUserFromStore()
+        else if (!props.state.provider)
+            fetchProvider(props.state.token)
+    }, [])
+
+    useEffect(() => {
+
     }, [props.state.provider])
 
-    if (props.state.provider)
+    if (!props.state.provider?.activated)
         return (
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>
-                    لقد سجلت الدخول بالفعل!
-                </Text>
-            </View>
+            <EnrolmentScreen />
         )
-    else
+    else if(!props.state.provider)
         return (
             <Stack.Navigator
                 screenOptions={{
@@ -80,7 +77,7 @@ function AuthenticationStack(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

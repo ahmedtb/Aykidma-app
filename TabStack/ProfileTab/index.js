@@ -18,13 +18,11 @@ const Stack = createStackNavigator();
 
 import ProfileScreen from './ProfileScreen'
 import EditProfileScreen from './EditProfileScreen'
-import { AuthContext } from '../../StateManagment/AuthState'
 
 import AuthenticationStack from '../components/AuthenticationStack'
 
 function ProfileTabStack(props) {
 
-    const { login, user } = useContext(AuthContext)
 
     if (props.state.user)
         return (

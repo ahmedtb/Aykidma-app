@@ -8,7 +8,6 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import { AuthContext } from '../../StateManagment/AuthState'
 import StatusBar from '../components/StatusBar'
 import { getUserImage, logout, logError, getUser } from '../../utilityFunctions/apiCalls'
 import RefreshScrollView from '../components/RefreshScrollView'
@@ -17,7 +16,6 @@ import { logoutProcedure } from '../../redux/AuthFunctions'
 
 function ProfileScreen(props, { navigation }) {
     const isMountedRef = useIsMountedRef()
-    // const { logout, user, InspectAPIError, RefreshUserData } = React.useContext(AuthContext)
     const name = props.state.user.name
     const phone_number = props.state.user.phone_number
 

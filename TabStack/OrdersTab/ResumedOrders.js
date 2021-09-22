@@ -46,13 +46,11 @@ const OrderItem = (props) => {
         </View>
     )
 }
-// import { AuthContext } from '../../StateManagment/AuthState'
 
 // import {logError, doneResumedOrder} from '../../utilityFunctions/apiCalls'
 
 export default function ResumedOrders(props) {
 
-    // const { login, user } = useContext(AuthContext)
 
 
     useEffect(() => {
