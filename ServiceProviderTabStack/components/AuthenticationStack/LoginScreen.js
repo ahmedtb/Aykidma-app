@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import { loginProcendure, fetchProvider } from '../../../redux/AuthFunctions'
-import { AuthContext } from '../../../StateManagment/AuthState'
+import { loginProcedure, fetchProvider } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {
     // const { loginProvider, providerAuth } = useContext(AuthContext)
@@ -75,7 +74,7 @@ function LoginModal(props) {
                 <TouchableOpacity
                     style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
-                        loginProcendure(phoneNumber, password)
+                        loginProcedure(phoneNumber, password)
                     }}
                 >
                     <Text style={{ color: 'white' }}>

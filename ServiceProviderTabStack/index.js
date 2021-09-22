@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome, MaterialIcons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-// import { AuthContext } from '../StateManagment/AuthState'
+
 import MyServicesTab from './MyServicesTab';
 import OrdersTab from './OrdersTab'
 import ProfileTab from './ProfileTab'

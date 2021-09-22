@@ -5,10 +5,31 @@ export const setProviderNotifications = (providerNotifications) => (
     }
 );
 
+export const setProviderNotification = (providerNotification) => (
+    {
+        type: 'setProviderNotification',
+        providerNotification: providerNotification
+    }
+);
+
 export const setUserNotifications = (userNotifications) => (
     {
         type: 'setUserNotifications',
         userNotifications: userNotifications
+    }
+);
+
+export const setUserNotification = (userNotification) => (
+    {
+        type: 'setUserNotification',
+        userNotification: userNotification
+    }
+);
+
+export const setExpoPushToken = (expoPushToken) => (
+    {
+        type: 'setExpoPushToken',
+        expoPushToken: expoPushToken
     }
 );
 

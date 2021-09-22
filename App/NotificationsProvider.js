@@ -12,32 +12,29 @@ Notifications.setNotificationHandler({
     }),
 });
 
-export const NotificationsContext = React.createContext({});
+const NotificationsProvider = (props) => {
 
-export const NotificationsProvider = ({ children }) => {
-
-
-    const [expoPushToken, setExpoPushToken] = useState(null);
-    const [notification, setNotification] = useState(null);
 
     const notificationListener = useRef();
     const responseListener = useRef();
 
-
     useEffect(() => {
 
         registerForPushNotificationsAsync().then(token => {
-            setExpoPushToken(token);
+            props.setExpoPushToken(token)
         });
 
         // This listener is fired whenever a notification is received while the app is foregrounded
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-            setNotification(notification);
+            if (notification.request.content.data.type == 'user')
+                props.setUserNotification(notification)
+            else if (notification.request.content.data.type == 'provider')
+                props.setProviderNotification(notification)
         });
 
         // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log('user fired response receiced listener');
+            console.log('notificiations provider', 'user fired response receiced listener');
         });
 
         return () => {
@@ -49,16 +46,32 @@ export const NotificationsProvider = ({ children }) => {
 
 
 
-    return (
-        <NotificationsContext.Provider
-            value={{
-                notification,
-                expoPushToken,
-            }}>
-            {children}
-        </NotificationsContext.Provider>
+    return (null
+        // <NotificationsContext.Provider
+        //     value={{
+        //         notification,
+        //         expoPushToken,
+        //     }}>
+        //     {props.children}
+        // </NotificationsContext.Provider>
     );
 }
+
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { setUserNotification, setProviderNotification, setExpoPushToken } from '../redux/StateActions';
+const mapStateToProps = ({ state }) => {
+    return { state }
+}
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        setUserNotification,
+        setProviderNotification,
+        setExpoPushToken
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsProvider)
 
 async function registerForPushNotificationsAsync() {
     let token;

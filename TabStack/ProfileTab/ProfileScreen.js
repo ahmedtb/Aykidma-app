@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import StatusBar from '../components/StatusBar'
-import { getUserImage, logout, logError, getUser } from '../../utilityFunctions/apiCalls'
+import { getUserImage, logError, getUser, } from '../../utilityFunctions/apiCalls'
 import RefreshScrollView from '../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 import { logoutProcedure } from '../../redux/AuthFunctions'
@@ -54,7 +54,7 @@ function ProfileScreen(props, { navigation }) {
             const data = await getUserImage()
             setimage(data)
         } catch (error) {
-            InspectAPIError(error)
+            logError(error)
         }
     }
 
@@ -110,13 +110,11 @@ function ProfileScreen(props, { navigation }) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUserNotifications } from '../../redux/StateActions';
 const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        setUserNotifications,
     }, dispatch)
 );
 

@@ -14,7 +14,6 @@ import LocationModal from './LocationModal'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 import { resumeNewOrder } from '../../../utilityFunctions/apiCalls'
-import { AuthContext } from '../../../StateManagment/AuthState'
 import ModalWrapper from '../../components/ModalWrapper'
 
 export default function NewOrderFormModal(props) {

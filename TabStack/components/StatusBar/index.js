@@ -3,7 +3,7 @@ import {
     View,
     Text
 } from 'react-native'
-import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
+// import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
 
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
@@ -14,14 +14,14 @@ import { fetchUserNotifications, logError } from '../../../utilityFunctions/apiC
 function StatusBar(props) {
     const title = props.title
     const style = props.style
-    const { notification } = React.useContext(NotificationsContext)
+    // const { notification } = React.useContext(NotificationsContext)
 
     React.useEffect(() => {
         fetchUserNotifications(props.state.token)
             .then(data => props.setUserNotifications(data))
             .catch(error => logError(error))
         // console.log('statusbar props',props)
-    }, [notification])
+    }, [props.state.userNotification])
 
     return (
         <View style={{
@@ -37,7 +37,7 @@ function StatusBar(props) {
 
             <NotificationsBell
                 notifications={props.state.notifications}
-                notification={notification}
+                notification={props.state.userNotification}
             />
         </View>
     )

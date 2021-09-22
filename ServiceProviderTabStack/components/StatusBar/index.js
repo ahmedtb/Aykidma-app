@@ -4,7 +4,7 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native'
-import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
+// import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
 import { fetchProviderNotifications, logError } from '../../../utilityFunctions/apiCalls'
@@ -15,13 +15,13 @@ function StatusBar(props) {
     const title = props.title
     const backButton = props.backButton
     const navigation = useNavigation()
-    const { notification } = React.useContext(NotificationsContext)
+    // const { notification } = React.useContext(NotificationsContext)
 
     React.useEffect(() => {
         fetchProviderNotifications()
             .then(data => props.setProviderNotifications(data))
             .catch(error => logError(error))
-    }, [notification])
+    }, [props.state.providerNotification])
 
     return (
         <View style={{
@@ -39,7 +39,7 @@ function StatusBar(props) {
 
             <NotificationsBell
                 notifications={props.state.notifications}
-                notification={notification}
+                notification={props.state.userNotification}
             />
         </View>
     )

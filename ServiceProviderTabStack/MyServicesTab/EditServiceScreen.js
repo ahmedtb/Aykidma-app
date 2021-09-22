@@ -9,8 +9,6 @@ import {
 } from 'react-native'
 import { MaterialIcons, AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
 
-// import { AuthContext } from '../../StateManagment/AuthState'
-
 import FieldsEditorComponent from './components/FieldsEditorComponent'
 import CreateNewFieldComponent from './components/CreateNewFieldComponent'
 

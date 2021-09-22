@@ -19,7 +19,6 @@ const Stack = createStackNavigator();
 import LoginScreen from './LoginScreen'
 import EnrolmentScreen from './EnrolmentScreen'
 import ConfirmationScreen from './ConfirmationScreen'
-import { AuthContext } from '../../../StateManagment/AuthState'
 import { refreshProvider } from '../../../utilityFunctions/apiCalls';
 import logError from '../../../utilityFunctions/logError';
 import { fetchProvider, tryLoginUserFromStore } from '../../../redux/AuthFunctions'

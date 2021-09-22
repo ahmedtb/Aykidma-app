@@ -39,8 +39,11 @@ export const editProviderProfile = async (name, phoneNumber, image) => {
     return data
 }
 
-export const refreshUser = async () => {
-    const data = (await axios.get('/api/user')).data
+export const refreshUser = async (token) => {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    const data = (await axios.get('/api/user', config)).data
     return data
 }
 

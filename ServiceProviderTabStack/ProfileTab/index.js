@@ -4,9 +4,6 @@ import {
 
 } from 'react-native';
 
-import { AuthContext } from '../../StateManagment/AuthState'
-
-
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import ProfileScreen from './ProfileScreen'

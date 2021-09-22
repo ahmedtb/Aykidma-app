@@ -21,60 +21,58 @@ function useForceUpdate() {
 const NotificationsBell = (props) => {
     const forceUpdate = useForceUpdate();
     const [visible, setVisible] = useState(false)
-    const [newBell, setNewBell] = useState(false)
 
     function bellTab() {
         setVisible(true)
-        setNewBell(false)
         forceUpdate();
     }
-    const notifications = props.state.providerNotifications;
-    const notification = props.notification
+
     React.useEffect(() => {
-        if (notification?.request.content.data.type == 'provider') {
-            setNewBell(true)
-        }
-    }, [notification])
+        console.log('provider nNotificationsBell', props.state.providerNotification)
+    }, [props.state.providerNotification])
 
     return (
         <View style={props.style} >
             <View style={{ borderWidth: 1, borderRadius: 20 }}>
                 <TouchableOpacity onPress={() => bellTab()}>
-                    {(newBell) ? <MaterialIcons style={{ padding: 15 }} name="notifications-on" size={24} color="black" /> : <AntDesign style={{ padding: 15 }} name="bells" size={24} color="black" />}
+                    {(props.state.providerNotification) ? <MaterialIcons style={{ padding: 15 }} name="notifications-on" size={24} color="black" /> : <AntDesign style={{ padding: 15 }} name="bells" size={24} color="black" />}
                 </TouchableOpacity>
             </View>
 
-            <ModalWrapper style={{ marginHorizontal: 25, marginVertical:10, padding:3}} visible={visible}>
+            <ModalWrapper style={{ marginHorizontal: 25, marginVertical: 10, padding: 3 }} visible={visible}>
 
                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => setVisible(!visible)}
+                        onPress={() => {
+                            setVisible(!visible)
+                            props.setProviderNotification(null)
+                        }}
                     >
                         <Text style={styles.textStyle}>اغلاق</Text>
                     </Pressable>
                 </View>
                 {
-                    notification?.request.content.data.type == 'provider' ? (
+                    props.state.providerNotification?.request.content.data.type == 'provider' ? (
                         <View
-                            style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderColor:'red', borderRadius: 10, padding: 10, margin: 5 }}>
+                            style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderColor: 'red', borderRadius: 10, padding: 10, margin: 5 }}>
                             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, color: 'red', borderBottomWidth: 0.3, marginBottom: 3, paddingBottom: 3 }}>اشعار جديد</Text>
 
-                            <Text style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: 15, }}>{notification.request.content.title}</Text>
-                            <Text style={{ color: 'black', fontSize: 15, }}>{notification.request.content.body}</Text>
-                            <Text style={{ color: 'black', fontSize: 15, }}>{moment(notification.created_at).fromNow()}</Text>
+                            <Text style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: 15, }}>{props.state.providerNotification.request.content.title}</Text>
+                            <Text style={{ color: 'black', fontSize: 15, }}>{props.state.providerNotification.request.content.body}</Text>
+                            <Text style={{ color: 'black', fontSize: 15, }}>{moment(props.state.providerNotification.created_at).fromNow()}</Text>
                         </View>
                     ) : null
                 }
-                <View style={{ borderWidth: 0.5, borderRadius: 10, borderColor:'red', padding: 10, margin: 5 }}>
+                <View style={{ borderWidth: 0.5, borderRadius: 10, borderColor: 'red', padding: 10, margin: 5 }}>
                     <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, color: 'red', borderBottomWidth: 1, marginBottom: 3, paddingBottom: 3 }}>كل الاشعارات</Text>
 
                     {
-                        notifications.reverse().map((notification, index) => {
+                        props.state.providerNotifications.reverse().map((notification, index) => {
                             return (
                                 <View
                                     key={index}
-                                    style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderRadius:4, marginBottom:5 }}>
+                                    style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderRadius: 4, marginBottom: 5 }}>
                                     <Text style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: 15, }}>{notification.title}</Text>
                                     <Text style={{ color: 'black', fontSize: 15, }}>{notification.body}</Text>
                                     <Text style={{ color: 'black', fontSize: 15, }}>{moment(notification.created_at).fromNow()}</Text>
@@ -87,7 +85,10 @@ const NotificationsBell = (props) => {
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => setVisible(!visible)}
+                        onPress={() => {
+                            setVisible(!visible)
+                            props.setProviderNotification(null)
+                        }}
                     >
                         <Text style={styles.textStyle}>اغلاق</Text>
                     </Pressable>
@@ -99,11 +100,13 @@ const NotificationsBell = (props) => {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-const mapStateToProps = ({state}) => {
+import { setProviderNotification } from '../../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
+        setProviderNotification
     }, dispatch)
 );
 

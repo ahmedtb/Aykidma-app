@@ -18,9 +18,6 @@ import Constants from 'expo-constants';
 import ModalWrapper from '../components/ModalWrapper';
 
 
-import { AuthContext } from '../../StateManagment/AuthState'
-import axios from 'axios'
-
 function MoreTab(props) {
 
     // const { user } = React.useContext(AuthContext)

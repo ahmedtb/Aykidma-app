@@ -18,7 +18,6 @@ import { Picker } from '@react-native-picker/picker';
 // ]
 
 import { getAvailableCategories } from '../../../utilityFunctions/apiCalls'
-// import { AuthContext } from '../../../StateManagment/AuthState'
 
 function CategoryComponent(props) {
     const category_id = props.category_id

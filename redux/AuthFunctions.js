@@ -18,17 +18,27 @@ export function setUserAndAxiosToken(data) {
 }
 
 
-export function loginProcendure(phoneNumber, password) {
-    const expoPushToken = 'sadsad'
-    if (expoPushToken)
-        loginUser(phoneNumber, password, expoPushToken)
+export function loginProcedure(phoneNumber, password) {
+    const state = store.getState();
+    console.log('state', state)
+    if (state.state.expoPushToken)
+        loginUser(phoneNumber, password, state.state.expoPushToken)
             .then((data) => {
                 storeUserAuthRecord(data)
                 setUserAndAxiosToken(data)
             })
             .catch(error => logError(error))
+    else {
+        console.log('loginProcedure', 'there is no expo push token to use')
+    }
 }
 
+// export function checkIfUserTokenIsValid(token) {
+//     refreshUser(token).then((response) => {
+//         console.log('checkIfUserTokenIsValid response', response)
+//         store.dispatch(setUser(response))
+//     }).catch((error) => logError(error))
+// }
 
 export function tryLoginUserFromStore() {
     getUserAuthFromStorage().then((data) => {
@@ -44,7 +54,7 @@ export function tryLoginUserFromStore() {
 
 export function logoutProcedure() {
     const state = store.getState();
-    logout(state.token).then((response) => {
+    logout(state.state.token).then((response) => {
         console.log('logoutProcedure', response)
         deleteUserAuthRecord()
         setUserAndAxiosToken(null)
@@ -64,13 +74,16 @@ export function fetchProvider(token) {
 
 
 export function fetchUser(token) {
-    const config = {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-    };
-    refreshUser().then((response) => {
+
+    refreshUser(token).then((response) => {
         console.log('fetchUser response', response)
         store.dispatch(setUser(response))
-    }).catch((error) => logError(error))
+    }).catch((error) => {
+        store.dispatch(setUser(null))
+        store.dispatch(setProvider(null))
+        store.dispatch(setToken(null))
+        deleteUserAuthRecord()
+    })
 }
 
 export async function getUserAuthFromStorage() {

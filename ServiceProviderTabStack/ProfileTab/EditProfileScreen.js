@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import ImagePicker from './components/ImagePicker'
-import { AuthContext } from '../../StateManagment/AuthState'
 import NavigationBar from '../components/NavigationBar'
 import { editProviderProfile, logError } from '../../utilityFunctions/apiCalls'
 

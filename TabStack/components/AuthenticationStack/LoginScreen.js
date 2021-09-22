@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 
 import { loginUser, logError } from '../../../utilityFunctions/apiCalls'
-import { storeUserAuthRecord, setUserAndAxiosToken } from '../../../redux/AuthFunctions'
+import { loginProcedure } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {
     const [phoneNumber, setPhoneNumber] = useState(null)
@@ -10,14 +10,7 @@ function LoginModal(props) {
 
 
     function loginButton(phoneNumber, password) {
-        const expoPushToken = 'sadsad'
-        if (expoPushToken)
-            loginUser(phoneNumber, password, expoPushToken)
-                .then((data) => {
-                    storeUserAuthRecord(data)
-                    setUserAndAxiosToken(data)
-                })
-                .catch(error => logError(error))
+        loginProcedure(phoneNumber, password)
     }
 
     return (
@@ -60,7 +53,7 @@ function LoginModal(props) {
                 style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                 onPress={() => {
                     // login(phoneNumber, password)
-                    loginButton(phoneNumber, password) 
+                    loginButton(phoneNumber, password)
                 }
                 }
             >
@@ -93,7 +86,7 @@ function LoginModal(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

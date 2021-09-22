@@ -52,9 +52,4 @@ const LoadingIndicator = (props) => {
     );
 }
 
-
-const styles = StyleSheet.create({
-
-});
-
 export default LoadingIndicator;

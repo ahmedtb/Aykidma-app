@@ -19,7 +19,6 @@ import AddNewService from './AddNewService'
 import ViewServiceScreen from './ViewServiceScreen'
 import EditServiceScreen from './EditServiceScreen'
 
-import { AuthContext } from '../../StateManagment/AuthState'
 import AuthenticationStack from '../components/AuthenticationStack'
 
 function MyServicesTab(props) {
