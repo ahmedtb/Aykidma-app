@@ -22,15 +22,16 @@ import { getAvailableCategories } from '../../../utilityFunctions/apiCalls'
 function CategoryComponent(props) {
     const category_id = props.category_id
     const selectCategory = props.selectCategory
-    const [SelectedCategory, setSelectedCategory] = useState(category_id??null);
+    const [SelectedCategory, setSelectedCategory] = useState(category_id ?? null);
     const [categories, setCategories] = useState([])
 
     // const { props.state.provider } = React.useContext(AuthContext)
-    useEffect( () => {
-        getAvailableCategories(props.state.provider).then( (data) => {
-            setCategories(data)
-        })
-    },[])
+    useEffect(() => {
+        if (!props.state.categories.length)
+            getAvailableCategories(props.state.provider).then((data) => {
+                props.setCategories(data)
+            })
+    }, [])
 
     return (
 
@@ -50,7 +51,7 @@ function CategoryComponent(props) {
                     }>
                     <Picker.Item label={'حدد نوع الخدمة من فضلك'} value={null} />
                     {
-                        categories.map((category, index) => {
+                        props.state.categories.map((category, index) => {
                             return <Picker.Item key={index} label={category.name} value={category.id} />
                         })
                     }
@@ -65,14 +66,15 @@ function CategoryComponent(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser, setToken } from '../../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+import { setUser, setToken, setCategories } from '../../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         setUser,
-        setToken
+        setToken,
+        setCategories
     }, dispatch)
 );
 

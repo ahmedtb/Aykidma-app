@@ -20,10 +20,11 @@ export function setUserAndAxiosToken(data) {
 
 export function loginProcedure(phoneNumber, password) {
     const state = store.getState();
-    console.log('state', state)
+    // console.log('state', state)
     if (state.state.expoPushToken)
         loginUser(phoneNumber, password, state.state.expoPushToken)
             .then((data) => {
+                // console.log('loginProcedure',data)
                 storeUserAuthRecord(data)
                 setUserAndAxiosToken(data)
             })
@@ -67,7 +68,7 @@ export function fetchProvider(token) {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined
     };
     refreshProvider().then((response) => {
-        console.log('fetchProvider response', response)
+        // console.log('fetchProvider response', response)
         store.dispatch(setProvider(response))
     }).catch((error) => logError(error))
 }

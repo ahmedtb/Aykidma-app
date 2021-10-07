@@ -118,16 +118,10 @@ export const submitOrder = async (fields, service_id) => {
 }
 
 export const resumeNewOrder = async (orderId) => {
-    try {
-        const body = {
-            order_id: orderId
-        }
-        const orders = (await axios.put('api/order/resume', body)).data
-        return orders
-    } catch (error) {
-        console.log('resumeNewOrder error')
-        logError(error)
+    const body = {
+        order_id: orderId
     }
+    return (await axios.put('api/order/resume', body)).data
 }
 
 export const doneResumedOrder = async (orderId, comment, rating) => {
@@ -152,7 +146,8 @@ export const editService = async (service_id, title, description, fields, catego
     const body = {
         title: title, description: description, fields: fields, category_id: category_id, image: image, meta_data: meta_data
     }
-    const response = (await axios.put('api/services/' + service_id, body)).data
+    const response = (await axios.put('api/services/' + service_id, body))
+    // console.log('editService data', response.config)
     return response
 }
 
@@ -203,6 +198,22 @@ export async function loginUser(phoneNumber, password, expoPushToken) {
 
 export async function logout(token) {
 
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    response = await axios.delete('api/logout', config)
+    return response
+}
+
+export async function userDeleteOrder(id, token) {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    response = await axios.delete('api/userOrder/' + id, config)
+    return response
+}
+
+export async function providerDeleteOrder(token) {
     const config = {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined
     };

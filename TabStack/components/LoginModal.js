@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native'
-import { loginProcedure } from '../../redux/AuthFunctions'
+import { tryLoginUserFromStore } from '../../redux/AuthFunctions'
 
 
 export default function LoginModal(props) {
@@ -8,6 +8,9 @@ export default function LoginModal(props) {
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
 
+    React.useEffect(() => {
+        tryLoginUserFromStore()
+    }, [])
 
     return (
         <Modal
@@ -45,7 +48,7 @@ export default function LoginModal(props) {
                             borderBottomWidth: 1
                         }}>
                             يرجى تسجيل الدخول
-                    </Text>
+                        </Text>
 
                         <TouchableOpacity
                             style={{ alignSelf: 'center', backgroundColor: 'grey', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
@@ -56,7 +59,7 @@ export default function LoginModal(props) {
                         >
                             <Text style={{ color: 'white' }}>
                                 اغلاق
-                        </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
 

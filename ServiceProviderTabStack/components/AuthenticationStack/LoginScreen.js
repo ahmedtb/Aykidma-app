@@ -3,15 +3,8 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { loginProcedure, fetchProvider } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {
-    // const { loginProvider, providerAuth } = useContext(AuthContext)
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [password, setPassword] = useState(null)
-
-    // React.useEffect(()=>{
-    //     if(props.state.token){
-    //         fetchProvider(props.state.token)
-    //     }
-    // },[props.state.token])
 
     return (
 
@@ -45,7 +38,7 @@ function LoginModal(props) {
                         fontWeight: 'bold',
                         borderBottomWidth: 1
                     }}>
-                        يرجى تسجيل الدخول
+                        يرجى....تسجيل الدخول
                     </Text>
 
                 </View>
@@ -74,6 +67,7 @@ function LoginModal(props) {
                 <TouchableOpacity
                     style={{ alignSelf: 'center', backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
+                        console.log('loginscreen')
                         loginProcedure(phoneNumber, password)
                     }}
                 >
@@ -106,8 +100,8 @@ function LoginModal(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setProvider} from '../../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+import { setProvider } from '../../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

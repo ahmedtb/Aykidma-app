@@ -3,27 +3,17 @@ import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
-    TextInput,
-    FlatList,
-    ScrollView,
-    Button,
-    TouchableOpacity,
-    ProgressViewIOSComponent
+    TouchableOpacity
 } from 'react-native';
-import { MaterialIcons, Ionicons, Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import ModalWrapper from '../components/ModalWrapper';
 
 
 function MoreTab(props) {
 
-    // const { user } = React.useContext(AuthContext)
-
     function switchToUser() {
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
         props.navigation.navigate('TabStack', { screen: 'الرئيسية' })
     }
     const [aboutVis, setAboutVis] = React.useState(false)

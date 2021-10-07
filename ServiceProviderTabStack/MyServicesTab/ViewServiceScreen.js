@@ -151,14 +151,15 @@ const style = StyleSheet.create({
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser, setToken } from '../../redux/StateActions';
+import { setUser, setToken, setCategories } from '../../redux/StateActions';
 const mapStateToProps = ({state}) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         setUser,
-        setToken
+        setToken,
+        setCategories
     }, dispatch)
 );
 

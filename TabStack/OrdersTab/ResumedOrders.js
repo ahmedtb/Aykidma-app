@@ -42,21 +42,13 @@ const OrderItem = (props) => {
                 date={date} service_provider_name={service_provider_name}
                 service_title={title} cost={cost} comment={comment} rating={rating}
                 location_name={location} fields={fields} id={id}
+                refreshFunction={props.refreshFunction}
             />
         </View>
     )
 }
 
-// import {logError, doneResumedOrder} from '../../utilityFunctions/apiCalls'
-
 export default function ResumedOrders(props) {
-
-
-
-    useEffect(() => {
-
-    }, [props.resumedOrders])
-
 
     return (
         <ScrollView>
@@ -76,8 +68,7 @@ export default function ResumedOrders(props) {
                             comment={order.comment}
                             rating={order.rating}
                             id={order.id}
-
-                        // animate={true}
+                            refreshFunction={props.refreshFunction}
                         />
                     else
                         return null

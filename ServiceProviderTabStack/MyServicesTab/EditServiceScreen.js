@@ -36,7 +36,10 @@ export default function EditServiceScreen(props) {
 
     function submit() {
         editService(service.id, title, description, editedFields, category_id, image, service.meta_data)
-            .then(data => console.log(data))
+            .then(data => {
+                // console.log('editService submit', data)
+                props.navigation.navigate('ServicesScreen', { refresh: Math.random() })
+            })
             .catch(error => logError(error))
     }
 
@@ -82,7 +85,7 @@ export default function EditServiceScreen(props) {
 
                     <TextInput
                         multiline={true} numberOfLines={4}
-                        style={{ ...style.cardContent, borderWidth: 1,borderColor: '#dec9c8', margin: 10, borderRadius: 10, marginVertical: 5 }}
+                        style={{ ...style.cardContent, borderWidth: 1, borderColor: '#dec9c8', margin: 10, borderRadius: 10, marginVertical: 5 }}
                         onChangeText={(text) => { setDescription(text) }}
                         value={description}
                     />
@@ -116,7 +119,7 @@ export default function EditServiceScreen(props) {
                     <CreateNewFieldComponent addNewField={addNewField} />
                 </View>
 
-                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: 'red', width: '50%', alignSelf: 'center', justifyContent:'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
+                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: 'red', width: '50%', alignSelf: 'center', justifyContent: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
                     <Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}>طلب تعديل الخدمة</Text>
                 </TouchableOpacity>
 

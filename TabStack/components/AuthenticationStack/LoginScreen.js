@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 
-import { loginUser, logError } from '../../../utilityFunctions/apiCalls'
 import { loginProcedure } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {

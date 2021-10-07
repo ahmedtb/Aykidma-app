@@ -61,12 +61,6 @@ function OrdersDisplay(props) {
 
     useEffect(() => {
         setupServiceProviderOrders()
-
-        // const unsubscribe = props.navigation.addListener('focus', () => {
-        //     setupServiceProviderOrders()
-        // });
-
-        // return unsubscribe;
     }, []);
 
     return (
@@ -85,7 +79,7 @@ function OrdersDisplay(props) {
 
             <RefreshScrollView refreshFunction={setupServiceProviderOrders} style={{ flex: 1 }}>
                 <View style={{ height: (viewOrders == 1) ? null : 0 }}>
-                    <NewOrders newOrders={newOrders} />
+                    <NewOrders newOrders={newOrders} refreshFunction={setupServiceProviderOrders}/>
                 </View>
                 <View style={{ height: (viewOrders == 2) ? null : 0 }}>
                     <ResumedOrders resumedOrders={resumedOrders} />

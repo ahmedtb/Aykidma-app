@@ -28,7 +28,7 @@ const NotificationsBell = (props) => {
     }
 
     React.useEffect(() => {
-        console.log('provider nNotificationsBell', props.state.providerNotification)
+        // console.log('provider nNotificationsBell', props.state.providerNotification)
     }, [props.state.providerNotification])
 
     return (

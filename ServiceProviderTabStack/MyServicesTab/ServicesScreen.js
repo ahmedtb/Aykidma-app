@@ -21,12 +21,12 @@ const RenderServiceCard = (props) => {
     const rating = props.rating
 
     return (
-        <View style={{ paddingVertical:10, paddingHorizontal:4 }}>
+        <View style={{ paddingVertical: 10, paddingHorizontal: 4 }}>
             <View style={{ flexDirection: 'row', marginHorizontal: 10, }}>
-                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius:7 }} />
+                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7 }} />
                 <Text style={styles.serviceTitle}>{title}</Text>
             </View>
-            <View style={{ flexDirection: 'row', marginHorizontal: 10, paddingVertical:3, justifyContent:'space-evenly', }}>
+            <View style={{ flexDirection: 'row', marginHorizontal: 10, paddingVertical: 3, justifyContent: 'space-evenly', }}>
                 <Text style={{ color: 'red' }}>سعر: {price}</Text>
                 <Text style={{ color: 'red' }}>التقييم: {rating}</Text>
             </View>
@@ -36,7 +36,7 @@ const RenderServiceCard = (props) => {
 }
 
 
-export default function ServiceScreen({ navigation }) {
+export default function ServiceScreen(props) {
     const isMountedRef = useIsMountedRef()
     const [Services, setServices] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -58,7 +58,16 @@ export default function ServiceScreen({ navigation }) {
 
     useEffect(() => {
         setupServices()
-    }, [])
+    }, [props.route?.params?.refresh])
+
+    // React.useEffect(() => {
+    //     const unsubscribe = props.navigation.addListener('focus', () => {
+    //         if (props.route?.params?.refresh)
+    //             setupServices()
+    //     })
+
+    //     return unsubscribe
+    // }, [props.navigation]);
 
 
     return (
@@ -73,7 +82,7 @@ export default function ServiceScreen({ navigation }) {
                         Services.map(
                             (service, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => navigation.navigate('ViewServiceScreen', { service: service })} style={styles.serviceCard}>
+                                    <TouchableOpacity key={index} onPress={() => props.navigation.navigate('ViewServiceScreen', { service: service })} style={styles.serviceCard}>
                                         <RenderServiceCard
                                             image={service.image}
                                             title={service.title}
@@ -95,7 +104,7 @@ export default function ServiceScreen({ navigation }) {
             </RefreshScrollView >
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 20 }}>
-                <TouchableOpacity onPress={() => { navigation.navigate('AddNewService') }} >
+                <TouchableOpacity onPress={() => { props.navigation.navigate('AddNewService') }} >
                     <Feather name="plus-circle" size={50} color="red" />
                 </TouchableOpacity>
             </View>
@@ -119,6 +128,6 @@ const styles = StyleSheet.create({
         borderColor: 'red',
     },
     serviceTitle: {
-        fontSize: 20,flex:1
+        fontSize: 20, flex: 1
     }
 });

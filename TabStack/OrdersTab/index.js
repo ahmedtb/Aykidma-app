@@ -46,7 +46,7 @@ function OrdersView({ navigation }) {
     const [resumedOrders, setResumedOrder] = useState([])
     const [doneOrders, setDoneOrders] = useState([])
 
-    async function setupOrderFetch() {
+    async function fetchOrders() {
 
         try {
             setIsLoading(true)
@@ -63,7 +63,7 @@ function OrdersView({ navigation }) {
     }
 
     useEffect(() => {
-        setupOrderFetch()
+        fetchOrders()
     }, []);
 
     return (
@@ -80,12 +80,12 @@ function OrdersView({ navigation }) {
 
             {/* <OrdersList viewOrders={viewOrders} {...props} /> */}
 
-            <RefreshScrollView refreshFunction={setupOrderFetch} style={{ flex: 1 }}>
+            <RefreshScrollView refreshFunction={fetchOrders} style={{ flex: 1 }}>
                 <View style={{ height: (viewOrders == 1) ? null : 0 }}>
-                    <NewOrders newOrders={newOrders} />
+                    <NewOrders refreshFunction={fetchOrders} newOrders={newOrders} />
                 </View>
                 <View style={{ height: (viewOrders == 2) ? null : 0 }}>
-                    <ResumedOrders resumedOrders={resumedOrders} />
+                    <ResumedOrders refreshFunction={fetchOrders} resumedOrders={resumedOrders} />
                 </View>
                 <View style={{ height: (viewOrders == 3) ? null : 0 }}>
                     <DoneOrders doneOrders={doneOrders} />

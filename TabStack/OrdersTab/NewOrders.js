@@ -18,12 +18,12 @@ import {
 import moment from 'moment';
 
 
-import OrderFormModal from './components/OrderFormModal'
+import NewOrderFormModal from './components/NewOrderFormModal'
 
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const { title, category, date, cost, image, service_provider_name, fields, animate } = props;
+    const { title, category, date, cost, image, service_provider_name, fields, id, animate } = props;
 
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
@@ -54,10 +54,12 @@ const OrderItem = (props) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]}
+            <NewOrderFormModal visible={[modalVisible, setModalVisible]}
                 date={date} service_provider_name={service_provider_name}
                 service_title={title} cost={cost}
                 fields={fields}
+                id={id}
+                refreshFunction={props.refreshFunction}
             />
         </Animated.View>
     )
@@ -85,8 +87,9 @@ export default function NewOrders(props) {
                             image={order.service.image}
                             service_provider_name={order.service.service_provider.name}
                             fields={order.fields}
-
+                            id={order.id}
                             animate={true}
+                            refreshFunction={props.refreshFunction}
                         />
                     else
                         return null

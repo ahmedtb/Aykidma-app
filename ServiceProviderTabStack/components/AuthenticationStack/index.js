@@ -19,30 +19,26 @@ const Stack = createStackNavigator();
 import LoginScreen from './LoginScreen'
 import EnrolmentScreen from './EnrolmentScreen'
 import ConfirmationScreen from './ConfirmationScreen'
-import { refreshProvider } from '../../../utilityFunctions/apiCalls';
-import logError from '../../../utilityFunctions/logError';
 import { fetchProvider, tryLoginUserFromStore } from '../../../redux/AuthFunctions'
 
 function AuthenticationStack(props) {
 
-    // const { loginProvider, providerAuth, tryLoginProviderFromStore } = useContext(AuthContext)
-
     useEffect(() => {
         if (!props.state.user)
             tryLoginUserFromStore()
-        else if (!props.state.provider)
+        else if (props.state.user && !props.state.provider)
             fetchProvider(props.state.token)
-    }, [])
+    }, [props.state])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    }, [props.state.provider])
+    // }, [props.state.provider])
 
-    if (!props.state.provider?.activated)
+    if (props.state.user && !props.state.provider?.activated)
         return (
             <EnrolmentScreen />
         )
-    else if(!props.state.provider)
+    else if(!props.state.user)
         return (
             <Stack.Navigator
                 screenOptions={{

@@ -37,7 +37,10 @@ function SubmitModal(props) {
 
     function submit() {
         doneResumedOrder(id, comment.current, rating)
-            .then((data) => console.log(data))
+            .then((data) => {
+                console.log(data)
+                props.refreshFunction()
+            })
             .catch(error => logError(error))
     }
 
@@ -54,7 +57,7 @@ function SubmitModal(props) {
 
                     <Text>ما هو تقييمك للخدمة؟</Text>
 
-                    <View style={{ flexDirection: 'row', justifyContent:'center' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 
                         <TouchableOpacity onPress={() => ratingTab(1)}>
                             {
@@ -105,7 +108,7 @@ function SubmitModal(props) {
                         onChangeText={(text) => (comment.current = text)}
                     // value={comment.current}
                     />
-                    <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => toggle()}
@@ -292,7 +295,12 @@ export default function OrderFormModal(props) {
                         >
                             <Text style={styles.textStyle}>اعلن استكمال الطلب</Text>
                         </Pressable>
-                        <SubmitModal id={id} submitModalVis={submitModalVis} toggleSubmitModal={toggleSubmitModal} />
+                        <SubmitModal
+                            id={id}
+                            submitModalVis={submitModalVis}
+                            toggleSubmitModal={toggleSubmitModal}
+                            refreshFunction={props.refreshFunction}
+                        />
                     </View>
 
                 </ScrollView>

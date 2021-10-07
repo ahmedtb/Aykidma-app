@@ -36,7 +36,7 @@ const OrderItem = (props) => {
             },
         ).start();
     }, [])
-    
+
 
 
     return (
@@ -58,6 +58,8 @@ const OrderItem = (props) => {
                 date={date} service_provider_name={service_provider_name}
                 offer_title={title} cost={cost}
                 location_name={location} fields={fields} id={id}
+                refreshFunction={props.refreshFunction}
+
             />
         </Animated.View>
     )
@@ -87,6 +89,7 @@ export default function NewOrders(props) {
                             fields={order.fields}
                             id={order.id}
                             animate={true}
+                            refreshFunction={props.refreshFunction}
                         />
                     else
                         return null

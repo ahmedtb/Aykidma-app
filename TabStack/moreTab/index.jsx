@@ -15,7 +15,6 @@ import Constants from 'expo-constants';
 export default function MoreTab(props) {
 
     function switchToProvider() {
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${providerAuth?.token}`;
         props.navigation.navigate('ServiceProviderTabStack', { screen: 'MyServicesTab' })
     }
 
