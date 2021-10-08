@@ -22,7 +22,7 @@ import OrderFormModal from './components/OrderFormModal'
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, image, service_provider_name, fields, comment, rating } = props;
+    const { order, refreshFunction, title, location, category, date, cost, image, service_provider_name, fields, comment, rating } = props;
     return (
         <>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
@@ -39,16 +39,19 @@ const OrderItem = (props) => {
                 </View>
             </TouchableOpacity>
             <OrderFormModal visible={[modalVisible, setModalVisible]}
+                order={order}
                 date={date} service_provider_name={service_provider_name}
                 offer_title={title} cost={cost}
                 location_name={location} fields={fields}
                 comment={comment} rating={rating}
+                refreshFunction={refreshFunction}
+
             />
         </>
     )
 }
 
-export default function DoneOrders(props) {
+function DoneOrders(props) {
 
     useEffect(() => {
     }, [props.doneOrders])
@@ -59,15 +62,17 @@ export default function DoneOrders(props) {
                     if (order.status == "done")
                         return <OrderItem
                             key={index}
+                            order={order}
                             title={order.service.title}
                             category={order.service.category}
                             date={order.created_at}
                             cost={order.service.cost}
                             image={order.service.image}
-                            service_provider_name={order.service.service_provider.name}
+                            service_provider_name={props.state.provider.name}
                             fields={order.fields}
                             comment={order.comment}
                             rating={order.rating}
+                            refreshFunction={props.refreshFunction}
                         />
                     else
                         return null
@@ -76,6 +81,19 @@ export default function DoneOrders(props) {
         </ScrollView>
     )
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoneOrders);
 
 const styles = StyleSheet.create({
 

@@ -25,6 +25,13 @@ export const signUpUser = async (name, phoneNumber, password) => {
     }
 }
 
+export const enrollProvider = async (name, coverage, image) => {
+    return await axios.post('/api/enrollProvider', {
+        name: name, coverage: coverage, image: image
+    })
+
+}
+
 export const editUserProfile = async (name, phoneNumber, image) => {
     const data = (await axios.post('/api/user/edit', {
         name: name, phone_number: phoneNumber, image: image
@@ -98,12 +105,12 @@ export const fetchMyServices = async () => {
 }
 
 export const fetchServiceProviderOrders = async () => {
-    const orders = (await axios.get('/api/orders')).data
+    const orders = (await axios.get('/api/providerOrders')).data
     return orders
 }
 
 export const fetchUserOrders = async () => {
-    const orders = (await axios.get('/api/orders')).data
+    const orders = (await axios.get('/api/userOrders')).data
     return orders
 }
 
@@ -213,10 +220,10 @@ export async function userDeleteOrder(id, token) {
     return response
 }
 
-export async function providerDeleteOrder(token) {
+export async function providerDeleteOrder(id, token) {
     const config = {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined
     };
-    response = await axios.delete('api/logout', config)
+    response = await axios.delete('api/providerOrder/' + id, config)
     return response
 }

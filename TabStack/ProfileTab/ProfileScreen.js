@@ -14,7 +14,7 @@ import RefreshScrollView from '../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 import { logoutProcedure } from '../../redux/AuthFunctions'
 
-function ProfileScreen(props, { navigation }) {
+function ProfileScreen(props) {
     const isMountedRef = useIsMountedRef()
     const name = props.state.user.name
     const phone_number = props.state.user.phone_number
@@ -95,7 +95,7 @@ function ProfileScreen(props, { navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{ backgroundColor: 'red', height: 50, width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
-                    onPress={() => { navigation.navigate('EditProfileScreen', { image: image }) }}
+                    onPress={() => { props.navigation.navigate('EditProfileScreen', { image: image }) }}
                 >
                     <Text style={{ color: 'white', textAlign: 'center' }}>تعديل الملف الشخصي</Text>
                 </TouchableOpacity>

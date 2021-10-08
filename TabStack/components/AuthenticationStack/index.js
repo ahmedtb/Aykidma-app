@@ -29,7 +29,7 @@ function AuthenticationStack(props) {
     }, [])
 
     React.useEffect(() => {
-        // console.log('auth stack, user:', props.state.user)
+
     }, [props.user])
 
     if (props.state.user)

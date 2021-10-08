@@ -79,6 +79,7 @@ export default function NewOrders(props) {
                 props.newOrders.map((order, index) => {
                     if (order.status == "new")
                         return <OrderItem
+                            order={order}
                             key={index}
                             title={order.service.title}
                             category={order.service.category}

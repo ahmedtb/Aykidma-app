@@ -15,7 +15,7 @@ function ProfileTabStack(props) {
 
     // const { loginProvider, providerAuth } = useContext(AuthContext)
 
-    if (props.state.provider)
+    if (props.state.provider?.activated )
         return (
             <Stack.Navigator
                 screenOptions={{

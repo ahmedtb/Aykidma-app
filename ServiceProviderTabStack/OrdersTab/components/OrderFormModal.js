@@ -12,14 +12,25 @@ import {
 import moment from 'moment';
 import LocationModal from './LocationModal'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
+import { providerDeleteOrder } from '../../../utilityFunctions/apiCalls';
+import logError from '../../../utilityFunctions/logError';
 
 export default function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
-    const { date, service_provider_name,
+    const { order, refreshFunction, date, service_provider_name,
         service_title, cost, comment, rating,
         fields, } = props;
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
+
+    function deleteTheOrder() {
+        providerDeleteOrder(order.id).then(response => {
+            console.log(response)
+            refreshFunction()
+        })
+            .catch(error => logError(error))
+    }
+
     return (
         <Modal
             animationType="fade"
@@ -92,7 +103,7 @@ export default function OrderFormModal(props) {
 
 
                             <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', height: 35 }}>تفاصيل حقول المعبئة للطلب</Text>
-                            <View style={{  borderWidth:0.7, borderRadius:7 }}>
+                            <View style={{ borderWidth: 0.7, borderRadius: 7 }}>
                                 {
                                     fields.map((field, index) => {
                                         let value = field.value;
@@ -169,7 +180,7 @@ export default function OrderFormModal(props) {
 
                         <Pressable
                             style={{ ...styles.button, backgroundColor: '#f4c18b' }}
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => deleteTheOrder()}
                         >
                             <Text style={styles.textStyle}>مسح الطلب</Text>
                         </Pressable>
@@ -224,6 +235,6 @@ const styles = StyleSheet.create({
         borderColor: '#d1c5c5',
         borderRadius: 10,
         marginVertical: 5,
-        marginHorizontal:2,
+        marginHorizontal: 2,
     }
 })

@@ -15,14 +15,14 @@ import {
 
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
+import { enrollProvider } from '../../../utilityFunctions/apiCalls'
+import logError from '../../../utilityFunctions/logError';
 
-
-import { signUpUser } from '../../../utilityFunctions/apiCalls'
-export default function EnrolmentScreen({ navigation }) {
+export default function ProviderEnrolmentScreen(props) {
 
     const [fullName, setFullName] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState(null)
-    const [password, setPassword] = useState('')
+    const [coverage, setcoverage] = useState([])
+    const [image, setimage] = useState(null)
 
     return (
         <ScrollView>
@@ -31,37 +31,37 @@ export default function EnrolmentScreen({ navigation }) {
 
 
                 <View style={{ margin: 10 }}>
-                    <Text style={styles.fieldLable} >الاسم الثلاثي*:</Text>
+                    <Text style={styles.fieldLable} >اسم مزود الخدمة:</Text>
                     <TextInput style={styles.enrollField}
                         onChangeText={setFullName}
                     />
 
                 </View>
 
-                <View style={{ margin: 10 }}>
+                {/* <View style={{ margin: 10 }}>
                     <Text style={styles.fieldLable} >الموبايل*:</Text>
                     <TextInput style={styles.enrollField}
-                        onChangeText={setPhoneNumber}
+                        onChangeText={setcoverage}
                     />
-                </View>
+                </View> */}
 
-                <View style={{ margin: 10 }}>
+                {/* <View style={{ margin: 10 }}>
                     <Text style={styles.fieldLable} >كلمة المرور*:</Text>
                     <TextInput style={styles.enrollField}
                         onChangeText={setPassword}
                     />
 
-                </View>
+                </View> */}
 
                 <TouchableOpacity
-                    onPress={() => signUpUser(fullName, phoneNumber, password)
-                        .then(data => {
-                            // console.log(data)
-                            navigation.navigate(
-                                'تأكيد رقم الهاتف',
-                                { fullName: fullName, phoneNumber: phoneNumber, password: password }
-                            )
-                        })}
+                    onPress={() =>
+                        enrollProvider(fullName, coverage, image)
+                            .then(data => {
+                                console.log(data)
+                            }).catch(error => {
+                                logError(error)
+                            })
+                    }
                     style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>
                     <Text style={{ textAlign: 'center', color: 'white', flex: 1, fontSize: 20 }}>تسجيل</Text>
                 </TouchableOpacity>

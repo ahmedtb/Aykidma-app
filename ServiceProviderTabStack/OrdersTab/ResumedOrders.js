@@ -48,7 +48,7 @@ const OrderItem = (props) => {
     )
 }
 
-export default function ResumedOrders(props) {
+function ResumedOrders(props) {
 
 
 
@@ -69,7 +69,7 @@ export default function ResumedOrders(props) {
                             date={order.created_at}
                             cost={order.service.cost}
                             image={order.service.image}
-                            service_provider_name={order.service.service_provider.name}
+                            service_provider_name={props.state.provider.name}
                             fields={order.fields}
                             comment={order.comment}
                             rating={order.rating}
@@ -83,6 +83,19 @@ export default function ResumedOrders(props) {
         </ScrollView>
     )
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { } from '../../redux/StateActions';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResumedOrders);
 
 const styles = StyleSheet.create({
 

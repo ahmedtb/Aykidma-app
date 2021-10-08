@@ -17,8 +17,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 import LoginScreen from './LoginScreen'
-import EnrolmentScreen from './EnrolmentScreen'
-import ConfirmationScreen from './ConfirmationScreen'
+import ProviderEnrolmentScreen from './ProviderEnrolmentScreen'
+// import ConfirmationScreen from './ConfirmationScreen'
 import { fetchProvider, tryLoginUserFromStore } from '../../../redux/AuthFunctions'
 
 function AuthenticationStack(props) {
@@ -28,7 +28,7 @@ function AuthenticationStack(props) {
             tryLoginUserFromStore()
         else if (props.state.user && !props.state.provider)
             fetchProvider(props.state.token)
-    }, [props.state])
+    }, [])
 
     // useEffect(() => {
 
@@ -36,7 +36,7 @@ function AuthenticationStack(props) {
 
     if (props.state.user && !props.state.provider?.activated)
         return (
-            <EnrolmentScreen />
+            <ProviderEnrolmentScreen />
         )
     else if(!props.state.user)
         return (
@@ -57,13 +57,13 @@ function AuthenticationStack(props) {
                     options={{ title: 'صفحة تسجيل الدخول' }}
                 />
 
-                <Stack.Screen name="enrollment" component={EnrolmentScreen}
+                {/* <Stack.Screen name="enrollment" component={ProviderEnrolmentScreen}
                     options={{ title: 'التسجيل' }}
                 />
 
                 <Stack.Screen name="تأكيد رقم الهاتف" component={ConfirmationScreen}
                     options={{ title: 'تأكيد رقم الهاتف' }}
-                />
+                /> */}
 
             </Stack.Navigator>
         );

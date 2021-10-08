@@ -19,7 +19,7 @@ import NewOrders from './NewOrders'
 import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
 import { fetchServiceProviderOrders, logError } from '../../utilityFunctions/apiCalls'
-import LoginScreen from '../components/AuthenticationStack/LoginScreen'
+import AuthenticationStack from '../components/AuthenticationStack'
 import LoadingIndicator from '../components/loadingIndicator'
 import RefreshScrollView from '../components/RefreshScrollView'
 import StatusBar from '../components/StatusBar'
@@ -85,7 +85,7 @@ function OrdersDisplay(props) {
                     <ResumedOrders resumedOrders={resumedOrders} />
                 </View>
                 <View style={{ height: (viewOrders == 3) ? null : 0 }}>
-                    <DoneOrders doneOrders={doneOrders} />
+                    <DoneOrders doneOrders={doneOrders}  refreshFunction={setupServiceProviderOrders}/>
                 </View>
             </RefreshScrollView>
 
@@ -98,13 +98,13 @@ function OrdersDisplay(props) {
 
 function OrdersTab(props, { navigation }) {
     // const { providerAuth } = useContext(AuthContext)
-    if (props.state.provider)
+    if (props.state.provider?.activated )
         return (
             <OrdersDisplay navigation={navigation} />
         )
     else
         return (
-            <LoginScreen />
+            <AuthenticationStack />
         )
 }
 
