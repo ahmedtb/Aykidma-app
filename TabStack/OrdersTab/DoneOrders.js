@@ -18,58 +18,38 @@ import moment from 'moment';
 
 import OrderFormModal from './components/OrderFormModal'
 
-const OrderItem = (props) => {
+export default function DoneOrders(props) {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, location, category, date, cost, image, service_provider_name, fields, comment, rating } = props;
-    return (
-        <>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
-
-                <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <View>
-                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7,}} />
-                        <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
-                    </View>
-                    <View style={{ margin: 10, flex: 1, justifyContent:'space-between' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text>تصنيف الخدمة: {category.name}</Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]}
-                date={date} service_provider_name={service_provider_name}
-                service_title={title} cost={cost}
-                location_name={location} fields={fields}
-                comment={comment}  rating={rating}
-            />
-        </>
-    )
-}
-
-export default function DoneOrders(props) {
-
-    useEffect(() => {
-        // console.log(props.doneOrders[1].meta_data)
-    }, [props.doneOrders])
+    const title = order.service.title
+    const category = order.service.category
+    const date = order.created_at
+    const image = order.service.image
+    
     return (
         <ScrollView>
             {
                 props.doneOrders.map((order, index) => {
                     if (order.status == "done")
-                        return <OrderItem
-                            key={index}
-                            title={order.service.title}
-                            // location={'this field should be canceled'}
-                            category={order.service.category}
-                            date={order.created_at}
-                            cost={order.cost}
-                            image={order.service.image}
-                            service_provider_name={order.service.service_provider.name}
-                            fields={order.fields}
-                            comment={order.comment}
-                            rating={order.rating}
-                        />
+                        return <View key={index}>
+                            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+
+                                <View style={{ flexDirection: 'row', margin: 10 }}>
+                                    <View>
+                                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7, }} />
+                                        <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
+                                    </View>
+                                    <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
+                                        <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
+                                        <Text>تصنيف الخدمة: {category.name}</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <OrderFormModal
+                                visible={[modalVisible, setModalVisible]}
+                                order={order}
+                            />
+                        </View>
                     else
                         return null
                 })

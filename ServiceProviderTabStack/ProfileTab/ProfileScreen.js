@@ -14,9 +14,8 @@ import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 import {fetchProvider, logoutProcedure} from '../../redux/AuthFunctions'
 
 function ProfileScreen(props) {
+
     const isMountedRef = useIsMountedRef()
-
-
     const name = props.state.provider?.name
     const phone_number = props.state.user?.phone_number
     const [image, setimage] = React.useState(null)

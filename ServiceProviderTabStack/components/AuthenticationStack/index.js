@@ -1,16 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import {
-    StyleSheet,
-    Text,
-    View,
-    ImageBackground,
-    Dimensions,
-    Image,
-    TextInput,
-    FlatList,
-    ScrollView,
-    Button,
-    TouchableOpacity
+    StyleSheet
 } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,16 +13,16 @@ import { fetchProvider, tryLoginUserFromStore } from '../../../redux/AuthFunctio
 
 function AuthenticationStack(props) {
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!props.state.user)
             tryLoginUserFromStore()
-        else if (props.state.user && !props.state.provider)
-            fetchProvider(props.state.token)
     }, [])
 
-    // useEffect(() => {
+    React.useEffect(() => {
+        if (props.state.user && !props.state.provider)
+            fetchProvider(props.state.token)
+    }, [props.state.user])
 
-    // }, [props.state.provider])
 
     if (props.state.user && !props.state.provider?.activated)
         return (

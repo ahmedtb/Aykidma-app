@@ -19,11 +19,19 @@ import moment from 'moment';
 
 
 import NewOrderFormModal from './components/NewOrderFormModal'
+import ModalWrapper from '../components/ModalWrapper';
 
 
-const OrderItem = (props) => {
+export default function NewOrders(props) {
+
     const [modalVisible, setModalVisible] = useState(false);
-    const { title, category, date, cost, image, service_provider_name, fields, id, animate } = props;
+    const { order, refreshFunction } = props;
+
+    const title = order.service.title
+    const category = order.service.category
+    const date = order.created_at
+    const image = order.service.image
+    const animate = true
 
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
@@ -38,60 +46,31 @@ const OrderItem = (props) => {
         ).start();
     }, [])
 
-
-    return (
-        <Animated.View style={{ opacity: (animate) ? fadeAnim : 1, }}>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
-
-                <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <View>
-                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7, }} />
-                        <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
-                    </View>
-                    <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text>تصنيف الخدمة: {category.name}</Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-            <NewOrderFormModal visible={[modalVisible, setModalVisible]}
-                date={date} service_provider_name={service_provider_name}
-                service_title={title} cost={cost}
-                fields={fields}
-                id={id}
-                refreshFunction={props.refreshFunction}
-            />
-        </Animated.View>
-    )
-}
-
-export default function NewOrders(props) {
-
-
-    useEffect(() => {
-
-    }, [props.newOrders])
-
-
     return (
         <ScrollView>
             {
                 props.newOrders.map((order, index) => {
                     if (order.status == "new")
-                        return <OrderItem
-                            order={order}
-                            key={index}
-                            title={order.service.title}
-                            category={order.service.category}
-                            date={order.created_at}
-                            cost={order.cost}
-                            image={order.service.image}
-                            service_provider_name={order.service.service_provider.name}
-                            fields={order.fields}
-                            id={order.id}
-                            animate={true}
-                            refreshFunction={props.refreshFunction}
-                        />
+                        return <Animated.View style={{ opacity: (animate) ? fadeAnim : 1, }}>
+                            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+
+                                <View style={{ flexDirection: 'row', margin: 10 }}>
+                                    <View>
+                                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7, }} />
+                                        <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
+                                    </View>
+                                    <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
+                                        <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
+                                        <Text>تصنيف الخدمة: {category.name}</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <NewOrderFormModal
+                                visible={[modalVisible, setModalVisible]}
+                                order={order}
+                                refreshFunction={refreshFunction}
+                            />
+                        </Animated.View>
                     else
                         return null
                 })
@@ -101,9 +80,6 @@ export default function NewOrders(props) {
 }
 
 const styles = StyleSheet.create({
-
-
-
     // modal styles
     centeredView: {
         flex: 1,

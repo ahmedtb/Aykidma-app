@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
     TextInput,
-    FlatList,
-    ScrollView,
     TouchableOpacity
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
@@ -52,7 +48,6 @@ function OptionsCreator(props) {
                     addLabel(text)
                 }}
             />
-
 
             {
                 titles?.map((addedTitle, index) => (
@@ -99,8 +94,8 @@ export default function CreateNewFieldComponent(props) {
 
 
             <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}>
-                <Text style={{ fontSize: 15, fontWeight:'bold'}}>نوع الحقل</Text>
-                <View style={{ flex: 1, borderWidth:0.5, margin:3, borderRadius:8 }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>نوع الحقل</Text>
+                <View style={{ flex: 1, borderWidth: 0.5, margin: 3, borderRadius: 8 }}>
                     <Picker
                         style={{}}
                         selectedValue={selectedType}
@@ -121,7 +116,7 @@ export default function CreateNewFieldComponent(props) {
                 (() => {
                     if (selectedType == 'string') {
                         return (
-                            <View style={{marginVertical:10}}>
+                            <View style={{ marginVertical: 10 }}>
                                 <Text>اكتب النص الذي يصف هذا الحقل للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -135,7 +130,7 @@ export default function CreateNewFieldComponent(props) {
                         )
                     } else if (selectedType == 'textarea') {
                         return (
-                            <View style={{marginVertical:10}}>
+                            <View style={{ marginVertical: 10 }}>
                                 <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -156,13 +151,17 @@ export default function CreateNewFieldComponent(props) {
                         )
                     } else if (selectedType == 'location') {
                         return (
-                            <View style={{marginVertical:10}}>
+                            <View style={{ marginVertical: 10 }}>
                                 <Text>اكتب النص الذي يصف حقل تحديد الموقع للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
                                     onChangeText={(text) => {
                                         setFieldConfig({
-                                            label: text, type: 'location', value: null
+                                            label: text, type: 'location',
+                                            value: {
+                                                latitude: null,
+                                                longitude: null
+                                            }
                                         })
                                     }}
                                 />
@@ -172,7 +171,7 @@ export default function CreateNewFieldComponent(props) {
                         )
                     } else if (selectedType == 'image') {
                         return (
-                            <View style={{marginVertical:10}}>
+                            <View style={{ marginVertical: 10 }}>
                                 <Text>اكتب النص الذي يصف حقل اضافة الصورة للزبون</Text>
                                 <TextInput
                                     style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -193,7 +192,7 @@ export default function CreateNewFieldComponent(props) {
                 })()
             }
 
-            <TouchableOpacity onPress={() => add(fieldConfig)} style={{ alignSelf:'flex-end', backgroundColor: 'red', width: '20%', padding:10, marginVertical:5, justifyContent:'center', borderRadius: 19 }} >
+            <TouchableOpacity onPress={() => add(fieldConfig)} style={{ alignSelf: 'flex-end', backgroundColor: 'red', width: '20%', padding: 10, marginVertical: 5, justifyContent: 'center', borderRadius: 19 }} >
                 <Text style={{ textAlign: 'center', color: 'white', fontSize: 10 }}>اضف الحقل</Text>
             </TouchableOpacity>
 

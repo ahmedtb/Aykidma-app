@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
-    Image,
     TextInput,
-    FlatList,
     ScrollView,
-    Button,
     TouchableOpacity
 } from 'react-native';
 

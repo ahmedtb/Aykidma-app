@@ -15,9 +15,16 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 
 export default function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
-    const { date, service_provider_name,
-        service_title, cost, comment, rating,
-        fields, } = props;
+    const service_title = order.service.title
+    // const category = order.service.category
+    const date = order.created_at
+    const cost = order.cost
+    // const image = order.service.image
+    const service_provider_name = order.service.service_provider.name
+    const fields = order.fields
+    const comment = order.comment
+    const rating = order.rating
+
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
     return (
@@ -92,7 +99,7 @@ export default function OrderFormModal(props) {
 
 
                             <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', height: 35 }}>تفاصيل حقول المعبئة للطلب</Text>
-                            <View style={{  borderWidth:0.7, borderRadius:7 }}>
+                            <View style={{ borderWidth: 0.7, borderRadius: 7 }}>
                                 {
                                     fields.map((field, index) => {
                                         let value = field.value;
@@ -224,6 +231,6 @@ const styles = StyleSheet.create({
         borderColor: '#d1c5c5',
         borderRadius: 10,
         marginVertical: 5,
-        marginHorizontal:2,
+        marginHorizontal: 2,
     }
 })

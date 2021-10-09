@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import { loginProcedure, fetchProvider } from '../../../redux/AuthFunctions'
+import { loginProcedure } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {
     const [phoneNumber, setPhoneNumber] = useState(null)

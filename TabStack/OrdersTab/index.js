@@ -35,7 +35,8 @@ function filterOrders(orders, status) {
     })
 }
 
-function OrdersView({ navigation }) {
+function OrdersTab(props, { navigation }) {
+
     const isMountedRef = useIsMountedRef();
 
     const [isLoading, setIsLoading] = useState(false)
@@ -66,43 +67,32 @@ function OrdersView({ navigation }) {
         fetchOrders()
     }, []);
 
-    return (
-
-        <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 10, marginTop: StatusBar.currentHeight }}>
-
-            <StatusBar title='طلباتي' />
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
-                <TouchableOpacity onPress={() => { setViewOrders(1) }} ><Text style={{ backgroundColor: (viewOrders == 1) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات جديد {newOrders?.length}</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => { setViewOrders(2) }} ><Text style={{ backgroundColor: (viewOrders == 2) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات مستأنفة {resumedOrders?.length}</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders == 3) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات منتهية {doneOrders?.length}</Text></TouchableOpacity>
-            </View>
-
-            {/* <OrdersList viewOrders={viewOrders} {...props} /> */}
-
-            <RefreshScrollView refreshFunction={fetchOrders} style={{ flex: 1 }}>
-                <View style={{ height: (viewOrders == 1) ? null : 0 }}>
-                    <NewOrders refreshFunction={fetchOrders} newOrders={newOrders} />
-                </View>
-                <View style={{ height: (viewOrders == 2) ? null : 0 }}>
-                    <ResumedOrders refreshFunction={fetchOrders} resumedOrders={resumedOrders} />
-                </View>
-                <View style={{ height: (viewOrders == 3) ? null : 0 }}>
-                    <DoneOrders doneOrders={doneOrders} />
-                </View>
-            </RefreshScrollView>
-            <LoadingIndicator visibility={isLoading} />
-
-        </View>
-
-    );
-}
-
-function OrdersTab(props, { navigation }) {
-
     if (props.state.user)
         return (
-            <OrdersView navigation={navigation} />
+            <View style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 10, marginTop: StatusBar.currentHeight }}>
+
+                <StatusBar title='طلباتي' />
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
+                    <TouchableOpacity onPress={() => { setViewOrders(1) }} ><Text style={{ backgroundColor: (viewOrders == 1) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات جديد {newOrders?.length}</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setViewOrders(2) }} ><Text style={{ backgroundColor: (viewOrders == 2) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات مستأنفة {resumedOrders?.length}</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders == 3) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات منتهية {doneOrders?.length}</Text></TouchableOpacity>
+                </View>
+
+                <RefreshScrollView refreshFunction={fetchOrders} style={{ flex: 1 }}>
+                    <View style={{ height: (viewOrders == 1) ? null : 0 }}>
+                        <NewOrders refreshFunction={fetchOrders} newOrders={newOrders} />
+                    </View>
+                    <View style={{ height: (viewOrders == 2) ? null : 0 }}>
+                        <ResumedOrders refreshFunction={fetchOrders} resumedOrders={resumedOrders} />
+                    </View>
+                    <View style={{ height: (viewOrders == 3) ? null : 0 }}>
+                        <DoneOrders doneOrders={doneOrders} />
+                    </View>
+                </RefreshScrollView>
+                <LoadingIndicator visibility={isLoading} />
+
+            </View>
         )
     else
         return (
@@ -137,7 +127,7 @@ function OrdersTab(props, { navigation }) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

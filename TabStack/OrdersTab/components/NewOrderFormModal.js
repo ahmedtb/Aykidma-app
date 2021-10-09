@@ -17,10 +17,16 @@ import logError from '../../../utilityFunctions/logError'
 
 export default function NewOrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
-    const { date, service_provider_name,
-        service_title, cost, comment, rating,
-        fields, id, refreshFunction
-    } = props;
+    const { order, refreshFunction } = props;
+
+    const date = order.created_at
+    const service_provider_name = order.service.service_provider.name
+    const service_title = order.service.title
+    const cost = order.cost
+    const comment = order.comment
+    const rating = order.rating
+    const fields = order.fields
+    const id = order.id
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
 
