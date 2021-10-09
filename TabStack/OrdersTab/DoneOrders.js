@@ -21,15 +21,14 @@ import OrderFormModal from './components/OrderFormModal'
 export default function DoneOrders(props) {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const title = order.service.title
-    const category = order.service.category
-    const date = order.created_at
-    const image = order.service.image
-    
     return (
         <ScrollView>
             {
                 props.doneOrders.map((order, index) => {
+                    const title = order.service.title
+                    const category = order.service.category
+                    const date = order.created_at
+                    const image = order.service.image
                     if (order.status == "done")
                         return <View key={index}>
                             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
@@ -48,6 +47,7 @@ export default function DoneOrders(props) {
                             <OrderFormModal
                                 visible={[modalVisible, setModalVisible]}
                                 order={order}
+                                refreshFunction={props.refreshFunction}
                             />
                         </View>
                     else
@@ -57,49 +57,3 @@ export default function DoneOrders(props) {
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-
-
-
-    // modal styles
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: 'rgba(52, 52, 52, 0.9)',
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 10,
-        // alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonClose: {
-        backgroundColor: "#b2a9a7",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
-})

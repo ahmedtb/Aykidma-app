@@ -28,10 +28,6 @@ function AuthenticationStack(props) {
         tryLoginUserFromStore()
     }, [])
 
-    React.useEffect(() => {
-
-    }, [props.user])
-
     if (props.state.user)
         return (
             <View style={{ flex: 1, justifyContent: 'center' }}>

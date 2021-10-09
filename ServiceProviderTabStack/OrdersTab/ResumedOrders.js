@@ -22,8 +22,17 @@ import OrderFormModal from './components/OrderFormModal'
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { title, category, date, cost, image, service_provider_name, fields, comment, rating } = props;
+    const { order, refreshFunction } = props;
 
+    const title = order.service.title
+    const category = order.service.category
+    const date = order.created_at
+    // const cost = order.service.cost
+    const image = order.service.image
+    // const service_provider_name = props.state.provider.name
+    // const fields = order.fields
+    // const comment = order.comment
+    // const rating = order.rating
     return (
         <View >
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
@@ -39,10 +48,10 @@ const OrderItem = (props) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <OrderFormModal visible={[modalVisible, setModalVisible]}
-                date={date} service_provider_name={service_provider_name}
-                service_title={title} cost={cost}
-                comment={comment} rating={rating} fields={fields}
+            <OrderFormModal
+                visible={[modalVisible, setModalVisible]}
+                order={order}
+                refreshFunction={refreshFunction}
             />
         </View>
     )
@@ -64,17 +73,8 @@ function ResumedOrders(props) {
                     if (order.status == "resumed")
                         return <OrderItem
                             key={index}
-                            title={order.service.title}
-                            category={order.service.category}
-                            date={order.created_at}
-                            cost={order.service.cost}
-                            image={order.service.image}
-                            service_provider_name={props.state.provider.name}
-                            fields={order.fields}
-                            comment={order.comment}
-                            rating={order.rating}
-
-                        // animate={true}
+                            order={order}
+                            refreshFunction={props.refreshFunction}
                         />
                     else
                         return null
@@ -87,7 +87,7 @@ function ResumedOrders(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { } from '../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
@@ -96,49 +96,3 @@ const mapDispatchToProps = dispatch => (
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResumedOrders);
-
-const styles = StyleSheet.create({
-
-
-
-    // modal styles
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: 'rgba(52, 52, 52, 0.9)',
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 10,
-        // alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonClose: {
-        backgroundColor: "#b2a9a7",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
-})

@@ -82,7 +82,7 @@ function OrdersDisplay(props) {
                     <NewOrders newOrders={newOrders} refreshFunction={setupServiceProviderOrders}/>
                 </View>
                 <View style={{ height: (viewOrders == 2) ? null : 0 }}>
-                    <ResumedOrders resumedOrders={resumedOrders} />
+                    <ResumedOrders resumedOrders={resumedOrders}  refreshFunction={setupServiceProviderOrders}/>
                 </View>
                 <View style={{ height: (viewOrders == 3) ? null : 0 }}>
                     <DoneOrders doneOrders={doneOrders}  refreshFunction={setupServiceProviderOrders}/>

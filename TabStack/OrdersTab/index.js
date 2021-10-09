@@ -64,7 +64,8 @@ function OrdersTab(props, { navigation }) {
     }
 
     useEffect(() => {
-        fetchOrders()
+        if (props.state.user)
+            fetchOrders()
     }, []);
 
     if (props.state.user)
@@ -87,7 +88,7 @@ function OrdersTab(props, { navigation }) {
                         <ResumedOrders refreshFunction={fetchOrders} resumedOrders={resumedOrders} />
                     </View>
                     <View style={{ height: (viewOrders == 3) ? null : 0 }}>
-                        <DoneOrders doneOrders={doneOrders} />
+                        <DoneOrders refreshFunction={fetchOrders} doneOrders={doneOrders} />
                     </View>
                 </RefreshScrollView>
                 <LoadingIndicator visibility={isLoading} />

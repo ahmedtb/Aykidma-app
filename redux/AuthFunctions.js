@@ -2,7 +2,29 @@ import { getValueFor, deleteItem, saveItem } from "../utilityFunctions/SecureSto
 import axios from 'axios'
 import store from './store'
 import { setUser, setToken, setProvider } from "./StateActions";
-import { getUser, refreshProvider, logError, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
+import { getUser, refreshProvider, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
+
+
+export function logError(error) {
+    if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        if (error.response.status == 401) {
+            deleteUserAuthRecord()
+            setUserAndAxiosToken(null)
+            store.dispatch(setProvider(null))
+
+        }
+    } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+    } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+    }
+}
 
 export function setUserAndAxiosToken(data) {
     if (data) {

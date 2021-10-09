@@ -15,13 +15,21 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 
 import { resumeNewOrder } from '../../../utilityFunctions/apiCalls'
 import ModalWrapper from '../../components/ModalWrapper'
+import { logError } from '../../../redux/AuthFunctions'
 
 export default function NewOrderFormModal(props) {
     const [dialogVis, setDialogVis] = React.useState(false)
     const [modalVisible, setModalVisible] = props.visible;
-    const { date, service_provider_name,
-        service_title, cost, comment, rating,
-        fields, id } = props;
+    const { order, refreshFunction } = props;
+
+    const service_title = order.service.title
+    const date = order.created_at
+    const cost = order.service.cost
+    const comment = order.comment
+    const rating = order.rating
+    const service_provider_name = props.state.provider.name
+    const fields = order.fields
+    const id = order.id
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
     return (
@@ -170,8 +178,11 @@ export default function NewOrderFormModal(props) {
                     <Pressable
                         style={{ ...styles.button, backgroundColor: '#f4c18b' }}
                         onPress={() => {
-                            resumeNewOrder(id).then(() => { props.refreshFunction() })
-                            setModalVisible(false)
+                            resumeNewOrder(id).then(() => {
+                                refreshFunction()
+                                setModalVisible(false)
+                            }).catch(error => logError(error))
+
                         }}
                     >
                         <Text style={styles.textStyle}>استئناف الطلب</Text>

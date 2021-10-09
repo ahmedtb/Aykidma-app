@@ -1,16 +1,32 @@
 import React from 'react';
-import AppStack from './AppStack';
 import NotificationsProvider from './NotificationsProvider'
 
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+
+import ServiceProviderTabStack from '../ServiceProviderTabStack'
+import TabStack from '../TabStack';
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
+
 
 export default function Route() {
 
     return (
         <Provider store={store}>
             <NotificationsProvider />
-            <AppStack />
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen name="TabStack" component={TabStack}
+                    options={{ title: 'المستخدم' }}
+                />
+                <Stack.Screen name="ServiceProviderTabStack" component={ServiceProviderTabStack}
+                    options={{ title: 'مزود خدمات' }}
+                />
+            </Stack.Navigator>
         </Provider>
     )
 }

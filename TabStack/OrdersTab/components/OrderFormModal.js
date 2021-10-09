@@ -15,6 +15,7 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 
 export default function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
+    const { order, refreshFunction } = props
     const service_title = order.service.title
     // const category = order.service.category
     const date = order.created_at

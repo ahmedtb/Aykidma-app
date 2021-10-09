@@ -23,7 +23,19 @@ import NewOrderFormModal from './components/NewOrderFormModal'
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const { title, location, category, date, cost, image, service_provider_name, fields, id, animate } = props;
+    const { order, refreshFunction } = props;
+
+    const title = order.service.title
+    const location = 'this field should be canceled'
+    const category = order.service.category
+    const date = order.created_at
+    const cost = order.service.cost
+    const image = order.service.image
+    const service_provider_name = props.state.provider.name
+    const fields = order.fields
+    const id = order.id
+    const animate = true
+
     // this animation for the new order is enabled when animate var is true
     const fadeAnim = useRef(new Animated.Value(0)).current
     useEffect(() => {
@@ -54,12 +66,10 @@ const OrderItem = (props) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <NewOrderFormModal visible={[modalVisible, setModalVisible]}
-                date={date} service_provider_name={service_provider_name}
-                offer_title={title} cost={cost}
-                location_name={location} fields={fields} id={id}
-                refreshFunction={props.refreshFunction}
-
+            <NewOrderFormModal
+                visible={[modalVisible, setModalVisible]}
+                order={order}
+                refreshFunction={refreshFunction}
             />
         </Animated.View>
     )
@@ -79,16 +89,7 @@ function NewOrders(props) {
                     if (order.status == "new")
                         return <OrderItem
                             key={index}
-                            title={order.service.title}
-                            location={'this field should be canceled'}
-                            category={order.service.category}
-                            date={order.created_at}
-                            cost={order.service.cost}
-                            image={order.service.image}
-                            service_provider_name={props.state.provider.name}
-                            fields={order.fields}
-                            id={order.id}
-                            animate={true}
+                            order={order}
                             refreshFunction={props.refreshFunction}
                         />
                     else
@@ -102,7 +103,7 @@ function NewOrders(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { } from '../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
@@ -112,49 +113,3 @@ const mapDispatchToProps = dispatch => (
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewOrders);
 
-
-const styles = StyleSheet.create({
-
-
-
-    // modal styles
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: 'rgba(52, 52, 52, 0.9)',
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 10,
-        // alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonClose: {
-        backgroundColor: "#b2a9a7",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
-})

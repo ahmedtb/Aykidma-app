@@ -46,15 +46,7 @@ const NotificationsProvider = (props) => {
 
 
 
-    return (null
-        // <NotificationsContext.Provider
-        //     value={{
-        //         notification,
-        //         expoPushToken,
-        //     }}>
-        //     {props.children}
-        // </NotificationsContext.Provider>
-    );
+    return null
 }
 
 import { connect } from 'react-redux'
