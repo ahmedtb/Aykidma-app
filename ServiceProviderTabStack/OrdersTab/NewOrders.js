@@ -31,7 +31,6 @@ const OrderItem = (props) => {
     const date = order.created_at
     const cost = order.service.cost
     const image = order.service.image
-    const service_provider_name = props.state.provider.name
     const fields = order.fields
     const id = order.id
     const animate = true

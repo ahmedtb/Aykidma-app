@@ -12,10 +12,12 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
 import LoadingIndicator from '../../../loadingIndicator'
-import { submitOrder
- } from '../../../../../utilityFunctions/apiCalls'
+import {
+    submitOrder
+} from '../../../../../utilityFunctions/apiCalls'
 import ModalWrapper from '../../../ModalWrapper'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
+import { logError } from '../../../../../redux/AuthFunctions'
 
 function DialogBox(props) {
     const [dialogBox, setDialogBox] = props.visibility
@@ -83,7 +85,7 @@ export default function FormModal(props) {
 
                 <View style={{ padding: 10 }}>
                     <View style={{ marginBottom: 10, borderWidth: 0.4, borderRadius: 7, }}>
-                        <View style={{flexDirection:'row', marginBottom:3}}>
+                        <View style={{ flexDirection: 'row', marginBottom: 3 }}>
                             <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 25, flex: 1 }}>تفاصــيـل الطـلــب</Text>
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}

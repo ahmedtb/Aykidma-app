@@ -19,12 +19,13 @@ import ResumedOrderFormModal from './components/ResumedOrderFormModal'
 
 
 export default function ResumedOrders(props) {
-
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const {resumedOrders, refreshFunction} = props
 
     return (
         <ScrollView>
             {
-                props.resumedOrders.map((order, index) => {
+                resumedOrders.map((order, index) => {
                     const title = order.service.title
                     const location = 'this field should be canceled'
                     const category = order.service.category
@@ -51,9 +52,10 @@ export default function ResumedOrders(props) {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <ResumedOrderFormModal visible={[modalVisible, setModalVisible]}
+                            <ResumedOrderFormModal
+                                visible={[modalVisible, setModalVisible]}
                                 order={order}
-                                refreshFunction={props.refreshFunction}
+                                refreshFunction={refreshFunction}
                             />
                         </View>
                     else

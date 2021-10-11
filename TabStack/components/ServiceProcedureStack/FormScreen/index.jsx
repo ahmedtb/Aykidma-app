@@ -23,7 +23,6 @@ const reducer = (state, action) => {
     }
 
     return state;
-
 }
 
 function initialFieldsOfService(service) {
@@ -33,6 +32,8 @@ function initialFieldsOfService(service) {
 import FormModal from './components/formModal'
 import LoginModal from '../../LoginModal'
 import NavigationBar from '../../NavigationBar'
+
+import ArrayOfFieldsInputs from '../../../../FieldsTypes/ArrayOfFieldsInputs';
 
 const FormScreen = (props) => {
     const service = props.route.params?.service
@@ -49,18 +50,13 @@ const FormScreen = (props) => {
 
     const [state, dispatch] = useReducer(reducer, initial_state);
 
-    let FormPages = [
-        ,
-    ];
-
-    const numberOfPages = FormPages.length;
-
     return (
         <View style={styles.container} >
             <NavigationBar name={serviceTitle} />
 
             <View style={{ flex: 1 }}>
-                <FormFields ReducerState={[state.fields, dispatch]} />
+                {/* <FormFields ReducerState={[state.fields, dispatch]} /> */}
+                <ArrayOfFieldsInputs array_of_fields={service.array_of_fields} setarray_of_fields={() => null} />
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
@@ -93,7 +89,7 @@ const FormScreen = (props) => {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

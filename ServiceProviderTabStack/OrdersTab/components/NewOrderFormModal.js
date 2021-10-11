@@ -17,7 +17,7 @@ import { resumeNewOrder } from '../../../utilityFunctions/apiCalls'
 import ModalWrapper from '../../components/ModalWrapper'
 import { logError } from '../../../redux/AuthFunctions'
 
-export default function NewOrderFormModal(props) {
+function NewOrderFormModal(props) {
     const [dialogVis, setDialogVis] = React.useState(false)
     const [modalVisible, setModalVisible] = props.visible;
     const { order, refreshFunction } = props;
@@ -202,6 +202,17 @@ export default function NewOrderFormModal(props) {
 
 }
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrderFormModal);
 
 const styles = StyleSheet.create({
 

@@ -26,14 +26,9 @@ const OrderItem = (props) => {
     const { order, refreshFunction } = props;
 
     const title = order.service.title
-    const location = 'this field should be canceled'
     const category = order.service.category
     const date = order.created_at
-    const cost = order.service.cost
     const image = order.service.image
-    const service_provider_name = props.state.provider.name
-    const fields = order.fields
-    const id = order.id
     const animate = true
 
     // this animation for the new order is enabled when animate var is true
@@ -52,7 +47,7 @@ const OrderItem = (props) => {
 
 
     return (
-        <Animated.View key={index} style={{ opacity: (animate) ? fadeAnim : 1, }}>
+        <Animated.View style={{ opacity: (animate) ? fadeAnim : 1, }}>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
 
                 <View style={{ flexDirection: 'row', margin: 10 }}>

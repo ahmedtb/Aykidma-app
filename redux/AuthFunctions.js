@@ -15,7 +15,6 @@ export function logError(error) {
             deleteUserAuthRecord()
             setUserAndAxiosToken(null)
             store.dispatch(setProvider(null))
-
         }
     } else if (error.request) {
         // The request was made but no response was received
@@ -102,10 +101,11 @@ export function fetchUser(token) {
         console.log('fetchUser response', response)
         store.dispatch(setUser(response))
     }).catch((error) => {
-        store.dispatch(setUser(null))
-        store.dispatch(setProvider(null))
-        store.dispatch(setToken(null))
-        deleteUserAuthRecord()
+        logError(error)
+        // store.dispatch(setUser(null))
+        // store.dispatch(setProvider(null))
+        // store.dispatch(setToken(null))
+        // deleteUserAuthRecord()
     })
 }
 

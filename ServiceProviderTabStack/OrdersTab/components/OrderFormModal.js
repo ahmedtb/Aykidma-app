@@ -15,7 +15,7 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 import { providerDeleteOrder } from '../../../utilityFunctions/apiCalls';
 import logError from '../../../utilityFunctions/logError';
 
-export default function OrderFormModal(props) {
+function OrderFormModal(props) {
     const [modalVisible, setModalVisible] = props.visible;
     const { order, refreshFunction } = props;
 
@@ -199,6 +199,17 @@ export default function OrderFormModal(props) {
 
 }
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+const mapStateToProps = ({state}) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderFormModal);
 
 const styles = StyleSheet.create({
     // modal styles
