@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 
 import { Entypo, AntDesign } from '@expo/vector-icons';
-
+import ListOptions from '../components/ListOptions'
 
 export const OptionsFieldClass = 'App\\FieldsTypes\\OptionsField'
 
@@ -24,7 +24,7 @@ export function OptionsFieldInput(props) {
                 }
             }
             choice={field.value}
-            list={field.titles} label='اختر' />
+            list={field.options} label='اختر' />
     </View>
 }
 
@@ -40,17 +40,17 @@ export function OptionsFieldRender(props) {
     </View>
 }
 
-export function OptionsFieldModalRender(props) {
-
+export function OptionsFieldFormView(props) {
+    const field = props.field
     return <View key={index} style={{ ...styles.fieldRow }}>
         <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
             <Entypo name="list" size={24} color="grey" />
             <View style={{ marginLeft: 5, flex: 1, }}>
-                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{field.label}</Text>
                 <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيارات</Text>
             </View>
         </View>
-        <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#f5f0f0' }}>{value}</Text>
+        <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#f5f0f0' }}>{field.value}</Text>
     </View>
 }
 
@@ -64,7 +64,7 @@ function RemoveFieldButton(props) {
 }
 
 export function OptionsFieldCreator(props) {
-    const setFieldConfig = props.setFieldConfig
+    const set = props.set
     const [label, setLabel] = React.useState(null)
     const [title, setTitle] = React.useState(null)
     const [titles, setTitles] = React.useState([])
@@ -72,13 +72,13 @@ export function OptionsFieldCreator(props) {
     function addTitle(title) {
         if (!title)
             return
-        setFieldConfig({
+        set({
             label: label, type: 'options', titles: [...titles, title], value: null
         })
         setTitles([...titles, title])
     }
     function addLabel(label) {
-        setFieldConfig({
+        set({
             label: label, type: 'options', titles: titles, value: null
         })
         setLabel(label)

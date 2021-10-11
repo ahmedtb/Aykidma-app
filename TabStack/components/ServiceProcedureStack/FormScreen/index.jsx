@@ -41,7 +41,6 @@ const FormScreen = (props) => {
     const serviceTitle = service.title;
     const initial_state = initialFieldsOfService(service)
 
-    useEffect(() => { }, [])
 
     // const [index, setIndex] = useState(0);
 
@@ -50,13 +49,19 @@ const FormScreen = (props) => {
 
     const [state, dispatch] = useReducer(reducer, initial_state);
 
+    const [array_of_fields, setarray_of_fields] = React.useState()
+    useEffect(() => {
+        // console.log('FormScreen useEffect', array_of_fields)
+    }, [array_of_fields])
+
+
     return (
         <View style={styles.container} >
             <NavigationBar name={serviceTitle} />
 
             <View style={{ flex: 1 }}>
                 {/* <FormFields ReducerState={[state.fields, dispatch]} /> */}
-                <ArrayOfFieldsInputs array_of_fields={service.array_of_fields} setarray_of_fields={() => null} />
+                <ArrayOfFieldsInputs service={service} setarray_of_fields={(e) => setarray_of_fields(e)} />
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
@@ -74,6 +79,7 @@ const FormScreen = (props) => {
                 (props.state.user) ?
                     (<FormModal visibility={[dialogVisible, setDialogVisible]}
                         state={state}
+                        array_of_fields={array_of_fields}
                         serviceTitle={serviceTitle}
                         service={service}
                     />)

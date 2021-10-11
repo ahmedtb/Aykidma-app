@@ -18,7 +18,6 @@ import {
 import ModalWrapper from '../../../ModalWrapper'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { logError } from '../../../../../redux/AuthFunctions'
-
 function DialogBox(props) {
     const [dialogBox, setDialogBox] = props.visibility
     const navigation = useNavigation();
@@ -56,6 +55,7 @@ export default function FormModal(props) {
     const serviceTitle = props.state.serviceTitle
     const fields = props.state.fields
     const service_id = props.state.service_id
+    const array_of_fields = props.array_of_fields
 
     const [modalVisible, setModalVisible] = props.visibility
 

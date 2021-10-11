@@ -20,7 +20,7 @@ export function TextAreaFieldInput(props) {
         <TextInput
             multiline={true} numberOfLines={4} style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
-                dispatch({ actionType: 'change', fieldIndex: fieldIndex, value: text })
+                dispatch(text)
             }}
             value={field.value}
         />
@@ -40,7 +40,7 @@ export function TextAreaFieldRender(props) {
     </View>
 }
 
-export function TextAreaFieldModalRender(props) {
+export function TextAreaFieldFormView(props) {
 
     return <View key={index} style={{ ...styles.fieldRow }}>
         <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
@@ -64,13 +64,13 @@ function RemoveFieldButton(props) {
 }
 
 export function TextAreaFieldCreator(props) {
-
+    const set = props.set
     return <View style={{ marginVertical: 10 }}>
         <Text>اكتب النص الذي يصف مساحة النص هذه للزبون</Text>
         <TextInput
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
-                setFieldConfig({
+                set({
                     label: text, type: 'textarea', value: null
                 })
             }}

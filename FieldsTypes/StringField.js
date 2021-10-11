@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, Entypo } from '@expo/vector-icons'
 
 export const StringFieldClass = 'App\\FieldsTypes\\StringField'
 
@@ -19,7 +19,7 @@ export function StringFieldInput(props) {
         <TextInput
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
-                dispatch({ actionType: 'change', fieldIndex: fieldIndex, value: text })
+                dispatch(text)
             }}
             value={field.value}
         />
@@ -32,10 +32,23 @@ export function StringFieldRender(props) {
         <Text style={{ fontSize: 12 }}>{field.label}</Text>
         <TextInput
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
-            onChangeText={(text) => {
-            }}
+            onChangeText={(text) => { }}
             value={field.value}
         />
+    </View>
+}
+
+export function StringFieldFormView(props) {
+    const field = props.field
+    return <View key={index} style={{ ...styles.fieldRow }}>
+        <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+            <Entypo name="list" size={24} color="grey" />
+            <View style={{ marginLeft: 5, flex: 1, }}>
+                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{field.label}</Text>
+                <Text style={{ color: 'grey', fontSize: 10, }}>حقل نصي</Text>
+            </View>
+        </View>
+        <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 10, backgroundColor: '#f5f0f0' }}>{field.value}</Text>
     </View>
 }
 
@@ -49,6 +62,22 @@ function RemoveFieldButton(props) {
 }
 
 export function StringFieldCreator(props) {
+    const set = props.set
+
+    return <View style={{ marginVertical: 10 }}>
+        <Text>اكتب النص الذي يصف هذا الحقل للزبون</Text>
+        <TextInput
+            style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
+            onChangeText={(text) => {
+                set({
+                    label: text, class: StringFieldClass, value: null
+                })
+            }}
+        />
+    </View>
+}
+
+export function StringFieldEditor(props) {
     const fieldIndex = props.fieldIndex
     const field = props.field
     const deleteField = props.deleteField

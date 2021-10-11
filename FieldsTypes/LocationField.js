@@ -18,7 +18,7 @@ export function LocationFieldInput(props) {
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', }}>{field.label}</Text>
         </View>
         <LocationPicker
-            onChange={(value) => { dispatch({ actionType: 'change', fieldIndex: fieldIndex, value: value }) }}
+            onChange={(value) => { dispatch(value) }}
             value={field.value}
         />
     </View>
@@ -29,11 +29,11 @@ export function LocationFieldRender(props) {
         <View style={{ margin: 8 }}>
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>{field.label}</Text>
         </View>
-        {/* <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100, alignSelf: 'center', }} /> */}
+        <Image source={require('../resources/MapIcon.png')} style={{ width: 100, height: 100, alignSelf: 'center', }} />
     </View>
 }
 
-export function LocationFieldModalRender(props) {
+export function LocationFieldFormView(props) {
 
     const value = field.value.latitude + ", " + field.value.longitude;
     return (
@@ -66,13 +66,13 @@ function RemoveFieldButton(props) {
 }
 
 export function LocationFieldCreator(props) {
-
+    const set = props.set
     return <View style={{ marginVertical: 10 }}>
         <Text>اكتب النص الذي يصف حقل تحديد الموقع للزبون</Text>
         <TextInput
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
-                setFieldConfig({
+                set({
                     label: text, type: 'location',
                     value: {
                         latitude: null,
@@ -81,7 +81,7 @@ export function LocationFieldCreator(props) {
                 })
             }}
         />
-        {/* <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} /> */}
+        <Image source={require('../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
 
     </View>
 }
@@ -104,6 +104,6 @@ export function LocationFieldEditor(props) {
                 multiline={true}
             />
         </View>
-        {/* <Image source={require('../../../resources/MapIcon.png')} style={{ width: 100, height: 100 }} /> */}
+        <Image source={require('../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
     </View>
 }
