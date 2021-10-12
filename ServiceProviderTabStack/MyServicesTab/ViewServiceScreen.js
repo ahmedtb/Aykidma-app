@@ -8,6 +8,7 @@ import {
     StyleSheet
 } from 'react-native'
 import ViewFormFields from './components/ViewFormFields'
+import ArrayOfFieldsRender from '../../FieldsTypes/ArrayOfFieldsRender'
 import StatusBar from '../components/StatusBar'
 import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
@@ -40,7 +41,7 @@ function ViewServiceScreen(props) {
     const service = props.route.params.service
     const title = service.title
     const description = service.description
-    const fields = service.fields
+    const array_of_fields = service.array_of_fields
     const category_id = service.category_id
     const image = imageValueSetup(service.image)
 
@@ -120,7 +121,8 @@ function ViewServiceScreen(props) {
                         <Text style={style.cardTitleText}>حقول نموذج الطلب</Text>
                     </View>
 
-                    <ViewFormFields fields={fields} />
+                    <ArrayOfFieldsRender array_of_fields={array_of_fields} />
+                    {/* <ViewFormFields fields={fields} /> */}
                 </View>
 
                 <TouchableOpacity style={{ backgroundColor: 'red', margin: 10, borderRadius: 10 }} onPress={() => props.navigation.navigate('EditServiceScreen', { service: service })}>

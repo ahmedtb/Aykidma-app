@@ -27,7 +27,7 @@ export function TextAreaFieldInput(props) {
     </View>
 }
 export function TextAreaFieldRender(props) {
-
+    const field = props.field
     return <View >
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
         {(field.subLabel) ? (<Text style={{ fontSize: 12 }}>{field.subLabel}</Text>) : (null)}
@@ -77,7 +77,7 @@ export function TextAreaFieldCreator(props) {
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
                 set({
-                    label: text, type: 'textarea', value: null
+                    label: text, class: TextAreaFieldClass, value: null
                 })
             }}
         />

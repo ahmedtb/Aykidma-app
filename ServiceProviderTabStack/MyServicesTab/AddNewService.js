@@ -8,34 +8,57 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-// import CreateServiceComponent from './components/CreateServiceComponent'
 
-import CreateNewFieldComponent from './components/CreateNewFieldComponent'
-// import CreatedFieldsRender from './components/CreatedFieldsRender'
-import ImagePickerComponent from './components/ImagePickerComponent'
+import ImagePickerComponent from '../../components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
 import { createService, logError } from '../../utilityFunctions/apiCalls'
+import ArrayOfFieldsCreator from '../../FieldsTypes/ArrayOfFieldsCreator';
+import { ArrayOfFieldsClass } from '../../FieldsTypes/ArrayOfFieldsCreator'
+import { StringFieldClass, StringFieldRender } from '../../FieldsTypes/StringField'
+import { TextAreaFieldClass, TextAreaFieldRender } from '../../FieldsTypes/TextAreaField'
+import { ImageFieldClass, ImageFieldRender } from '../../FieldsTypes/ImageField'
+import { LocationFieldClass, LocationFieldRender } from '../../FieldsTypes/LocationField'
+import { OptionsFieldClass, OptionsFieldRender } from '../../FieldsTypes/OptionsField'
+import { AntDesign } from '@expo/vector-icons';
 
-export default function AddNewService({ navigation }) {
+const reducer = (array_of_fields, action) => {
+
+    switch (action.actionType) {
+        case 'remove field':
+            let filtered = array_of_fields.fields.filter((value, index) => {
+                return index != action.index;
+            });
+            // console.log('arrayoffieldscreator reducer', filtered)
+            
+            return { class: ArrayOfFieldsClass, fields: filtered }
+        case 'add field':
+            const fields = [...array_of_fields.fields, action.newField]
+            return { class: ArrayOfFieldsClass, fields: fields }
+    }
+    return array_of_fields;
+}
+
+export default function AddNewService(props) {
     const [title, setTitle] = useState(null)
 
     const [description, setDescription] = React.useState(null)
-    const [fields, setFields] = React.useState([])
     const [category_id, selectCategory] = React.useState(null)
     const [image, setImage] = React.useState(null)
 
-    const [newFieldCreateComponent, setNewFieldCreateComponent] = React.useState(false)
+    const [array_of_fields, dispatch] = React.useReducer(reducer, { class: ArrayOfFieldsClass, fields: [] });
 
+
+    React.useEffect(() => {
+        console.log('AddNewService useeffect', array_of_fields)
+    }, [array_of_fields])
 
     function addNewField(fieldConfig) {
-        setFields(prevFields => (
-            [...prevFields, fieldConfig]
-        ));
+        dispatch({ actionType: 'add field', newField: fieldConfig })
     }
 
     function submit() {
-        console.log(image.length)
-        createService(title, description, fields, category_id, image, [])
+        // console.log('addnewscreen submit',image.length)
+        createService(title, description, array_of_fields, category_id, image, [])
             .then(data => {
                 console.log(data)
             })
@@ -58,25 +81,62 @@ export default function AddNewService({ navigation }) {
                 </View>
 
                 <View>
-                    {/* <CreatedFieldsRender fields={fields} /> */}
-
                     {
-                        (newFieldCreateComponent) ? (
-                            <View>
-                                <CreateNewFieldComponent addNewField={addNewField} />
-                            </View>
-                        ) : (
-                            <View>
-                                <Text style={{ textAlign: 'center', fontSize: 20 }}>اضف الحقول العرض التي تراها مناسبة لخدمتك</Text>
-                                <TouchableOpacity
-                                    onPress={() => setNewFieldCreateComponent(true)}
-                                    style={{ backgroundColor: 'grey', borderRadius: 6, padding: 15, marginHorizontal: '30%' }}
-                                >
-                                    <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>أضف حقل</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
+                        array_of_fields.fields.map((field, index) => {
+                            if (field.class == StringFieldClass) {
+                                return <View key={index}>
+                                    <TouchableOpacity onPress={() => dispatch({ actionType: 'remove field', index: index })}>
+                                        <AntDesign name="closecircleo" size={24} color="black" />
+                                    </TouchableOpacity>
+                                    <StringFieldRender
+                                        field={field}
+                                    />
+                                </View>
+                            } else if (field.class == TextAreaFieldClass) {
+                                return <View key={index}>
+                                    <TouchableOpacity onPress={() => dispatch({ actionType: 'remove field', index: index })}>
+                                        <AntDesign name="closecircleo" size={24} color="black" />
+                                    </TouchableOpacity>
+                                    <TextAreaFieldRender
+                                        key={index}
+                                        field={field}
+                                    />
+                                </View>
+                            } else if (field.class == ImageFieldClass) {
+                                return <View key={index}>
+                                    <TouchableOpacity onPress={() => dispatch({ actionType: 'remove field', index: index })}>
+                                        <AntDesign name="closecircleo" size={24} color="black" />
+                                    </TouchableOpacity>
+                                    <ImageFieldRender
+                                        key={index}
+                                        field={field}
+
+                                    />
+                                </View>
+                            } else if (field.class == OptionsFieldClass) {
+                                return <View key={index}>
+                                    <TouchableOpacity onPress={() => dispatch({ actionType: 'remove field', index: index })}>
+                                        <AntDesign name="closecircleo" size={24} color="black" />
+                                    </TouchableOpacity>
+                                    <OptionsFieldRender
+                                        key={index}
+                                        field={field}
+                                    />
+                                </View>
+                            } else if (field.class == LocationFieldClass) {
+                                return <View key={index}>
+                                    <TouchableOpacity onPress={() => dispatch({ actionType: 'remove field', index: index })}>
+                                        <AntDesign name="closecircleo" size={24} color="black" />
+                                    </TouchableOpacity>
+                                    <LocationFieldRender
+                                        key={index}
+                                        field={field}
+                                    />
+                                </View>
+                            }
+                        })
                     }
+                    <ArrayOfFieldsCreator addField={addNewField} />
 
                     <View>
                         <ImagePickerComponent

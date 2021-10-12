@@ -4,6 +4,7 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Image
 } from 'react-native'
 
 import { Entypo, AntDesign } from '@expo/vector-icons';
@@ -13,7 +14,7 @@ export const ImageFieldClass = 'App\\FieldsTypes\\ImageField'
 
 export function ImageFieldInput(props) {
 
-    return <View key={fieldIndex} >
+    return <View >
         <View style={{}}>
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', }}>{field.label}</Text>
         </View>
@@ -25,7 +26,7 @@ export function ImageFieldInput(props) {
 }
 export function ImageFieldRender(props) {
 
-    return <View key={fieldIndex} style={{ marginVertical: 5 }}>
+    return <View style={{ marginVertical: 5 }}>
         <View style={{ margin: 8 }}>
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>{field.label}</Text>
         </View>
@@ -80,7 +81,8 @@ export function ImageFieldCreator(props) {
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
                 set({
-                    label: text, type: 'location',
+                    label: text, 
+                    class: ImageFieldClass,
                     value: {
                         latitude: null,
                         longitude: null
@@ -95,7 +97,7 @@ export function ImageFieldCreator(props) {
 
 export function ImageFieldEditor(props) {
 
-    return <View key={fieldIndex} >
+    return <View >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>حقل تحديد الموقع</Text>
             <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />

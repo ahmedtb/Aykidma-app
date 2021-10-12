@@ -1,7 +1,9 @@
 import React from 'react'
 import {
     View,
-    Text
+    Text,
+    TouchableOpacity,
+
 } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 
@@ -21,24 +23,15 @@ const fieldsTypes = {
     [ImageFieldClass]: 'حقل صورة'
 }
 
-const reducer = (array_of_fields, action) => {
 
-    switch (action.actionType) {
-        case 'remove field':
-            return array_of_fields
-        case 'add field':
-            return array_of_fields
-    }
-    return array_of_fields;
-}
 
 
 export default function ArrayOfFieldsCreator(props) {
-    const setarray_of_fields = props.setarray_of_fields
-    const [array_of_fields, dispatch] = React.useReducer(reducer, { class: ArrayOfFieldsClass, fields: [] });
+    
+    const addField = props.addField
+    const [selectedType, setSelectedType] = React.useState();
+    const [field, setfield] = React.useState({});
 
-    const [selectedType, setSelectedType] = useState();
-    const [newfield, setnewfield] = useState({});
 
 
     return (
@@ -67,23 +60,23 @@ export default function ArrayOfFieldsCreator(props) {
                 (() => {
                     if (selectedType == StringFieldClass) {
                         return (
-                            <StringFieldCreator set={(field) => setnewfield(field)} />
+                            <StringFieldCreator set={(field) => setfield(field)} />
                         )
                     } else if (selectedType == TextAreaFieldClass) {
                         return (
-                            <TextAreaFieldCreator set={(field) => setnewfield(field)} />
+                            <TextAreaFieldCreator set={(field) => setfield(field)} />
                         )
                     } else if (selectedType == OptionsFieldClass) {
                         return (
-                            <OptionsFieldCreator set={(field) => setnewfield(field)} />
+                            <OptionsFieldCreator set={(field) => setfield(field)} />
                         )
                     } else if (selectedType == LocationFieldClass) {
                         return (
-                            <LocationFieldCreator set={(field) => setnewfield(field)} />
+                            <LocationFieldCreator set={(field) => setfield(field)} />
                         )
                     } else if (selectedType == ImageFieldClass) {
                         return (
-                            <ImageFieldCreator set={(field) => setnewfield(field)} />
+                            <ImageFieldCreator set={(field) => setfield(field)} />
                         )
                     }
                 })()
@@ -91,8 +84,10 @@ export default function ArrayOfFieldsCreator(props) {
 
             <TouchableOpacity
                 onPress={() => {
-                    dispatch('add field', { field: newfield })
-                    setnewfield({})
+                    // dispatch({ actionType: 'add field', field: field })
+                    addField(field)
+                    setfield({})
+                    setSelectedType(null)
                 }}
                 style={{ alignSelf: 'flex-end', backgroundColor: 'red', width: '20%', padding: 10, marginVertical: 5, justifyContent: 'center', borderRadius: 19 }}
             >

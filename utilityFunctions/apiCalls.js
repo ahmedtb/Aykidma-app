@@ -141,9 +141,9 @@ export const doneResumedOrder = async (orderId, comment, rating) => {
     return orders
 }
 
-export const createService = async (title, description, fields, category_id, image, meta_data) => {
+export const createService = async (title, description, array_of_fields, category_id, image, meta_data) => {
     const body = {
-        title: title, description: description, fields: fields, category_id: category_id, image: image, meta_data: meta_data
+        title: title, description: description, array_of_fields: array_of_fields, category_id: category_id, image: image, meta_data: meta_data
     }
     const response = (await axios.post('api/services', body)).data
     return response
