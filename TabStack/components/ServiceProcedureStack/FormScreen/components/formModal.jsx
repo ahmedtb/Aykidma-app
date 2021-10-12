@@ -18,6 +18,7 @@ import {
 import ModalWrapper from '../../../ModalWrapper'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { logError } from '../../../../../redux/AuthFunctions'
+import ArrayOfFieldsFormView from '../../../../../FieldsTypes/ArrayOfFieldsFormView'
 function DialogBox(props) {
     const [dialogBox, setDialogBox] = props.visibility
     const navigation = useNavigation();
@@ -52,9 +53,9 @@ export default function FormModal(props) {
     const [loading, setLoading] = useState(false)
     const [dialogBox, setDialogBox] = useState(false)
 
-    const serviceTitle = props.state.serviceTitle
-    const fields = props.state.fields
-    const service_id = props.state.service_id
+    // const serviceTitle = props.state.serviceTitle
+    // const fields = props.state.fields
+    const service_id = props.service.id
     const array_of_fields = props.array_of_fields
 
     const [modalVisible, setModalVisible] = props.visibility
@@ -62,7 +63,7 @@ export default function FormModal(props) {
     function submit() {
 
         setLoading(true)
-        submitOrder(fields, service_id).then(response => {
+        submitOrder(array_of_fields, service_id).then(response => {
             console.log(response)
         }).catch(error => {
             logError(error)
@@ -132,7 +133,8 @@ export default function FormModal(props) {
                     <Text style={{ fontSize: 21, fontWeight: 'bold', color: 'red', borderWidth: 0.4, borderRadius: 7, textAlign: 'center', height: 35 }}>حقول الطلب</Text>
 
                     <View style={{ marginTop: 5, borderWidth: 0.5, borderRadius: 8 }}>
-                        {
+                        <ArrayOfFieldsFormView array_of_fields={array_of_fields}/>
+                        {/* {
                             fields.map((field, index) => {
                                 let value = field.value;
                                 let label = field.label;
@@ -231,7 +233,7 @@ export default function FormModal(props) {
                                     </View>
                                 )
                             })
-                        }
+                        } */}
                     </View>
 
 

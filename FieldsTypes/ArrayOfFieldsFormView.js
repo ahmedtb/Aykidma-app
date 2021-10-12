@@ -42,7 +42,6 @@ export default function ArrayOfFieldsFormView(props) {
                         return <LocationFieldFormView
                             key={index}
                             field={field}
-
                         />
                     }
                 })

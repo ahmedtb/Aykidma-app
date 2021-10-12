@@ -4,7 +4,7 @@ import {
     Text
 } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
-c
+
 import { StringFieldClass, StringFieldCreator } from './StringField'
 import { TextAreaFieldClass, TextAreaFieldCreator } from './TextAreaField'
 import { ImageFieldClass, ImageFieldCreator } from './ImageField'

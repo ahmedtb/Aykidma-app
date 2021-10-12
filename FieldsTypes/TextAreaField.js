@@ -42,7 +42,13 @@ export function TextAreaFieldRender(props) {
 
 export function TextAreaFieldFormView(props) {
 
-    return <View key={index} style={{ ...styles.fieldRow }}>
+    return <View style={{
+        marginHorizontal: 8,
+        borderWidth: 0.5,
+        borderColor: '#d1c5c5',
+        borderRadius: 10,
+        marginVertical: 5,
+    }}>
         <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
             <Entypo name="list" size={24} color="grey" />
             <View style={{ marginLeft: 5, flex: 1, }}>

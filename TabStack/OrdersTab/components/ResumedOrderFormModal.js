@@ -17,6 +17,7 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 import LocationModal from './LocationModal'
 
 import { doneResumedOrder, logError } from '../../../utilityFunctions/apiCalls'
+import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'
 
 function SubmitModal(props) {
 
@@ -146,7 +147,7 @@ export default function OrderFormModal(props) {
     const cost = order.meta_data?.cost
     const comment = order.comment
     const rating = order.rating
-    const fields = order.fields
+    const array_of_fields = order.array_of_fields
     const id = order.id
 
 
@@ -222,7 +223,9 @@ export default function OrderFormModal(props) {
 
                         <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', height: 35 }}>تفاصيل حقول المعبئة للطلب</Text>
                         <View style={{ borderWidth: 0.7, borderRadius: 7 }}>
-                            {
+                            <ArrayOfFieldsFormView array_of_fields={array_of_fields} />
+
+                            {/*
                                 fields.map((field, index) => {
                                     let value = field.value;
                                     let label = field.label;
@@ -281,7 +284,7 @@ export default function OrderFormModal(props) {
                                         </View>
                                     )
                                 })
-                            }
+                            */ }
                         </View>
 
 

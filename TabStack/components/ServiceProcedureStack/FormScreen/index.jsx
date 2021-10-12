@@ -8,7 +8,7 @@ import {
     Modal
 } from 'react-native';
 
-import FormFields from './components/FormFields'
+// import FormFields from './components/FormFields'
 
 const reducer = (state, action) => {
 
@@ -29,7 +29,7 @@ function initialFieldsOfService(service) {
     return { fields: service.fields, service_id: service.id }
 }
 
-import FormModal from './components/formModal'
+import FormModal from './components/FormModal'
 import LoginModal from '../../LoginModal'
 import NavigationBar from '../../NavigationBar'
 
@@ -78,9 +78,9 @@ const FormScreen = (props) => {
             {
                 (props.state.user) ?
                     (<FormModal visibility={[dialogVisible, setDialogVisible]}
-                        state={state}
+                        // state={state}
                         array_of_fields={array_of_fields}
-                        serviceTitle={serviceTitle}
+                        // serviceTitle={serviceTitle}
                         service={service}
                     />)
                     :

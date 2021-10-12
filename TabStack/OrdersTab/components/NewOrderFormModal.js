@@ -25,7 +25,7 @@ export default function NewOrderFormModal(props) {
     const cost = order.cost
     const comment = order.comment
     const rating = order.rating
-    const fields = order.fields
+    const array_of_fields = order.array_of_fields
     const id = order.id
 
     const [locationModalVisibility, setLocationModalVisibility] = useState(false)
@@ -111,7 +111,7 @@ export default function NewOrderFormModal(props) {
                             <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', height: 35 }}>تفاصيل حقول المعبئة للطلب</Text>
                             <View style={{ borderWidth: 0.7, borderRadius: 7 }}>
                                 {
-                                    fields.map((field, index) => {
+                                    array_of_fields.fields.map((field, index) => {
                                         let value = field.value;
                                         let label = field.label;
                                         let type = field.type

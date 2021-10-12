@@ -6,7 +6,7 @@ import {
     View,
 } from 'react-native'
 
-import {  Entypo, AntDesign } from '@expo/vector-icons';
+import { Entypo, AntDesign } from '@expo/vector-icons';
 
 
 export const ImageFieldClass = 'App\\FieldsTypes\\ImageField'
@@ -37,7 +37,13 @@ export function ImageFieldFormView(props) {
 
     const value = field.value.latitude + ", " + field.value.longitude;
     return (
-        <View key={index} style={{ ...styles.fieldRow }}>
+        <View style={{
+            marginHorizontal: 8,
+            borderWidth: 0.5,
+            borderColor: '#d1c5c5',
+            borderRadius: 10,
+            marginVertical: 5,
+        }}>
             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                 <Entypo name="image" size={24} color="grey" />
                 <View style={{ marginLeft: 5 }}>

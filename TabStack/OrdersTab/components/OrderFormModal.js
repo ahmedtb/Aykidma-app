@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import LocationModal from './LocationModal'
+import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'
+
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 export default function OrderFormModal(props) {
@@ -22,7 +24,7 @@ export default function OrderFormModal(props) {
     const cost = order.cost
     // const image = order.service.image
     const service_provider_name = order.service.service_provider.name
-    const fields = order.fields
+    const array_of_fields = order.array_of_fields
     const comment = order.comment
     const rating = order.rating
 
@@ -101,65 +103,67 @@ export default function OrderFormModal(props) {
 
                             <Text style={{ fontSize: 21, fontWeight: 'bold', backgroundColor: '#b2a9a7', borderBottomWidth: 1, textAlign: 'center', height: 35 }}>تفاصيل حقول المعبئة للطلب</Text>
                             <View style={{ borderWidth: 0.7, borderRadius: 7 }}>
+                                <ArrayOfFieldsFormView array_of_fields={array_of_fields} />
+                                
                                 {
-                                    fields.map((field, index) => {
-                                        let value = field.value;
-                                        let label = field.label;
-                                        let type = field.type
+                                    // array_of_fields.fields.map((field, index) => {
+                                    //     let value = field.value;
+                                    //     let label = field.label;
+                                    //     let type = field.type
 
-                                        if (field.type == "location") {
-                                            value = field.value.latitude + ", " + field.value.longitude;
-                                            return (
-                                                <View key={index} style={{ ...styles.fieldRow }}>
-                                                    <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
-                                                        <Entypo name="image" size={24} color="grey" />
-                                                        <View style={{ marginLeft: 5 }}>
-                                                            <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
-                                                            <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
-                                                        </View>
-                                                    </View>
-                                                    <TouchableOpacity style={{ flex: 1, backgroundColor: '#d1c5c5' }} onPress={() => setLocationModalVisibility(true)}>
-                                                        <Text style={{ color: 'blue', fontSize: 20, textAlign: 'center' }}>{value}</Text>
-                                                    </TouchableOpacity>
-                                                    <LocationModal
-                                                        visible={[locationModalVisibility, setLocationModalVisibility]}
-                                                        latitude={field.value.latitude} longitude={field.value.longitude}
-                                                    />
-                                                </View>
-                                            )
-                                        }
+                                    //     if (field.type == "location") {
+                                    //         value = field.value.latitude + ", " + field.value.longitude;
+                                    //         return (
+                                    //             <View key={index} style={{ ...styles.fieldRow }}>
+                                    //                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                    //                     <Entypo name="image" size={24} color="grey" />
+                                    //                     <View style={{ marginLeft: 5 }}>
+                                    //                         <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                    //                         <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
+                                    //                     </View>
+                                    //                 </View>
+                                    //                 <TouchableOpacity style={{ flex: 1, backgroundColor: '#d1c5c5' }} onPress={() => setLocationModalVisibility(true)}>
+                                    //                     <Text style={{ color: 'blue', fontSize: 20, textAlign: 'center' }}>{value}</Text>
+                                    //                 </TouchableOpacity>
+                                    //                 <LocationModal
+                                    //                     visible={[locationModalVisibility, setLocationModalVisibility]}
+                                    //                     latitude={field.value.latitude} longitude={field.value.longitude}
+                                    //                 />
+                                    //             </View>
+                                    //         )
+                                    //     }
 
-                                        if (field.type == 'image') {
-                                            return (
-                                                <View key={index} style={{ ...styles.fieldRow, }}>
-                                                    <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
-                                                        <Entypo name="image" size={24} color="grey" />
-                                                        <View style={{ marginLeft: 5 }}>
-                                                            <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
-                                                            <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
-                                                        </View>
-                                                    </View>
-                                                    <View style={{ backgroundColor: '#d1c5c5', alignItems: 'center' }}>
-                                                        <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 150, height: 150, borderRadius: 7 }} />
-                                                    </View>
+                                    //     if (field.type == 'image') {
+                                    //         return (
+                                    //             <View key={index} style={{ ...styles.fieldRow, }}>
+                                    //                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                    //                     <Entypo name="image" size={24} color="grey" />
+                                    //                     <View style={{ marginLeft: 5 }}>
+                                    //                         <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                    //                         <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
+                                    //                     </View>
+                                    //                 </View>
+                                    //                 <View style={{ backgroundColor: '#d1c5c5', alignItems: 'center' }}>
+                                    //                     <Image source={{ uri: 'data:image/png;base64,' + field.value }} style={{ width: 150, height: 150, borderRadius: 7 }} />
+                                    //                 </View>
 
-                                                </View>
-                                            )
-                                        }
+                                    //             </View>
+                                    //         )
+                                    //     }
 
-                                        return (
-                                            <View key={index} style={{ ...styles.fieldRow }}>
-                                                <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
-                                                    <Entypo name="list" size={24} color="grey" />
-                                                    <View style={{ marginLeft: 5 }}>
-                                                        <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
-                                                        <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيارات</Text>
-                                                    </View>
-                                                </View>
-                                                <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#d1c5c5' }}>{value}</Text>
-                                            </View>
-                                        )
-                                    })
+                                    //     return (
+                                    //         <View key={index} style={{ ...styles.fieldRow }}>
+                                    //             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
+                                    //                 <Entypo name="list" size={24} color="grey" />
+                                    //                 <View style={{ marginLeft: 5 }}>
+                                    //                     <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                                    //                     <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيارات</Text>
+                                    //                 </View>
+                                    //             </View>
+                                    //             <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 5, backgroundColor: '#d1c5c5' }}>{value}</Text>
+                                    //         </View>
+                                    //     )
+                                    // })
                                 }
                             </View>
 

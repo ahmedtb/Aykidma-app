@@ -114,10 +114,10 @@ export const fetchUserOrders = async () => {
     return orders
 }
 
-export const submitOrder = async (fields, service_id) => {
+export const submitOrder = async (array_of_fields, service_id) => {
 
     const bodyParameters = {
-        fields: fields, service_id: service_id
+        array_of_fields: array_of_fields, service_id: service_id
     };
 
     const response = (await axios.post('/api/orders', bodyParameters)).data

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native'
 import { tryLoginUserFromStore } from '../../redux/AuthFunctions'
-
+import { loginProcedure } from '../../redux/AuthFunctions'
 
 export default function LoginModal(props) {
     const [loginVisible, setLoginVisible] = props.visibility
