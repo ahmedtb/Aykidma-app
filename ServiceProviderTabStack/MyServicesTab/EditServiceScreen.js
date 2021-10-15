@@ -16,32 +16,48 @@ import ImagePickerComponent from './components/ImagePickerComponent'
 import CategoryComponent from './components/CategoryComponent'
 import StatusBar from '../components/StatusBar'
 import { editService, logError } from '../../utilityFunctions/apiCalls'
+import ArrayOfFieldsEditor from '../../FieldsTypes/ArrayOfFieldsEditor'
+import ArrayOfFieldsCreator from '../../FieldsTypes/ArrayOfFieldsCreator'
+import { ArrayOfFieldsClass } from '../../FieldsTypes/ArrayOfFieldsCreator'
+import ArrayOfFieldsRender from '../../FieldsTypes/ArrayOfFieldsRender'
 
 export default function EditServiceScreen(props) {
-    // const { logError } = React.useContext(AuthContext)
 
     const service = props.route.params.service
+    const array_of_fields = service.array_of_fields
     const [title, setTitle] = React.useState(service.title)
     const [description, setDescription] = React.useState(service.description)
-    let editedFields = [...service.fields]
+    const [EditedArrayOfFields, setEditedArrayOfFields] = React.useState(array_of_fields)
+    const [NewArrayOfFields, setNewArrayOfFields] = React.useState({ class: ArrayOfFieldsClass, fields: [] })
+
     const [category_id, selectCategory] = React.useState(service.category_id)
     const [image, setImage] = React.useState(service.image)
 
-    function onChange(data) {
-        editedFields = (data)
-    }
     function addNewField(fieldConfig) {
-        editedFields = [...editedFields, fieldConfig]
+        setNewArrayOfFields(pre => {
+            return { class: ArrayOfFieldsClass, fields: [...pre.fields, fieldConfig] }
+        })
     }
 
     function submit() {
-        editService(service.id, title, description, editedFields, category_id, image, service.meta_data)
+        let mergefields = {
+            class: ArrayOfFieldsClass,
+            fields: EditedArrayOfFields.fields.concat(NewArrayOfFields.fields)
+
+        }
+        console.log('EditServiceScreen submit', mergefields)
+
+        editService(service.id, title, description, mergefields, category_id, image, service.meta_data)
             .then(data => {
-                // console.log('editService submit', data)
+                console.log('editService submit', data)
                 props.navigation.navigate('ServicesScreen', { refresh: Math.random() })
             })
             .catch(error => logError(error))
     }
+
+    React.useEffect(() => {
+        console.log('EditServiceScreen useEffect', EditedArrayOfFields)
+    }, [EditedArrayOfFields])
 
     return (
         <View>
@@ -108,7 +124,8 @@ export default function EditServiceScreen(props) {
                         <AntDesign name="form" size={24} color="black" />
                         <Text style={style.cardTitleText}>نموذج الخدمة </Text>
                     </View>
-                    <FieldsEditorComponent fields={editedFields} onChange={onChange} />
+                    <ArrayOfFieldsEditor array_of_fields={array_of_fields} setEditedArrayOfFields={setEditedArrayOfFields} />
+                    {/* <FieldsEditorComponent fields={editedFields} onChange={onChange} /> */}
                 </View>
 
                 <View style={style.card}>
@@ -116,7 +133,9 @@ export default function EditServiceScreen(props) {
                         <AntDesign name="form" size={24} color="black" />
                         <Text style={{ ...style.cardTitleText }}>اضافة حقول جديدة</Text>
                     </View>
-                    <CreateNewFieldComponent addNewField={addNewField} />
+                    <ArrayOfFieldsRender array_of_fields={NewArrayOfFields} />
+                    <ArrayOfFieldsCreator addField={addNewField} />
+                    {/* <CreateNewFieldComponent addNewField={addNewField} /> */}
                 </View>
 
                 <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: 'red', width: '50%', alignSelf: 'center', justifyContent: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>

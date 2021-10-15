@@ -94,7 +94,7 @@ export function LocationFieldCreator(props) {
 
 export function LocationFieldEditor(props) {
 
-    return <View key={fieldIndex} >
+    return <View >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>حقل تحديد الموقع</Text>
             <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />

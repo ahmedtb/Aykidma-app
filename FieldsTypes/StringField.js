@@ -58,14 +58,7 @@ export function StringFieldFormView(props) {
     </View>
 }
 
-function RemoveFieldButton(props) {
-    const deleteField = props.deleteField
-    return (
-        <TouchableOpacity onPress={() => deleteField()}>
-            <AntDesign name="closecircleo" size={24} color="black" />
-        </TouchableOpacity>
-    )
-}
+
 
 export function StringFieldCreator(props) {
     const set = props.set
@@ -84,30 +77,34 @@ export function StringFieldCreator(props) {
 }
 
 export function StringFieldEditor(props) {
-    const fieldIndex = props.fieldIndex
     const field = props.field
-    const deleteField = props.deleteField
-    const changeLabel = props.changeLabel
-    const change = props.change
+    const dispatch = props.dispatch
+    const [label, setlabel] = React.useState(field.label)
+    const [value, setvalue] = React.useState(field.value)
 
     return (
-        <View key={fieldIndex} style={{ marginVertical: 15 }}>
+        <View style={{ marginVertical: 15 }}>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text>حقل نصي</Text>
-                <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
             </View>
 
             <TextInput style={{ fontSize: 12, borderWidth: 1, borderColor: '#dec9c8', borderRadius: 10 }}
                 onChangeText={(text) => {
-                    changeLabel(text, fieldIndex)
+                    setlabel(text)
+                    dispatch({
+                        class: StringFieldClass, label: text, value: value
+                    })
                 }}
                 value={field.label}
             />
             <TextInput
                 style={{ borderWidth: 1, borderColor: '#dec9c8', borderRadius: 10, marginVertical: 5 }}
                 onChangeText={(text) => {
-                    change(text, fieldIndex)
+                    setvalue(text)
+                    dispatch({
+                        class: StringFieldClass, label: label, value: value
+                    })
                 }}
                 value={field.value}
             />
