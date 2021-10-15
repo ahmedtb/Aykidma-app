@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { MaterialIcons, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-import ModalWrapper from '../components/ModalWrapper';
+import ModalWrapper from '../../components/ModalWrapper';
 
 
 function MoreTab(props) {

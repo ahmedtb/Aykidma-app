@@ -22,8 +22,8 @@ import StatusBar from '../components/StatusBar'
 
 import AuthenticationStack from '../components/AuthenticationStack'
 import { fetchUserOrders, logError } from '../../utilityFunctions/apiCalls'
-import LoadingIndicator from '../components/loadingIndicator'
-import RefreshScrollView from '../components/RefreshScrollView'
+import LoadingIndicator from '../../components/loadingIndicator'
+import RefreshScrollView from '../../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 function filterOrders(orders, status) {

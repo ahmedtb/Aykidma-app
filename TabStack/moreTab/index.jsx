@@ -6,7 +6,7 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import ModalScreen from '../components/ModalScreen';
+import ModalScreen from '../../components/ModalScreen';
 
 
 import { MaterialIcons, Ionicons, Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';

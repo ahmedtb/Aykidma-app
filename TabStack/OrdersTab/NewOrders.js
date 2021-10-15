@@ -19,7 +19,6 @@ import moment from 'moment';
 
 
 import NewOrderFormModal from './components/NewOrderFormModal'
-import ModalWrapper from '../components/ModalWrapper';
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);

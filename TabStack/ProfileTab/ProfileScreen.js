@@ -10,7 +10,7 @@ import {
 
 import StatusBar from '../components/StatusBar'
 import { getUserImage, logError, getUser, } from '../../utilityFunctions/apiCalls'
-import RefreshScrollView from '../components/RefreshScrollView'
+import RefreshScrollView from '../../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 import { logoutProcedure } from '../../redux/AuthFunctions'
 

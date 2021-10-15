@@ -13,11 +13,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-// const categories = [
-//     'category1', 'category2', 'category3'
-// ]
-
-import { getAvailableCategories } from '../../../utilityFunctions/apiCalls'
+import { getAvailableCategories } from '../utilityFunctions/apiCalls'
 
 function CategoryComponent(props) {
     const category_id = props.category_id
@@ -66,7 +62,7 @@ function CategoryComponent(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser, setToken, setCategories } from '../../../redux/StateActions';
+import { setUser, setToken, setCategories } from '../redux/StateActions';
 const mapStateToProps = ({ state }) => {
     return { state }
 };

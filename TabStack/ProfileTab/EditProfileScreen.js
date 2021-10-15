@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import ImagePicker from './components/ImagePicker'
-import NavigationBar from '../components/NavigationBar'
+import NavigationBar from '../../components/NavigationBar'
 import { editUserProfile, logError } from '../../utilityFunctions/apiCalls'
 import { fetchUser } from '../../redux/AuthFunctions'
 function EditProfileScreen(props) {

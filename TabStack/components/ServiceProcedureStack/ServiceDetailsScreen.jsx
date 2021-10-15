@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ScrollView, useWindowDimensions, View, TouchableOpacity, Text } from "react-native";
 import HTML from "react-native-render-html";
-import NavigationBar from '../../components/NavigationBar'
+import NavigationBar from '../../../components/NavigationBar'
 
 
 export default function ServiceDetailsScreen({ navigation, route }) {

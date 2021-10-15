@@ -10,7 +10,7 @@ import {
 
 
 import ImagePickerComponent from '../../components/ImagePickerComponent'
-import CategoryComponent from './components/CategoryComponent'
+import CategoryComponent from '../../components/CategoryComponent'
 import { createService, logError } from '../../utilityFunctions/apiCalls'
 import ArrayOfFieldsCreator from '../../FieldsTypes/ArrayOfFieldsCreator';
 import { ArrayOfFieldsClass } from '../../FieldsTypes/ArrayOfFieldsCreator'

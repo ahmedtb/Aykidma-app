@@ -15,7 +15,7 @@ import {
 import { useNavigation } from '@react-navigation/core';
 
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import LoadingIndicator from '../../components/loadingIndicator'
+import LoadingIndicator from '../../../components/loadingIndicator'
 import { searchThroughServices } from '../../../utilityFunctions/apiCalls'
 
 const RenderServiceCard = (props) => {

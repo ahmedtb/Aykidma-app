@@ -13,10 +13,10 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import LoadingIndicator from '../../components/loadingIndicator'
+import LoadingIndicator from '../../../components/loadingIndicator'
 
 
-import RefreshScrollView from '../../components/RefreshScrollView'
+import RefreshScrollView from '../../../components/RefreshScrollView'
 import { fetchServices,logError } from '../../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../../utilityFunctions/useIsMountedRef'
 

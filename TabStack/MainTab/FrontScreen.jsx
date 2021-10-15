@@ -11,7 +11,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import RefreshScrollView from '../components/RefreshScrollView'
+import RefreshScrollView from '../../components/RefreshScrollView'
 import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 

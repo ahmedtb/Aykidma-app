@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import StatusBar from '../components/StatusBar'
-import RefreshScrollView from '../components/RefreshScrollView'
+import RefreshScrollView from '../../components/RefreshScrollView'
 import {getProviderImage, logError} from '../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 import {fetchProvider, logoutProcedure} from '../../redux/AuthFunctions'

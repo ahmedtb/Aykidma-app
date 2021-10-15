@@ -10,12 +10,13 @@ import { ImageFieldClass, ImageFieldEditor } from './ImageField'
 import { LocationFieldClass, LocationFieldEditor } from './LocationField'
 import { OptionsFieldClass, OptionsFieldEditor } from './OptionsField'
 import { ArrayOfFieldsClass } from './ArrayOfFieldsCreator'
+import ArrayOfFieldsCreator from './ArrayOfFieldsCreator'
 
 const reducer = (array_of_fields, action) => {
 
     switch (action.actionType) {
         case 'change field':
-            const fields = array_of_fields.fields.map((field, index) => {
+            let fields1 = array_of_fields.fields.map((field, index) => {
                 if (index == action.index)
                     return action.field;
                 return field;
@@ -26,6 +27,9 @@ const reducer = (array_of_fields, action) => {
                 return index != action.index;
             });
             return { class: ArrayOfFieldsClass, fields: filtered }
+        case 'add field':
+            let increased = [...array_of_fields.fields, action.newField]
+            return { class: ArrayOfFieldsClass, fields: increased }
     }
     return array_of_fields;
 }
@@ -50,6 +54,10 @@ export default function ArrayOfFieldsEditor(props) {
                 <AntDesign name="closecircleo" size={24} color="black" />
             </TouchableOpacity>
         )
+    }
+    
+    function addNewField(fieldConfig) {
+        dispatch({ actionType: 'add field', newField: fieldConfig })
     }
 
     return (
@@ -92,6 +100,8 @@ export default function ArrayOfFieldsEditor(props) {
                         }
                     })
                 }
+                <ArrayOfFieldsCreator addField={addNewField} />
+
             </ScrollView>
         </View>
     )

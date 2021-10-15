@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 
 import StatusBar from '../components/StatusBar';
-import LoadingIndicator from '../components/loadingIndicator'
+import LoadingIndicator from '../../components/loadingIndicator'
 import { fetchMyServices } from '../../utilityFunctions/apiCalls'
 import { Feather } from '@expo/vector-icons';
-import RefreshScrollView from '../components/RefreshScrollView'
+import RefreshScrollView from '../../components/RefreshScrollView'
 import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
 
 const RenderServiceCard = (props) => {

@@ -11,11 +11,11 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import LoadingIndicator from '../../../loadingIndicator'
+import LoadingIndicator from '../../../../../components/loadingIndicator'
 import {
     submitOrder
 } from '../../../../../utilityFunctions/apiCalls'
-import ModalWrapper from '../../../ModalWrapper'
+import ModalWrapper from '../../../../../components/ModalWrapper'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { logError } from '../../../../../redux/AuthFunctions'
 import ArrayOfFieldsFormView from '../../../../../FieldsTypes/ArrayOfFieldsFormView'

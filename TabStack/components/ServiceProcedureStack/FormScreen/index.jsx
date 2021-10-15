@@ -31,7 +31,7 @@ function initialFieldsOfService(service) {
 
 import FormModal from './components/FormModal'
 import LoginModal from '../../LoginModal'
-import NavigationBar from '../../NavigationBar'
+import NavigationBar from '../../../../components/NavigationBar'
 
 import ArrayOfFieldsInputs from '../../../../FieldsTypes/ArrayOfFieldsInputs';
 

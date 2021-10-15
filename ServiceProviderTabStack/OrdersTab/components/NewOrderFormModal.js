@@ -14,7 +14,7 @@ import LocationModal from './LocationModal'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 import { resumeNewOrder } from '../../../utilityFunctions/apiCalls'
-import ModalWrapper from '../../components/ModalWrapper'
+import ModalWrapper from '../../../components/ModalWrapper'
 import { logError } from '../../../redux/AuthFunctions'
 
 function NewOrderFormModal(props) {

@@ -11,8 +11,8 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import LoadingIndicator from '../components/loadingIndicator'
-import NavigationBar from '../components/NavigationBar'
+import LoadingIndicator from '../../components/loadingIndicator'
+import NavigationBar from '../../components/NavigationBar'
 
 import { fetchServicesByCategory } from '../../utilityFunctions/apiCalls'
 import logError from '../../utilityFunctions/logError'

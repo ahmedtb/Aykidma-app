@@ -11,7 +11,7 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment'
-import ModalWrapper from '../ModalWrapper'
+import ModalWrapper from '../../../components/ModalWrapper'
 
 function useForceUpdate() {
     const [value, setValue] = useState(0); // integer state
