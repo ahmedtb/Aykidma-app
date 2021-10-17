@@ -32,11 +32,11 @@ export function ImageFieldInput(props) {
 export function ImageFieldRender(props) {
     const field = props.field
 
-    return <View style={{ marginVertical: 5 }}>
+    return <View style={{ marginVertical: 10, alignItems: 'center', justifyContent: 'center', borderWidth: 1 }}>
         <View style={{ margin: 8 }}>
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>{field.label}</Text>
         </View>
-        <Image source={require('../resources/MapIcon.png')} style={{ width: 100, height: 100, alignSelf: 'center', }} />
+        <AntDesign name="camerao" size={75} color="black" />
     </View>
 }
 
@@ -70,7 +70,7 @@ export function ImageFieldFormView(props) {
 export function ImageFieldCreator(props) {
     const set = props.set
 
-    return <View style={{ marginVertical: 10 }}>
+    return <View style={{ marginVertical: 10, alignItems: 'center', justifyContent: 'center', borderWidth: 1 }}>
         <Text>اكتب النص الذي يصف حقل تحديد الموقع للزبون</Text>
         <TextInput
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
@@ -82,8 +82,7 @@ export function ImageFieldCreator(props) {
                 })
             }}
         />
-        <Image source={require('../resources/MapIcon.png')} style={{ width: 100, height: 100 }} />
-
+        <AntDesign name="camerao" size={75} color="black" />
     </View>
 }
 

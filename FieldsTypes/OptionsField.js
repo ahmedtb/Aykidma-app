@@ -4,11 +4,12 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Pressable
 } from 'react-native'
 
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import ListOptions from '../components/ListOptions'
-
+import ModalWrapper from '../components/ModalWrapper'
 export const OptionsFieldClass = 'App\\FieldsTypes\\OptionsField'
 
 export function OptionsFieldInput(props) {
@@ -29,10 +30,10 @@ export function OptionsFieldInput(props) {
 }
 
 export function OptionsFieldRender(props) {
-
+    const field = props.field
     return <View style={{ marginVertical: 5 }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
-        {field.titles.map((title, index) => (
+        {field.options.map((title, index) => (
             <Text key={index} style={{ fontSize: 15, textAlign: 'center' }}>
                 {title}
             </Text>
@@ -60,32 +61,25 @@ export function OptionsFieldFormView(props) {
     </View>
 }
 
-function RemoveFieldButton(props) {
-    const deleteField = props.deleteField
-    return (
-        <TouchableOpacity onPress={() => deleteField()}>
-            <AntDesign name="closecircleo" size={24} color="black" />
-        </TouchableOpacity>
-    )
-}
 
 export function OptionsFieldCreator(props) {
     const set = props.set
     const [label, setLabel] = React.useState(null)
     const [title, setTitle] = React.useState(null)
-    const [titles, setTitles] = React.useState([])
+    const [options, setoptions] = React.useState([])
 
     function addTitle(title) {
         if (!title)
             return
         set({
-            label: label, type: 'options', titles: [...titles, title], value: null
+            label: label, class: OptionsFieldClass, options: [...options, title], value: null
         })
-        setTitles([...titles, title])
+        setoptions([...options, title])
+        setTitle(null)
     }
     function addLabel(label) {
         set({
-            label: label, type: 'options', titles: titles, value: null
+            label: label, class: OptionsFieldClass, options: options, value: null
         })
         setLabel(label)
     }
@@ -101,7 +95,7 @@ export function OptionsFieldCreator(props) {
             />
 
             {
-                titles?.map((addedTitle, index) => (
+                options?.map((addedTitle, index) => (
                     <View key={index} >
                         <Text>{addedTitle}</Text>
                     </View>
@@ -109,6 +103,7 @@ export function OptionsFieldCreator(props) {
             }
 
             <TextInput style={{ fontSize: 12, borderWidth: 1 }}
+                value={title}
                 onChangeText={setTitle}
             />
             <TouchableOpacity onPress={() => {
@@ -120,21 +115,75 @@ export function OptionsFieldCreator(props) {
     )
 }
 
+
+
 export function OptionsFieldEditor(props) {
+    const field = props.field
+    const dispatch = props.dispatch
+    const [options, setoptions] = React.useState(field.options)
+    const [label, setlabel] = React.useState(field.label)
+
+    const [visible, setVisible] = React.useState(false)
+
+    function onTitleChange(title, index) {
+        let changedArray = [...options]
+        changedArray[index] = title
+        setoptions(changedArray)
+        dispatch({
+            label: label, class: OptionsFieldClass, options: options, value: null
+        })
+    }
+
 
     return <View style={{ marginVertical: 15 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>حقل اختياري</Text>
-            <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
         </View>
         <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
             onChangeText={(text) => {
-                changeLabel(text, fieldIndex)
+                setlabel(text)
+                dispatch({
+                    label: text, class: OptionsFieldClass, options: options, value: null
+                })
             }}
             value={field.label}
         />
-        <OptionsTitlesEditor titles={field.titles} onChange={
-            (value) => changeTitles(value, fieldIndex)
-        } />
+        <View >
+            <View style={{ padding: 5 }}>
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                    <View style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5, textAlign: 'center', padding: 7, fontSize: 18 }}>
+                        {field.options.map((title, index) => (
+                            <Text key={index}>{title}</Text>
+                        ))}
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <ModalWrapper visible={visible}>
+
+                <View>
+                    {options.map((title, index) => (
+                        <TextInput key={index} style={{ fontSize: 12, borderWidth: 1 }}
+                            onChangeText={(text) => {
+                                onTitleChange(text, index)
+                            }}
+                            value={title}
+                        />
+                    ))}
+                </View>
+
+
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+
+                    <Pressable
+                        onPress={() => setVisible(!visible)}
+                    >
+                        <Text >اغلاق</Text>
+                    </Pressable>
+
+                </View>
+
+            </ModalWrapper>
+        </View >
     </View>
 }

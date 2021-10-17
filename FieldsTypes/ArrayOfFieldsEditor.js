@@ -21,7 +21,7 @@ const reducer = (array_of_fields, action) => {
                     return action.field;
                 return field;
             })
-            return { class: ArrayOfFieldsClass, fields: fields }
+            return { class: ArrayOfFieldsClass, fields: fields1 }
         case 'remove field':
             let filtered = array_of_fields.fields.filter((value, index) => {
                 return index != action.index;
@@ -46,15 +46,6 @@ export default function ArrayOfFieldsEditor(props) {
         setEditedArrayOfFields(array_of_fields)
     }, [array_of_fields])
 
-
-    function RemoveFieldButton(props) {
-        const index = props.index
-        return (
-            <TouchableOpacity onPress={() => dispatch({ actionType: 'remove field', index: index })}>
-                <AntDesign name="closecircleo" size={24} color="black" />
-            </TouchableOpacity>
-        )
-    }
     
     function addNewField(fieldConfig) {
         dispatch({ actionType: 'add field', newField: fieldConfig })

@@ -18,7 +18,8 @@ import {
 import NewOrders from './NewOrders'
 import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
-import { fetchServiceProviderOrders, logError } from '../../utilityFunctions/apiCalls'
+import { fetchServiceProviderOrders } from '../../utilityFunctions/apiCalls'
+import { logError } from '../../redux/AuthFunctions';
 import AuthenticationStack from '../components/AuthenticationStack'
 import LoadingIndicator from '../../components/loadingIndicator'
 import RefreshScrollView from '../../components/RefreshScrollView'
@@ -45,7 +46,8 @@ function OrdersDisplay(props) {
     const [doneOrders, setDoneOrders] = useState([])
 
     async function setupServiceProviderOrders() {
-        setIsLoading(true)
+        if (isMountedRef.current)
+            setIsLoading(true)
         try {
             const orders = await fetchServiceProviderOrders()
             if (isMountedRef.current) {
@@ -56,7 +58,8 @@ function OrdersDisplay(props) {
         } catch (error) {
             logError(error)
         }
-        setIsLoading(false)
+        if (isMountedRef.current)
+            setIsLoading(false)
     }
 
     useEffect(() => {
@@ -66,10 +69,10 @@ function OrdersDisplay(props) {
     return (
 
         <View
-            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20,}}
+            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, }}
         >
 
-            <StatusBar title="طلباتي"/>
+            <StatusBar title="طلباتي" />
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
                 <TouchableOpacity onPress={() => { setViewOrders(1) }} ><Text style={{ backgroundColor: (viewOrders == 1) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات جديد {newOrders?.length}</Text></TouchableOpacity>
@@ -79,13 +82,13 @@ function OrdersDisplay(props) {
 
             <RefreshScrollView refreshFunction={setupServiceProviderOrders} style={{ flex: 1 }}>
                 <View style={{ height: (viewOrders == 1) ? null : 0 }}>
-                    <NewOrders newOrders={newOrders} refreshFunction={setupServiceProviderOrders}/>
+                    <NewOrders newOrders={newOrders} refreshFunction={setupServiceProviderOrders} />
                 </View>
                 <View style={{ height: (viewOrders == 2) ? null : 0 }}>
-                    <ResumedOrders resumedOrders={resumedOrders}  refreshFunction={setupServiceProviderOrders}/>
+                    <ResumedOrders resumedOrders={resumedOrders} refreshFunction={setupServiceProviderOrders} />
                 </View>
                 <View style={{ height: (viewOrders == 3) ? null : 0 }}>
-                    <DoneOrders doneOrders={doneOrders}  refreshFunction={setupServiceProviderOrders}/>
+                    <DoneOrders doneOrders={doneOrders} refreshFunction={setupServiceProviderOrders} />
                 </View>
             </RefreshScrollView>
 
@@ -98,7 +101,7 @@ function OrdersDisplay(props) {
 
 function OrdersTab(props, { navigation }) {
     // const { providerAuth } = useContext(AuthContext)
-    if (props.state.provider?.activated )
+    if (props.state.provider?.activated)
         return (
             <OrdersDisplay navigation={navigation} />
         )
@@ -111,7 +114,7 @@ function OrdersTab(props, { navigation }) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

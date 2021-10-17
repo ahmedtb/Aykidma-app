@@ -28,11 +28,11 @@ export default function EditServiceScreen(props) {
     const [image, setImage] = React.useState(service.image)
 
     function submit() {
-        console.log('EditServiceScreen submit', mergefields)
+        // console.log('EditServiceScreen submit', mergefields)
 
         editService(service.id, title, description, EditedArrayOfFields, category_id, image, service.meta_data)
             .then(data => {
-                console.log('editService submit', data)
+                // console.log('editService submit', data)
                 props.navigation.navigate('ServicesScreen', { refresh: Math.random() })
             })
             .catch(error => logError(error))

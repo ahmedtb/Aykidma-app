@@ -95,7 +95,7 @@ export function StringFieldEditor(props) {
                         class: StringFieldClass, label: text, value: value
                     })
                 }}
-                value={field.label}
+                value={label}
             />
             <TextInput
                 style={{ borderWidth: 1, borderColor: '#dec9c8', borderRadius: 10, marginVertical: 5 }}
@@ -105,7 +105,7 @@ export function StringFieldEditor(props) {
                         class: StringFieldClass, label: label, value: value
                     })
                 }}
-                value={field.value}
+                value={value}
             />
         </View>
     )

@@ -4,6 +4,7 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Image
 } from 'react-native'
 
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons';
@@ -93,7 +94,7 @@ export function LocationFieldEditor(props) {
 
     const field = props.field
     const dispatch = props.dispatch
-    // const [label, setlabel] = React.useState(field.label)
+    const [label, setlabel] = React.useState(field.label)
     // const [value, setvalue] = React.useState(field.value)
 
     return <View >
@@ -110,7 +111,7 @@ export function LocationFieldEditor(props) {
                         class: LocationFieldClass, label: text, value: field.value
                     })
                 }}
-                value={field.label}
+                value={label}
                 multiline={true}
             />
         </View>
