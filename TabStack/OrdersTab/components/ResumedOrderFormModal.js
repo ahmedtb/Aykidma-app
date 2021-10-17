@@ -14,7 +14,7 @@ import { AntDesign } from '@expo/vector-icons';
 import moment from 'moment';
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 
-import LocationModal from './LocationModal'
+import LocationModal from '../../../components/LocationModal'
 
 import { doneResumedOrder, logError } from '../../../utilityFunctions/apiCalls'
 import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'

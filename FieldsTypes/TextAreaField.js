@@ -13,6 +13,8 @@ export const TextAreaFieldClass = 'App\\FieldsTypes\\TextAreaField'
 
 export function TextAreaFieldInput(props) {
 
+    const field = props.field
+    const dispatch = props.dispatch
     return <View >
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{field.label}</Text>
         {(field.subLabel) ? (<Text style={{ fontSize: 12 }}>{field.subLabel}</Text>) : (null)}
@@ -41,6 +43,7 @@ export function TextAreaFieldRender(props) {
 }
 
 export function TextAreaFieldFormView(props) {
+    const field = props.field
 
     return <View style={{
         marginHorizontal: 8,
@@ -52,21 +55,12 @@ export function TextAreaFieldFormView(props) {
         <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
             <Entypo name="list" size={24} color="grey" />
             <View style={{ marginLeft: 5, flex: 1, }}>
-                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{field.label}</Text>
                 <Text style={{ color: 'grey', fontSize: 10, }}>حقل منطفة نصية</Text>
             </View>
         </View>
-        <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 15, backgroundColor: '#f5f0f0' }}>{value}</Text>
+        <Text style={{ color: 'black', fontSize: 20, flex: 1, textAlign: 'center', padding: 15, backgroundColor: '#f5f0f0' }}>{field.value}</Text>
     </View>
-}
-
-function RemoveFieldButton(props) {
-    const deleteField = props.deleteField
-    return (
-        <TouchableOpacity onPress={() => deleteField()}>
-            <AntDesign name="closecircleo" size={24} color="black" />
-        </TouchableOpacity>
-    )
 }
 
 export function TextAreaFieldCreator(props) {
@@ -86,21 +80,33 @@ export function TextAreaFieldCreator(props) {
 
 export function TextAreaFieldEditor(props) {
 
+    const field = props.field
+    const dispatch = props.dispatch
+    const [label, setlabel] = React.useState(field.label)
+    const [subLabel, setsubLabel] = React.useState(field.subLabel)
+
+    const [value, setvalue] = React.useState(field.value)
+
     return <View style={{ marginVertical: 15 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>حقل مساحة نصية</Text>
-            <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
         </View>
         <TextInput style={{ fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
             onChangeText={(text) => {
-                changeLabel(text, fieldIndex)
+                setlabel(text)
+                dispatch({
+                    class: TextAreaFieldClass, label: text, setsubLabel: subLabel, value: value
+                })
             }}
             value={field.label}
         />
         {(field.subLabel) ? (
             <TextInput style={{ fontSize: 12, borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                 onChangeText={(text) => {
-                    changeSubLabel(text, fieldIndex)
+                    setsubLabel(text)
+                    dispatch({
+                        class: TextAreaFieldClass, label: label, setsubLabel: text, value: value
+                    })
                 }}
                 value={field.subLabel}
             />

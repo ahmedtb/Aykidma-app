@@ -10,7 +10,6 @@ import {
     TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
-import LocationModal from './LocationModal'
 import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'
 
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';

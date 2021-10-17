@@ -10,7 +10,6 @@ import { AntDesign, Entypo } from '@expo/vector-icons'
 export const StringFieldClass = 'App\\FieldsTypes\\StringField'
 
 export function StringFieldInput(props) {
-    const fieldIndex = props.fieldIndex
     const field = props.field
     const dispatch = props.dispatch
 

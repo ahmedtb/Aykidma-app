@@ -10,7 +10,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
-import LocationModal from './LocationModal'
+import LocationModal from '../../../components/LocationModal'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { providerDeleteOrder } from '../../../utilityFunctions/apiCalls';
 import logError from '../../../utilityFunctions/logError';

@@ -7,13 +7,15 @@ import {
 } from 'react-native'
 
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons';
-
-
+import LocationPicker from '../components/LocationPicker'
+import LocationModal from '../components/LocationModal'
 export const LocationFieldClass = 'App\\FieldsTypes\\LocationField'
 
 export function LocationFieldInput(props) {
+    const field = props.field
+    const dispatch = props.dispatch
 
-    return <View key={fieldIndex} >
+    return <View >
         <View style={{}}>
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold', }}>{field.label}</Text>
         </View>
@@ -24,8 +26,9 @@ export function LocationFieldInput(props) {
     </View>
 }
 export function LocationFieldRender(props) {
+    const field = props.field
 
-    return <View key={fieldIndex} style={{ marginVertical: 5 }}>
+    return <View style={{ marginVertical: 5 }}>
         <View style={{ margin: 8 }}>
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>{field.label}</Text>
         </View>
@@ -34,6 +37,8 @@ export function LocationFieldRender(props) {
 }
 
 export function LocationFieldFormView(props) {
+    const [locationModalVisibility, setLocationModalVisibility] = React.useState(false)
+    const field = props.field
 
     const value = field.value.latitude + ", " + field.value.longitude;
     return (
@@ -47,7 +52,7 @@ export function LocationFieldFormView(props) {
             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, }}>
                 <Entypo name="image" size={24} color="grey" />
                 <View style={{ marginLeft: 5 }}>
-                    <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{label}</Text>
+                    <Text style={{ color: 'black', fontSize: 17, flex: 1, fontWeight: 'bold' }}>{field.label}</Text>
                     <Text style={{ color: 'grey', fontSize: 10, }}>حقل اختيار صورة</Text>
                 </View>
             </View>
@@ -62,14 +67,6 @@ export function LocationFieldFormView(props) {
     )
 }
 
-function RemoveFieldButton(props) {
-    const deleteField = props.deleteField
-    return (
-        <TouchableOpacity onPress={() => deleteField()}>
-            <AntDesign name="closecircleo" size={24} color="black" />
-        </TouchableOpacity>
-    )
-}
 
 export function LocationFieldCreator(props) {
     const set = props.set
@@ -79,7 +76,7 @@ export function LocationFieldCreator(props) {
             style={{ borderWidth: 1, borderRadius: 10, marginVertical: 5 }}
             onChangeText={(text) => {
                 set({
-                    label: text, type: 'location',
+                    label: text, class: LocationFieldClass,
                     value: {
                         latitude: null,
                         longitude: null
@@ -94,17 +91,24 @@ export function LocationFieldCreator(props) {
 
 export function LocationFieldEditor(props) {
 
+    const field = props.field
+    const dispatch = props.dispatch
+    // const [label, setlabel] = React.useState(field.label)
+    // const [value, setvalue] = React.useState(field.value)
+
     return <View >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>حقل تحديد الموقع</Text>
-            <RemoveFieldButton deleteField={() => deleteField(fieldIndex)} />
         </View>
 
         <View style={{ margin: 8 }}>
 
             <TextInput style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', borderWidth: 1, borderColor: '#dec9c8', borderRadius: 7 }}
                 onChangeText={(text) => {
-                    changeLabel(text, fieldIndex)
+                    setlabel(text)
+                    dispatch({
+                        class: LocationFieldClass, label: text, value: field.value
+                    })
                 }}
                 value={field.label}
                 multiline={true}
