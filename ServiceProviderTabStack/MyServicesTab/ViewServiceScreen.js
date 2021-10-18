@@ -10,7 +10,7 @@ import {
 import ArrayOfFieldsRender from '../../FieldsTypes/ArrayOfFieldsRender'
 import StatusBar from '../components/StatusBar'
 import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
-import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import useIsMountedRef from '../../components/useIsMountedRef'
 import { MaterialIcons, AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
 
 function isValidURL(string) {

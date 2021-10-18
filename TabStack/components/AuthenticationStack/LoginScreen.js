@@ -37,6 +37,7 @@ function LoginModal(props) {
                     value={phoneNumber}
                     keyboardType='phone-pad'
                     onChangeText={setPhoneNumber}
+                    autoComplete="username"
                 />
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -45,6 +46,7 @@ function LoginModal(props) {
                     style={{ flex: 1 }}
                     value={password}
                     onChangeText={setPassword}
+                    autoComplete="password"
                 />
             </View>
 

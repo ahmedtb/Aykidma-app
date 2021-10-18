@@ -24,7 +24,7 @@ import AuthenticationStack from '../components/AuthenticationStack'
 import LoadingIndicator from '../../components/loadingIndicator'
 import RefreshScrollView from '../../components/RefreshScrollView'
 import StatusBar from '../components/StatusBar'
-import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import useIsMountedRef from '../../components/useIsMountedRef'
 
 function filterOrders(orders, status) {
     return orders.filter((order) => {

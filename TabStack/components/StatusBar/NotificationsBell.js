@@ -27,18 +27,21 @@ const NotificationsBell = (props) => {
         forceUpdate();
     }
     React.useEffect(() => {
-        
+
     }, [props.state.userNotification])
 
     return (
         <View style={props.style} >
-            <View style={{ borderWidth: 1, borderRadius: 20 }}>
+            <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'red' }}>
                 <TouchableOpacity onPress={() => bellTab()}>
-                    {(props.state.userNotification) ? <MaterialIcons style={{ padding: 15 }} name="notifications-on" size={24} color="black" /> : <AntDesign style={{ padding: 15 }} name="bells" size={24} color="black" />}
+                    {(props.state.userNotification) ?
+                        <MaterialIcons style={{ padding: 15 }} name="notifications-on" size={24} color="red" />
+                        :
+                        <AntDesign style={{ padding: 15 }} name="bells" size={24} color="red" />}
                 </TouchableOpacity>
             </View>
 
-            <ModalWrapper  style={{ marginHorizontal: 25, marginVertical:10, padding:3}} visible={visible}>
+            <ModalWrapper style={{ marginHorizontal: 25, marginVertical: 10, padding: 3 }} visible={visible}>
 
                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
                     <Pressable
@@ -71,7 +74,7 @@ const NotificationsBell = (props) => {
                             return (
                                 <View
                                     key={index}
-                                    style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderRadius:4, marginBottom:5 }}>
+                                    style={{ borderColor: 'grey', justifyContent: 'center', borderWidth: 0.5, borderRadius: 4, marginBottom: 5 }}>
                                     <Text style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: 15, }}>{notification.title}</Text>
                                     <Text style={{ color: 'black', fontSize: 15, }}>{notification.body}</Text>
                                     <Text style={{ color: 'black', fontSize: 15, }}>{moment(notification.created_at).fromNow()}</Text>
@@ -100,7 +103,7 @@ const NotificationsBell = (props) => {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserNotification } from '../../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

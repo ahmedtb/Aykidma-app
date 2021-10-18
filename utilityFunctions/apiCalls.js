@@ -159,14 +159,9 @@ export const editService = async (service_id, title, description, array_of_field
 }
 
 export const getAvailableCategories = async () => {
-    try {
-        const response = (await axios.get('api/category')).data
-        return response
-    } catch (error) {
-        console.log('getAvailableCategories error')
-        logError(error)
-        return []
-    }
+    const response = (await axios.get('api/category')).data
+    return response
+
 }
 
 export const fetchServicesByCategory = async (category_id) => {

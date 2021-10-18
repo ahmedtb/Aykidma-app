@@ -18,7 +18,7 @@ import LoadingIndicator from '../../../components/loadingIndicator'
 
 import RefreshScrollView from '../../../components/RefreshScrollView'
 import { fetchServices,logError } from '../../../utilityFunctions/apiCalls'
-import useIsMountedRef from '../../../utilityFunctions/useIsMountedRef'
+import useIsMountedRef from '../../../components/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
     const image = props.image;

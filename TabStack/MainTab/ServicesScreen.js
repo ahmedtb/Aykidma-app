@@ -16,7 +16,7 @@ import NavigationBar from '../../components/NavigationBar'
 
 import { fetchServicesByCategory } from '../../utilityFunctions/apiCalls'
 import logError from '../../utilityFunctions/logError'
-import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import useIsMountedRef from '../../components/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
     const image = props.image;

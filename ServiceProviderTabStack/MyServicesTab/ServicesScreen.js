@@ -12,7 +12,7 @@ import LoadingIndicator from '../../components/loadingIndicator'
 import { fetchMyServices } from '../../utilityFunctions/apiCalls'
 import { Feather } from '@expo/vector-icons';
 import RefreshScrollView from '../../components/RefreshScrollView'
-import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import useIsMountedRef from '../../components/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
     const image = props.image;

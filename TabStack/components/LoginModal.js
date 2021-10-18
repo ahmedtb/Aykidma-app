@@ -70,6 +70,7 @@ export default function LoginModal(props) {
                             style={{ flex: 1 }}
                             value={phoneNumber}
                             keyboardType='phone-pad'
+                            autoComplete="username"
                             onChangeText={setPhoneNumber}
                         />
                     </View>
@@ -78,6 +79,7 @@ export default function LoginModal(props) {
                         <TextInput
                             style={{ flex: 1 }}
                             value={password}
+                            autoComplete="password"
                             onChangeText={setPassword}
                         />
                     </View>

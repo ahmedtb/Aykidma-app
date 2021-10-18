@@ -11,7 +11,7 @@ import {
 import StatusBar from '../components/StatusBar'
 import { getUserImage, logError, getUser, } from '../../utilityFunctions/apiCalls'
 import RefreshScrollView from '../../components/RefreshScrollView'
-import useIsMountedRef from '../../utilityFunctions/useIsMountedRef'
+import useIsMountedRef from '../../components/useIsMountedRef'
 import { logoutProcedure } from '../../redux/AuthFunctions'
 
 function ProfileScreen(props) {
