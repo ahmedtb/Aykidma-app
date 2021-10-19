@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-    View, StyleSheet, StatusBar
+    View, StyleSheet
 } from 'react-native';
 
 import SearchComponent from './components/SearchComponent'
 import ServicesListComponent from './components/ServicesListComponent'
+import StatusBar from '../components/StatusBar'
 
 
 export default function ServicesScreen({ navigation }) {
@@ -20,6 +21,7 @@ export default function ServicesScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+            <StatusBar title="كل العروض" />
 
             <SearchComponent
                 focus={focus == 'search'}

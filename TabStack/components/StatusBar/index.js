@@ -25,12 +25,12 @@ function StatusBar(props) {
     return (
         <View style={{
             ...style,
-            marginTop: Constants.statusBarHeight,
-            flexDirection: 'row', justifyContent: 'space-between', borderBottomColor: 'red', borderBottomWidth: 0.5, margin: 10, padding: 5
+            marginTop: Constants.statusBarHeight + 5,
+            flexDirection: 'row', justifyContent: 'space-between', borderBottomColor: 'red', borderBottomWidth: 0.8, margin: 10, padding: 5
         }}>
             <View style={{ flexDirection: 'row' }}>
                 <MaterialIcons name="home-repair-service" size={40} color="red" />
-                <Text style={{ fontSize: 30, color: 'red', marginLeft: 3 }}>تطبيق خدمات</Text>
+                <Text style={{ fontSize: 30, color: 'red', marginLeft: 3 }}>{title ?? 'تطبيق خدمات'}</Text>
             </View>
             {props.state.user ?
                 <NotificationsBell /> : null}

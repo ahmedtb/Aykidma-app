@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {  MaterialIcons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import MyServicesTab from './MyServicesTab';
 import OrdersTab from './OrdersTab'
@@ -14,12 +14,27 @@ export default function ServiceProviderTabStack() {
 
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            tabBarOptions={{
+                activeTintColor: 'green',
+                inactiveTintColor: 'white',
+                style: {
+                    borderTopColor: '#66666666',
+                    borderTopWidth: 1,
+                    backgroundColor: 'red',
+                    elevation: 3,
+                    height: 70,
+                },
+                labelStyle: {
+                    fontSize: 20
+                }
+            }}
+        >
             <Tab.Screen name="MyServicesTab" component={MyServicesTab}
                 options={{
                     title: 'خدماتي',
                     tabBarIcon: ({ size, focused, color }) => {
-                        return (<MaterialIcons name="design-services" size={24} color="black" />);
+                        return (<MaterialIcons name="design-services" size={30} color={color} />);
                     },
                 }}
             />
@@ -28,7 +43,7 @@ export default function ServiceProviderTabStack() {
                 options={{
                     title: 'الطلبات',
                     tabBarIcon: ({ size, focused, color }) => {
-                        return (<AntDesign name="form" size={24} color="black" />);
+                        return (<AntDesign name="form" size={30} color={color} />);
                     },
                 }}
             />
@@ -37,7 +52,7 @@ export default function ServiceProviderTabStack() {
                 options={{
                     title: 'ملف مزود الخدمة',
                     tabBarIcon: ({ size, focused, color }) => {
-                        return (<MaterialCommunityIcons name="human-child" size={24} color="black" />);
+                        return (<MaterialCommunityIcons name="human-child" size={30} color={color} />);
 
                     },
                 }}
@@ -47,7 +62,7 @@ export default function ServiceProviderTabStack() {
                 options={{
                     title: 'المزيد',
                     tabBarIcon: ({ size, focused, color }) => {
-                        return (<MaterialIcons name="more-horiz" size={24} color="black" />);
+                        return (<MaterialIcons name="more-horiz" size={30} color={color} />);
                     },
                 }}
             />

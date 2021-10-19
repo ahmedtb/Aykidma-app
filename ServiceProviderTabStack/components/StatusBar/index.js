@@ -9,9 +9,10 @@ import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
 import { fetchProviderNotifications, logError } from '../../../utilityFunctions/apiCalls'
 import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome,MaterialIcons } from '@expo/vector-icons';
 
 function StatusBar(props) {
+    const style = props.style
     const title = props.title
     const backButton = props.backButton
     const navigation = useNavigation()
@@ -25,22 +26,21 @@ function StatusBar(props) {
 
     return (
         <View style={{
-            marginTop: Constants.statusBarHeight, borderWidth: 1, padding: 15, margin: 10,
-            borderRadius: 5,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
+            ...style,
+
+            marginTop: Constants.statusBarHeight,
+            flexDirection: 'row', justifyContent: 'space-between', borderBottomColor: 'red', borderBottomWidth: 0.8, margin: 10, padding: 5
+
         }}>
             {(backButton) ? <TouchableOpacity onPress={() => navigation.goBack()}>
-                <FontAwesome name="arrow-right" size={24} color="black" />
+                <FontAwesome name="arrow-right" size={24} color="red" />
             </TouchableOpacity> : null}
-            <Text style={{ fontSize: 15 }}>{props.state.provider?.name}</Text>
-            <Text style={{ fontSize: 15 }}>{title}</Text>
+            <View style={{ flexDirection: 'row' }}>
+                <MaterialIcons name="home-repair-service" size={40} color="red" />
+                <Text style={{ fontSize: 30, color: 'red', marginLeft: 3 }}>{title ?? 'تطبيق خدمات'}</Text>
+            </View>
 
-            <NotificationsBell
-                notifications={props.state.notifications}
-                notification={props.state.userNotification}
-            />
+            <NotificationsBell />
         </View>
     )
 }
@@ -48,7 +48,7 @@ function StatusBar(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setProviderNotifications } from '../../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

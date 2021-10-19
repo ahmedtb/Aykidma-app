@@ -22,13 +22,11 @@ import NotificationsBell from '../components/StatusBar/NotificationsBell';
 function FrontScreen(props) {
     const isMountedRef = useIsMountedRef();
 
-    const [categories, setCategories] = React.useState([])
-
     async function setupCategories() {
         try {
             const data = await getAvailableCategories()
             if (isMountedRef.current)
-                setCategories(data)
+                props.setCategories(data)
         } catch (error) {
             logError(error)
         }
@@ -36,6 +34,7 @@ function FrontScreen(props) {
 
     React.useEffect(() => {
         setupCategories()
+        // console.log(props.state)
     }, [])
 
     return (
@@ -53,9 +52,9 @@ function FrontScreen(props) {
                 <Text style={{ fontSize: 30, backgroundColor: 'white', opacity: 0.7 }}>تطبيق خدمات</Text>
             </ImageBackground> */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomColor: 'red', borderBottomWidth: 0.5, margin: 10, padding: 5 }}>
-                <View style={{flexDirection:'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                     <MaterialIcons name="home-repair-service" size={40} color="red" />
-                    <Text style={{ fontSize: 30, color: 'red', marginLeft:3 }}>تطبيق خدمات</Text>
+                    <Text style={{ fontSize: 30, color: 'red', marginLeft: 3 }}>تطبيق خدمات</Text>
                 </View>
                 {props.state.user ?
                     <NotificationsBell /> : null}
@@ -69,10 +68,10 @@ function FrontScreen(props) {
 
             <View style={styles.servicesContainer} >
 
-                {(categories) ? (
-                    categories.map((category, index) => (
+                {(props.state.categories) ? (
+                    props.state.categories.map((category, index) => (
                         <TouchableOpacity key={index} style={styles.serviceBox} onPress={() => props.navigation.navigate('ServicesScreen', { category: category })}>
-                            <Image source={{ uri: 'data:image/png;base64,' + category.image }} style={{ width: 100, height: 100 }} />
+                            <Image style={{ borderWidth: 1 }} source={{ uri: 'data:image/png;base64,' + category.image }} style={{ width: 100, height: 100 }} />
                             <Text style={styles.serviceLabel} >{category.name}</Text>
                         </TouchableOpacity>
                     ))
@@ -102,11 +101,13 @@ function FrontScreen(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setCategories } from '../../redux/StateActions'
 const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
+        setCategories
     }, dispatch)
 );
 
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: '2%',
-        borderWidth: 1,
+        // borderWidth: 1,
         justifyContent: 'center'
         // justifyContent:'space-between'
     },
@@ -139,6 +140,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flexBasis: '30%',
         borderRadius: 5,
+        alignItems:'center'
     },
     serviceLabel: {
         textAlign: 'center'

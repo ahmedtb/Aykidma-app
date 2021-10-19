@@ -25,7 +25,7 @@ import LoadingIndicator from '../../components/loadingIndicator'
 import RefreshScrollView from '../../components/RefreshScrollView'
 import StatusBar from '../components/StatusBar'
 import useIsMountedRef from '../../components/useIsMountedRef'
-
+import { Entypo, FontAwesome,Ionicons  } from '@expo/vector-icons'
 function filterOrders(orders, status) {
     return orders.filter((order) => {
         if (order.status === status)
@@ -69,15 +69,24 @@ function OrdersDisplay(props) {
     return (
 
         <View
-            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 20, }}
+            style={{ justifyContent: 'center', borderWidth: 1, flex: 1, paddingHorizontal: 10, }}
         >
 
             <StatusBar title="طلباتي" />
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
-                <TouchableOpacity onPress={() => { setViewOrders(1) }} ><Text style={{ backgroundColor: (viewOrders == 1) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات جديد {newOrders?.length}</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => { setViewOrders(2) }} ><Text style={{ backgroundColor: (viewOrders == 2) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات مستأنفة {resumedOrders?.length}</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => { setViewOrders(3) }} ><Text style={{ backgroundColor: (viewOrders == 3) ? 'grey' : '#dddddd', padding: 10, borderRadius: 20 }}>طلبات منتهية {doneOrders?.length}</Text></TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: (viewOrders == 1) ? 'red' : '#63ff68', padding: 7, borderRadius: 20 }} onPress={() => { setViewOrders(1) }} >
+                    <Entypo name="new" size={24} color="black" />
+                    <Text >طلبات جديد {newOrders?.length}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: (viewOrders == 2) ? 'red' : '#63ff68', padding: 7, borderRadius: 20 }} onPress={() => { setViewOrders(2) }} >
+                    <FontAwesome name="list-ol" size={24} color="black" />
+                    <Text >طلبات مستأنفة {resumedOrders?.length}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: (viewOrders == 3) ? 'red' : '#63ff68', padding: 7, borderRadius: 20 }} onPress={() => { setViewOrders(3) }} >
+                    <Ionicons name="checkmark-done" size={24} color="black" />
+                    <Text >طلبات منتهية {doneOrders?.length}</Text>
+                </TouchableOpacity>
             </View>
 
             <RefreshScrollView refreshFunction={setupServiceProviderOrders} style={{ flex: 1 }}>

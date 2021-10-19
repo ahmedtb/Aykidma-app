@@ -3,13 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
-    TextInput,
-    ScrollView,
-    Button,
-    StatusBar,
     TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
@@ -74,7 +68,6 @@ export default function ServicesListComponent(props) {
         <View>
 
             <RefreshScrollView refreshFunction={setupServices} style={{ padding: 10 }}>
-
                 {
                     (focus && services) ?
                         services.map(

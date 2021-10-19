@@ -36,7 +36,7 @@ const RenderServiceCard = (props) => {
 }
 
 
-export default function ServiceScreen(props) {
+function ServiceScreen(props) {
     const isMountedRef = useIsMountedRef()
     const [Services, setServices] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -73,7 +73,7 @@ export default function ServiceScreen(props) {
     return (
         <View style={styles.container}>
 
-            <StatusBar />
+            <StatusBar title={props.state.provider?.name}/>
 
             <RefreshScrollView refreshFunction={setupServices} style={{ paddingHorizontal: 20 }}>
 
@@ -115,6 +115,18 @@ export default function ServiceScreen(props) {
 
     );
 }
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {  } from '../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceScreen);
 
 const styles = StyleSheet.create({
     container: {

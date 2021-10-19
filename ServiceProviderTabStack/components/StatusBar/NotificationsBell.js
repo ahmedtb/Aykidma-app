@@ -33,7 +33,7 @@ const NotificationsBell = (props) => {
 
     return (
         <View style={props.style} >
-            <View style={{ borderWidth: 1, borderRadius: 20 }}>
+            <View style={{ borderWidth: 1, borderColor:'red', borderRadius: 20 }}>
                 <TouchableOpacity onPress={() => bellTab()}>
                     {(props.state.providerNotification) ?
                         <MaterialIcons style={{ padding: 15 }} name="notifications-on" size={24} color="red" />
