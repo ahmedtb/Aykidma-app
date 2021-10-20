@@ -101,6 +101,8 @@ const styles = StyleSheet.create({
         borderWidth: 1, marginVertical: 10,
         borderRadius: 10,
         borderColor: 'red',
+        elevation: 4,
+        backgroundColor: 'white',
     },
     serviceTitle: {
         fontSize: 20,

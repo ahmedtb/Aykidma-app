@@ -39,7 +39,7 @@ function ProfileScreen(props) {
 
             <StatusBar title='الملف الشخصي'/>
 
-            <View style={{ flexDirection: 'row', padding:10, borderWidth:0.4, borderRadius:10, marginHorizontal:15 }}>
+            <View style={{ flexDirection: 'row', padding:10, borderWidth:0.4, borderRadius:10, marginHorizontal:15, borderColor: 'red', marginVertical: 7, elevation: 4, backgroundColor: 'white' }}>
 
                 <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 150, height: 150, borderRadius:8, borderColor:'red', borderWidth:1 }} />
 

@@ -20,7 +20,7 @@ import ResumedOrderFormModal from './components/ResumedOrderFormModal'
 
 export default function ResumedOrders(props) {
     const [modalVisible, setModalVisible] = React.useState(false);
-    const {resumedOrders, refreshFunction} = props
+    const { resumedOrders, refreshFunction } = props
 
     return (
         <ScrollView>
@@ -39,7 +39,13 @@ export default function ResumedOrders(props) {
                     const id = order.id
                     if (order.status == "resumed")
                         return <View key={index}>
-                            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+                            <TouchableOpacity onPress={() => setModalVisible(true)}
+                                style={{
+                                    borderWidth: 1, borderRadius: 4, marginVertical: 7,
+                                    elevation: 3,
+                                    backgroundColor: 'white',
+                                    borderColor: 'red'
+                                }}>
 
                                 <View style={{ flexDirection: 'row', margin: 10 }}>
                                     <View>

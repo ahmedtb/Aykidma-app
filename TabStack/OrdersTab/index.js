@@ -75,7 +75,7 @@ function OrdersTab(props, { navigation }) {
 
                 <StatusBar title='طلباتي' />
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 1, borderColor: 'grey' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 50, borderBottomWidth: 0.7, borderColor: 'red' }}>
                     <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: (viewOrders == 1) ? '#ff6666' : '#63ff68', padding: 10, borderRadius: 20 }} onPress={() => { setViewOrders(1) }} >
                         <Entypo name="new" size={24} color="black" />
                         <Text >طلبات جديد {newOrders?.length}</Text>

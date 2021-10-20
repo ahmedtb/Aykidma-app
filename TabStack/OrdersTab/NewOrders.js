@@ -47,7 +47,12 @@ const OrderItem = (props) => {
 
     return (
         <Animated.View style={{ opacity: (animate) ? fadeAnim : 1, }}>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+            <TouchableOpacity onPress={() => setModalVisible(true)}
+                style={{
+                    borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3,
+                    backgroundColor: 'white',
+                    borderColor: 'red'
+                }}>
 
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>

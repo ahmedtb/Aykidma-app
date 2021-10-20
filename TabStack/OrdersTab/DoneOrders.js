@@ -31,7 +31,12 @@ export default function DoneOrders(props) {
                     const image = order.service.image
                     if (order.status == "done")
                         return <View key={index}>
-                            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+                            <TouchableOpacity onPress={() => setModalVisible(true)}
+                                style={{
+                                    borderWidth: 1, borderRadius: 4, marginVertical: 7, elevation: 3,
+                                    backgroundColor: 'white',
+                                    borderColor: 'red'
+                                }}>
 
                                 <View style={{ flexDirection: 'row', margin: 10 }}>
                                     <View>

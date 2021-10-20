@@ -60,20 +60,10 @@ function ServiceScreen(props) {
         setupServices()
     }, [props.route?.params?.refresh])
 
-    // React.useEffect(() => {
-    //     const unsubscribe = props.navigation.addListener('focus', () => {
-    //         if (props.route?.params?.refresh)
-    //             setupServices()
-    //     })
-
-    //     return unsubscribe
-    // }, [props.navigation]);
-
-
     return (
         <View style={styles.container}>
 
-            <StatusBar title={props.state.provider?.name}/>
+            <StatusBar title={props.state.provider?.name} />
 
             <RefreshScrollView refreshFunction={setupServices} style={{ paddingHorizontal: 20 }}>
 
@@ -82,7 +72,11 @@ function ServiceScreen(props) {
                         Services.map(
                             (service, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => props.navigation.navigate('ViewServiceScreen', { service: service })} style={styles.serviceCard}>
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => props.navigation.navigate('ViewServiceScreen', { service: service })}
+                                        style={styles.serviceCard}
+                                    >
                                         <RenderServiceCard
                                             image={service.image}
                                             title={service.title}
@@ -117,7 +111,7 @@ function ServiceScreen(props) {
 }
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {  } from '../../redux/StateActions';
+import { } from '../../redux/StateActions';
 const mapStateToProps = ({ state }) => {
     return { state }
 };
@@ -134,10 +128,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     serviceCard: {
-        borderWidth: 1,
+        borderWidth: 0.8,
         marginVertical: 10,
         borderRadius: 10,
         borderColor: 'red',
+        elevation: 3,
+        backgroundColor: 'white'
+
     },
     serviceTitle: {
         fontSize: 20, flex: 1

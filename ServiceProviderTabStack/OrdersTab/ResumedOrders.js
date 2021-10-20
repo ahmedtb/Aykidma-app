@@ -35,7 +35,10 @@ const OrderItem = (props) => {
     // const rating = order.rating
     return (
         <View >
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ borderWidth: 1, borderRadius: 4, marginVertical: 7 }}>
+            <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                style={{ borderWidth: 1, borderRadius: 4, borderColor: 'red', marginVertical: 7, elevation: 4, backgroundColor: 'white' }}
+            >
 
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
