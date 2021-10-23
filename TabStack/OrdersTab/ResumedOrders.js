@@ -16,9 +16,9 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import ResumedOrderFormModal from './components/ResumedOrderFormModal'
+import { getCategory } from '../../redux/CategoriesFunctions'
 
-
-export default function ResumedOrders(props) {
+function ResumedOrders(props) {
     const [modalVisible, setModalVisible] = React.useState(false);
     const { resumedOrders, refreshFunction } = props
 
@@ -28,7 +28,7 @@ export default function ResumedOrders(props) {
                 resumedOrders.map((order, index) => {
                     const title = order.service.title
                     const location = 'this field should be canceled'
-                    const category = order.service.category
+                    const category_id = order.service.category_id
                     const date = order.created_at
                     const cost = order.meta_data?.cost
                     const image = order.service.image
@@ -54,7 +54,7 @@ export default function ResumedOrders(props) {
                                     </View>
                                     <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
                                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                                        <Text>تصنيف الخدمة: {category.name}</Text>
+                                        <Text>تصنيف الخدمة: {getCategory(category_id)?.name}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -71,3 +71,17 @@ export default function ResumedOrders(props) {
         </ScrollView>
     )
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setCategories } from '../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setCategories
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResumedOrders);

@@ -19,13 +19,14 @@ import moment from 'moment';
 
 
 import NewOrderFormModal from './components/NewOrderFormModal'
+import { getCategory } from '../../redux/CategoriesFunctions'
 
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { order, refreshFunction } = props;
 
     const title = order.service.title
-    const category = order.service.category
+    const category_id = order.service.category_id
     const date = order.created_at
     const image = order.service.image
     const animate = true
@@ -61,7 +62,7 @@ const OrderItem = (props) => {
                     </View>
                     <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text>تصنيف الخدمة: {category.name}</Text>
+                        <Text>تصنيف الخدمة: {getCategory(category_id)?.name}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -74,7 +75,7 @@ const OrderItem = (props) => {
     )
 }
 
-export default function NewOrders(props) {
+function NewOrders(props) {
 
     const { newOrders, refreshFunction } = props;
 
@@ -100,3 +101,17 @@ export default function NewOrders(props) {
         </ScrollView>
     )
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setCategories } from '../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setCategories
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrders);

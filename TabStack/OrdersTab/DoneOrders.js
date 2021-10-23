@@ -17,8 +17,9 @@ import {
 import moment from 'moment';
 
 import OrderFormModal from './components/OrderFormModal'
+import { getCategory } from '../../redux/CategoriesFunctions'
 
-export default function DoneOrders(props) {
+function DoneOrders(props) {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -26,7 +27,7 @@ export default function DoneOrders(props) {
             {
                 props.doneOrders.map((order, index) => {
                     const title = order.service.title
-                    const category = order.service.category
+                    const category_id = order.service.category_id
                     const date = order.created_at
                     const image = order.service.image
                     if (order.status == "done")
@@ -45,7 +46,7 @@ export default function DoneOrders(props) {
                                     </View>
                                     <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
                                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                                        <Text>تصنيف الخدمة: {category.name}</Text>
+                                        <Text>تصنيف الخدمة: {getCategory(category_id)?.name}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -62,3 +63,17 @@ export default function DoneOrders(props) {
         </ScrollView>
     )
 }
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setCategories } from '../../redux/StateActions';
+const mapStateToProps = ({ state }) => {
+    return { state }
+};
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setCategories
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoneOrders);

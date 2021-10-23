@@ -109,6 +109,10 @@ export const fetchServiceProviderOrders = async () => {
     return orders
 }
 
+export const fetchServiceReviews = async (id) => {
+    return (await axios.get('/api/service/' + id + '/reviews')).data
+}
+
 export const fetchUserOrders = async () => {
     const orders = (await axios.get('/api/userOrders')).data
     return orders

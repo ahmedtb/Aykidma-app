@@ -21,7 +21,8 @@ import DoneOrders from './DoneOrders'
 import StatusBar from '../components/StatusBar'
 
 import AuthenticationStack from '../components/AuthenticationStack'
-import { fetchUserOrders, logError } from '../../utilityFunctions/apiCalls'
+import { fetchUserOrders } from '../../utilityFunctions/apiCalls'
+import { logError } from '../../redux/AuthFunctions'
 import LoadingIndicator from '../../components/loadingIndicator'
 import RefreshScrollView from '../../components/RefreshScrollView'
 import useIsMountedRef from '../../components/useIsMountedRef'
@@ -36,7 +37,7 @@ function filterOrders(orders, status) {
     })
 }
 
-function OrdersTab(props, { navigation }) {
+function OrdersTab(props) {
 
     const isMountedRef = useIsMountedRef();
 
@@ -67,7 +68,7 @@ function OrdersTab(props, { navigation }) {
     useEffect(() => {
         if (props.state.user)
             fetchOrders()
-    }, []);
+    }, [props.state.user]);
 
     if (props.state.user)
         return (

@@ -18,19 +18,10 @@ import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
 import { logError } from '../../redux/AuthFunctions';
 import useIsMountedRef from '../../components/useIsMountedRef'
 import NotificationsBell from '../components/StatusBar/NotificationsBell';
+import { setupCategories} from '../../redux/CategoriesFunctions'
 
 function FrontScreen(props) {
-    const isMountedRef = useIsMountedRef();
-
-    async function setupCategories() {
-        try {
-            const data = await getAvailableCategories()
-            if (isMountedRef.current)
-                props.setCategories(data)
-        } catch (error) {
-            logError(error)
-        }
-    }
+    // const isMountedRef = useIsMountedRef();
 
     React.useEffect(() => {
         setupCategories()
