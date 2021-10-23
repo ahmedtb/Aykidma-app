@@ -7,19 +7,17 @@ import { MaterialIcons } from '@expo/vector-icons'
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
 
-import { fetchUserNotifications, logError } from '../../../utilityFunctions/apiCalls'
-
+import { fetchUserNotifications } from '../../../utilityFunctions/apiCalls'
+import { logError } from '../../../redux/AuthFunctions'
 
 function StatusBar(props) {
     const title = props.title
     const style = props.style
-    // const { notification } = React.useContext(NotificationsContext)
 
     React.useEffect(() => {
         fetchUserNotifications(props.state.token)
             .then(data => props.setUserNotifications(data))
             .catch(error => logError(error))
-        // console.log('statusbar props',props)
     }, [props.state.userNotification])
 
     return (

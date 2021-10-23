@@ -3,51 +3,22 @@ import {
     StyleSheet,
     Text,
     View,
-    Pressable,
     TouchableOpacity,
-    Modal
 } from 'react-native';
 
-// import FormFields from './components/FormFields'
-
-const reducer = (state, action) => {
-
-    switch (action.actionType) {
-        case 'change':
-            state.fields = state.fields.map((field, fieldIndex) => {
-                if (fieldIndex == action.fieldIndex)
-                    field.value = action.value;
-                return field;
-            })
-            return state
-    }
-
-    return state;
-}
-
-function initialFieldsOfService(service) {
-    return { fields: service.fields, service_id: service.id }
-}
 
 import FormModal from './components/FormModal'
-import LoginModal from '../../LoginModal'
-import NavigationBar from '../../../../components/NavigationBar'
+import LoginModal from '../LoginModal'
+import NavigationBar from '../../../components/NavigationBar'
 
-import ArrayOfFieldsInputs from '../../../../FieldsTypes/ArrayOfFieldsInputs';
+import ArrayOfFieldsInputs from '../../../FieldsTypes/ArrayOfFieldsInputs';
 
 const FormScreen = (props) => {
     const service = props.route.params?.service
     const serviceId = service.id;
     const serviceTitle = service.title;
-    const initial_state = initialFieldsOfService(service)
-
-
-    // const [index, setIndex] = useState(0);
-
 
     const [dialogVisible, setDialogVisible] = useState(false)
-
-    const [state, dispatch] = useReducer(reducer, initial_state);
 
     const [array_of_fields, setarray_of_fields] = React.useState()
     useEffect(() => {
@@ -60,7 +31,6 @@ const FormScreen = (props) => {
             <NavigationBar name={serviceTitle} />
 
             <View style={{ flex: 1 }}>
-                {/* <FormFields ReducerState={[state.fields, dispatch]} /> */}
                 <ArrayOfFieldsInputs service={service} setarray_of_fields={(e) => setarray_of_fields(e)} />
             </View>
 
@@ -77,10 +47,9 @@ const FormScreen = (props) => {
 
             {
                 (props.state.user) ?
-                    (<FormModal visibility={[dialogVisible, setDialogVisible]}
-                        // state={state}
+                    (<FormModal 
+                        visibility={[dialogVisible, setDialogVisible]}
                         array_of_fields={array_of_fields}
-                        // serviceTitle={serviceTitle}
                         service={service}
                     />)
                     :

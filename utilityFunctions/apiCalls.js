@@ -226,3 +226,13 @@ export async function providerDeleteOrder(id, token) {
     response = await axios.delete('api/providerOrder/' + id, config)
     return response
 }
+
+export async function submitReviewReport(review_id, body, token) {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+
+    return await axios.post('api/reportReview/', {
+        review_id: review_id, body: body
+    }, config)
+}
