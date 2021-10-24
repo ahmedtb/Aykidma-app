@@ -13,7 +13,8 @@ import { MaterialIcons, AntDesign, MaterialCommunityIcons, } from '@expo/vector-
 import ImagePickerComponent from '../../components/ImagePickerComponent'
 import CategoryComponent from '../../components/CategoryComponent'
 import StatusBar from '../components/StatusBar'
-import { editService, logError } from '../../utilityFunctions/apiCalls'
+import { editService } from '../../utilityFunctions/apiCalls'
+import {logError} from '../../redux/AuthFunctions'
 import ArrayOfFieldsEditor from '../../FieldsTypes/ArrayOfFieldsEditor'
 
 export default function EditServiceScreen(props) {

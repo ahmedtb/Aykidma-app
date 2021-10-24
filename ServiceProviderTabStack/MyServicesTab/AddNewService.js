@@ -11,7 +11,8 @@ import {
 
 import ImagePickerComponent from '../../components/ImagePickerComponent'
 import CategoryComponent from '../../components/CategoryComponent'
-import { createService, logError } from '../../utilityFunctions/apiCalls'
+import { createService } from '../../utilityFunctions/apiCalls'
+import {logError} from '../../redux/AuthFunctions'
 import ArrayOfFieldsCreator from '../../FieldsTypes/ArrayOfFieldsCreator';
 import { ArrayOfFieldsClass } from '../../FieldsTypes/ArrayOfFieldsCreator'
 import { StringFieldClass, StringFieldRender } from '../../FieldsTypes/StringField'

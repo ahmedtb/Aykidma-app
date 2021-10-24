@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 
 import StatusBar from '../components/StatusBar'
-import { getUserImage, logError, getUser, } from '../../utilityFunctions/apiCalls'
+import { getUserImage, getUser, } from '../../utilityFunctions/apiCalls'
 import RefreshScrollView from '../../components/RefreshScrollView'
 import useIsMountedRef from '../../components/useIsMountedRef'
-import { logoutProcedure } from '../../redux/AuthFunctions'
+import { logoutProcedure, logError } from '../../redux/AuthFunctions'
 import { FontAwesome } from '@expo/vector-icons'
 function ProfileScreen(props) {
     const isMountedRef = useIsMountedRef()

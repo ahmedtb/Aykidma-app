@@ -14,9 +14,6 @@ import {
 import Constants from 'expo-constants';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import RefreshScrollView from '../../components/RefreshScrollView'
-import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
-import { logError } from '../../redux/AuthFunctions';
-import useIsMountedRef from '../../components/useIsMountedRef'
 import NotificationsBell from '../components/StatusBar/NotificationsBell';
 import { setupCategories} from '../../redux/CategoriesFunctions'
 

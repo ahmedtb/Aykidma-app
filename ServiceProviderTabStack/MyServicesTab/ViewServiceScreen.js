@@ -9,7 +9,8 @@ import {
 } from 'react-native'
 import ArrayOfFieldsRender from '../../FieldsTypes/ArrayOfFieldsRender'
 import StatusBar from '../components/StatusBar'
-import { getAvailableCategories, logError } from '../../utilityFunctions/apiCalls'
+import { getAvailableCategories } from '../../utilityFunctions/apiCalls'
+import {logError} from '../../redux/AuthFunctions'
 import useIsMountedRef from '../../components/useIsMountedRef'
 import { MaterialIcons, AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
 

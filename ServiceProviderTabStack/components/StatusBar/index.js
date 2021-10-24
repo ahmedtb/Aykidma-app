@@ -7,9 +7,10 @@ import {
 // import { NotificationsContext } from '../../../StateManagment/NotificationsProvider'
 import Constants from 'expo-constants';
 import NotificationsBell from './NotificationsBell'
-import { fetchProviderNotifications, logError } from '../../../utilityFunctions/apiCalls'
+import { fetchProviderNotifications } from '../../../utilityFunctions/apiCalls'
+import { logError } from '../../../redux/AuthFunctions'
 import { useNavigation } from '@react-navigation/native';
-import { FontAwesome,MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 function StatusBar(props) {
     const style = props.style

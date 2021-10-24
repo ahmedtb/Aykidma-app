@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import LoadingIndicator from '../../../components/loadingIndicator'
-
-
 import RefreshScrollView from '../../../components/RefreshScrollView'
-import { fetchServices,logError } from '../../../utilityFunctions/apiCalls'
+import { fetchServices } from '../../../utilityFunctions/apiCalls'
+import { logError } from '../../../redux/AuthFunctions'
 import useIsMountedRef from '../../../components/useIsMountedRef'
+import ServicesList from '../../components/ServicesList'
 
 const RenderServiceCard = (props) => {
     const image = props.image;
@@ -70,15 +70,7 @@ export default function ServicesListComponent(props) {
             <RefreshScrollView refreshFunction={setupServices} style={{ padding: 10 }}>
                 {
                     (focus && services) ?
-                        services.map(
-                            (service, index) => {
-                                return (
-                                    <TouchableOpacity key={index} onPress={() => navigateToDetails(service)} style={styles.serviceCard}>
-                                        <RenderServiceCard image={service.image} title={service.title} price={service.meta_data?.price} />
-                                    </TouchableOpacity>
-                                )
-                            }
-                        ) : (null)
+                        <ServicesList services={services} onServiceClick={(service) => navigateToDetails(service)} /> : (null)
                 }
 
                 {/* this is for bottom spaceing */}

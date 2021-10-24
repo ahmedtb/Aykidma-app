@@ -9,7 +9,8 @@ import {
 
 import ImagePicker from './components/ImagePicker'
 import NavigationBar from '../../components/NavigationBar'
-import { editProviderProfile, logError } from '../../utilityFunctions/apiCalls'
+import { editProviderProfile } from '../../utilityFunctions/apiCalls'
+import { logError } from '../../redux/AuthFunctions'
 
 function EditProfileScreen(props) {
     const imageRoute = props.route.params.image

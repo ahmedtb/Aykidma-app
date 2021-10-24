@@ -18,7 +18,6 @@ export default function ModalScreen(props) {
                     justifyContent: 'center',
                     backgroundColor: 'white',
                 }}>
-
                     <ScrollView>
                         {children}
                     </ScrollView>

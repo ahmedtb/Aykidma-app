@@ -13,7 +13,7 @@ import moment from 'moment';
 import LocationModal from '../../../components/LocationModal'
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { userDeleteOrder } from '../../../utilityFunctions/apiCalls'
-import logError from '../../../utilityFunctions/logError'
+import { logError } from '../../../redux/AuthFunctions'
 import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'
 
 export default function NewOrderFormModal(props) {

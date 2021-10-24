@@ -5,7 +5,7 @@ import {
 
 import { createStackNavigator } from '@react-navigation/stack';
 import ServicesScreen from './ServicesScreen'
-import ServiceProcedureStack from '../components/ServiceProcedureStack'
+import ServiceProcedureStack from '../Stacks/ServiceProcedureStack'
 
 const Stack = createStackNavigator();
 

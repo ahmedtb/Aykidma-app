@@ -8,7 +8,7 @@ import {
 
 
 import FormModal from './components/FormModal'
-import LoginModal from '../LoginModal'
+import LoginModal from '../../components/LoginModal'
 import NavigationBar from '../../../components/NavigationBar'
 
 import ArrayOfFieldsInputs from '../../../FieldsTypes/ArrayOfFieldsInputs';

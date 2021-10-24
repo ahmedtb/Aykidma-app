@@ -15,7 +15,7 @@ import LoadingIndicator from '../../components/loadingIndicator'
 import NavigationBar from '../../components/NavigationBar'
 
 import { fetchServicesByCategory } from '../../utilityFunctions/apiCalls'
-import logError from '../../utilityFunctions/logError'
+import { logError } from '../../redux/AuthFunctions'
 import useIsMountedRef from '../../components/useIsMountedRef'
 
 const RenderServiceCard = (props) => {
@@ -43,14 +43,18 @@ export default function ServicesScreen({ navigation, route }) {
     const [services, setServices] = React.useState([])
     const [loading, setLoading] = React.useState(true);
 
-    React.useEffect(() => {
-
-        fetchServicesByCategory(category.id).then((data) => {
-            if(isMountedRef.current){
+    async function setup() {
+        try {
+            const data = await fetchServicesByCategory(category.id)
+            if (isMountedRef.current) {
                 setServices(data)
                 setLoading(false)
             }
-        }).catch((error) => logError(error))
+        } catch (error) { logError(error) }
+    }
+
+    React.useEffect(() => {
+        setup()
     }, [])
 
     const navigateToDetails = (service) => {

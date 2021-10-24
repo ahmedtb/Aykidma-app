@@ -1,8 +1,5 @@
 import axios from 'axios'
-import logError from './logError'
 
-
-export { logError }
 
 export const getUserImage = async () => {
     const data = (await axios.get('/api/user/image')).data
@@ -15,14 +12,11 @@ export const getProviderImage = async () => {
 }
 
 export const signUpUser = async (name, phoneNumber, password) => {
-    try {
-        const data = await axios.post('/api/signup', {
-            name: name, phone_number: phoneNumber, password: password
-        }).data
-        return data
-    } catch (error) {
-        logError(error)
-    }
+    const data = await axios.post('/api/signup', {
+        name: name, phone_number: phoneNumber, password: password
+    }).data
+    return data
+
 }
 
 export const enrollProvider = async (name, coverage, image) => {
@@ -64,20 +58,20 @@ export const refreshProvider = async (token) => {
 }
 
 export const activateUser = async (name, phoneNumber, password, activationNumber) => {
-    try {
-        const data = await axios.post('/api/signup', {
-            name: name, phone_number: phoneNumber, password: password, activationNumber: activationNumber
-        })
-        return data
-    } catch (error) {
-        logError(error)
-    }
+    const data = await axios.post('/api/signup', {
+        name: name, phone_number: phoneNumber, password: password, activationNumber: activationNumber
+    })
+    return data
 }
 
 export const fetchServices = async () => {
     let response = await axios.get('/api/services')
     let data = await response.data
     return data
+}
+
+export const fetchProvider = async (id) => {
+    return (await axios.get('/api/provider/' + id)).data
 }
 
 export const searchThroughServices = async (q) => {
@@ -94,14 +88,10 @@ export const searchThroughServicesWithCategory = async (category_id, q) => {
 
 export const fetchMyServices = async () => {
 
-    try {
-        let response = await axios.get('/api/myServices')
-        let data = await response.data
-        return data
-    } catch (error) {
-        logError(error)
-    }
-    return null
+    let response = await axios.get('/api/myServices')
+    let data = await response.data
+    return data
+
 }
 
 export const fetchServiceProviderOrders = async () => {

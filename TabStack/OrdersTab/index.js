@@ -20,7 +20,7 @@ import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
 import StatusBar from '../components/StatusBar'
 
-import AuthenticationStack from '../components/AuthenticationStack'
+import AuthenticationStack from '../Stacks/AuthenticationStack'
 import { fetchUserOrders } from '../../utilityFunctions/apiCalls'
 import { logError } from '../../redux/AuthFunctions'
 import LoadingIndicator from '../../components/loadingIndicator'

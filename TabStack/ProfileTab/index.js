@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 import ProfileScreen from './ProfileScreen'
 import EditProfileScreen from './EditProfileScreen'
 
-import AuthenticationStack from '../components/AuthenticationStack'
+import AuthenticationStack from '../Stacks/AuthenticationStack'
 
 function ProfileTabStack(props) {
 

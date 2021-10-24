@@ -9,8 +9,8 @@ import {
 
 import ImagePicker from './components/ImagePicker'
 import NavigationBar from '../../components/NavigationBar'
-import { editUserProfile, logError } from '../../utilityFunctions/apiCalls'
-import { fetchUser } from '../../redux/AuthFunctions'
+import { editUserProfile } from '../../utilityFunctions/apiCalls'
+import { fetchUser, logError } from '../../redux/AuthFunctions'
 function EditProfileScreen(props) {
     const imageRoute = props.route.params.image
     const [name, setName] = React.useState(props.state.user.name)

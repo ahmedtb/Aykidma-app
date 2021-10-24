@@ -5,7 +5,9 @@ import { setUser, setToken, setProvider } from "./StateActions";
 import { getUser, refreshProvider, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
 
 
-export function logError(error) {
+export function logError(error, caller = null) {
+    if (caller)
+        console.log('logError from: ' + caller)
     if (error.response) {
         // Request made and server responded
         console.log(error.response.data);

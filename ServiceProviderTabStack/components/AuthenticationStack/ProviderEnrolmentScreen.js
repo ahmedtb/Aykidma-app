@@ -11,7 +11,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import { enrollProvider } from '../../../utilityFunctions/apiCalls'
-import logError from '../../../utilityFunctions/logError';
+import {logError} from '../../../redux/AuthFunctions'
 
 export default function ProviderEnrolmentScreen(props) {
 

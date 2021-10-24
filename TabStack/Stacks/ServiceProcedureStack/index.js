@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ServiceDetailsScreen from './ServiceDetailsScreen';
 import FormScreen from './FormScreen';
+import ServiceProviderScreen from "./ServiceProviderScreen";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,9 @@ export default function ServiceProcedureStack() {
                 options={{ title: 'املأ الطلب' }}
             />
 
+            <Stack.Screen name="ServiceProviderScreen" component={ServiceProviderScreen}
+                options={{ title: 'مزود خدمة' }}
+            />
         </Stack.Navigator>
     );
 }

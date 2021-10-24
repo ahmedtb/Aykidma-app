@@ -12,7 +12,7 @@ import {
 import moment from 'moment';
 import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { providerDeleteOrder } from '../../../utilityFunctions/apiCalls';
-import logError from '../../../utilityFunctions/logError';
+import {logError} from '../../../redux/AuthFunctions'
 import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'
 
 function OrderFormModal(props) {

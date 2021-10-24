@@ -9,9 +9,9 @@ import {
 
 import StatusBar from '../components/StatusBar'
 import RefreshScrollView from '../../components/RefreshScrollView'
-import {getProviderImage, logError} from '../../utilityFunctions/apiCalls'
+import {getProviderImage} from '../../utilityFunctions/apiCalls'
 import useIsMountedRef from '../../components/useIsMountedRef'
-import {fetchProvider, logoutProcedure} from '../../redux/AuthFunctions'
+import {fetchProvider, logoutProcedure, logError} from '../../redux/AuthFunctions'
 
 function ProfileScreen(props) {
 

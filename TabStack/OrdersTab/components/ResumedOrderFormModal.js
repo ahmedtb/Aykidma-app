@@ -16,7 +16,8 @@ import { FontAwesome5, FontAwesome, MaterialIcons, Entypo } from '@expo/vector-i
 
 import LocationModal from '../../../components/LocationModal'
 
-import { doneResumedOrder, logError } from '../../../utilityFunctions/apiCalls'
+import { doneResumedOrder } from '../../../utilityFunctions/apiCalls'
+import { logError } from '../../../redux/AuthFunctions'
 import ArrayOfFieldsFormView from '../../../FieldsTypes/ArrayOfFieldsFormView'
 
 function SubmitModal(props) {
