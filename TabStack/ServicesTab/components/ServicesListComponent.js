@@ -14,22 +14,7 @@ import { logError } from '../../../redux/AuthFunctions'
 import useIsMountedRef from '../../../components/useIsMountedRef'
 import ServicesList from '../../components/ServicesList'
 
-const RenderServiceCard = (props) => {
-    const image = props.image;
-    const title = props.title;
-    const price = props.price
 
-    return (
-        <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-            <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100 }} />
-
-            <View style={{ margin: 10 }}>
-                <Text style={styles.serviceTitle}>{title}</Text>
-                <Text style={{ color: 'red' }}>{price}</Text>
-            </View>
-        </View>
-    )
-}
 export default function ServicesListComponent(props) {
     const navigation = useNavigation()
     const isMountedRef = useIsMountedRef()

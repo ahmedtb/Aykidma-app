@@ -70,8 +70,16 @@ export const fetchServices = async () => {
     return data
 }
 
-export const fetchProvider = async (id) => {
+export const fetchActivatedProvider = async (id) => {
     return (await axios.get('/api/provider/' + id)).data
+}
+
+export const fetchActivatedProviderApprovedServices = async (id) => {
+    return (await axios.get('/api/provider/' + id + '/services')).data
+}
+
+export const fetchActivatedProviderImage = async (id) => {
+    return (await axios.get('/api/provider/' + id + '/image')).data
 }
 
 export const searchThroughServices = async (q) => {

@@ -40,6 +40,20 @@ export const setCategories = (categories) => (
     }
 );
 
+export const setServices = (services) => (
+    {
+        type: 'setServices',
+        services: services
+    }
+);
+
+export const setServiceProviders = (service_providers) => (
+    {
+        type: 'setServiceProviders',
+        service_providers: service_providers
+    }
+);
+
 export const setProvider = (provider) => (
     {
         type: 'setProvider',

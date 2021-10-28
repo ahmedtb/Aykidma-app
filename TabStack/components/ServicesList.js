@@ -20,7 +20,7 @@ export default function ServicesList(props) {
     return (
         <View>
             {
-                services.map((service, index) => {
+                services?.map((service, index) => {
                     const image = service.image;
                     const title = service.title;
                     const price = service.price

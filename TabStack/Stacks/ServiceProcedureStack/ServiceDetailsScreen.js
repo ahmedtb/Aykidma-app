@@ -2,18 +2,36 @@ import React from "react";
 import { ScrollView, View, TouchableOpacity, Text } from "react-native";
 import NavigationBar from '../../../components/NavigationBar'
 import ReviewsComponent from './components/ReviewsComponent'
+import { fetchActivatedProvider, fetchServiceReviews } from "../../../utilityFunctions/apiCalls";
+
 export default function ServiceDetailsScreen(props) {
   const service = props.route.params.service;
   const serviceTitle = service.title;
   const description = service.description;
-  const provider = service.service_provider;
+  const [provider, setprovider] = React.useState(null)
+  const [reviews, setreviews] = React.useState(null)
+
+  async function setup() {
+    if (!service?.service_provider) {
+      // console.log('ServiceDetailsScreen setup')
+      let data = await fetchActivatedProvider(service.service_provider_id)
+      setprovider(data)
+    } else {
+      setprovider(service.service_provider)
+    }
+    if (!service?.reviews) {
+      let data = await fetchServiceReviews(service.id)
+      setreviews(data)
+    } else {
+      setreviews(service.reviews)
+    }
+  }
+
   React.useEffect(() => {
     if (service) {
-      // console.log('ServiceDetailsScreen', service.service_provider)
+      setup()
     }
-  }, [])
-
-  const [viewSP, setviewSP] = React.useState(false)
+  }, [service])
 
   return (
     <View style={{ flex: 1 }}>
@@ -24,22 +42,13 @@ export default function ServiceDetailsScreen(props) {
 
           <Text style={{ margin: 15, padding: 5, fontSize: 20, fontWeight: 'bold' }}>{serviceTitle}</Text>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('ServiceProviderPage', { provider: provider })}
+            onPress={() => props.navigation.navigate('ServiceProcedureStack', { screen: 'ServiceProviderScreen', params: { provider: provider } })}
           >
-            <Text >{service.service_provider.name}</Text>
-            {/* <ModalScreen visible={viewSP}>
-              <ServiceProviderPage id={service.service_provider.id} onServiceClick={() => null} />
-              <TouchableOpacity
-                onPress={() => setviewSP(false)}
-              >
-                <Text >close</Text>
-              </TouchableOpacity>
-
-            </ModalScreen> */}
+            <Text >{provider?.name}</Text>
           </TouchableOpacity>
           <Text> {description} </Text>
         </View>
-        <ReviewsComponent service={service} />
+        <ReviewsComponent reviews={reviews} />
 
       </ScrollView>
       <TouchableOpacity

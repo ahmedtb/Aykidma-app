@@ -8,6 +8,8 @@ const INITIAL_STATE = {
     expoPushToken: null,
 
     categories: [],
+    // services: [],
+    // service_providers: [],
     provider: null,
     user: null,
     token: null,
@@ -29,6 +31,10 @@ const stateReducer = (state = INITIAL_STATE, action) => {
             return { ...state, expoPushToken: action.expoPushToken };
         case 'setCategories':
             return { ...state, categories: action.categories };
+        // case 'setServices':
+        //     return { ...state, services: action.services };
+        // case 'setServiceProviders':
+        //     return { ...state, service_providers: action.service_providers };
         case 'setProvider':
             return { ...state, provider: action.provider };
         case 'setUser':

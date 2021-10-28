@@ -11,8 +11,8 @@ import { submitReviewReport } from '../../../../utilityFunctions/apiCalls'
 import { logError } from '../../../../redux/AuthFunctions'
 
 export default function ReviewsComponent(props) {
-    const service = props.service
-    const reviews = service.reviews
+    const reviews = props.reviews
+
     const [visible, setvisible] = React.useState(false)
     const [reportBody, setreportBody] = React.useState(false)
     const [reportReview, setreportReview] = React.useState(null)
@@ -28,7 +28,7 @@ export default function ReviewsComponent(props) {
             <View style={{}}>
                 <Text style={{ fontSize: 25, fontWeight: 'bold' }}>تعليقات حول الخدمة</Text>
                 {
-                    reviews.map((review, index) => (
+                    reviews?.map((review, index) => (
                         <View key={index} style={{ borderBottomWidth: 0.7, padding:10 }}>
                             <View style={{ flexDirection: 'row', marginBottom:3 }}>
                                 <Text style={{ flex: 1, fontSize:18 }}>{review.user.name}</Text>

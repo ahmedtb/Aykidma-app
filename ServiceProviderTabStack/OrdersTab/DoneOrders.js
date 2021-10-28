@@ -18,14 +18,14 @@ import moment from 'moment';
 
 
 import OrderFormModal from './components/OrderFormModal'
-
+import {getCategory} from '../../redux/CategoriesFunctions'
 const OrderItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const { order, refreshFunction } = props;
 
     const title = order.service.title
-    const category = order.service.category
+    const category_id = order.service.category_id
     const date = order.created_at
     const image = order.service.image
     return (
@@ -41,7 +41,7 @@ const OrderItem = (props) => {
                     </View>
                     <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text>تصنيف الخدمة: {category.name}</Text>
+                        <Text>تصنيف الخدمة: {getCategory(category_id)?.name}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

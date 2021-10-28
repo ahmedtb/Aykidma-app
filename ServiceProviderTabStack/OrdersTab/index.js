@@ -20,7 +20,7 @@ import ResumedOrders from './ResumedOrders'
 import DoneOrders from './DoneOrders'
 import { fetchServiceProviderOrders } from '../../utilityFunctions/apiCalls'
 import { logError } from '../../redux/AuthFunctions';
-import AuthenticationStack from '../components/AuthenticationStack'
+import AuthenticationStack from '../Stacks/AuthenticationStack'
 import LoadingIndicator from '../../components/loadingIndicator'
 import RefreshScrollView from '../../components/RefreshScrollView'
 import StatusBar from '../components/StatusBar'

@@ -19,6 +19,7 @@ import moment from 'moment';
 
 
 import NewOrderFormModal from './components/NewOrderFormModal'
+import {getCategory} from '../../redux/CategoriesFunctions'
 
 
 const OrderItem = (props) => {
@@ -27,7 +28,7 @@ const OrderItem = (props) => {
 
     const title = order.service.title
     const location = 'this field should be canceled'
-    const category = order.service.category
+    const category_id = order.service.category_id
     const date = order.created_at
     const cost = order.service.cost
     const image = order.service.image
@@ -64,7 +65,7 @@ const OrderItem = (props) => {
                     </View>
                     <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }} >{title}</Text>
-                        <Text>تصنيف الخدمة: {category.name}</Text>
+                        <Text>تصنيف الخدمة: {getCategory(category_id)?.name}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

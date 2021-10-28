@@ -19,7 +19,7 @@ import AddNewService from './AddNewService'
 import ViewServiceScreen from './ViewServiceScreen'
 import EditServiceScreen from './EditServiceScreen'
 
-import AuthenticationStack from '../components/AuthenticationStack'
+import AuthenticationStack from '../Stacks/AuthenticationStack'
 
 function MyServicesTab(props) {
     // const { loginProvider, providerAuth } = React.useContext(AuthContext)

@@ -14,7 +14,7 @@ export async function setupCategories() {
 
 export function getCategory(id) {
     const state = store.getState();
-
+    
     let category = null;
     // console.log('getCategory', state);
 
