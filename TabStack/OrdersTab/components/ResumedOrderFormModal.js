@@ -43,7 +43,7 @@ function SubmitModal(props) {
                 console.log(data)
                 props.refreshFunction()
             })
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'SubmitModal'))
     }
 
 

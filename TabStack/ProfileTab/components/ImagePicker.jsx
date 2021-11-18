@@ -59,7 +59,7 @@ export default function ImagePickerExample(props) {
             </TouchableOpacity>
             <TouchableOpacity onPress={pickImage} >
 
-                {image && <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />}
+                {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
             </TouchableOpacity>
 
         </View>

@@ -25,7 +25,7 @@ const RenderServiceCard = (props) => {
 
     return (
         <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-            <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100 }} />
+            <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
 
             <View style={{ margin: 10 }}>
                 <Text style={styles.serviceTitle}>{title}</Text>
@@ -50,7 +50,7 @@ export default function ServicesScreen({ navigation, route }) {
                 setServices(data)
                 setLoading(false)
             }
-        } catch (error) { logError(error) }
+        } catch (error) { logError(error, 'ServicesScreen setup') }
     }
 
     React.useEffect(() => {

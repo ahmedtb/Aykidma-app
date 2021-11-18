@@ -53,7 +53,7 @@ function OrdersTab(props) {
 
         try {
             setIsLoading(true)
-            const orders = await fetchUserOrders()
+            const orders = await fetchUserOrders(props.state.token)
             if (isMountedRef.current) {
                 setIsLoading(false)
                 setNewOrders(filterOrders(orders, 'new'))
@@ -61,7 +61,7 @@ function OrdersTab(props) {
                 setDoneOrders(filterOrders(orders, 'done'))
             }
         } catch (error) {
-            logError(error)
+            logError(error, 'OrdersTab fetchOrders')
         }
     }
 

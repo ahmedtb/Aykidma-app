@@ -1,15 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
-    Dimensions,
     Image,
     TextInput,
     ScrollView,
-    Button,
-    StatusBar,
     TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
@@ -25,7 +21,7 @@ const RenderServiceCard = (props) => {
 
     return (
         <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-            <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100 }} />
+            <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
 
             <View style={{ margin: 10 }}>
                 <Text style={styles.serviceTitle}>{title}</Text>
@@ -41,9 +37,9 @@ export default function SearchComponent(props) {
     const focusHere = props.focusHere
     const unFocusFromHere = props.unFocusFromHere
 
-    const [services, setServices] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [services, setServices] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
+    const [searchTerm, setSearchTerm] = React.useState('');
 
     async function search(q) {
         if (q == '')
@@ -55,7 +51,7 @@ export default function SearchComponent(props) {
             focusHere()
             setLoading(false)
         } catch (error) {
-            logError(error)
+            logError(error, 'SearchComponent')
         }
     }
 
@@ -72,9 +68,9 @@ export default function SearchComponent(props) {
     return (
         <View >
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginHorizontal:5, paddingTop: 5, paddingHorizontal: 5, paddingBottom:1 }}>
-                <View style={{ borderWidth: 1, borderRadius: 5, flex: 1, textAlign: 'right', flexDirection:'row', justifyContent:'space-between', alignItems:'center' }}>
-                    <TextInput style={{flex:1}} onChangeText={(text) => { setSearchTerm(text) }} />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginHorizontal: 5, paddingTop: 5, paddingHorizontal: 5, paddingBottom: 1 }}>
+                <View style={{ borderWidth: 1, borderRadius: 5, flex: 1, textAlign: 'right', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <TextInput style={{ flex: 1 }} onChangeText={(text) => { setSearchTerm(text) }} />
                     {
                         (focus) ? (
                             <TouchableOpacity onPress={() => (unFocusFromHere())}>
@@ -85,7 +81,7 @@ export default function SearchComponent(props) {
 
                 </View>
                 <TouchableOpacity style={{}} onPress={() => (search(searchTerm))}>
-                    <FontAwesome5  name="search-location" size={30} color="black" />
+                    <FontAwesome5 name="search-location" size={30} color="black" />
                 </TouchableOpacity>
             </View>
 

@@ -3,8 +3,11 @@ import { ScrollView, View, TouchableOpacity, Text } from "react-native";
 import NavigationBar from '../../../components/NavigationBar'
 import ReviewsComponent from './components/ReviewsComponent'
 import { fetchActivatedProvider, fetchServiceReviews } from "../../../utilityFunctions/apiCalls";
+import useIsMountedRef from '../../../components/useIsMountedRef'
 
 export default function ServiceDetailsScreen(props) {
+  const isMountedRef = useIsMountedRef();
+
   const service = props.route.params.service;
   const serviceTitle = service.title;
   const description = service.description;
@@ -15,15 +18,19 @@ export default function ServiceDetailsScreen(props) {
     if (!service?.service_provider) {
       // console.log('ServiceDetailsScreen setup')
       let data = await fetchActivatedProvider(service.service_provider_id)
-      setprovider(data)
+      if (isMountedRef.current)
+        setprovider(data)
     } else {
-      setprovider(service.service_provider)
+      if (isMountedRef.current)
+        setprovider(service.service_provider)
     }
     if (!service?.reviews) {
       let data = await fetchServiceReviews(service.id)
-      setreviews(data)
+      if (isMountedRef.current)
+        setreviews(data)
     } else {
-      setreviews(service.reviews)
+      if (isMountedRef.current)
+        setreviews(service.reviews)
     }
   }
 

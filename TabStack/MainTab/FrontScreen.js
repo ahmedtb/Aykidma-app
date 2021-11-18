@@ -38,7 +38,7 @@ function FrontScreen(props) {
                 setLoading(false)
             }
         } catch (error) {
-            logError(error)
+            logError(error,'FrontScreen search')
         }
     }
 
@@ -77,7 +77,7 @@ function FrontScreen(props) {
                 backgroundColor: 'white',
                 borderColor: 'green'
             }}>
-                <TextInput style={{ flex: 3 }} placeholder="بحث" onChangeText={(text) => { setSearchTerm(text) }} />
+                <TextInput value={searchTerm} style={{ flex: 3 }} placeholder="بحث" onChangeText={(text) => { setSearchTerm(text) }} />
                 {
                     (services) ? (
                         <TouchableOpacity onPress={() => {
@@ -107,7 +107,7 @@ function FrontScreen(props) {
                                 return (
                                     <TouchableOpacity key={index} onPress={() => navigateToDetails(service)} style={styles.serviceCard}>
                                         <View style={{ flexDirection: 'row', margin: 10, width: '70%' }}>
-                                            <Image source={{ uri: 'data:image/png;base64,' + service.image }} style={{ width: 100, height: 100 }} />
+                                            <Image source={{ uri: service.image }} style={{ width: 100, height: 100 }} />
 
                                             <View style={{ margin: 10 }}>
                                                 <Text style={styles.serviceTitle}>{service.title}</Text>
@@ -124,7 +124,7 @@ function FrontScreen(props) {
                 {(props.state.categories && !services) ? (
                     props.state.categories.map((category, index) => (
                         <TouchableOpacity key={index} style={styles.categoryBox} onPress={() => props.navigation.navigate('ServicesScreen', { category: category })}>
-                            <Image style={{ borderWidth: 1 }} source={{ uri: 'data:image/png;base64,' + category.image }} style={{ width: 100, height: 100 }} />
+                            <Image style={{ borderWidth: 1 }} source={{ uri:  category.image }} style={{ width: 100, height: 100 }} />
                             <Text style={styles.serviceLabel} >{category.name}</Text>
                         </TouchableOpacity>
                     ))

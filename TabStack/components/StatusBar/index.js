@@ -15,9 +15,10 @@ function StatusBar(props) {
     const style = props.style
 
     React.useEffect(() => {
-        fetchUserNotifications(props.state.token)
-            .then(data => props.setUserNotifications(data))
-            .catch(error => logError(error))
+        if (props.state.user)
+            fetchUserNotifications(props.state.token)
+                .then(data => props.setUserNotifications(data))
+                .catch(error => logError(error, 'tab stack StatusBar'))
     }, [props.state.userNotification])
 
     return (

@@ -35,7 +35,7 @@ export default function ServicesListComponent(props) {
                 setLoading(false)
             }
         } catch (error) {
-            logError(error)
+            logError(error, 'ServicesListComponent')
         }
     }
 

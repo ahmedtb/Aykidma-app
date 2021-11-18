@@ -20,7 +20,7 @@ function EditProfileScreen(props) {
     const submit = () => {
         editUserProfile(name, phoneNumber, image)
             .then(data => fetchUser())
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'EditProfileScreen'))
     }
     return (
         <View>

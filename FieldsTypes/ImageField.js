@@ -110,7 +110,7 @@ export function ImageFieldEditor(props) {
             onChange={
                 (image) => {
                     setvalue(image)
-                    dispatch({ class: ImageFieldClass, label: label, value: value })
+                    dispatch({ class: ImageFieldClass, label: label, value: image })
                 }
             }
             value={value}

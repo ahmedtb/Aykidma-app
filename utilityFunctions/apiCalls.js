@@ -111,8 +111,11 @@ export const fetchServiceReviews = async (id) => {
     return (await axios.get('/api/service/' + id + '/reviews')).data
 }
 
-export const fetchUserOrders = async () => {
-    const orders = (await axios.get('/api/userOrders')).data
+export const fetchUserOrders = async (token) => {
+    const config = {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+    };
+    const orders = (await axios.get('/api/userOrders', config)).data
     return orders
 }
 
@@ -187,7 +190,7 @@ export async function getUser(token) {
     const config = {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined
     };
-    return await axios.get('api/user', config)
+    return (await axios.get('api/user', config)).data
 }
 
 export async function loginUser(phoneNumber, password, expoPushToken) {

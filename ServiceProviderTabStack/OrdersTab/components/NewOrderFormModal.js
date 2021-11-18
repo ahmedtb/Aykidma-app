@@ -124,7 +124,7 @@ function NewOrderFormModal(props) {
                             resumeNewOrder(id).then(() => {
                                 refreshFunction()
                                 setModalVisible(false)
-                            }).catch(error => logError(error))
+                            }).catch(error => logError(error, 'NewOrderFormModal'))
 
                         }}
                     >

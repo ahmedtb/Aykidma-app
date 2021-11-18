@@ -8,7 +8,7 @@ export async function setupCategories() {
         const data = await getAvailableCategories()
         store.dispatch(setCategories(data))
     } catch (error) {
-        logError(error)
+        logError(error,'setupCategories')
     }
 }
 

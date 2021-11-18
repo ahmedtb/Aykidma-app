@@ -64,7 +64,7 @@ export default function AddNewService(props) {
                 console.log(data)
             })
             .catch(error => {
-                logError(error)
+                logError(error,'AddNewService submit')
             })
     }
 

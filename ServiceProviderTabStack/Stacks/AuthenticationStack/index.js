@@ -21,6 +21,7 @@ function AuthenticationStack(props) {
     React.useEffect(() => {
         if (props.state.user && !props.state.provider)
             fetchProvider(props.state.token)
+        // console.log(props.state.provider)
     }, [props.state.user])
 
 

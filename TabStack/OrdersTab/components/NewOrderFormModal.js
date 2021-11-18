@@ -36,7 +36,7 @@ export default function NewOrderFormModal(props) {
             console.log(response)
             refreshFunction()
         })
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'NewOrderFormModal deleteTheOrder'))
     }
     return (
         <Modal

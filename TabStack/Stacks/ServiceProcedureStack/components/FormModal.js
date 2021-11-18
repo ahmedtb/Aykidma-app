@@ -65,7 +65,7 @@ export default function FormModal(props) {
         submitOrder(array_of_fields, service_id).then(response => {
             console.log(response)
         }).catch(error => {
-            logError(error)
+            logError(error, 'FormModal')
         }).finally(() => {
             setLoading(false)
             setModalVisible(false)

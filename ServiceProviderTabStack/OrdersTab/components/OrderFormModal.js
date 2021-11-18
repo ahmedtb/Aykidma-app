@@ -32,7 +32,7 @@ function OrderFormModal(props) {
             console.log(response)
             refreshFunction()
         })
-            .catch(error => logError(error))
+            .catch(error => logError(error,'deleteTheOrder'))
     }
 
     return (

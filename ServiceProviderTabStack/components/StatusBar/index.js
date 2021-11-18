@@ -22,7 +22,7 @@ function StatusBar(props) {
     React.useEffect(() => {
         fetchProviderNotifications()
             .then(data => props.setProviderNotifications(data))
-            .catch(error => logError(error))
+            .catch(error => logError(error,'SP stack StatusBar'))
     }, [props.state.providerNotification])
 
     return (

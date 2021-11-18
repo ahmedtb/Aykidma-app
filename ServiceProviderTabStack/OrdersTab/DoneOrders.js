@@ -36,7 +36,7 @@ const OrderItem = (props) => {
             >
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <View>
-                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7, }} />
+                        <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 7, }} />
                         <Text style={{ textAlign: 'center' }}>{moment(date).format('yyyy-MM-DD')}</Text>
                     </View>
                     <View style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}>

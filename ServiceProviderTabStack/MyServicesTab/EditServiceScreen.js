@@ -14,7 +14,7 @@ import ImagePickerComponent from '../../components/ImagePickerComponent'
 import CategoryComponent from '../../components/CategoryComponent'
 import StatusBar from '../components/StatusBar'
 import { editService } from '../../utilityFunctions/apiCalls'
-import {logError} from '../../redux/AuthFunctions'
+import { logError } from '../../redux/AuthFunctions'
 import ArrayOfFieldsEditor from '../../FieldsTypes/ArrayOfFieldsEditor'
 
 export default function EditServiceScreen(props) {
@@ -36,7 +36,7 @@ export default function EditServiceScreen(props) {
                 // console.log('editService submit', data)
                 props.navigation.navigate('ServicesScreen', { refresh: Math.random() })
             })
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'EditServiceScreen submit'))
     }
 
     React.useEffect(() => {

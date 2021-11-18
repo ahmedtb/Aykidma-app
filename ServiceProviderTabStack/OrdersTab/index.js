@@ -25,7 +25,7 @@ import LoadingIndicator from '../../components/loadingIndicator'
 import RefreshScrollView from '../../components/RefreshScrollView'
 import StatusBar from '../components/StatusBar'
 import useIsMountedRef from '../../components/useIsMountedRef'
-import { Entypo, FontAwesome,Ionicons  } from '@expo/vector-icons'
+import { Entypo, FontAwesome, Ionicons } from '@expo/vector-icons'
 function filterOrders(orders, status) {
     return orders.filter((order) => {
         if (order.status === status)
@@ -56,7 +56,7 @@ function OrdersDisplay(props) {
                 setDoneOrders(filterOrders(orders, 'done'))
             }
         } catch (error) {
-            logError(error)
+            logError(error, 'setupServiceProviderOrders')
         }
         if (isMountedRef.current)
             setIsLoading(false)

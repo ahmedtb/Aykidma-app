@@ -25,7 +25,7 @@ function EditProfileScreen(props) {
                 // console.log('edit provider', data)
                 props.navigation.goBack()
             })
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'EditProfileScreen'))
     }
     return (
         <ScrollView>
@@ -81,7 +81,7 @@ function EditProfileScreen(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../redux/StateActions';
-const mapStateToProps = ({state}) => {
+const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (

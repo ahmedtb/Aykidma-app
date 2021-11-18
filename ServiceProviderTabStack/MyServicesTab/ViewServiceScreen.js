@@ -56,7 +56,7 @@ function ViewServiceScreen(props) {
                 if (isMountedRef.current)
                     setCategory(searchCategories(category_id, data))
             } catch (error) {
-                logError(error)
+                logError(error,'ViewServiceScreen setupCategories')
             }
         else {
             setCategory(searchCategories(category_id, props.state.categories))

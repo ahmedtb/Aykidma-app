@@ -43,7 +43,7 @@ export default function ServiceProviderScreen(props) {
             <ScrollView>
 
                 <Text>{provider?.name}</Text>
-                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 200, height: 200 }} />
+                <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
 
                 <Text>{provider?.phone_number}</Text>
                 <Text>his coverage</Text>

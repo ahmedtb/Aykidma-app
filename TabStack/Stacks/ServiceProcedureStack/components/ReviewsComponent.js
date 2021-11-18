@@ -20,7 +20,7 @@ export default function ReviewsComponent(props) {
     function submitReport() {
         submitReviewReport(reportReview.id, reportBody)
             .then(response => console.log('submitReport', response))
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'ReviewsComponent'))
     }
 
     return (

@@ -23,7 +23,7 @@ const RenderServiceCard = (props) => {
     return (
         <View style={{ paddingVertical: 10, paddingHorizontal: 4 }}>
             <View style={{ flexDirection: 'row', marginHorizontal: 10, }}>
-                <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 100, height: 100, borderRadius: 7 }} />
+                <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 7 }} />
                 <Text style={styles.serviceTitle}>{title}</Text>
             </View>
             <View style={{ flexDirection: 'row', marginHorizontal: 10, paddingVertical: 3, justifyContent: 'space-evenly', }}>

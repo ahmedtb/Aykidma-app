@@ -5,25 +5,29 @@ import { setUser, setToken, setProvider } from "./StateActions";
 import { getUser, refreshProvider, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
 
 
-export function logError(error, caller = null) {
-    if (caller)
-        console.log('logError from: ' + caller)
+export function logError(error, caller = '') {
+    // if (caller)
+    //     console.log('logError from: ' + caller)
     if (error.response) {
         // Request made and server responded
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        console.log(caller + ':', error);
+
+        console.log(caller + ':', error.response.data);
+        console.log(caller + ':', error.response.status);
+        console.log(caller + ':', error.response.headers);
+        console.log(caller + ':', 'url' + error.response.request.responseURL);
+
         if (error.response.status == 401) {
-            deleteUserAuthRecord()
+            deleteTokenRecord()
             setUserAndAxiosToken(null)
             store.dispatch(setProvider(null))
         }
     } else if (error.request) {
         // The request was made but no response was received
-        console.log(error.request);
+        console.log(caller + ':', error.request);
     } else {
         // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+        console.log(caller + ':', error.message);
     }
 }
 
@@ -42,58 +46,49 @@ export function setUserAndAxiosToken(data) {
 
 
 export function loginProcedure(phoneNumber, password) {
-    const state = store.getState();
+    const storeState = store.getState();
     // console.log('state', state)
-    if (state.state.expoPushToken)
-        loginUser(phoneNumber, password, state.state.expoPushToken)
+    if (storeState.state.expoPushToken)
+        loginUser(phoneNumber, password, storeState.state.expoPushToken)
             .then((data) => {
-                // console.log('loginProcedure',data)
-                storeUserAuthRecord(data)
+                console.log('loginProcedure', data.token)
+                storeTokenRecord(data.token)
                 setUserAndAxiosToken(data)
             })
-            .catch(error => logError(error))
+            .catch(error => logError(error, 'authfunction loginProcedure'))
     else {
         console.log('loginProcedure', 'there is no expo push token to use')
     }
 }
 
-// export function checkIfUserTokenIsValid(token) {
-//     refreshUser(token).then((response) => {
-//         console.log('checkIfUserTokenIsValid response', response)
-//         store.dispatch(setUser(response))
-//     }).catch((error) => logError(error))
-// }
-
 export function tryLoginUserFromStore() {
-    getUserAuthFromStorage().then((data) => {
-        getUser(data.token)
-            .then(() => setUserAndAxiosToken(data))
+    getTokenFromStorage().then((token) => {
+        getUser(token)
+            .then((data) => setUserAndAxiosToken({ user: data, token: token }))
             .catch(error => {
-                logError(error)
+                logError(error, 'tryLoginUserFromStore getUser')
                 setUserAndAxiosToken(null)
                 console.log('AuthenticationStack', 'user is in the store but is not validated')
             })
-    }).catch(error => logError(error))
+    }).catch(error => logError(error, 'tryLoginUserFromStore getTokenFromStorage'))
 }
 
 export function logoutProcedure() {
-    const state = store.getState();
-    logout(state.state.token).then((response) => {
+    const storeState = store.getState();
+    logout(storeState.state.token).then((response) => {
         console.log('logoutProcedure', response)
-        deleteUserAuthRecord()
+        deleteTokenRecord()
         setUserAndAxiosToken(null)
         store.dispatch(setProvider(null))
-    }).catch((error) => logError(error))
+    }).catch((error) => logError(error, 'logoutProcedure'))
 }
 
 export function fetchProvider(token) {
-    const config = {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-    };
-    refreshProvider().then((response) => {
-        // console.log('fetchProvider response', response)
+
+    refreshProvider(token).then((response) => {
+        console.log('fetchProvider response', response)
         store.dispatch(setProvider(response))
-    }).catch((error) => logError(error))
+    }).catch((error) => logError(error, 'fetchProvider'))
 }
 
 
@@ -103,46 +98,23 @@ export function fetchUser(token) {
         console.log('fetchUser response', response)
         store.dispatch(setUser(response))
     }).catch((error) => {
-        logError(error)
-        // store.dispatch(setUser(null))
-        // store.dispatch(setProvider(null))
-        // store.dispatch(setToken(null))
-        // deleteUserAuthRecord()
+        logError(error, 'fetchUser')
     })
 }
 
-export async function getUserAuthFromStorage() {
-    const storedResult = await getValueFor('userAuth')
+export async function getTokenFromStorage() {
+    const storedResult = await getValueFor('token')
     if (storedResult) {
         return JSON.parse(storedResult)
     } else {
-        throw new Error('userAuth does not in exist in Secure Store')
+        throw new Error('token does not in exist in Secure Store')
     }
 }
 
-export async function storeUserAuthRecord(data) {
-    saveItem('userAuth', JSON.stringify(data))
+export async function storeTokenRecord(data) {
+    saveItem('token', JSON.stringify(data))
 }
 
-export async function deleteUserAuthRecord() {
-    deleteItem('userAuth')
+export async function deleteTokenRecord() {
+    deleteItem('token')
 }
-
-// export async function getProviderAuthFromStorage() {
-//     const storedResult = await getValueFor('providerAuth')
-//     if (storedResult) {
-//         return JSON.parse(storedResult)
-//     } else {
-//         throw new Error('providerAuth does not in exist in Secure Store')
-//     }
-// }
-
-
-// export async function storeProviderAuthRecord(data) {
-//     saveItem('providerAuth', JSON.stringify(data))
-// }
-
-
-// export async function deleteProviderAuthRecord() {
-//     deleteItem('providerAuth')
-// }

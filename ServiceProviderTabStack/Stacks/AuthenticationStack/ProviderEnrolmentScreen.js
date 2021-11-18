@@ -52,9 +52,9 @@ export default function ProviderEnrolmentScreen(props) {
                     onPress={() =>
                         enrollProvider(fullName, coverage, image)
                             .then(data => {
-                                console.log(data)
+                                console.log('ProviderEnrolmentScreen',data)
                             }).catch(error => {
-                                logError(error)
+                                logError(error, 'ProviderEnrolmentScreen')
                             })
                     }
                     style={{ backgroundColor: 'red', flexDirection: 'row', width: '50%', alignSelf: 'center', height: 50, alignItems: 'center', borderRadius: 19 }}>

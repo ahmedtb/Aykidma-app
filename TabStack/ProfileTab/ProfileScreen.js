@@ -14,58 +14,39 @@ import RefreshScrollView from '../../components/RefreshScrollView'
 import useIsMountedRef from '../../components/useIsMountedRef'
 import { logoutProcedure, logError } from '../../redux/AuthFunctions'
 import { FontAwesome } from '@expo/vector-icons'
+
 function ProfileScreen(props) {
     const isMountedRef = useIsMountedRef()
     const name = props.state.user.name
     const phone_number = props.state.user.phone_number
-
-    const [image, setimage] = React.useState(null)
-
-    React.useEffect(() => {
-        getUserImage()
-            .then(data => {
-                if (isMountedRef.current)
-                    setimage(data)
-            })
-            .catch(error => logError(error))
-    }, [])
-
+    const image = props.state.user.image
 
     async function RefreshUserData() {
         try {
             const data = await getUser()
-            console.log('RefreshUserData', data)
+            // if (isMountedRef.current)
+            props.setUser(data)
+            // console.log('RefreshUserData', response.data)
         } catch (error) {
-            logError(error)
-        }
-    }
-
-
-    async function refreshFunction() {
-        await RefreshUserData()
-        try {
-            const data = await getUserImage()
-            setimage(data)
-        } catch (error) {
-            logError(error)
+            logError(error, 'ProfileScreen')
         }
     }
 
     return (
-        <RefreshScrollView refreshFunction={refreshFunction}>
+        <RefreshScrollView refreshFunction={() => RefreshUserData()}>
 
             <StatusBar style={{ margin: 10 }} title='الملف الشخصي' />
 
-            <View style={{ padding: 10, borderWidth: 0.4, borderRadius: 10, marginHorizontal: 15  }}>
+            <View style={{ padding: 10, borderWidth: 0.4, borderRadius: 10, marginHorizontal: 15 }}>
 
-                <View style={{ flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                     <View>
-                        <Image source={{ uri: 'data:image/png;base64,' + image }} style={{ width: 150, height: 150, borderRadius: 8, borderColor: 'red', borderWidth: 1 }} />
+                        <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 8, borderColor: 'red', borderWidth: 1 }} />
                         <Text style={{ fontSize: 20, flex: 1, textAlign: 'center' }} >{name}</Text>
                     </View>
-                    <View style={{  flex: 1, marginLeft: 5 }}>
+                    <View style={{ flex: 1, marginLeft: 5 }}>
 
-                        <View style={{ margin: 3, flexDirection: 'row', justifyContent:'space-around' }}>
+                        <View style={{ margin: 3, flexDirection: 'row', justifyContent: 'space-around' }}>
                             <FontAwesome name="mobile-phone" size={35} color="black" />
                             {/* <Text style={{ fontSize: 20 }} >رقم الهاتف</Text> */}
                             <Text style={{ fontSize: 20, textAlign: 'center' }} >{phone_number}</Text>
@@ -101,11 +82,13 @@ function ProfileScreen(props) {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setUser } from '../../redux/StateActions';
 const mapStateToProps = ({ state }) => {
     return { state }
 };
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
+        setUser
     }, dispatch)
 );
 
