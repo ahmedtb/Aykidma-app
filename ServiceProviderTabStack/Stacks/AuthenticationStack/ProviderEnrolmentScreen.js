@@ -11,7 +11,9 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import { enrollProvider } from '../../../utilityFunctions/apiCalls'
-import {logError} from '../../../redux/AuthFunctions'
+import { logError } from '../../../redux/AuthFunctions'
+import ImagePicker from '../../../components/ImagePicker'
+import Constants from 'expo-constants';
 
 export default function ProviderEnrolmentScreen(props) {
 
@@ -30,29 +32,30 @@ export default function ProviderEnrolmentScreen(props) {
                     <TextInput style={styles.enrollField}
                         onChangeText={setFullName}
                     />
-
                 </View>
-
-                {/* <View style={{ margin: 10 }}>
-                    <Text style={styles.fieldLable} >الموبايل*:</Text>
-                    <TextInput style={styles.enrollField}
-                        onChangeText={setcoverage}
-                    />
+                {/* <View style={{}}>
+                    <Picker
+                        style={{}}
+                        selectedValue={selectedType}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setSelectedType(itemValue)
+                        }>
+                        <Picker.Item label={'اختر مدينة'} value={'dummey'} />
+                        <Picker.Item label={'tripoli'} value={'tripoli'} />
+                        <Picker.Item label={'bengazi'} value={'bengazi'} />
+                        <Picker.Item label={'misrate'} value={'misrate'} />
+                        
+                    </Picker>
                 </View> */}
-
-                {/* <View style={{ margin: 10 }}>
-                    <Text style={styles.fieldLable} >كلمة المرور*:</Text>
-                    <TextInput style={styles.enrollField}
-                        onChangeText={setPassword}
-                    />
-
-                </View> */}
+                <View>
+                    <ImagePicker onChange={base64 => setimage(base64)} />
+                </View>
 
                 <TouchableOpacity
                     onPress={() =>
                         enrollProvider(fullName, coverage, image)
                             .then(data => {
-                                console.log('ProviderEnrolmentScreen',data)
+                                console.log('ProviderEnrolmentScreen', data)
                             }).catch(error => {
                                 logError(error, 'ProviderEnrolmentScreen')
                             })
@@ -80,8 +83,7 @@ const styles = StyleSheet.create({
     container: {
         // flex: 1,
         backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
+        marginTop: Constants.statusBarHeight,
     },
 
     listGroupItem: {

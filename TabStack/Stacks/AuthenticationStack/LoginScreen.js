@@ -4,9 +4,8 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { loginProcedure } from '../../../redux/AuthFunctions'
 
 function LoginModal(props) {
-    const [phoneNumber, setPhoneNumber] = useState(null)
-    const [password, setPassword] = useState(null)
-
+    const [phoneNumber, setPhoneNumber] = useState(props.route.params?.phoneNumber ?? null)
+    const [password, setPassword] = useState(props.route.params?.password ?? null)
 
     function loginButton(phoneNumber, password) {
         loginProcedure(phoneNumber, password)
@@ -37,7 +36,7 @@ function LoginModal(props) {
                     value={phoneNumber}
                     keyboardType='phone-pad'
                     onChangeText={setPhoneNumber}
-                    autoComplete="username"
+                    autoCompleteType ="username"
                 />
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -46,7 +45,7 @@ function LoginModal(props) {
                     style={{ flex: 1 }}
                     value={password}
                     onChangeText={setPassword}
-                    autoComplete="password"
+                    autoCompleteType ="password"
                 />
             </View>
 

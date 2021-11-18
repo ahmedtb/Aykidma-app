@@ -5,18 +5,10 @@ import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { onChange } from 'react-native-reanimated';
 
-
-// function compressBase64Image(image) {
-//     image.split('').reduce((o, c) => {
-//         if (o[o.length - 2] === c && o[o.length - 1] < 35) o[o.length - 1]++;
-//         else o.push(c, 0);
-//         return o;
-//     }, []).map(_ => typeof _ === 'number' ? _.toString(36) : _).join('');
-// }
-//required pros:
-// onChange, value, style
-export default function ImagePickerExample(props) {
+export default function ImagePickerComponent(props) {
     const [image, setImage] = useState(props.value);
+    const onChange = props.onChange
+
     useEffect(() => {
         (async () => {
             if (Platform.OS !== 'web') {
@@ -57,7 +49,7 @@ export default function ImagePickerExample(props) {
 
             } else {
                 setImage(result.base64)
-                props.onChange(result.base64);
+                onChange(result.base64);
             }
         }
     };

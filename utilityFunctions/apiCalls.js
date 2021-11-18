@@ -11,9 +11,9 @@ export const getProviderImage = async () => {
     return data
 }
 
-export const signUpUser = async (name, phoneNumber, password) => {
+export const signUpUser = async (name, phoneNumber, password, image) => {
     const data = await axios.post('/api/signup', {
-        name: name, phone_number: phoneNumber, password: password
+        name: name, phone_number: phoneNumber, password: password, image: image
     }).data
     return data
 

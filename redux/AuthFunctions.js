@@ -5,17 +5,17 @@ import { setUser, setToken, setProvider } from "./StateActions";
 import { getUser, refreshProvider, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
 
 
+
 export function logError(error, caller = '') {
-    // if (caller)
-    //     console.log('logError from: ' + caller)
+    let Id = caller ? caller + ':' : ''
     if (error.response) {
         // Request made and server responded
-        console.log(caller + ':', error);
+        console.log(Id, error);
 
-        console.log(caller + ':', error.response.data);
-        console.log(caller + ':', error.response.status);
-        console.log(caller + ':', error.response.headers);
-        console.log(caller + ':', 'url' + error.response.request.responseURL);
+        console.log(Id, error.response.data);
+        console.log(Id, error.response.status);
+        console.log(Id, error.response.headers);
+        console.log(Id, 'url ' + error.response.request.responseURL);
 
         if (error.response.status == 401) {
             deleteTokenRecord()
@@ -24,10 +24,10 @@ export function logError(error, caller = '') {
         }
     } else if (error.request) {
         // The request was made but no response was received
-        console.log(caller + ':', error.request);
+        console.log(Id, error.request);
     } else {
         // Something happened in setting up the request that triggered an Error
-        console.log(caller + ':', error.message);
+        console.log(Id, error.message);
     }
 }
 
