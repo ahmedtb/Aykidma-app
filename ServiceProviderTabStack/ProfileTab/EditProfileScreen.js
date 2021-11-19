@@ -10,22 +10,26 @@ import {
 import ImagePicker from './components/ImagePicker'
 import NavigationBar from '../../components/NavigationBar'
 import { editProviderProfile } from '../../utilityFunctions/apiCalls'
-import { logError } from '../../redux/AuthFunctions'
+import { logError, fetchProvider } from '../../redux/AuthFunctions'
 
 function EditProfileScreen(props) {
     const imageRoute = props.route.params.image
     const [name, setName] = React.useState(props.state.provider?.name)
-    const [phoneNumber, setPhoneNumber] = React.useState(props.state.provider?.phone_number)
+    // const [phoneNumber, setPhoneNumber] = React.useState(props.state.provider?.phone_number)
     const [image, setimage] = React.useState(imageRoute)
-
+    const [response, setresponse] = React.useState()
     const submit = () => {
-        editProviderProfile(name, phoneNumber, image)
-            .then(data => {
-                RefreshProviderData()
-                // console.log('edit provider', data)
+        editProviderProfile(name, image)
+            .then(response => {
+                fetchProvider()
+                console.log('edit provider', response.data)
+                setresponse(response)
                 props.navigation.goBack()
             })
-            .catch(error => logError(error, 'EditProfileScreen'))
+            .catch(error => {
+                logError(error, 'EditProfileScreen')
+                if (error.response?.errors) setresponse(error.response)
+            })
     }
     return (
         <ScrollView>
@@ -54,7 +58,7 @@ function EditProfileScreen(props) {
                     value={name}
                 />
 
-                <Text>رقم الهاتف</Text>
+                {/* <Text>رقم الهاتف</Text>
 
                 <TextInput
                     multiline={true}
@@ -64,7 +68,7 @@ function EditProfileScreen(props) {
                     }}
                     keyboardType='phone-pad'
                     value={phoneNumber}
-                />
+                /> */}
             </View>
 
             <TouchableOpacity
@@ -73,6 +77,7 @@ function EditProfileScreen(props) {
             >
                 <Text style={{ color: 'white' }}>تعديل </Text>
             </TouchableOpacity>
+            <ResponseMessageModal response={response} />
         </ScrollView>
     )
 }
@@ -81,6 +86,7 @@ function EditProfileScreen(props) {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser, setToken } from '../../redux/StateActions';
+import ResponseMessageModal from '../../components/ResponseMessageModal';
 const mapStateToProps = ({ state }) => {
     return { state }
 };

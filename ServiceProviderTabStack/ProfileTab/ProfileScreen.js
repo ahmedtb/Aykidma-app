@@ -18,20 +18,22 @@ function ProfileScreen(props) {
     const isMountedRef = useIsMountedRef()
     const name = props.state.provider?.name
     const phone_number = props.state.user?.phone_number
-    const [image, setimage] = React.useState(null)
+    const image = props.state.user?.image
 
-    async function getImage() {
-        try {
-            const data = await getProviderImage()
-            if (isMountedRef.current)
-                setimage(data)
-        } catch (error) {
-            logError(error, 'ProfileScreen getImage')
-        }
-    }
+    // const [image, setimage] = React.useState(null)
+
+    // async function getImage() {
+    //     try {
+    //         const data = await getProviderImage()
+    //         if (isMountedRef.current)
+    //             setimage(data)
+    //     } catch (error) {
+    //         logError(error, 'ProfileScreen getImage')
+    //     }
+    // }
 
     React.useEffect(() => {
-        getImage()
+        // getImage()
     }, [])
 
     return (

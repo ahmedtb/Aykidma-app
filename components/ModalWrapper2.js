@@ -3,7 +3,7 @@ import { View, Modal } from 'react-native'
 
 
 
-export default function ModalWrapper(props) {
+export default function ModalWrapper2(props) {
     const visible = props.visible
     const children = props.children
     const style = props.style

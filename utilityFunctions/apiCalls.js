@@ -34,10 +34,9 @@ export const editUserProfile = async (name, phoneNumber, image) => {
 }
 
 export const editProviderProfile = async (name, phoneNumber, image) => {
-    const data = (await axios.post('/api/provider/edit', {
-        name: name, phone_number: phoneNumber, image: image
-    })).data
-    return data
+    return await axios.post('/api/provider/edit', {
+        name: name, image: image
+    })
 }
 
 export const refreshUser = async (token) => {
@@ -49,7 +48,6 @@ export const refreshUser = async (token) => {
 }
 
 export const refreshProvider = async (token) => {
-    // console.log('refreshProvider auth token', axios.defaults.headers.common['Authorization'])
     const config = {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined
     };

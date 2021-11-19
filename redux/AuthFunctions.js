@@ -5,7 +5,6 @@ import { setUser, setToken, setProvider } from "./StateActions";
 import { getUser, refreshProvider, logout, loginUser, refreshUser } from "../utilityFunctions/apiCalls"
 
 
-
 export function logError(error, caller = '') {
     let Id = caller ? caller + ':' : ''
     if (error.response) {
@@ -86,7 +85,7 @@ export function logoutProcedure() {
 export function fetchProvider(token) {
 
     refreshProvider(token).then((response) => {
-        console.log('fetchProvider response', response)
+        // console.log('fetchProvider response', response)
         store.dispatch(setProvider(response))
     }).catch((error) => logError(error, 'fetchProvider'))
 }
